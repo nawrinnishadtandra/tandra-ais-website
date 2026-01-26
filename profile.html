@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>Profile | AIS Alumni</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script> <!-- তোমার আগের firebase config -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Hind Siliguri', sans-serif; background:#e7ecf1; margin:0; padding:0; }
+
+/* Floating animation for cards */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.card { 
+  background: #ffffff; 
+  border-radius: 1rem; 
+  padding: 1.5rem; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.float { animation: float 6s ease-in-out infinite; }
+
+/* Scroll animation */
+[data-animate]{opacity:0; transform:translateY(30px); transition: all 1s ease-out;}
+[data-animate].visible{opacity:1; transform:translateY(0);}
+
+/* Responsive */
+@media (max-width:768px){
+  .card{ padding:1rem; }
+}
+</style>
+</head>
+<body class="min-h-screen p-6">
+
+<h1 class="text-3xl md:text-4xl font-bold text-center text-[#06274B] mb-8" data-animate>Registered Alumni Profiles</h1>
+
+<div id="profiles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+<script>
+// Scroll animation setup
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{ threshold: 0.2 });
+
+// Reference to profiles div
+const profilesDiv = document.getElementById('profiles');
+
+// Firestore collection fetch
+db.collection('alumni').orderBy('createdAt','desc').get()
+.then(snapshot => {
+  if(snapshot.empty){
+    profilesDiv.innerHTML = '<p class="text-center col-span-full">কোনো প্রফাইল পাওয়া যায়নি।</p>';
+  } else {
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const card = document.createElement('div');
+      card.classList.add('card','float','data-animate');
+      card.innerHTML = `
+        ${data.name?`<h2 class="font-bold text-xl mb-2 text-[#06274B]">${data.name}</h2>`:''}
+        ${data.email?`<p><strong>Email:</strong> ${data.email}</p>`:''}
+        ${data.batch?`<p><strong>Batch:</strong> ${data.batch}</p>`:''}
+        ${data.mobile?`<p><strong>Mobile:</strong> ${data.mobile}</p>`:''}
+      `;
+      profilesDiv.appendChild(card);
+      observer.observe(card); // scroll animation
+    });
+  }
+})
+.catch(error => {
+  profilesDiv.innerHTML = `<p class="text-center col-span-full text-red-600">Error: ${error.message}</p>`;
+});
+</script>
+
+</body>
+</html>
