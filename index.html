@@ -2,12 +2,20 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIS Alumni | University of Barishal</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 <style>
-body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#e7ecf1; margin:0; padding:0; }
+* { box-sizing: border-box; }
+body { 
+  font-family: 'Hind Siliguri', sans-serif; 
+  overflow-x: hidden; 
+  background: #e7ecf1; 
+  margin: 0; 
+  padding: 0; 
+}
 
 /* Gradient Animation */
 .bg-animate{
@@ -21,32 +29,86 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
   100%{background-position:0% 50%;}
 }
 
-/* Floating emojis */
+/* Floating emojis - hide on mobile */
 .float{animation:float 6s ease-in-out infinite;}
 @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-15px);}100%{transform:translateY(0);}}
 
-.nav-link{position:relative;color:#06274B;font-weight:600;transition:0.3s;}
-.nav-link::after{content:'';position:absolute;width:0;height:2px;background:rgba(6,39,75,0.7);bottom:-2px;left:0;transition:width 0.3s ease;}
+.nav-link{
+  position:relative;
+  color:#06274B;
+  font-weight:600;
+  transition:0.3s;
+  font-size:0.9rem;
+  padding:0.5rem 0.75rem;
+}
+.nav-link::after{
+  content:'';
+  position:absolute;
+  width:0;
+  height:2px;
+  background:rgba(6,39,75,0.7);
+  bottom:-2px;
+  left:0;
+  transition:width 0.3s ease;
+}
 .nav-link:hover::after{width:100%;}
 .nav-link:hover{color:#06274B;}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    padding: 1rem !important;
+  }
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+  .floating-emojis { display: none !important; }
+}
 
 /* Dropdown */
 .dropdown:hover .dropdown-menu{display:block;}
 .dropdown-menu{
-  display:none; position:absolute; margin-top:0.5rem; width:12rem;
-  background:#ffffff; color:#06274B; border-radius:0.5rem; box-shadow:0 5px 15px rgba(0,0,0,0.2); z-index:50;
+  display:none; 
+  position:absolute; 
+  margin-top:0.5rem; 
+  width:10rem;
+  background:#ffffff; 
+  color:#06274B; 
+  border-radius:0.5rem; 
+  box-shadow:0 5px 15px rgba(0,0,0,0.2); 
+  z-index:50;
+  max-height: 300px;
+  overflow-y: auto;
 }
-.dropdown-menu a{display:block; padding:0.5rem 1rem; font-weight:500; cursor:pointer;}
+.dropdown-menu a{
+  display:block; 
+  padding:0.5rem 1rem; 
+  font-weight:500; 
+  cursor:pointer;
+  font-size: 0.9rem;
+}
 .dropdown-menu a:hover{background:#e0e7ff;}
 
-/* Department Robotic Font */
-.department-name{font-family:'Orbitron', sans-serif; font-size:3rem; color:#06274B; text-align:center; margin-top:1rem; word-break:keep-all;}
+/* Department Name - Responsive */
+.department-name{
+  font-family:'Orbitron', sans-serif; 
+  font-size:2.5rem; 
+  color:#06274B; 
+  text-align:center; 
+  margin-top:1rem; 
+  word-break:keep-all;
+  line-height: 1.3;
+  padding: 0 1rem;
+}
 
-/* Floating Info Cards */
+/* Floating Info Cards - Mobile Responsive */
 .info-card {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(15px);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: all 0.4s ease;
@@ -61,7 +123,7 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
 }
 
 .card-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
   margin-bottom: 1rem;
   animation: bounce 2s ease-in-out infinite;
@@ -72,29 +134,286 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
   50% { transform: translateY(-10px); }
 }
 
-.info-card:nth-child(1) { animation-delay: 0s; }
-.info-card:nth-child(2) { animation-delay: 0.5s; }
-.info-card:nth-child(3) { animation-delay: 1s; }
-.info-card:nth-child(4) { animation-delay: 1.5s; }
+/* Notification Bell - Floating */
+.notification-bell {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #5400EE, #7B2FFF);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(84, 0, 238, 0.5);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bellFloat 3s ease-in-out infinite, bellPulse 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.notification-bell:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(84, 0, 238, 0.7);
+}
+
+.notification-bell i {
+  font-size: 2rem;
+  color: white;
+}
+
+/* Bell icon using emoji */
+.notification-bell::before {
+  content: '🔔';
+  font-size: 2rem;
+  animation: bellRing 2s ease-in-out infinite;
+}
+
+@keyframes bellFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes bellPulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(84, 0, 238, 0.5); }
+  50% { box-shadow: 0 10px 40px rgba(84, 0, 238, 0.8), 0 0 20px rgba(84, 0, 238, 0.5); }
+}
+
+@keyframes bellRing {
+  0%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(15deg); }
+  20% { transform: rotate(-15deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  50% { transform: rotate(0deg); }
+}
+
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  background: #FF3B30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+  animation: badgePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Notice Modal Card */
+.notice-modal {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: modalSlideUp 0.5s ease;
+  padding: 0;
+}
+
+@keyframes modalSlideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #5400EE, #7B2FFF);
+  color: white;
+  padding: 2rem;
+  border-radius: 2rem 2rem 0 0;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-image-container {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #5400EE;
+  box-shadow: 0 10px 30px rgba(84, 0, 238, 0.3);
+  animation: imageFloat 3s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.profile-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #5400EE, #7B2FFF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.notice-content {
+  background: rgba(84, 0, 238, 0.05);
+  border-left: 5px solid #5400EE;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-top: 1.5rem;
+  line-height: 1.8;
+  text-align: justify;
+}
 
 /* Scroll animation */
 [data-animate]{opacity:0; transform:translateY(30px); transition: all 1s ease-out;}
 [data-animate].visible{opacity:1; transform:translateY(0);}
 
-/* Responsive */
-@media (max-width:768px){
-  .department-name{font-size:2rem;}
-  .nav-link{font-size:0.875rem;}
-  .dropdown-menu{width:10rem;}
-  .info-card{padding:1.5rem;}
-  .card-icon{font-size:2.5rem;}
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .department-name { font-size: 1.5rem !important; }
+  .info-card { padding: 1.25rem; margin-bottom: 1rem; }
+  .card-icon { font-size: 2rem; }
+  
+  .notification-bell {
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .notification-bell::before {
+    font-size: 1.5rem;
+  }
+  
+  .modal-header {
+    padding: 1.5rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .profile-image-container {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .notice-modal {
+    width: 95%;
+    border-radius: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .hero-buttons a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .department-name { font-size: 1.3rem !important; }
+  .nav-link { font-size: 0.8rem; padding: 0.3rem 0.5rem; }
+  .dropdown-menu { width: 8rem; font-size: 0.85rem; }
 }
 </style>
 </head>
 <body class="min-h-screen bg-animate relative">
 
-<!-- Floating emojis -->
-<div class="absolute inset-0 pointer-events-none text-4xl z-20">
+<!-- Floating emojis (hidden on mobile) -->
+<div class="floating-emojis absolute inset-0 pointer-events-none text-4xl z-20">
   <div class="absolute top-8 left-8 float">🎓</div>
   <div class="absolute top-20 right-16 float">📘</div>
   <div class="absolute top-32 left-1/2 transform -translate-x-1/2 float">💼</div>
@@ -131,36 +450,36 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
   <a href="event.html" class="nav-link">Next Event</a>
 
   <!-- Profile Button -->
-  <a href="profile.html" class="px-4 py-2 bg-[#06274B] text-white rounded-full font-semibold hover:scale-105 hover:shadow-lg transition duration-300">
+  <a href="profile.html" class="px-4 py-2 bg-[#06274B] text-white rounded-full font-semibold hover:scale-105 hover:shadow-lg transition duration-300 text-sm">
     Profile
   </a>
 </nav>
 
 <!-- Hero -->
-<section class="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-6">
+<section class="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 md:px-6">
   <h1 class="department-name" data-animate>অ্যাকাউন্টিং অ্যান্ড ইনফরমেশন সিস্টেম (AIS)</h1>
-  <h2 class="mt-6 text-3xl md:text-4xl font-bold text-[#06274B] animate__animated animate__fadeInUp" data-animate>আমাদের অ্যালামনাই</h2>
-  <p class="mt-4 text-xl opacity-80" data-animate>University of Barishal</p>
+  <h2 class="mt-6 text-2xl md:text-4xl font-bold text-[#06274B] animate__animated animate__fadeInUp" data-animate>আমাদের অ্যালামনাই</h2>
+  <p class="mt-4 text-lg md:text-xl opacity-80" data-animate>University of Barishal</p>
 
-  <div class="mt-10 flex gap-6 flex-wrap justify-center" data-animate>
-    <a href="donation.html" class="px-10 py-4 rounded-full font-bold bg-[#06274B] text-white hover:scale-110 hover:shadow-2xl transition duration-300">Donation</a>
-    <a href="register.html" class="px-10 py-4 rounded-full font-bold border-2 border-[#06274B] hover:bg-[#06274B] hover:text-white transition duration-300">Registration</a>
+  <div class="hero-buttons mt-10 flex gap-4 md:gap-6 flex-wrap justify-center" data-animate>
+    <a href="donation.html" class="px-8 md:px-10 py-3 md:py-4 rounded-full font-bold bg-[#06274B] text-white hover:scale-110 hover:shadow-2xl transition duration-300 text-sm md:text-base">Donation</a>
+    <a href="register.html" class="px-8 md:px-10 py-3 md:py-4 rounded-full font-bold border-2 border-[#06274B] hover:bg-[#06274B] hover:text-white transition duration-300 text-sm md:text-base">Registration</a>
   </div>
 </section>
 
-<!-- New Information Section with Floating Cards -->
-<section class="relative z-10 px-6 py-20">
-  <h1 class="text-5xl md:text-6xl font-extrabold text-[#06274B] text-center mb-4" data-animate>আমাদের ডিপার্টমেন্ট সম্পর্কে</h1>
-  <p class="text-center text-xl opacity-80 mb-16" data-animate>Accounting and Information Systems (AIS)</p>
+<!-- Information Section with Floating Cards -->
+<section class="relative z-10 px-4 md:px-6 py-12 md:py-20">
+  <h1 class="text-3xl md:text-6xl font-extrabold text-[#06274B] text-center mb-4" data-animate>আমাদের ডিপার্টমেন্ট সম্পর্কে</h1>
+  <p class="text-center text-lg md:text-xl opacity-80 mb-10 md:mb-16" data-animate>Accounting and Information Systems (AIS)</p>
 
   <!-- Floating Info Cards Grid -->
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
     
     <!-- Card 1: Department Overview -->
     <div class="info-card" data-animate>
       <div class="card-icon">🎓</div>
-      <h3 class="text-2xl font-bold text-[#06274B] mb-4">ডিপার্টমেন্ট পরিচিতি</h3>
-      <p class="text-justify opacity-90 leading-relaxed">
+      <h3 class="text-xl md:text-2xl font-bold text-[#06274B] mb-4">ডিপার্টমেন্ট পরিচিতি</h3>
+      <p class="text-justify opacity-90 leading-relaxed text-sm md:text-base">
         অ্যাকাউন্টিং অ্যান্ড ইনফরমেশন সিস্টেমস (AIS) ডিপার্টমেন্ট ২০১৫-২০১৬ শিক্ষাবর্ষ থেকে তার যাত্রা শুরু করেছে। তখন থেকে, এটি সকল শিক্ষার্থীদের ব্যবসায়িক ক্ষেত্রে, বিশেষত অ্যাকাউন্টিং এবং ইনফরমেশন সিস্টেম সংক্রান্ত চ্যালেঞ্জ মোকাবেলা করতে শিক্ষা দিয়ে আসছে।
       </p>
     </div>
@@ -168,19 +487,19 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
     <!-- Card 2: Faculty & Students -->
     <div class="info-card" data-animate>
       <div class="card-icon">👥</div>
-      <h3 class="text-2xl font-bold text-[#06274B] mb-4">আমাদের টিম</h3>
+      <h3 class="text-xl md:text-2xl font-bold text-[#06274B] mb-4">আমাদের টিম</h3>
       <div class="space-y-3">
         <div class="flex items-center gap-3">
-          <span class="text-3xl">👨‍🏫</span>
-          <p class="text-lg"><strong>১০ জন</strong> উচ্চ যোগ্যতাসম্পন্ন ফ্যাকাল্টি মেম্বার</p>
+          <span class="text-2xl md:text-3xl">👨‍🏫</span>
+          <p class="text-base md:text-lg"><strong>১০ জন</strong> উচ্চ যোগ্যতাসম্পন্ন ফ্যাকাল্টি মেম্বার</p>
         </div>
         <div class="flex items-center gap-3">
-          <span class="text-3xl">📚</span>
-          <p class="text-lg"><strong>২১৬ জন</strong> শিক্ষার্থী</p>
+          <span class="text-2xl md:text-3xl">📚</span>
+          <p class="text-base md:text-lg"><strong>২১৬ জন</strong> শিক্ষার্থী</p>
         </div>
         <div class="flex items-center gap-3">
-          <span class="text-3xl">💼</span>
-          <p class="text-lg"><strong>২ জন</strong> অফিস স্টাফ</p>
+          <span class="text-2xl md:text-3xl">💼</span>
+          <p class="text-base md:text-lg"><strong>২ জন</strong> অফিস স্টাফ</p>
         </div>
       </div>
     </div>
@@ -188,8 +507,8 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
     <!-- Card 3: Program Features -->
     <div class="info-card" data-animate>
       <div class="card-icon">💡</div>
-      <h3 class="text-2xl font-bold text-[#06274B] mb-4">প্রোগ্রাম বৈশিষ্ট্য</h3>
-      <p class="text-justify opacity-90 leading-relaxed">
+      <h3 class="text-xl md:text-2xl font-bold text-[#06274B] mb-4">প্রোগ্রাম বৈশিষ্ট্য</h3>
+      <p class="text-justify opacity-90 leading-relaxed text-sm md:text-base">
         এই প্রোগ্রামটি শিক্ষার্থীদের অ্যাকাউন্টিং এবং আর্থিক দক্ষতার ক্ষেত্রে একটি দৃঢ়, ব্যবহারিক ভিত্তি এবং প্রাসঙ্গিক, প্রযুক্তিগত ও বুদ্ধিবৃত্তিক দক্ষতা প্রদান করবে। শিক্ষার্থীরা পরিমাণগত, যোগাযোগ এবং তথ্য প্রযুক্তি দক্ষতা বিকাশ করতে সক্ষম হবে।
       </p>
     </div>
@@ -197,14 +516,67 @@ body { font-family: 'Hind Siliguri', sans-serif; overflow-x:hidden; background:#
     <!-- Card 4: Skills Development -->
     <div class="info-card" data-animate>
       <div class="card-icon">🚀</div>
-      <h3 class="text-2xl font-bold text-[#06274B] mb-4">দক্ষতা উন্নয়ন</h3>
-      <p class="text-justify opacity-90 leading-relaxed">
+      <h3 class="text-xl md:text-2xl font-bold text-[#06274B] mb-4">দক্ষতা উন্নয়ন</h3>
+      <p class="text-justify opacity-90 leading-relaxed text-sm md:text-base">
         এই প্রোগ্রামটি উদ্ভাবনী, বাধ্যতামূলক মডিউলগুলির একটি পরিসর দিয়ে সজ্জিত যেখানে শিক্ষার্থীরা পরীক্ষা করবে কীভাবে আর্থিক তথ্য আজকের চ্যালেঞ্জিং আর্থিক পরিবেশের প্রেক্ষাপটে সিদ্ধান্ত গ্রহণকারীদের প্রভাবিত করে।
       </p>
     </div>
 
   </div>
 </section>
+
+<!-- Floating Notification Bell -->
+<div class="notification-bell" onclick="openNoticeModal()">
+  <span class="notification-badge">1</span>
+</div>
+
+<!-- Notice Modal -->
+<div class="modal-overlay" id="noticeModal">
+  <div class="notice-modal">
+    <div class="modal-header">
+      <div class="modal-close" onclick="closeNoticeModal()">×</div>
+      <h2 class="text-2xl md:text-3xl font-bold">📢 বিশেষ বার্তা</h2>
+      <p class="mt-2 opacity-90">AIS Alumni Website Creator</p>
+    </div>
+    
+    <div class="modal-body">
+      <div class="profile-section">
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+          <!-- আপনার ছবি এখানে add করবেন - নিচে instruction দেওয়া আছে -->
+          <div class="profile-placeholder">👩‍🎓</div>
+          <!-- ছবি add করতে চাইলে এই line uncomment করুন এবং image URL দিন:
+          <img src="YOUR_IMAGE_URL_HERE" alt="Mst. Nawrin Nishad Tandra">
+          -->
+        </div>
+        
+        <h3 class="text-xl md:text-2xl font-bold text-[#06274B] mb-2">Mst. Nawrin Nishad Tandra</h3>
+        <p class="text-base md:text-lg text-purple-600 font-semibold">Batch 12 | AIS Department</p>
+      </div>
+      
+      <div class="notice-content">
+        <p class="text-base md:text-lg mb-4">
+          <strong>প্রিয় AIS Alumni পরিবার,</strong>
+        </p>
+        <p class="text-sm md:text-base mb-3">
+          আমি ১২ ব্যাচের একজন শিক্ষার্থী <strong>Mst. Nawrin Nishad Tandra</strong> হিসেবে দীর্ঘদিন ধরে এই ওয়েবসাইটটি তৈরি করতে কাজ করে যাচ্ছি। এই প্ল্যাটফর্মটি আমাদের প্রিয় AIS-এর সাবেক শিক্ষার্থীদের সংযুক্ত করার, স্মৃতি ভাগ করার এবং একে অপরের সঙ্গে যোগাযোগ রাখার জন্য তৈরি করা হয়েছে।
+        </p>
+        <p class="text-sm md:text-base mb-3">
+          এই ওয়েবসাইটের মাধ্যমে আমরা আমাদের পুরনো বন্ধুত্বকে পুনঃজীবিত করতে, নতুন সংযোগ তৈরি করতে এবং AIS পরিবারকে আরও শক্তিশালী করতে পারব।
+        </p>
+        <p class="text-sm md:text-base font-semibold text-purple-700">
+          আপনাকে আবারও স্বাগত জানাই এবং আশা করি আপনি এই প্ল্যাটফর্মটি আনন্দের সঙ্গে ব্যবহার করবেন। 💜
+        </p>
+      </div>
+      
+      <div class="text-center mt-6">
+        <button onclick="closeNoticeModal()" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-bold hover:scale-105 transition duration-300 shadow-lg">
+          ধন্যবাদ ✨
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 // Scroll animation
@@ -217,6 +589,35 @@ const observer = new IntersectionObserver(entries => {
 },{ threshold: 0.2 });
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+// Notice Modal Functions
+function openNoticeModal() {
+  document.getElementById('noticeModal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent background scroll
+}
+
+function closeNoticeModal() {
+  document.getElementById('noticeModal').classList.remove('active');
+  document.body.style.overflow = 'auto'; // Restore scroll
+}
+
+// Close modal when clicking outside
+document.getElementById('noticeModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeNoticeModal();
+  }
+});
+
+// Auto-open modal on first visit (optional)
+window.addEventListener('load', function() {
+  // Check if user has seen the notice before
+  if (!localStorage.getItem('noticeShown')) {
+    setTimeout(() => {
+      openNoticeModal();
+      localStorage.setItem('noticeShown', 'true');
+    }, 2000); // Show after 2 seconds
+  }
+});
 </script>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
