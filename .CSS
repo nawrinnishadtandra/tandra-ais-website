@@ -1,0 +1,546 @@
+/* 
+ * AIS Alumni Website - Mobile-First Responsive Stylesheet
+ * এই CSS file টি সব pages এ <link> করে use করতে পারবেন
+ * Author: Mst. Nawrin Nishad Tandra
+ */
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  overflow-x: hidden;
+  background: #e7ecf1;
+  line-height: 1.6;
+}
+
+/* ============================================
+   MOBILE-FIRST NAVIGATION
+   ============================================ */
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  color: #06274B;
+  font-weight: 600;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: rgba(6, 39, 75, 0.7);
+  bottom: -2px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Mobile Navigation Adjustments */
+@media (max-width: 768px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .dropdown-menu {
+    width: 9rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    gap: 0.3rem;
+    padding: 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+/* ============================================
+   FORMS - Mobile Responsive
+   ============================================ */
+input, select, textarea, button {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  padding: 0.875rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  border: 2px solid #06274B;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #f9e67e;
+  box-shadow: 0 0 10px rgba(249, 230, 126, 0.5);
+}
+
+button {
+  padding: 0.875rem 2rem;
+  background: #06274B;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: #0d3f8f;
+  transform: scale(1.02);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Mobile Form Adjustments */
+@media (max-width: 768px) {
+  input, select, textarea {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   CARDS - Mobile Responsive
+   ============================================ */
+.card, .info-card, .alumni-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  margin-bottom: 1.5rem;
+  border: 2px solid rgba(6, 39, 75, 0.1);
+}
+
+.card:hover, .info-card:hover, .alumni-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Card Adjustments */
+@media (max-width: 768px) {
+  .card, .info-card, .alumni-card {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card, .info-card, .alumni-card {
+    padding: 1rem;
+    margin-bottom: 0.875rem;
+    border-radius: 1rem;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY - Responsive
+   ============================================ */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #06274B;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.3;
+  margin-bottom: 0.875rem;
+  color: #06274B;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  color: #06274B;
+}
+
+p {
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  line-height: 1.7;
+  margin-bottom: 0.875rem;
+}
+
+/* ============================================
+   GRID SYSTEM - Mobile First
+   ============================================ */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============================================
+   SPACING - Responsive
+   ============================================ */
+.section {
+  padding: clamp(2rem, 5vw, 5rem) clamp(1rem, 3vw, 2rem);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.hidden-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hidden-mobile {
+    display: block;
+  }
+
+  .hidden-desktop {
+    display: none;
+  }
+}
+
+/* ============================================
+   TOUCH-FRIENDLY ELEMENTS
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile touch targets */
+  button, .nav-link, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove hover effects on touch devices */
+  *:hover {
+    transition-duration: 0s;
+  }
+}
+
+/* ============================================
+   SEARCH BAR - Mobile Responsive
+   ============================================ */
+#search {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  border: 2px solid #f9e67e;
+  outline: none;
+  background: #ffffff;
+  color: #06274B;
+  font-weight: 600;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 5px rgba(249, 230, 126, 0.5);
+}
+
+#search:focus {
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(249, 230, 126, 0.8);
+}
+
+@media (max-width: 768px) {
+  #search {
+    max-width: 100%;
+    font-size: 0.9rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  #search:focus {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   MODAL - Mobile Responsive
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideUp 0.3s ease;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-height: 85vh;
+    border-radius: 1.25rem;
+  }
+}
+
+/* ============================================
+   IMAGES - Responsive
+   ============================================ */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ============================================
+   BUTTONS - Mobile Responsive
+   ============================================ */
+.btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: #06274B;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0d3f8f;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #06274B;
+  color: #06274B;
+}
+
+.btn-secondary:hover {
+  background: #06274B;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.5s ease;
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize for touch devices */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  nav, .notification-bell, button {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  .card, .info-card, .alumni-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* ============================================
+   END OF STYLESHEET
+   ============================================ */
