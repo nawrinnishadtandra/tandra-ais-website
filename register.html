@@ -2,176 +2,962 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registration | AIS Alumni</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
 <style>
-body{font-family:'Hind Siliguri',sans-serif;margin:0;overflow-x:hidden;}
-.bg-animate{background:linear-gradient(135deg,#e7ecf1,#ffffff,#e7ecf1,#ffffff);background-size:400% 400%;animation:gradient 12s ease infinite;}
-@keyframes gradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-.nav-link{position:relative;color:#06274B;font-weight:600;transition:0.3s;}
-.nav-link::after{content:'';position:absolute;width:0;height:2px;background:rgba(6,39,75,0.7);bottom:-2px;left:0;transition:width 0.3s ease;}
-.nav-link:hover::after{width:100%;}
-.nav-link:hover{color:#06274B;}
-
-.form-card{
-  max-width:600px;
-  margin:auto;
-  background:rgba(255,255,255,0.35);
-  backdrop-filter:blur(15px);
-  padding:2rem;
-  border-radius:1rem;
-  box-shadow:0 8px 30px rgba(0,0,0,0.15);
-  z-index:10;
-  position:relative;
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background: #0a0e27;
+  position: relative;
+  min-height: 100vh;
 }
 
-.futuristic{
-  width:100%;
-  padding:1.25rem 1.5rem;
-  margin:0;
-  border-radius:1rem;
-  border:2px solid #06274B;
-  outline:none;
-  background:rgba(255,255,255,0.2);
-  color:#06274B;
-  font-weight:600;
-  font-size:1rem;
-  backdrop-filter:blur(5px);
-  transition:all 0.4s ease, box-shadow 0.4s ease;
-  box-shadow:0 0 5px rgba(6,39,75,0.2);
+/* Animated Gradient Background */
+.bg-animate {
+  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
 }
 
-.futuristic:focus{
-  border-color:#f9e67e;
-  box-shadow:0 0 15px rgba(249,230,126,0.7), 0 0 25px rgba(6,39,75,0.3);
-  background:rgba(255,255,255,0.35);
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.futuristic::placeholder{
-  color:rgba(6,39,75,0.7);
-  font-weight:500;
+/* Floating Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
 }
 
-button{
-  padding:0.75rem 2rem;
-  background:#06274B;
-  color:white;
-  font-weight:600;
-  border:none;
-  border-radius:0.5rem;
-  cursor:pointer;
-  transition:0.3s;
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(138, 80, 255, 0.4);
+  border-radius: 50%;
+  animation: float 20s infinite;
 }
-button:hover{background:#0d3f8f;transform:scale(1.05);}
 
-/* Particles canvas */
-#particles-js{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Mobile-friendly Navigation */
+nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover::before {
+  opacity: 1;
+}
+
+.nav-link:hover {
+  color: #8A50FF;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  z-index: 10;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  margin-bottom: 0.5rem;
+}
+
+/* Form Container */
+.form-container {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+/* Glass Form Card */
+.form-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: cardSlideUp 0.6s ease;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(138, 80, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Form Title */
+.form-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.form-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin-bottom: 2rem;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Premium Input Styling */
+.futuristic {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.futuristic::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.futuristic:focus {
+  border-color: #8A50FF;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 0 20px rgba(138, 80, 255, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.futuristic:hover {
+  border-color: rgba(138, 80, 255, 0.5);
+}
+
+/* Select Dropdown */
+select.futuristic {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A50FF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+/* Input Icons */
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.has-icon {
+  padding-left: 3rem;
+}
+
+/* Batch Grid */
+.batch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.batch-option {
+  position: relative;
+}
+
+.batch-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.batch-label {
+  display: block;
+  padding: 0.75rem;
+  text-align: center;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.batch-option input[type="radio"]:checked + .batch-label {
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 15px rgba(138, 80, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.batch-label:hover {
+  border-color: #8A50FF;
+  background: rgba(138, 80, 255, 0.1);
+}
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #8A50FF;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  border: none;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 40px rgba(138, 80, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.submit-btn:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(138, 80, 255, 0.6);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.submit-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading State */
+.submit-btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.submit-btn.loading span::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success Message */
+.success-message {
+  background: linear-gradient(135deg, rgba(138, 80, 255, 0.2), rgba(255, 107, 157, 0.2));
+  border: 2px solid rgba(138, 80, 255, 0.5);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+  margin-top: 1.5rem;
+  display: none;
+  animation: successSlide 0.5s ease;
+}
+
+@keyframes successSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-message.show {
+  display: block;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: successBounce 0.6s ease;
+}
+
+@keyframes successBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Error Message */
+.error-message {
+  color: #FF6B9D;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+  display: none;
+}
+
+.form-group.error .futuristic {
+  border-color: #FF6B9D;
+  animation: shake 0.5s ease;
+}
+
+.form-group.error .error-message {
+  display: block;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Info Card */
+.info-card {
+  background: rgba(138, 80, 255, 0.1);
+  border: 1px solid rgba(138, 80, 255, 0.3);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.info-card strong {
+  color: #8A50FF;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .hero-section {
+    padding: 1.5rem 1rem 1rem;
+    min-height: 25vh;
+  }
+
+  .form-container {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .form-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .futuristic {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .batch-grid {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .batch-label {
+    padding: 0.625rem;
+    font-size: 0.85rem;
+  }
+
+  .submit-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .batch-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch Optimization */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 </style>
 </head>
-<body class="bg-animate relative min-h-screen">
+<body class="bg-animate">
 
-<!-- Navbar -->
-<nav class="relative z-30 flex justify-center gap-8 p-6 backdrop-blur-sm">
+<!-- Floating Particles Background -->
+<div class="particles" id="particles"></div>
+
+<!-- Navigation -->
+<nav>
   <a href="index.html" class="nav-link">Home</a>
   <a href="database.html" class="nav-link">Alumni Database</a>
   <a href="register.html" class="nav-link">Register</a>
   <a href="donation.html" class="nav-link">Donation</a>
-  <a href="notice.html" class="nav-link">Notice</a>
+  <a href="notices.html" class="nav-link">Notice</a>
   <a href="event.html" class="nav-link">Next Event</a>
+  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">Profile</a>
 </nav>
 
-<!-- Particle Animation -->
-<div id="particles-js"></div>
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-  "particles": {
-    "number": {"value":60,"density":{"enable":true,"value_area":800}},
-    "color": {"value":["#06274B","#5400EE","#f9e67e"]},
-    "shape": {"type":"circle"},
-    "opacity": {"value":0.5,"random":true},
-    "size": {"value":5,"random":true},
-    "line_linked":{"enable":true,"distance":120,"color":"#06274B","opacity":0.2,"width":1},
-    "move":{"enable":true,"speed":2,"direction":"none","random":true,"out_mode":"out"}
-  },
-  "interactivity":{"events":{"onhover":{"enable":true,"mode":"repulse"}}}
-});
-</script>
+<!-- Hero Section -->
+<section class="hero-section">
+  <h1 class="hero-title">Alumni Registration</h1>
+  <p class="hero-subtitle">Join Accounting & Information Systems Alumni Community</p>
+</section>
 
-<!-- Registration Form Section -->
-<section class="relative z-10 px-6 py-20">
-  <h1 class="text-5xl md:text-6xl font-extrabold text-[#06274B] text-center">Alumni Registration</h1>
-  <p class="text-center mt-2 text-lg opacity-70">Join Accounting & Information Systems Alumni</p>
+<!-- Form Container -->
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">📝 Register Now</h2>
+    <p class="form-subtitle">আমাদের Alumni পরিবারের অংশ হন</p>
 
-  <div class="form-card mt-10">
-    <form id="registrationForm" class="space-y-6">
-      <input type="text" name="name" placeholder="Full Name" class="futuristic" required>
-      <input type="email" name="email" placeholder="Email" class="futuristic" required>
-      <input type="tel" name="phone" placeholder="Phone Number" class="futuristic" required>
-      <input type="text" name="job" placeholder="Current Job" class="futuristic" required>
-      <select name="batch" class="futuristic" required>
-        <option value="">Select Batch</option>
-        <option value="1">Batch 1</option>
-        <option value="2">Batch 2</option>
-        <option value="3">Batch 3</option>
-        <option value="4">Batch 4</option>
-        <option value="5">Batch 5</option>
-        <option value="6">Batch 6</option>
-        <option value="7">Batch 7</option>
-        <option value="8">Batch 8</option>
-        <option value="9">Batch 9</option>
-        <option value="10">Batch 10</option>
-        <option value="11">Batch 11</option>
-        <option value="12">Batch 12</option>
-      </select>
-      <input type="text" name="year" placeholder="Passing Year" class="futuristic" required>
-      <input type="password" name="password" placeholder="Password" class="futuristic" required>
-      <div class="text-center mt-4">
-        <button type="submit">Register</button>
+    <!-- Info Card -->
+    <div class="info-card">
+      💡 <strong>Note:</strong> সব তথ্য সঠিকভাবে দিন। Registration সম্পূর্ণ হলে আপনি Alumni Database এ দেখা যাবে এবং আপনার profile access পাবেন।
+    </div>
+
+    <!-- Registration Form -->
+    <form id="registrationForm">
+      
+      <!-- Full Name -->
+      <div class="form-group">
+        <label class="form-label" for="name">👤 Full Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="futuristic" 
+          placeholder="আপনার পূর্ণ নাম লিখুন" 
+          required
+        >
+        <span class="error-message">Please enter your full name</span>
       </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label" for="email">📧 Email Address *</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="futuristic" 
+          placeholder="your.email@example.com" 
+          required
+        >
+        <span class="error-message">Please enter a valid email</span>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label class="form-label" for="phone">📱 Phone Number *</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          class="futuristic" 
+          placeholder="01XXXXXXXXX" 
+          required
+          pattern="[0-9]{11}"
+        >
+        <span class="error-message">Please enter 11 digit phone number</span>
+      </div>
+
+      <!-- Current Job -->
+      <div class="form-group">
+        <label class="form-label" for="job">💼 Current Job/Position *</label>
+        <input 
+          type="text" 
+          id="job" 
+          name="job" 
+          class="futuristic" 
+          placeholder="Company Name - Position" 
+          required
+        >
+        <span class="error-message">Please enter your current job</span>
+      </div>
+
+      <!-- Batch Selection -->
+      <div class="form-group">
+        <label class="form-label">🎓 Select Your Batch *</label>
+        <div class="batch-grid">
+          <div class="batch-option">
+            <input type="radio" id="batch1" name="batch" value="1" required>
+            <label class="batch-label" for="batch1">Batch 1</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch2" name="batch" value="2">
+            <label class="batch-label" for="batch2">Batch 2</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch3" name="batch" value="3">
+            <label class="batch-label" for="batch3">Batch 3</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch4" name="batch" value="4">
+            <label class="batch-label" for="batch4">Batch 4</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch5" name="batch" value="5">
+            <label class="batch-label" for="batch5">Batch 5</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch6" name="batch" value="6">
+            <label class="batch-label" for="batch6">Batch 6</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch7" name="batch" value="7">
+            <label class="batch-label" for="batch7">Batch 7</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch8" name="batch" value="8">
+            <label class="batch-label" for="batch8">Batch 8</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch9" name="batch" value="9">
+            <label class="batch-label" for="batch9">Batch 9</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch10" name="batch" value="10">
+            <label class="batch-label" for="batch10">Batch 10</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch11" name="batch" value="11">
+            <label class="batch-label" for="batch11">Batch 11</label>
+          </div>
+          <div class="batch-option">
+            <input type="radio" id="batch12" name="batch" value="12">
+            <label class="batch-label" for="batch12">Batch 12</label>
+          </div>
+        </div>
+        <span class="error-message">Please select your batch</span>
+      </div>
+
+      <!-- Passing Year -->
+      <div class="form-group">
+        <label class="form-label" for="year">📅 Passing Year *</label>
+        <input 
+          type="text" 
+          id="year" 
+          name="year" 
+          class="futuristic" 
+          placeholder="YYYY (e.g., 2020)" 
+          required
+          pattern="[0-9]{4}"
+        >
+        <span class="error-message">Please enter valid year (YYYY)</span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label" for="password">🔒 Create Password *</label>
+        <div style="position: relative;">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="futuristic" 
+            placeholder="Minimum 6 characters" 
+            required
+            minlength="6"
+          >
+          <span class="password-toggle" onclick="togglePassword()">👁️</span>
+        </div>
+        <span class="error-message">Password must be at least 6 characters</span>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn">
+        <span>🚀 Register as Alumni</span>
+      </button>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">
+        <div class="success-icon">✨🎉✨</div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Registration Successful!</h3>
+        <p>স্বাগতম AIS Alumni পরিবারে! আপনার তথ্য সফলভাবে সংরক্ষিত হয়েছে।</p>
+      </div>
+
     </form>
   </div>
-</section>
+</div>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
 
-<!-- Form Submit Handler -->
 <script>
+// Create floating particles
+function createParticles() {
+  const container = document.getElementById('particles');
+  const particleCount = window.innerWidth < 768 ? 25 : 40;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    
+    // Random colors
+    const colors = ['rgba(138, 80, 255, 0.4)', 'rgba(255, 107, 157, 0.4)', 'rgba(255, 217, 61, 0.4)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    container.appendChild(particle);
+  }
+}
+
+// Toggle password visibility
+function togglePassword() {
+  const passwordInput = document.getElementById('password');
+  const toggle = document.querySelector('.password-toggle');
+  
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    toggle.textContent = '🙈';
+  } else {
+    passwordInput.type = 'password';
+    toggle.textContent = '👁️';
+  }
+}
+
+// Form validation
+function validateForm(formData) {
+  let isValid = true;
+  const formGroups = document.querySelectorAll('.form-group');
+  
+  // Remove previous errors
+  formGroups.forEach(group => group.classList.remove('error'));
+  
+  // Name validation
+  if (!formData.name || formData.name.trim().length < 3) {
+    document.querySelector('[name="name"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    document.querySelector('[name="email"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Phone validation (11 digits)
+  const phoneRegex = /^[0-9]{11}$/;
+  if (!phoneRegex.test(formData.phone)) {
+    document.querySelector('[name="phone"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Job validation
+  if (!formData.job || formData.job.trim().length < 3) {
+    document.querySelector('[name="job"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Batch validation
+  if (!formData.batch) {
+    document.querySelector('[name="batch"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Year validation (4 digits)
+  const yearRegex = /^[0-9]{4}$/;
+  if (!yearRegex.test(formData.year)) {
+    document.querySelector('[name="year"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  // Password validation (minimum 6 characters)
+  if (!formData.password || formData.password.length < 6) {
+    document.querySelector('[name="password"]').closest('.form-group').classList.add('error');
+    isValid = false;
+  }
+  
+  return isValid;
+}
+
+// Form submission
 const form = document.getElementById('registrationForm');
+const submitBtn = form.querySelector('.submit-btn');
+const successMessage = document.getElementById('successMessage');
 
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  const data = {
+  
+  // Get form data
+  const formData = {
     name: form.name.value,
     email: form.email.value,
     phone: form.phone.value,
     job: form.job.value,
     batch: form.batch.value,
     year: form.year.value,
-    password: form.password.value
+    password: form.password.value,
+    createdAt: new Date().toISOString()
   };
-
-  try {
-    await registerAlumni(data);
-    alert("Registration Successful!");
-    form.reset();
-  } catch(err){
-    console.error("Firebase Error:", err);
-    alert("Error submitting data: " + err.message);
+  
+  // Validate form
+  if (!validateForm(formData)) {
+    return;
   }
+  
+  // Show loading state
+  submitBtn.classList.add('loading');
+  submitBtn.querySelector('span').textContent = 'Processing...';
+  
+  try {
+    // Save to Firebase
+    await registerAlumni(formData);
+    
+    // Show success message
+    successMessage.classList.add('show');
+    form.reset();
+    
+    // Scroll to success message
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Redirect after 3 seconds
+    setTimeout(() => {
+      window.location.href = 'profile.html';
+    }, 3000);
+    
+  } catch (error) {
+    console.error('Registration Error:', error);
+    alert('Registration failed: ' + error.message);
+  } finally {
+    // Remove loading state
+    submitBtn.classList.remove('loading');
+    submitBtn.querySelector('span').textContent = '🚀 Register as Alumni';
+  }
+});
+
+// Initialize
+window.addEventListener('load', function() {
+  createParticles();
+});
+
+// Real-time validation feedback
+const inputs = document.querySelectorAll('.futuristic');
+inputs.forEach(input => {
+  input.addEventListener('blur', function() {
+    const formGroup = this.closest('.form-group');
+    
+    if (this.value.trim() === '' && this.hasAttribute('required')) {
+      formGroup.classList.add('error');
+    } else {
+      formGroup.classList.remove('error');
+    }
+  });
+  
+  input.addEventListener('input', function() {
+    const formGroup = this.closest('.form-group');
+    if (this.value.trim() !== '') {
+      formGroup.classList.remove('error');
+    }
+  });
 });
 </script>
 
