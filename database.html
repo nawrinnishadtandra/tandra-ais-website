@@ -2,139 +2,1063 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alumni Database | AIS Alumni</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
-body { font-family:'Hind Siliguri', sans-serif; background:#e7ecf1; overflow-x:hidden; }
-.bg-animate{background:linear-gradient(135deg,#e7ecf1,#ffffff,#e7ecf1,#ffffff);background-size:400% 400%;animation:gradient 12s ease infinite;}
-@keyframes gradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-.float{animation:float 6s ease-in-out infinite;}
-@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-15px);}100%{transform:translateY(0);}}
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background: #0a0e27;
+  position: relative;
+  min-height: 100vh;
+}
 
-.nav-link{position:relative;color:#06274B;font-weight:600;transition:0.3s;}
-.nav-link::after{content:'';position:absolute;width:0;height:2px;background:rgba(6,39,75,0.7);bottom:-2px;left:0;transition:width 0.3s ease;}
-.nav-link:hover::after{width:100%;}
-.nav-link:hover{color:#06274B;}
+/* Animated Gradient Background */
+.bg-animate {
+  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+}
 
-.alumni-card{background:rgba(255,255,255,0.35);backdrop-filter:blur(10px);padding:1.5rem;border-radius:1rem;transition:all 0.3s ease;}
-.alumni-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-#search{width:250px;padding:0.5rem 1rem;border-radius:2rem;border:2px solid #06274B;transition:all 0.3s ease;outline:none;box-shadow:0 0 0 rgba(0,0,0,0);}
-#search:focus{width:350px;box-shadow:0 0 15px rgba(6,39,75,0.5);border-color:#06274B;}
-.search-container{position:absolute;top:1.5rem;right:2rem;z-index:40;}
+/* Floating Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(138, 80, 255, 0.3);
+  border-radius: 50%;
+  animation: float 20s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Navigation */
+nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover::before {
+  opacity: 1;
+}
+
+.nav-link:hover {
+  color: #8A50FF;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  z-index: 10;
+  min-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  margin-bottom: 1.5rem;
+}
+
+/* Stats Section */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  background: rgba(138, 80, 255, 0.1);
+  border-color: rgba(138, 80, 255, 0.3);
+}
+
+.stat-number {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Search & Filter Section */
+.search-filter-container {
+  position: relative;
+  z-index: 20;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+}
+
+.filter-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(138, 80, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Search Bar */
+.search-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1.25rem 4rem 1.25rem 3.5rem;
+  border-radius: 1.5rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.4s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-input:focus {
+  border-color: #8A50FF;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 30px rgba(138, 80, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  pointer-events: none;
+}
+
+.clear-search {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 107, 157, 0.3);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.25rem;
+}
+
+.clear-search:hover {
+  background: rgba(255, 107, 157, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Batch Filter Tabs */
+.batch-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.batch-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.batch-btn:hover {
+  background: rgba(138, 80, 255, 0.1);
+  border-color: rgba(138, 80, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.batch-btn.active {
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 15px rgba(138, 80, 255, 0.4);
+}
+
+/* Sort Options */
+.sort-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sort-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.sort-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.sort-btn:hover {
+  background: rgba(138, 80, 255, 0.1);
+  border-color: rgba(138, 80, 255, 0.5);
+}
+
+.sort-btn.active {
+  background: rgba(138, 80, 255, 0.2);
+  border-color: #8A50FF;
+  color: #8A50FF;
+}
+
+/* Alumni Grid */
+.alumni-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.alumni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Alumni Card - Premium Design */
+.alumni-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.75rem;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.alumni-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(138, 80, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.alumni-card:hover::before {
+  left: 100%;
+}
+
+.alumni-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(138, 80, 255, 0.4);
+  box-shadow: 0 20px 50px rgba(138, 80, 255, 0.3);
+}
+
+/* Profile Avatar */
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 10px 30px rgba(138, 80, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: avatarSpin 3s linear infinite;
+}
+
+@keyframes avatarSpin {
+  to { transform: rotate(360deg); }
+}
+
+.avatar-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card Content */
+.card-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.card-batch {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(138, 80, 255, 0.3), rgba(255, 107, 157, 0.3));
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 auto 1rem;
+  display: block;
+  width: fit-content;
+  text-align: center;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.info-icon {
+  font-size: 1.25rem;
+  width: 35px;
+  height: 35px;
+  border-radius: 0.75rem;
+  background: rgba(138, 80, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-text {
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.empty-text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Loading Animation */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(138, 80, 255, 0.2);
+  border-top-color: #8A50FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Results Count */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.results-count {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.results-number {
+  color: #8A50FF;
+  font-weight: 700;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .hero-section {
+    padding: 2rem 1rem 1.5rem;
+    min-height: 30vh;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stat-box {
+    padding: 1rem;
+  }
+
+  .filter-card {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .search-input {
+    padding: 1rem 3rem 1rem 2.75rem;
+    font-size: 0.95rem;
+  }
+
+  .search-icon {
+    font-size: 1.25rem;
+    left: 1rem;
+  }
+
+  .clear-search {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    right: 1rem;
+  }
+
+  .batch-filters {
+    gap: 0.5rem;
+  }
+
+  .batch-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .alumni-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .alumni-card {
+    padding: 1.75rem;
+  }
+
+  .profile-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 1.75rem;
+  }
+
+  .card-name {
+    font-size: 1.1rem;
+  }
+
+  .sort-container {
+    width: 100%;
+  }
+
+  .sort-btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .batch-btn {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+  }
+
+  .filter-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Scroll Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 </style>
 </head>
-<body class="min-h-screen bg-animate relative">
+<body class="bg-animate">
 
-<div class="absolute inset-0 pointer-events-none text-4xl z-20">
-  <div class="absolute top-8 left-12 float">🎓</div>
-  <div class="absolute top-20 right-24 float">📘</div>
-  <div class="absolute top-32 left-1/2 transform -translate-x-1/2 float">💼</div>
-  <div class="absolute top-10 right-1/3 float">🌍</div>
-  <div class="absolute top-40 left-1/3 float">💡</div>
-</div>
+<!-- Floating Particles Background -->
+<div class="particles" id="particles"></div>
 
-<!-- Navbar -->
-<nav class="relative z-30 flex justify-center gap-8 p-6 backdrop-blur-sm">
+<!-- Navigation -->
+<nav>
   <a href="index.html" class="nav-link">Home</a>
   <a href="database.html" class="nav-link">Alumni Database</a>
   <a href="register.html" class="nav-link">Register</a>
   <a href="donation.html" class="nav-link">Donation</a>
-  <a href="notice.html" class="nav-link">Notice</a>
+  <a href="notices.html" class="nav-link">Notice</a>
   <a href="event.html" class="nav-link">Next Event</a>
+  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">Profile</a>
 </nav>
 
-<!-- Search Bar -->
-<div class="search-container">
-  <input type="text" id="search" placeholder="Search Name or Batch">
-</div>
-
-<style>
-#search{
-  width:250px;
-  padding:0.5rem 1rem;
-  border-radius:2rem;
-  border:2px solid #f9e67e; /* soft yellow border */
-  outline:none;
-  background:#ffffff;  /* white background */
-  color:#06274B;       /* dark text */
-  font-weight:600;
-  transition: all 0.4s ease;
-  box-shadow:0 0 5px rgba(249,230,126,0.5); /* subtle yellow glow */
-}
-
-/* Focus: lighting effect only */
-#search:focus{
-  width:350px; /* expand width */
-  box-shadow:0 0 15px rgba(249,230,126,0.8); /* brighter glow */
-  border-color:#f9e67e;
-  background:#ffffff; /* stays white */
-  color:#06274B;      /* stays dark text */
-}
-.search-container{
-  position:absolute;
-  top:1.5rem;
-  right:2rem;
-  z-index:40;
-}
-</style>
-
-</style>
-
-
-<section class="relative z-10 text-center px-6 py-20">
-<h1 class="text-6xl md:text-7xl font-extrabold tracking-wide text-[#06274B]">Alumni হিসেবে যুক্ত হন</h1>
-<h2 class="mt-4 text-3xl md:text-4xl font-bold text-[#06274B]" style="font-family:'Orbitron',sans-serif;">Alumni Database</h2>
-
-<div class="mt-6 flex gap-6 justify-center flex-wrap">
-<a href="register.html" class="px-10 py-4 rounded-full font-bold border-2 border-[#06274B] hover:bg-[#06274B] hover:text-white transition duration-300">Registration</a>
-</div>
+<!-- Hero Section -->
+<section class="hero-section">
+  <h1 class="hero-title">Alumni Database</h1>
+  <p class="hero-subtitle">Accounting & Information Systems | University of Barishal</p>
+  
+  <!-- Stats -->
+  <div class="stats-container">
+    <div class="stat-box">
+      <div class="stat-number" id="totalCount">0</div>
+      <div class="stat-label">Total Alumni</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" id="batchCount">12</div>
+      <div class="stat-label">Batches</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" id="activeCount">0</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+  </div>
 </section>
 
-<section class="px-6 pb-16 mt-10">
-<div id="list" class="grid md:grid-cols-3 gap-6"></div>
-</section>
+<!-- Search & Filter Section -->
+<div class="search-filter-container">
+  <div class="filter-card">
+    
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Search by name, batch, job, or year..."
+        autocomplete="off"
+      >
+      <button class="clear-search" id="clearSearch" style="display: none;">✕</button>
+    </div>
 
-<script src="firebase.js"></script>
-<script>
-let allAlumni=[];
-const list=document.getElementById('list');
+    <!-- Batch Filters -->
+    <div class="batch-filters">
+      <button class="batch-btn active" data-batch="all">All Batches</button>
+      <button class="batch-btn" data-batch="1">Batch 1</button>
+      <button class="batch-btn" data-batch="2">Batch 2</button>
+      <button class="batch-btn" data-batch="3">Batch 3</button>
+      <button class="batch-btn" data-batch="4">Batch 4</button>
+      <button class="batch-btn" data-batch="5">Batch 5</button>
+      <button class="batch-btn" data-batch="6">Batch 6</button>
+      <button class="batch-btn" data-batch="7">Batch 7</button>
+      <button class="batch-btn" data-batch="8">Batch 8</button>
+      <button class="batch-btn" data-batch="9">Batch 9</button>
+      <button class="batch-btn" data-batch="10">Batch 10</button>
+      <button class="batch-btn" data-batch="11">Batch 11</button>
+      <button class="batch-btn" data-batch="12">Batch 12</button>
+    </div>
 
-db.collection("alumni").onSnapshot(snap=>{
-  allAlumni=[];
-  list.innerHTML="";
-  snap.forEach(doc=>{
-    const a=doc.data();
-    allAlumni.push(a);
-  });
-  renderAlumni(allAlumni);
-});
+    <!-- Sort Options -->
+    <div class="sort-container">
+      <span class="sort-label">Sort by:</span>
+      <button class="sort-btn active" data-sort="name">Name A-Z</button>
+      <button class="sort-btn" data-sort="batch">Batch</button>
+      <button class="sort-btn" data-sort="year">Year</button>
+    </div>
 
-function renderAlumni(alumniArray){
-  list.innerHTML="";
-  alumniArray.forEach(a=>{
-    list.innerHTML+=`
-    <div class="alumni-card">
-      <h3 class="font-bold text-[#06274B]">${a.name}</h3>
-      <p class="text-sm opacity-80">${a.phone}</p>
-      <p class="text-sm opacity-80">${a.job}</p>
-      <p class="text-xs opacity-70">Batch ${a.batch} | ${a.year}</p>
-    </div>`;
-  });
-}
+  </div>
+</div>
 
-function searchAlumni(){
-  const query=document.getElementById('search').value.toLowerCase();
-  const filtered=allAlumni.filter(a=>a.name.toLowerCase().includes(query) || a.batch.toLowerCase().includes(query));
-  renderAlumni(filtered);
-}
-</script>
+<!-- Alumni Grid -->
+<div class="alumni-container">
+  <!-- Results Header -->
+  <div class="results-header">
+    <div class="results-count">
+      Showing <span class="results-number" id="resultsCount">0</span> Alumni
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" id="loadingState">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Alumni Data...</div>
+  </div>
+
+  <!-- Alumni Grid -->
+  <div class="alumni-grid" id="alumniGrid"></div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="emptyState" style="display: none;">
+    <div class="empty-icon">🔍</div>
+    <div class="empty-title">No Alumni Found</div>
+    <div class="empty-text">Try adjusting your search or filters</div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
+
+<script>
+// Global state
+let allAlumni = [];
+let filteredAlumni = [];
+let currentBatch = 'all';
+let currentSort = 'name';
+let searchQuery = '';
+
+// Create floating particles
+function createParticles() {
+  const container = document.getElementById('particles');
+  const particleCount = window.innerWidth < 768 ? 25 : 40;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    
+    const colors = ['rgba(138, 80, 255, 0.3)', 'rgba(255, 107, 157, 0.3)', 'rgba(255, 217, 61, 0.3)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    container.appendChild(particle);
+  }
+}
+
+// Get initials from name
+function getInitials(name) {
+  return name
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+// Create alumni card HTML
+function createAlumniCard(alumni) {
+  const initials = getInitials(alumni.name);
+  
+  return `
+    <div class="alumni-card fade-in">
+      <div class="profile-avatar">
+        <span class="avatar-text">${initials}</span>
+      </div>
+      <div class="card-name">${alumni.name}</div>
+      <div class="card-batch">Batch ${alumni.batch} | ${alumni.year}</div>
+      <div class="card-info">
+        <div class="info-item">
+          <div class="info-icon">💼</div>
+          <div class="info-text">${alumni.job}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div class="info-text">${alumni.phone}</div>
+        </div>
+        ${alumni.email ? `
+        <div class="info-item">
+          <div class="info-icon">📧</div>
+          <div class="info-text">${alumni.email}</div>
+        </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+// Render alumni grid
+function renderAlumni(alumniList) {
+  const grid = document.getElementById('alumniGrid');
+  const loadingState = document.getElementById('loadingState');
+  const emptyState = document.getElementById('emptyState');
+  const resultsCount = document.getElementById('resultsCount');
+  
+  loadingState.style.display = 'none';
+  
+  if (alumniList.length === 0) {
+    grid.innerHTML = '';
+    emptyState.style.display = 'block';
+    resultsCount.textContent = '0';
+    return;
+  }
+  
+  emptyState.style.display = 'none';
+  resultsCount.textContent = alumniList.length;
+  
+  grid.innerHTML = alumniList.map(alumni => createAlumniCard(alumni)).join('');
+  
+  // Animate cards
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.fade-in');
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('visible');
+      }, index * 50);
+    });
+  }, 100);
+}
+
+// Sort alumni
+function sortAlumni(alumni, sortBy) {
+  const sorted = [...alumni];
+  
+  switch(sortBy) {
+    case 'name':
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'batch':
+      sorted.sort((a, b) => parseInt(a.batch) - parseInt(b.batch));
+      break;
+    case 'year':
+      sorted.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+      break;
+  }
+  
+  return sorted;
+}
+
+// Filter alumni
+function filterAlumni() {
+  let filtered = [...allAlumni];
+  
+  // Filter by batch
+  if (currentBatch !== 'all') {
+    filtered = filtered.filter(a => a.batch === currentBatch);
+  }
+  
+  // Filter by search query
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    filtered = filtered.filter(a => 
+      a.name.toLowerCase().includes(query) ||
+      a.batch.toString().includes(query) ||
+      a.job.toLowerCase().includes(query) ||
+      a.year.toString().includes(query) ||
+      (a.phone && a.phone.includes(query)) ||
+      (a.email && a.email.toLowerCase().includes(query))
+    );
+  }
+  
+  // Sort
+  filtered = sortAlumni(filtered, currentSort);
+  
+  filteredAlumni = filtered;
+  renderAlumni(filtered);
+}
+
+// Update stats
+function updateStats() {
+  document.getElementById('totalCount').textContent = allAlumni.length;
+  document.getElementById('activeCount').textContent = allAlumni.length;
+}
+
+// Batch filter buttons
+document.querySelectorAll('.batch-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentBatch = this.dataset.batch;
+    filterAlumni();
+  });
+});
+
+// Sort buttons
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentSort = this.dataset.sort;
+    filterAlumni();
+  });
+});
+
+// Search input
+const searchInput = document.getElementById('searchInput');
+const clearSearch = document.getElementById('clearSearch');
+
+searchInput.addEventListener('input', function(e) {
+  searchQuery = e.target.value.trim();
+  clearSearch.style.display = searchQuery ? 'flex' : 'none';
+  filterAlumni();
+});
+
+clearSearch.addEventListener('click', function() {
+  searchInput.value = '';
+  searchQuery = '';
+  this.style.display = 'none';
+  filterAlumni();
+});
+
+// Load alumni from Firebase
+db.collection("alumni").onSnapshot(snapshot => {
+  allAlumni = [];
+  
+  snapshot.forEach(doc => {
+    allAlumni.push(doc.data());
+  });
+  
+  updateStats();
+  filterAlumni();
+});
+
+// Initialize
+window.addEventListener('load', function() {
+  createParticles();
+  
+  // Check for batch filter from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const batchParam = urlParams.get('batch');
+  
+  if (batchParam) {
+    const batchBtn = document.querySelector(`[data-batch="${batchParam}"]`);
+    if (batchBtn) {
+      batchBtn.click();
+    }
+  }
+});
+
+// Scroll animation observer
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+// Observe stat boxes
+document.querySelectorAll('.stat-box').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
 
 </body>
 </html>
