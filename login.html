@@ -498,7 +498,7 @@ nav {
   <a href="donation.html" class="nav-link">Donation</a>
   <a href="notices.html" class="nav-link">Notice</a>
   <a href="event.html" class="nav-link">Next Event</a>
-  <a href="my-profile.html" class="nav-link">My Profile</a>
+  <a href="profile.html" class="nav-link">My Profile</a>
 </nav>
 
 <!-- Hero Section -->
@@ -670,7 +670,7 @@ form.addEventListener('submit', async (e) => {
     submitBtn.querySelector('span').textContent = 'Success! Redirecting...';
     
     setTimeout(() => {
-      window.location.href = 'my-profile.html';
+      window.location.href = 'profile.html';
     }, 1000);
     
   } catch (error) {
@@ -688,7 +688,7 @@ window.addEventListener('load', function() {
   const userEmail = localStorage.getItem('alumniUserEmail');
   if (userEmail) {
     // Already logged in - redirect to profile
-    window.location.href = 'my-profile.html';
+    window.location.href = 'profile.html';
   }
 });
 </script>
