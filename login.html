@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | AIS Alumni</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background: #0a0e27;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Animated Gradient Background */
+.bg-animate {
+  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(138, 80, 255, 0.4);
+  border-radius: 50%;
+  animation: float 20s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Navigation */
+nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover::before {
+  opacity: 1;
+}
+
+.nav-link:hover {
+  color: #8A50FF;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  z-index: 10;
+  min-height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  margin-bottom: 0.5rem;
+}
+
+/* Form Container */
+.form-container {
+  position: relative;
+  z-index: 10;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+/* Glass Form Card */
+.form-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: cardSlideUp 0.6s ease;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(138, 80, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Form Title */
+.form-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.form-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin-bottom: 2rem;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Premium Input Styling */
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.4s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.form-input:focus {
+  border-color: #8A50FF;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 0 20px rgba(138, 80, 255, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #8A50FF;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  border: none;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 40px rgba(138, 80, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.submit-btn:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(138, 80, 255, 0.6);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.submit-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading State */
+.submit-btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.submit-btn.loading span::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+  background: rgba(255, 107, 157, 0.2);
+  border: 1px solid rgba(255, 107, 157, 0.5);
+  border-radius: 1rem;
+  padding: 1rem;
+  color: #FF6B9D;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  display: none;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.error-message.show {
+  display: block;
+}
+
+/* Links */
+.form-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+.form-links a {
+  color: #8A50FF;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.form-links a:hover {
+  color: #FF6B9D;
+  text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+/* Info Box */
+.info-box {
+  background: rgba(138, 80, 255, 0.1);
+  border: 1px solid rgba(138, 80, 255, 0.3);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-top: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .hero-section {
+    padding: 1.5rem 1rem 1rem;
+    min-height: 20vh;
+  }
+
+  .form-container {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .form-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .form-input {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body class="bg-animate">
+
+<!-- Floating Particles Background -->
+<div class="particles" id="particles"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="database.html" class="nav-link">Alumni Database</a>
+  <a href="register.html" class="nav-link">Register</a>
+  <a href="donation.html" class="nav-link">Donation</a>
+  <a href="notices.html" class="nav-link">Notice</a>
+  <a href="event.html" class="nav-link">Next Event</a>
+  <a href="my-profile.html" class="nav-link">My Profile</a>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <h1 class="hero-title">🔐 Login</h1>
+  <p class="hero-subtitle">Welcome Back to AIS Alumni</p>
+</section>
+
+<!-- Form Container -->
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">Login to Your Account</h2>
+    <p class="form-subtitle">আপনার profile access করুন</p>
+
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage">
+      ❌ Invalid email or password. Please try again.
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label" for="email">📧 Email Address *</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-input" 
+          placeholder="your.email@example.com" 
+          required
+        >
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label" for="password">🔒 Password *</label>
+        <div style="position: relative;">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="form-input" 
+            placeholder="Enter your password" 
+            required
+          >
+          <span class="password-toggle" onclick="togglePassword()">👁️</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span>🚀 Login</span>
+      </button>
+
+    </form>
+
+    <!-- Links -->
+    <div class="form-links">
+      নতুন member? <a href="register.html">Register করুন</a>
+    </div>
+
+    <div class="divider">অথবা</div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      💡 <strong>Note:</strong> আপনার registration করার সময় যে email এবং password দিয়েছিলেন সেটি দিয়ে login করুন। Login করার পর আপনি আপনার profile দেখতে এবং edit করতে পারবেন।
+    </div>
+
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+// Create floating particles
+function createParticles() {
+  const container = document.getElementById('particles');
+  const particleCount = window.innerWidth < 768 ? 25 : 40;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    
+    const colors = ['rgba(138, 80, 255, 0.4)', 'rgba(255, 107, 157, 0.4)', 'rgba(255, 217, 61, 0.4)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    container.appendChild(particle);
+  }
+}
+
+// Toggle password visibility
+function togglePassword() {
+  const passwordInput = document.getElementById('password');
+  const toggle = document.querySelector('.password-toggle');
+  
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    toggle.textContent = '🙈';
+  } else {
+    passwordInput.type = 'password';
+    toggle.textContent = '👁️';
+  }
+}
+
+// Show error message
+function showError(message) {
+  const errorDiv = document.getElementById('errorMessage');
+  errorDiv.textContent = '❌ ' + message;
+  errorDiv.classList.add('show');
+  
+  setTimeout(() => {
+    errorDiv.classList.remove('show');
+  }, 5000);
+}
+
+// Handle form submission
+const form = document.getElementById('loginForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // Get form data
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  
+  // Validate
+  if (!email || !password) {
+    showError('Please fill all fields');
+    return;
+  }
+  
+  // Show loading state
+  submitBtn.classList.add('loading');
+  submitBtn.querySelector('span').textContent = 'Logging in...';
+  
+  try {
+    // Check if user exists with this email and password
+    const querySnapshot = await db.collection("alumni")
+      .where("email", "==", email)
+      .where("password", "==", password)
+      .limit(1)
+      .get();
+    
+    if (querySnapshot.empty) {
+      // No user found
+      showError('Invalid email or password');
+      submitBtn.classList.remove('loading');
+      submitBtn.querySelector('span').textContent = '🚀 Login';
+      return;
+    }
+    
+    // User found - login successful
+    const userData = querySnapshot.docs[0].data();
+    
+    // Save email to localStorage
+    localStorage.setItem('alumniUserEmail', email);
+    localStorage.setItem('alumniUserName', userData.name);
+    
+    // Success - redirect to profile
+    submitBtn.querySelector('span').textContent = 'Success! Redirecting...';
+    
+    setTimeout(() => {
+      window.location.href = 'my-profile.html';
+    }, 1000);
+    
+  } catch (error) {
+    console.error("Login Error:", error);
+    showError('Error: ' + error.message);
+    submitBtn.classList.remove('loading');
+    submitBtn.querySelector('span').textContent = '🚀 Login';
+  }
+});
+
+// Check if already logged in
+window.addEventListener('load', function() {
+  createParticles();
+  
+  const userEmail = localStorage.getItem('alumniUserEmail');
+  if (userEmail) {
+    // Already logged in - redirect to profile
+    window.location.href = 'my-profile.html';
+  }
+});
+</script>
+
+</body>
+</html>
