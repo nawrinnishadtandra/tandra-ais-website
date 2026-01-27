@@ -2,91 +2,988 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>Profile | AIS Alumni</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | AIS Alumni</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js"></script> <!-- তোমার আগের firebase config -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
-body { font-family: 'Hind Siliguri', sans-serif; background:#e7ecf1; margin:0; padding:0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Floating animation for cards */
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background: #0a0e27;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Animated Gradient Background */
+.bg-animate {
+  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(138, 80, 255, 0.3);
+  border-radius: 50%;
+  animation: float 20s infinite;
+}
+
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
 }
 
-.card { 
-  background: #ffffff; 
-  border-radius: 1rem; 
-  padding: 1.5rem; 
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Navigation */
+nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
 }
 
-.float { animation: float 6s ease-in-out infinite; }
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-/* Scroll animation */
-[data-animate]{opacity:0; transform:translateY(30px); transition: all 1s ease-out;}
-[data-animate].visible{opacity:1; transform:translateY(0);}
+.nav-link:hover::before {
+  opacity: 1;
+}
 
-/* Responsive */
-@media (max-width:768px){
-  .card{ padding:1rem; }
+.nav-link:hover {
+  color: #8A50FF;
+  transform: translateY(-2px);
+}
+
+/* Profile Container */
+.profile-container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+/* Profile Card */
+.profile-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: cardSlideUp 0.6s ease;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(138, 80, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Profile Header */
+.profile-header {
+  background: linear-gradient(135deg, rgba(138, 80, 255, 0.3), rgba(255, 107, 157, 0.3));
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.profile-avatar-large {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 20px 50px rgba(138, 80, 255, 0.5);
+  position: relative;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-avatar-large::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: avatarSpin 3s linear infinite;
+  z-index: -1;
+}
+
+@keyframes avatarSpin {
+  to { transform: rotate(360deg); }
+}
+
+.profile-name-display {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-batch-display {
+  display: inline-block;
+  padding: 0.625rem 1.5rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 1rem;
+}
+
+.edit-profile-btn {
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 1.5rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(138, 80, 255, 0.4);
+}
+
+.edit-profile-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(138, 80, 255, 0.6);
+}
+
+/* Profile Body */
+.profile-body {
+  padding: 2.5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* View Mode - Info Display */
+.info-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  background: rgba(138, 80, 255, 0.1);
+  border-color: rgba(138, 80, 255, 0.3);
+  transform: translateX(5px);
+}
+
+.info-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(138, 80, 255, 0.3), rgba(255, 107, 157, 0.3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Edit Mode - Form */
+.edit-section {
+  display: none;
+}
+
+.edit-section.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(138, 80, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.4s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.form-input:focus {
+  border-color: #8A50FF;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(138, 80, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 150px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  box-shadow: 0 8px 25px rgba(138, 80, 255, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(138, 80, 255, 0.6);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Success Message */
+.success-toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  padding: 1.25rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(138, 80, 255, 0.5);
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  z-index: 9999;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.success-toast.show {
+  display: flex;
+}
+
+.toast-icon {
+  font-size: 1.5rem;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(138, 80, 255, 0.2);
+  border-top-color: #8A50FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Login Prompt */
+.login-prompt {
+  text-align: center;
+  padding: 4rem 2rem;
+  display: none;
+}
+
+.login-prompt.show {
+  display: block;
+}
+
+.login-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.login-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.login-btn {
+  display: inline-block;
+  padding: 1.25rem 3rem;
+  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
+  color: white;
+  border-radius: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(138, 80, 255, 0.4);
+  font-size: 1.1rem;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(138, 80, 255, 0.6);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .profile-container {
+    padding: 1.5rem 0.75rem 2rem;
+  }
+
+  .profile-header {
+    padding: 2.5rem 1.5rem 1.75rem;
+  }
+
+  .profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    font-size: 3rem;
+  }
+
+  .profile-body {
+    padding: 2rem 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .success-toast {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-header {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+
+  .profile-body {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .info-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 </style>
 </head>
-<body class="min-h-screen p-6">
+<body class="bg-animate">
 
-<h1 class="text-3xl md:text-4xl font-bold text-center text-[#06274B] mb-8" data-animate>Registered Alumni Profiles</h1>
+<!-- Floating Particles Background -->
+<div class="particles" id="particles"></div>
 
-<div id="profiles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+<!-- Navigation -->
+<nav>
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="database.html" class="nav-link">Alumni Database</a>
+  <a href="register.html" class="nav-link">Register</a>
+  <a href="donation.html" class="nav-link">Donation</a>
+  <a href="notices.html" class="nav-link">Notice</a>
+  <a href="event.html" class="nav-link">Next Event</a>
+  <a href="my-profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">My Profile</a>
+</nav>
+
+<!-- Success Toast -->
+<div class="success-toast" id="successToast">
+  <span class="toast-icon">✅</span>
+  <span>Profile updated successfully!</span>
+</div>
+
+<!-- Profile Container -->
+<div class="profile-container">
+
+  <!-- Loading State -->
+  <div class="loading-container" id="loadingState">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Your Profile...</div>
+  </div>
+
+  <!-- Login Prompt -->
+  <div class="login-prompt" id="loginPrompt">
+    <div class="login-icon">🔐</div>
+    <h1 class="login-title">Please Login First</h1>
+    <p class="login-text">
+      আপনার profile দেখতে এবং edit করতে প্রথমে login করুন।<br>
+      যদি আগে register করে থাকেন তাহলে login করুন, নতুন হলে register করুন।
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="login.html" class="login-btn">🔐 Login</a>
+      <a href="register.html" class="login-btn" style="background: linear-gradient(135deg, #FF6B9D, #FFD93D);">📝 Register</a>
+    </div>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-card" id="profileCard" style="display: none;">
+    
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar-large">
+        <span id="avatarText">?</span>
+      </div>
+      <div class="profile-name-display" id="profileNameDisplay">Loading...</div>
+      <div class="profile-batch-display" id="profileBatchDisplay">Batch - | Year -</div>
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+        <button class="edit-profile-btn" id="editBtn" onclick="toggleEditMode()">
+          ✏️ Edit Profile
+        </button>
+        <button class="edit-profile-btn" onclick="logout()" style="background: linear-gradient(135deg, #FF6B9D, #FFD93D);">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Profile Body -->
+    <div class="profile-body">
+      
+      <!-- View Mode -->
+      <div class="info-section" id="viewMode">
+        
+        <div class="info-card">
+          <div class="info-icon">📧</div>
+          <div class="info-content">
+            <div class="info-label">Email Address</div>
+            <div class="info-value" id="emailDisplay">-</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">📱</div>
+          <div class="info-content">
+            <div class="info-label">Phone Number</div>
+            <div class="info-value" id="phoneDisplay">-</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">💼</div>
+          <div class="info-content">
+            <div class="info-label">Current Job / Position</div>
+            <div class="info-value" id="jobDisplay">-</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🎓</div>
+          <div class="info-content">
+            <div class="info-label">Batch & Year</div>
+            <div class="info-value" id="batchYearDisplay">-</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Edit Mode -->
+      <div class="edit-section" id="editMode">
+        <form id="profileForm">
+          
+          <div class="form-group">
+            <label class="form-label" for="nameInput">Full Name *</label>
+            <input 
+              type="text" 
+              id="nameInput" 
+              class="form-input" 
+              placeholder="Your full name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="emailInput">Email Address *</label>
+            <input 
+              type="email" 
+              id="emailInput" 
+              class="form-input" 
+              placeholder="your.email@example.com"
+              disabled
+              title="Email cannot be changed"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phoneInput">Phone Number *</label>
+            <input 
+              type="tel" 
+              id="phoneInput" 
+              class="form-input" 
+              placeholder="01XXXXXXXXX"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="jobInput">Current Job / Position *</label>
+            <input 
+              type="text" 
+              id="jobInput" 
+              class="form-input" 
+              placeholder="Company Name - Position"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="batchInput">Batch *</label>
+            <input 
+              type="text" 
+              id="batchInput" 
+              class="form-input" 
+              placeholder="Batch number"
+              disabled
+              title="Batch cannot be changed"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="yearInput">Passing Year *</label>
+            <input 
+              type="text" 
+              id="yearInput" 
+              class="form-input" 
+              placeholder="YYYY"
+              required
+            >
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">
+              💾 Save Changes
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">
+              ❌ Cancel
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
 
 <script>
-// Scroll animation setup
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-},{ threshold: 0.2 });
+// Global state
+let currentUserEmail = null;
+let currentUserDoc = null;
+let userData = null;
 
-// Reference to profiles div
-const profilesDiv = document.getElementById('profiles');
-
-// Firestore collection fetch
-db.collection('alumni').orderBy('createdAt','desc').get()
-.then(snapshot => {
-  if(snapshot.empty){
-    profilesDiv.innerHTML = '<p class="text-center col-span-full">কোনো প্রফাইল পাওয়া যায়নি।</p>';
-  } else {
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const card = document.createElement('div');
-      card.classList.add('card','float','data-animate');
-      card.innerHTML = `
-        ${data.name?`<h2 class="font-bold text-xl mb-2 text-[#06274B]">${data.name}</h2>`:''}
-        ${data.email?`<p><strong>Email:</strong> ${data.email}</p>`:''}
-        ${data.batch?`<p><strong>Batch:</strong> ${data.batch}</p>`:''}
-        ${data.mobile?`<p><strong>Mobile:</strong> ${data.mobile}</p>`:''}
-      `;
-      profilesDiv.appendChild(card);
-      observer.observe(card); // scroll animation
-    });
+// Create floating particles
+function createParticles() {
+  const container = document.getElementById('particles');
+  const particleCount = window.innerWidth < 768 ? 25 : 40;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    
+    const colors = ['rgba(138, 80, 255, 0.3)', 'rgba(255, 107, 157, 0.3)', 'rgba(255, 217, 61, 0.3)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    container.appendChild(particle);
   }
-})
-.catch(error => {
-  profilesDiv.innerHTML = `<p class="text-center col-span-full text-red-600">Error: ${error.message}</p>`;
+}
+
+// Get initials from name
+function getInitials(name) {
+  if (!name) return '?';
+  return name
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+// Check if user is logged in
+function checkLogin() {
+  // Get email from localStorage (set during registration)
+  currentUserEmail = localStorage.getItem('alumniUserEmail');
+  
+  if (!currentUserEmail) {
+    // Not logged in - show login prompt
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loginPrompt').classList.add('show');
+    return false;
+  }
+  
+  return true;
+}
+
+// Load user profile
+function loadProfile() {
+  if (!checkLogin()) return;
+  
+  // Find user by email
+  db.collection("alumni")
+    .where("email", "==", currentUserEmail)
+    .limit(1)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        // No profile found
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('loginPrompt').classList.add('show');
+        return;
+      }
+      
+      // Get user data
+      const doc = snapshot.docs[0];
+      currentUserDoc = doc.id;
+      userData = doc.data();
+      
+      // Display profile
+      displayProfile(userData);
+      
+      // Hide loading, show profile
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('profileCard').style.display = 'block';
+    })
+    .catch(error => {
+      console.error("Error loading profile:", error);
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('loginPrompt').classList.add('show');
+    });
+}
+
+// Display profile data
+function displayProfile(data) {
+  // Avatar
+  const initials = getInitials(data.name);
+  document.getElementById('avatarText').textContent = initials;
+  
+  // Header
+  document.getElementById('profileNameDisplay').textContent = data.name || 'N/A';
+  document.getElementById('profileBatchDisplay').textContent = `Batch ${data.batch || 'N/A'} | ${data.year || 'N/A'}`;
+  
+  // View mode fields
+  document.getElementById('emailDisplay').textContent = data.email || 'N/A';
+  document.getElementById('phoneDisplay').textContent = data.phone || 'N/A';
+  document.getElementById('jobDisplay').textContent = data.job || 'N/A';
+  document.getElementById('batchYearDisplay').textContent = `Batch ${data.batch || 'N/A'} | Year ${data.year || 'N/A'}`;
+  
+  // Edit mode fields
+  document.getElementById('nameInput').value = data.name || '';
+  document.getElementById('emailInput').value = data.email || '';
+  document.getElementById('phoneInput').value = data.phone || '';
+  document.getElementById('jobInput').value = data.job || '';
+  document.getElementById('batchInput').value = data.batch || '';
+  document.getElementById('yearInput').value = data.year || '';
+}
+
+// Toggle edit mode
+function toggleEditMode() {
+  document.getElementById('viewMode').style.display = 'none';
+  document.getElementById('editMode').classList.add('active');
+  document.getElementById('editBtn').style.display = 'none';
+}
+
+// Cancel edit
+function cancelEdit() {
+  document.getElementById('editMode').classList.remove('active');
+  document.getElementById('viewMode').style.display = 'grid';
+  document.getElementById('editBtn').style.display = 'inline-block';
+  
+  // Reset form to original data
+  displayProfile(userData);
+}
+
+// Show success toast
+function showSuccessToast() {
+  const toast = document.getElementById('successToast');
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// Handle form submission
+document.getElementById('profileForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  if (!currentUserDoc) {
+    alert('Error: User not found');
+    return;
+  }
+  
+  // Get updated data
+  const updatedData = {
+    name: document.getElementById('nameInput').value.trim(),
+    phone: document.getElementById('phoneInput').value.trim(),
+    job: document.getElementById('jobInput').value.trim(),
+    year: document.getElementById('yearInput').value.trim(),
+    updatedAt: new Date().toISOString()
+  };
+  
+  // Validate
+  if (!updatedData.name || !updatedData.phone || !updatedData.job || !updatedData.year) {
+    alert('Please fill all required fields');
+    return;
+  }
+  
+  try {
+    // Update in Firebase
+    await db.collection("alumni").doc(currentUserDoc).update(updatedData);
+    
+    // Update local userData
+    userData = { ...userData, ...updatedData };
+    
+    // Update display
+    displayProfile(userData);
+    
+    // Switch back to view mode
+    cancelEdit();
+    
+    // Show success message
+    showSuccessToast();
+    
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    alert('Error updating profile: ' + error.message);
+  }
 });
+
+// Initialize
+window.addEventListener('load', function() {
+  createParticles();
+  loadProfile();
+});
+
+// Logout function
+function logout() {
+  if (confirm('আপনি কি সত্যিই logout করতে চান?')) {
+    localStorage.removeItem('alumniUserEmail');
+    localStorage.removeItem('alumniUserName');
+    window.location.href = 'login.html';
+  }
+}
 </script>
 
 </body>
