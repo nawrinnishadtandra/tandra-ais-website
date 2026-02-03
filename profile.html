@@ -598,7 +598,7 @@ nav {
   <a href="donation.html" class="nav-link">Donation</a>
   <a href="notices.html" class="nav-link">Notice</a>
   <a href="event.html" class="nav-link">Next Event</a>
-  <a href="my-profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">My Profile</a>
+  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">My Profile</a>
 </nav>
 
 <!-- Success Toast -->
@@ -840,36 +840,47 @@ function checkLogin() {
 function loadProfile() {
   if (!checkLogin()) return;
   
-  // Find user by email
-  db.collection("alumni")
-    .where("email", "==", currentUserEmail)
-    .limit(1)
-    .get()
-    .then(snapshot => {
-      if (snapshot.empty) {
-        // No profile found
+  // Find user by email with retry mechanism
+  const tryLoadProfile = (retryCount = 0) => {
+    db.collection("alumni")
+      .where("email", "==", currentUserEmail)
+      .limit(1)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          // Retry up to 2 times if just registered
+          if (retryCount < 2) {
+            console.log("Profile not found, retrying...", retryCount + 1);
+            setTimeout(() => tryLoadProfile(retryCount + 1), 1000);
+            return;
+          }
+          
+          // No profile found after retries
+          document.getElementById('loadingState').style.display = 'none';
+          document.getElementById('loginPrompt').classList.add('show');
+          return;
+        }
+        
+        // Get user data
+        const doc = snapshot.docs[0];
+        currentUserDoc = doc.id;
+        userData = doc.data();
+        
+        // Display profile
+        displayProfile(userData);
+        
+        // Hide loading, show profile
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('profileCard').style.display = 'block';
+      })
+      .catch(error => {
+        console.error("Error loading profile:", error);
         document.getElementById('loadingState').style.display = 'none';
         document.getElementById('loginPrompt').classList.add('show');
-        return;
-      }
-      
-      // Get user data
-      const doc = snapshot.docs[0];
-      currentUserDoc = doc.id;
-      userData = doc.data();
-      
-      // Display profile
-      displayProfile(userData);
-      
-      // Hide loading, show profile
-      document.getElementById('loadingState').style.display = 'none';
-      document.getElementById('profileCard').style.display = 'block';
-    })
-    .catch(error => {
-      console.error("Error loading profile:", error);
-      document.getElementById('loadingState').style.display = 'none';
-      document.getElementById('loginPrompt').classList.add('show');
-    });
+      });
+  };
+  
+  tryLoadProfile();
 }
 
 // Display profile data
@@ -981,7 +992,7 @@ function logout() {
   if (confirm('আপনি কি সত্যিই logout করতে চান?')) {
     localStorage.removeItem('alumniUserEmail');
     localStorage.removeItem('alumniUserName');
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
   }
 }
 </script>
