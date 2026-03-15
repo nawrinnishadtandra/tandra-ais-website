@@ -67,9 +67,9 @@ nav.scrolled{height:56px}
 
 /* CARD — smooth float, no shake */
 .card-col{display:flex;align-items:center;justify-content:center}
-.card-wrap{will-change:transform;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;animation:floatOnly 5s ease-in-out infinite}
-@keyframes floatOnly{0%,100%{transform:translateZ(0) translateY(0px)}50%{transform:translateZ(0) translateY(-16px)}}
-.card{width:310px;background:linear-gradient(148deg,#172E58 0%,#0B1E3D 55%,#0E2549 100%);border-radius:22px;padding:1.6rem 1.5rem 1.4rem;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 48px rgba(11,30,61,.38);position:relative;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card-wrap{will-change:transform;}
+/* float handled by JS rAF only */
+.card{width:310px;background:linear-gradient(148deg,#172E58 0%,#0B1E3D 55%,#0E2549 100%);border-radius:22px;padding:1.6rem 1.5rem 1.4rem;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 48px rgba(11,30,61,.38);position:relative;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)}
 .cg1{position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%);pointer-events:none}
 .cg2{position:absolute;bottom:-50px;left:-50px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.28) 0%,transparent 68%);pointer-events:none}
@@ -373,6 +373,21 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
     pl.intensity=1.1+Math.sin(t*.7)*.28;
     R.render(S,C);
   })();
+})();
+
+// CARD FLOAT via rAF — no CSS animation, no jitter
+(function(){
+  const wrap = document.querySelector('.card-wrap');
+  if(!wrap) return;
+  let start = null;
+  function step(ts){
+    if(!start) start = ts;
+    const elapsed = (ts - start) / 1000;
+    const y = Math.sin(elapsed * (2 * Math.PI / 5)) * -14;
+    wrap.style.transform = 'translateY(' + y.toFixed(3) + 'px)';
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 })();
 
 // SCROLL REVEAL
