@@ -160,20 +160,31 @@ function createCard(n,i){
     ${n.signature?`<div class="notice-sig"><div class="sig-name">${n.signature.name}</div><div class="sig-role">${n.signature.title}${n.signature.batch?` · Batch ${n.signature.batch}`:''}</div></div>`:''}
   </div>`;}
 
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.05});
+
 function render(notices){
   document.getElementById('loadingState').style.display='none';
   const all=[featuredNotice,...notices];
-  if(!all.length){document.getElementById('emptyState').style.display='block';return;}
   document.getElementById('noticesContainer').innerHTML=all.map(createCard).join('');
-  const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
-  document.querySelectorAll('.notice-card.reveal').forEach(el=>ro.observe(el));
+  /* force visible immediately for cards already in viewport */
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.notice-card.reveal').forEach(el=>{
+      ro.observe(el);
+      /* also check if already in viewport */
+      const rect=el.getBoundingClientRect();
+      if(rect.top<window.innerHeight)el.classList.add('vis');
+    });
+  });
 }
 
 db.collection('notices').orderBy('date','desc').onSnapshot(snap=>{
   const notices=[];
   snap.forEach(doc=>notices.push({id:doc.id,...doc.data()}));
   render(notices);
-},()=>render([]));
+},err=>{
+  console.error(err);
+  render([]);
+});
 </script>
 </body>
 </html>
