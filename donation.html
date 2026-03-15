@@ -1,995 +1,179 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Donation | AIS Alumni</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Hind Siliguri', sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-  background: #0a0e27;
-  position: relative;
-}
-
-/* Animated Gradient Background */
-.bg-animate {
-  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating Particles */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(138, 80, 255, 0.5);
-  border-radius: 50%;
-  animation: float 20s infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% {
-    transform: translateY(-100vh) translateX(100px);
-    opacity: 0;
-  }
-}
-
-/* Mobile-friendly Navigation */
-nav {
-  position: relative;
-  z-index: 30;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-link {
-  position: relative;
-  color: #ffffff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.75rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.nav-link:hover::before {
-  opacity: 1;
-}
-
-.nav-link:hover {
-  color: #8A50FF;
-  transform: translateY(-2px);
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  z-index: 10;
-  min-height: 40vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem 1rem;
-}
-
-.hero-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-  animation: titleGlow 3s ease-in-out infinite;
-}
-
-@keyframes titleGlow {
-  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
-  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
-}
-
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.hero-text {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Main Content Container */
-.content-wrapper {
-  position: relative;
-  z-index: 10;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem;
-}
-
-/* Glassmorphism Cards */
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  padding: 2rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.glass-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(138, 80, 255, 0.1),
-    transparent
-  );
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-.glass-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 80px rgba(138, 80, 255, 0.3);
-  border-color: rgba(138, 80, 255, 0.3);
-}
-
-/* Why Donate Section */
-.why-donate-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-@media (min-width: 768px) {
-  .why-donate-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.donate-reason {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.donate-reason:hover {
-  background: rgba(138, 80, 255, 0.1);
-  border-color: rgba(138, 80, 255, 0.3);
-  transform: scale(1.05);
-}
-
-.reason-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
-  animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.reason-title {
-  color: #8A50FF;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.reason-text {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* bKash Card - Enhanced */
-.bkash-container {
-  margin: 3rem auto;
-  max-width: 500px;
-}
-
-.bkash-card {
-  position: relative;
-  background: linear-gradient(135deg, #E2136E, #C70D5C);
-  border-radius: 2rem;
-  padding: 2.5rem;
-  box-shadow: 
-    0 20px 60px rgba(226, 19, 110, 0.4),
-    0 0 100px rgba(226, 19, 110, 0.2);
-  animation: cardFloat 4s ease-in-out infinite;
-  overflow: hidden;
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0) rotateX(0deg); }
-  50% { transform: translateY(-20px) rotateX(5deg); }
-}
-
-.bkash-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  animation: cardShine 3s infinite;
-}
-
-@keyframes cardShine {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.bkash-logo {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  letter-spacing: 3px;
-}
-
-.bkash-label {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-}
-
-.bkash-number {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 1.5rem;
-  padding: 1.25rem 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.bkash-number::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: numberScan 2s infinite;
-}
-
-@keyframes numberScan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.number-digits {
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
-  font-weight: 700;
-  color: white;
-  letter-spacing: 3px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  position: relative;
-  z-index: 1;
-}
-
-.copy-number-btn {
-  margin-top: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 0.75rem 2rem;
-  border-radius: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-  width: 100%;
-}
-
-.copy-number-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
-
-.copy-number-btn:active {
-  transform: scale(0.95);
-}
-
-.reference-text {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.95rem;
-  text-align: center;
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-/* Donation Steps */
-.steps-container {
-  margin: 3rem 0;
-}
-
-.step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.step-item:hover {
-  background: rgba(138, 80, 255, 0.1);
-  border-color: rgba(138, 80, 255, 0.3);
-}
-
-.step-number {
-  min-width: 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  box-shadow: 0 10px 30px rgba(138, 80, 255, 0.4);
-}
-
-.step-content {
-  flex: 1;
-}
-
-.step-title {
-  color: #8A50FF;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.step-description {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* Donation Button */
-.donation-btn {
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  color: white;
-  padding: 1.25rem 3rem;
-  border-radius: 2rem;
-  border: none;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 40px rgba(138, 80, 255, 0.4);
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 400px;
-  display: block;
-  margin: 2rem auto;
-}
-
-.donation-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.donation-btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.donation-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 60px rgba(138, 80, 255, 0.6);
-}
-
-.donation-btn span {
-  position: relative;
-  z-index: 1;
-}
-
-/* Impact Stats */
-.impact-stats {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin: 3rem 0;
-}
-
-@media (min-width: 640px) {
-  .impact-stats {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.stat-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.5rem;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  background: rgba(138, 80, 255, 0.1);
-  transform: scale(1.05);
-  border-color: rgba(138, 80, 255, 0.3);
-}
-
-.stat-number {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-/* Success Modal */
-.success-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 1rem;
-}
-
-.success-modal.active {
-  display: flex;
-  animation: fadeIn 0.3s ease;
-}
-
-.success-content {
-  background: linear-gradient(135deg, rgba(138, 80, 255, 0.9), rgba(255, 107, 157, 0.9));
-  border-radius: 2rem;
-  padding: 3rem 2rem;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-  animation: modalSlideUp 0.5s ease;
-  position: relative;
-}
-
-@keyframes modalSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.success-icon {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  animation: successBounce 0.6s ease;
-}
-
-@keyframes successBounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
-.success-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.success-message {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.close-modal-btn {
-  background: white;
-  color: #8A50FF;
-  padding: 1rem 2.5rem;
-  border-radius: 1.5rem;
-  border: none;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.close-modal-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  nav {
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
-  }
-
-  .nav-link {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  .hero-section {
-    padding: 2rem 1rem;
-    min-height: 35vh;
-  }
-
-  .content-wrapper {
-    padding: 1.5rem 1rem 3rem;
-  }
-
-  .glass-card {
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-  }
-
-  .bkash-card {
-    padding: 2rem 1.5rem;
-  }
-
-  .bkash-logo {
-    font-size: 2rem;
-  }
-
-  .step-item {
-    gap: 1rem;
-    padding: 1.25rem;
-  }
-
-  .step-number {
-    min-width: 40px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.25rem;
-  }
-
-  .donation-btn {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
-
-  .success-content {
-    padding: 2rem 1.5rem;
-  }
-
-  .success-icon {
-    font-size: 4rem;
-  }
-
-  .success-title {
-    font-size: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.75rem;
-  }
-
-  .bkash-logo {
-    font-size: 1.75rem;
-    letter-spacing: 2px;
-  }
-
-  .number-digits {
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-  }
-}
-
-/* Tooltip */
-.tooltip {
-  position: relative;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 140px;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #fff;
-  text-align: center;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -70px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 0.85rem;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
+.nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-menu a{color:#3a4f6a;font-size:.8rem;font-weight:500;padding:.4rem .7rem;border-radius:6px;text-decoration:none;transition:color .2s,background .2s}
+.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem}
+@media(max-width:768px){.nav-menu{display:none}}
+
+.page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:5rem clamp(1.5rem,5vw,4rem) 3rem;margin-top:62px;position:relative;overflow:hidden;text-align:center}
+.page-header::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,151,43,.15) 0%,transparent 70%)}
+.page-header-inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
+.page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:.6rem}
+.page-title em{font-style:italic;color:#E8B84B}
+.page-desc{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7}
+
+.content{max-width:900px;margin:0 auto;padding:3rem clamp(1.5rem,5vw,4rem)}
+
+/* IMPACT STATS */
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:3rem}
+.impact-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.5rem;text-align:center}
+.impact-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#0B1E3D;line-height:1;margin-bottom:.3rem}
+.impact-num span{color:#C8972B}
+.impact-lbl{font-size:.78rem;color:#6B7C93}
+
+/* WHY DONATE */
+.section-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:18px;padding:2rem;margin-bottom:2rem}
+.section-eye{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8972B;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.section-eye::before{content:'';width:16px;height:2px;background:#C8972B;border-radius:2px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#0B1E3D;margin-bottom:1.5rem;line-height:1.2}
+.reasons-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.reason{background:#F9F7F3;border-radius:12px;padding:1.25rem;border:1px solid rgba(11,30,61,.06)}
+.reason-ico{font-size:1.8rem;margin-bottom:.75rem}
+.reason-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#0B1E3D;margin-bottom:.35rem}
+.reason-text{font-size:.8rem;color:#6B7C93;line-height:1.65}
+
+/* BKASH CARD */
+.bkash-wrap{margin:2rem 0;display:flex;justify-content:center}
+.bkash-card{background:linear-gradient(135deg,#E2136E,#C70D5C);border-radius:20px;padding:2.25rem;width:100%;max-width:400px;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(226,19,110,.35)}
+.bkash-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.bkash-title{font-size:2rem;font-weight:700;color:#fff;text-align:center;letter-spacing:.06em;margin-bottom:1.25rem;position:relative;z-index:1}
+.bkash-label{font-size:.78rem;color:rgba(255,255,255,.75);text-align:center;margin-bottom:.6rem;position:relative;z-index:1;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.bkash-number-box{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:1rem;text-align:center;margin-bottom:.9rem;position:relative;z-index:1}
+.bkash-number{font-size:1.8rem;font-weight:700;color:#fff;letter-spacing:.08em}
+.copy-btn{width:100%;padding:.72rem;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.28);border-radius:9px;color:#fff;font-size:.85rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;position:relative;z-index:1}
+.copy-btn:hover{background:rgba(255,255,255,.28)}
+.bkash-ref{font-size:.78rem;color:rgba(255,255,255,.7);text-align:center;margin-top:.75rem;position:relative;z-index:1}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:.75rem}
+.step{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06)}
+.step-num{width:34px;height:34px;border-radius:50%;background:#0B1E3D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.step-title{font-size:.88rem;font-weight:600;color:#0B1E3D;margin-bottom:.2rem}
+.step-text{font-size:.8rem;color:#6B7C93;line-height:1.6}
+
+.donated-btn{display:block;width:100%;max-width:360px;margin:1.75rem auto 0;padding:.9rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;text-align:center}
+.donated-btn:hover{background:#1A3260;transform:translateY(-1px)}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:20px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 70px rgba(11,30,61,.2);animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.modal-ico{font-size:3rem;margin-bottom:.75rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.5rem}
+.modal-text{font-size:.85rem;color:#6B7C93;line-height:1.7;margin-bottom:1.5rem}
+.modal-close{padding:.82rem 2.5rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:600;font-family:inherit;cursor:pointer}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
-<body class="bg-animate min-h-screen">
-
-<!-- Floating Particles Background -->
-<div class="particles" id="particles"></div>
-
-<!-- Navigation -->
+<body>
 <nav>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="database.html" class="nav-link">Alumni Database</a>
-  <a href="register.html" class="nav-link">Register</a>
-  <a href="donation.html" class="nav-link">Donation</a>
-  <a href="notices.html" class="nav-link">Notice</a>
-  <a href="event.html" class="nav-link">Next Event</a>
-  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">Profile</a>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon">🎓</div>
+    <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="database.html">Alumni Database</a></li>
+    <li><a href="notices.html">Notice</a></li>
+    <li><a href="event.html">Events</a></li>
+    <li><a href="register.html">Register</a></li>
+    <li><a href="profile.html" class="cta">My Profile</a></li>
+  </ul>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero-section">
-  <h1 class="hero-title">Support Your Alumni Community</h1>
-  <h2 class="hero-subtitle">Accounting & Information Systems</h2>
-  <p class="hero-text">University of Barishal</p>
-</section>
-
-<!-- Main Content -->
-<div class="content-wrapper">
-  
-  <!-- Why Donate Section -->
-  <div class="glass-card">
-    <h2 style="text-align: center; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; background: linear-gradient(135deg, #8A50FF, #FF6B9D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2rem;">
-      কেন আপনার Donation প্রয়োজন? 💜
-    </h2>
-    
-    <div class="why-donate-grid">
-      <div class="donate-reason">
-        <span class="reason-icon">🎓</span>
-        <h3 class="reason-title">Scholarship Program</h3>
-        <p class="reason-text">মেধাবী কিন্তু অসচ্ছল শিক্ষার্থীদের জন্য scholarship fund তৈরি করা।</p>
-      </div>
-      
-      <div class="donate-reason">
-        <span class="reason-icon">🌟</span>
-        <h3 class="reason-title">Alumni Events</h3>
-        <p class="reason-text">Annual reunion, career fair এবং networking event আয়োজন করা।</p>
-      </div>
-      
-      <div class="donate-reason">
-        <span class="reason-icon">💼</span>
-        <h3 class="reason-title">Career Support</h3>
-        <p class="reason-text">Job placement, mentorship এবং career counseling program চালু রাখা।</p>
-      </div>
-      
-      <div class="donate-reason">
-        <span class="reason-icon">🏆</span>
-        <h3 class="reason-title">Department Development</h3>
-        <p class="reason-text">Lab equipment, library এবং department infrastructure উন্নয়ন করা।</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Impact Stats -->
-  <div class="impact-stats">
-    <div class="stat-card">
-      <div class="stat-number">50+</div>
-      <div class="stat-label">Scholarships Awarded</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">10+</div>
-      <div class="stat-label">Events Organized</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">200+</div>
-      <div class="stat-label">Alumni Connected</div>
-    </div>
-  </div>
-
-  <!-- bKash Donation Card -->
-  <div class="bkash-container">
-    <div class="bkash-card">
-      <div class="bkash-logo">bKash</div>
-      <div class="bkash-label">Send Money Number:</div>
-      <div class="bkash-number">
-        <div class="number-digits" id="bkashNumber">01328988100</div>
-      </div>
-      <button class="copy-number-btn tooltip" onclick="copyNumber()">
-        📋 Copy Number
-        <span class="tooltip-text" id="copyTooltip">Click to copy!</span>
-      </button>
-      <p class="reference-text">Reference: <strong>AIS Alumni Donation</strong></p>
-    </div>
-  </div>
-
-  <!-- Donation Steps -->
-  <div class="glass-card">
-    <h2 style="text-align: center; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: white; margin-bottom: 2rem;">
-      কীভাবে Donation করবেন? 📱
-    </h2>
-    
-    <div class="steps-container">
-      <div class="step-item">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <div class="step-title">bKash App খুলুন</div>
-          <div class="step-description">আপনার mobile এ bKash app open করুন</div>
-        </div>
-      </div>
-
-      <div class="step-item">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <div class="step-title">Send Money Select করুন</div>
-          <div class="step-description">Menu থেকে "Send Money" option এ click করুন</div>
-        </div>
-      </div>
-
-      <div class="step-item">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <div class="step-title">Number Enter করুন</div>
-          <div class="step-description">উপরের number টি copy করে paste করুন: <strong style="color: #FF6B9D;">01328988100</strong></div>
-        </div>
-      </div>
-
-      <div class="step-item">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <div class="step-title">Amount & Reference দিন</div>
-          <div class="step-description">আপনার donation amount এবং reference এ <strong style="color: #FF6B9D;">"AIS Alumni Donation"</strong> লিখুন</div>
-        </div>
-      </div>
-
-      <div class="step-item">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <div class="step-title">Confirm করুন</div>
-          <div class="step-description">আপনার PIN enter করে transaction complete করুন</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="donation-btn" onclick="showSuccessModal()">
-      <span>💖 I Have Donated</span>
-    </button>
-  </div>
-
-  <!-- Thank You Message -->
-  <div class="glass-card" style="text-align: center; margin-top: 3rem;">
-    <h3 style="font-size: 1.75rem; font-weight: 700; color: white; margin-bottom: 1rem;">
-      আপনার Donation এর প্রভাব ✨
-    </h3>
-    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; line-height: 1.8; max-width: 700px; margin: 0 auto;">
-      আমাদের alumni association পরিচালনা, event আয়োজন, scholarship, career support এবং future student দের সাহায্য করার জন্য alumni donation অত্যন্ত গুরুত্বপূর্ণ। প্রতিটি donation, ছোট হোক বা বড়, আমাদের AIS পরিবারকে আরও শক্তিশালী করে।
-    </p>
-    <div style="margin-top: 2rem; font-size: 3rem;">
-      🙏 ❤️ 🌟
-    </div>
-  </div>
-
-</div>
-
-<!-- Success Modal -->
-<div class="success-modal" id="successModal">
-  <div class="success-content">
-    <div class="success-icon">✨🎉✨</div>
-    <h2 class="success-title">ধন্যবাদ!</h2>
-    <p class="success-message">
-      আপনার donation এর জন্য আমরা আন্তরিকভাবে কৃতজ্ঞ। আপনার এই অবদান AIS Alumni community কে আরও শক্তিশালী করবে এবং future generation এর জন্য নতুন সুযোগ তৈরি করবে।
-    </p>
-    <button class="close-modal-btn" onclick="closeSuccessModal()">Close</button>
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Support Us</div>
+    <h1 class="page-title">Make a <em>Donation</em></h1>
+    <p class="page-desc">Your contribution strengthens the AIS Alumni community and creates opportunities for future generations at the Department of Accounting &amp; Information Systems.</p>
   </div>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js"></script>
+<div class="content">
+  <div class="impact-grid reveal">
+    <div class="impact-card"><div class="impact-num">50<span>+</span></div><div class="impact-lbl">Scholarships Awarded</div></div>
+    <div class="impact-card"><div class="impact-num">10<span>+</span></div><div class="impact-lbl">Events Organized</div></div>
+    <div class="impact-card"><div class="impact-num">200<span>+</span></div><div class="impact-lbl">Alumni Connected</div></div>
+  </div>
+
+  <div class="section-card reveal">
+    <div class="section-eye">Why Donate</div>
+    <div class="section-title">Your Support Makes a Difference</div>
+    <div class="reasons-grid">
+      <div class="reason"><div class="reason-ico">🎓</div><div class="reason-title">Scholarship Program</div><div class="reason-text">Fund scholarships for talented students who need financial support.</div></div>
+      <div class="reason"><div class="reason-ico">🌟</div><div class="reason-title">Alumni Events</div><div class="reason-text">Support annual reunions, career fairs, and networking events.</div></div>
+      <div class="reason"><div class="reason-ico">💼</div><div class="reason-title">Career Support</div><div class="reason-text">Enable job placement, mentorship, and career counseling programs.</div></div>
+      <div class="reason"><div class="reason-ico">🏆</div><div class="reason-title">Department Growth</div><div class="reason-text">Improve labs, library resources, and department infrastructure.</div></div>
+    </div>
+  </div>
+
+  <div class="section-card reveal">
+    <div class="section-eye">How to Donate</div>
+    <div class="section-title">Send via bKash</div>
+    <div class="bkash-wrap">
+      <div class="bkash-card">
+        <div class="bkash-title">bKash</div>
+        <div class="bkash-label">Send Money Number</div>
+        <div class="bkash-number-box"><div class="bkash-number" id="bkashNum">01328988100</div></div>
+        <button class="copy-btn" onclick="copyNum()">📋 Copy Number</button>
+        <div class="bkash-ref">Reference: <strong>AIS Alumni Donation</strong></div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><div class="step-title">Open bKash App</div><div class="step-text">Launch the bKash app on your mobile device.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div><div class="step-title">Select Send Money</div><div class="step-text">Tap "Send Money" from the main menu.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div><div class="step-title">Enter Number</div><div class="step-text">Copy and paste the number: <strong>01328988100</strong></div></div></div>
+      <div class="step"><div class="step-num">4</div><div><div class="step-title">Add Reference</div><div class="step-text">Enter your amount and write <strong>"AIS Alumni Donation"</strong> as the reference.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div><div class="step-title">Confirm</div><div class="step-text">Enter your PIN to complete the transaction.</div></div></div>
+    </div>
+    <button class="donated-btn" onclick="document.getElementById('modal').classList.add('open')">💖 I Have Donated</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-ico">🙏</div>
+    <div class="modal-title">Thank You!</div>
+    <div class="modal-text">Your generous donation means the world to us. It will help strengthen the AIS Alumni community and support future generations of students.</div>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">Close</button>
+  </div>
+</div>
+
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
 <script>
-// Create floating particles
-function createParticles() {
-  const container = document.getElementById('particles');
-  const particleCount = window.innerWidth < 768 ? 30 : 50;
-  
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-    
-    // Random colors
-    const colors = ['rgba(138, 80, 255, 0.5)', 'rgba(255, 107, 157, 0.5)', 'rgba(255, 217, 61, 0.5)'];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    
-    container.appendChild(particle);
-  }
-}
-
-// Copy bKash number
-function copyNumber() {
-  const number = document.getElementById('bkashNumber').innerText;
-  const tooltip = document.getElementById('copyTooltip');
-  
-  navigator.clipboard.writeText(number).then(() => {
-    tooltip.innerText = 'Copied! ✓';
-    setTimeout(() => {
-      tooltip.innerText = 'Click to copy!';
-    }, 2000);
-  }).catch(err => {
-    tooltip.innerText = 'Failed to copy';
+function copyNum(){
+  navigator.clipboard.writeText('01328988100').then(()=>{
+    const btn=document.querySelector('.copy-btn');
+    btn.textContent='✓ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy Number',2000);
   });
 }
-
-// Show success modal
-function showSuccessModal() {
-  document.getElementById('successModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  
-  // Confetti effect (optional - you can add a confetti library)
-  console.log('Thank you for your donation! 🎉');
-}
-
-// Close success modal
-function closeSuccessModal() {
-  document.getElementById('successModal').classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-// Close modal on outside click
-document.getElementById('successModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeSuccessModal();
-  }
-});
-
-// Initialize
-window.addEventListener('load', function() {
-  createParticles();
-});
-
-// Animate elements on scroll
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, observerOptions);
-
-// Observe all cards and sections
-document.querySelectorAll('.glass-card, .donate-reason, .stat-card, .step-item').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'all 0.6s ease';
-  observer.observe(el);
-});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
-
 </body>
 </html>
