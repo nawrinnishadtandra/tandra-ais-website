@@ -1,970 +1,190 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registration | AIS Alumni</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<title>Register | AIS Alumni</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Hind Siliguri', sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-  background: #0a0e27;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* Animated Gradient Background */
-.bg-animate {
-  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  min-height: 100vh;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating Particles */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: rgba(138, 80, 255, 0.4);
-  border-radius: 50%;
-  animation: float 20s infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% {
-    transform: translateY(-100vh) translateX(100px);
-    opacity: 0;
-  }
-}
-
-/* Mobile-friendly Navigation */
-nav {
-  position: relative;
-  z-index: 30;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-link {
-  position: relative;
-  color: #ffffff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.75rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.nav-link:hover::before {
-  opacity: 1;
-}
-
-.nav-link:hover {
-  color: #8A50FF;
-  transform: translateY(-2px);
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  z-index: 10;
-  min-height: 30vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1rem 1rem;
-}
-
-.hero-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.5rem;
-  animation: titleGlow 3s ease-in-out infinite;
-}
-
-@keyframes titleGlow {
-  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
-  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
-}
-
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-  margin-bottom: 0.5rem;
-}
-
-/* Form Container */
-.form-container {
-  position: relative;
-  z-index: 10;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 3rem;
-}
-
-/* Glass Form Card */
-.form-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-  animation: cardSlideUp 0.6s ease;
-}
-
-@keyframes cardSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.form-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(138, 80, 255, 0.1),
-    transparent
-  );
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-/* Form Title */
-.form-title {
-  text-align: center;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-  color: white;
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-.form-subtitle {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  margin-bottom: 2rem;
-}
-
-/* Form Groups */
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.form-label {
-  display: block;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
-}
-
-/* Premium Input Styling */
-.futuristic {
-  width: 100%;
-  padding: 1rem 1.25rem;
-  border-radius: 1rem;
-  border: 2px solid rgba(138, 80, 255, 0.3);
-  outline: none;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  color: white;
-  font-weight: 500;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.futuristic::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 400;
-}
-
-.futuristic:focus {
-  border-color: #8A50FF;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 0 20px rgba(138, 80, 255, 0.3),
-    0 4px 20px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-}
-
-.futuristic:hover {
-  border-color: rgba(138, 80, 255, 0.5);
-}
-
-/* Select Dropdown */
-select.futuristic {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A50FF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 3rem;
-}
-
-/* Input Icons */
-.input-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.2rem;
-  pointer-events: none;
-}
-
-.has-icon {
-  padding-left: 3rem;
-}
-
-/* Batch Grid */
-.batch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-}
-
-.batch-option {
-  position: relative;
-}
-
-.batch-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.batch-label {
-  display: block;
-  padding: 0.75rem;
-  text-align: center;
-  border-radius: 0.75rem;
-  border: 2px solid rgba(138, 80, 255, 0.3);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.batch-option input[type="radio"]:checked + .batch-label {
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  border-color: transparent;
-  color: white;
-  box-shadow: 0 4px 15px rgba(138, 80, 255, 0.4);
-  transform: scale(1.05);
-}
-
-.batch-label:hover {
-  border-color: #8A50FF;
-  background: rgba(138, 80, 255, 0.1);
-}
-
-/* Password Toggle */
-.password-toggle {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.5);
-  transition: color 0.3s ease;
-}
-
-.password-toggle:hover {
-  color: #8A50FF;
-}
-
-/* Submit Button */
-.submit-btn {
-  width: 100%;
-  padding: 1.25rem;
-  border-radius: 1.5rem;
-  border: none;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 40px rgba(138, 80, 255, 0.4);
-  position: relative;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.submit-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.submit-btn:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.submit-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 50px rgba(138, 80, 255, 0.6);
-}
-
-.submit-btn:active {
-  transform: translateY(-1px);
-}
-
-.submit-btn span {
-  position: relative;
-  z-index: 1;
-}
-
-/* Loading State */
-.submit-btn.loading {
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-.submit-btn.loading span::after {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  margin-left: 10px;
-  animation: spin 0.8s linear infinite;
-  vertical-align: middle;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Success Message */
-.success-message {
-  background: linear-gradient(135deg, rgba(138, 80, 255, 0.2), rgba(255, 107, 157, 0.2));
-  border: 2px solid rgba(138, 80, 255, 0.5);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  text-align: center;
-  color: white;
-  margin-top: 1.5rem;
-  display: none;
-  animation: successSlide 0.5s ease;
-}
-
-@keyframes successSlide {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.success-message.show {
-  display: block;
-}
-
-.success-icon {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  animation: successBounce 0.6s ease;
-}
-
-@keyframes successBounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
-/* Error Message */
-.error-message {
-  color: #FF6B9D;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  padding-left: 0.5rem;
-  display: none;
-}
-
-.form-group.error .futuristic {
-  border-color: #FF6B9D;
-  animation: shake 0.5s ease;
-}
-
-.form-group.error .error-message {
-  display: block;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
-}
-
-/* Info Card */
-.info-card {
-  background: rgba(138, 80, 255, 0.1);
-  border: 1px solid rgba(138, 80, 255, 0.3);
-  border-radius: 1rem;
-  padding: 1.25rem;
-  margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.info-card strong {
-  color: #8A50FF;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  nav {
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
-  }
-
-  .nav-link {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  .hero-section {
-    padding: 1.5rem 1rem 1rem;
-    min-height: 25vh;
-  }
-
-  .form-container {
-    padding: 1rem 0.75rem 2rem;
-  }
-
-  .form-card {
-    padding: 2rem 1.5rem;
-    border-radius: 1.5rem;
-  }
-
-  .futuristic {
-    padding: 0.875rem 1rem;
-    font-size: 0.95rem;
-  }
-
-  .batch-grid {
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    gap: 0.5rem;
-  }
-
-  .batch-label {
-    padding: 0.625rem;
-    font-size: 0.85rem;
-  }
-
-  .submit-btn {
-    padding: 1rem;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-card {
-    padding: 1.5rem 1.25rem;
-  }
-
-  .batch-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Touch Optimization */
-@media (hover: none) {
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh;display:flex;flex-direction:column}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
+.nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-menu a{color:#3a4f6a;font-size:.8rem;font-weight:500;padding:.4rem .7rem;border-radius:6px;text-decoration:none;transition:color .2s,background .2s}
+.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem}
+@media(max-width:768px){.nav-menu{display:none}}
+
+.main{flex:1;padding:5rem 1.5rem 3rem}
+.form-wrap{max-width:560px;margin:0 auto}
+.form-card{background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:20px;padding:2.5rem;box-shadow:0 8px 40px rgba(11,30,61,.08)}
+.form-logo{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1.5rem}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#0B1E3D;text-align:center;margin-bottom:.3rem}
+.form-sub{font-size:.83rem;color:#6B7C93;text-align:center;margin-bottom:.3rem}
+.form-dept{font-size:.76rem;color:#C8972B;font-weight:600;text-align:center;margin-bottom:1.75rem;letter-spacing:.03em}
+.info-note{background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:9px;padding:.85rem 1rem;font-size:.8rem;color:#6B4c0a;line-height:1.6;margin-bottom:1.75rem}
+.form-group{margin-bottom:1.25rem}
+.form-label{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.4rem}
+.form-input{width:100%;padding:.72rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.88rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.form-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.form-input.error{border-color:#e74c3c}
+.form-error{font-size:.76rem;color:#e74c3c;margin-top:.3rem;display:none}
+.form-group.has-error .form-error{display:block}
+.form-group.has-error .form-input{border-color:#e74c3c}
+.pass-wrap{position:relative}
+.pass-toggle{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;color:#6B7C93;background:none;border:none;padding:0}
+
+/* BATCH GRID */
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.5rem;margin-top:.4rem}
+.batch-opt input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
+.batch-lbl{display:block;padding:.55rem .4rem;text-align:center;border-radius:8px;border:1.5px solid rgba(11,30,61,.12);background:transparent;color:#5a6e84;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s}
+.batch-opt input:checked+.batch-lbl{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
+.batch-lbl:hover{border-color:#C8972B;color:#0B1E3D}
+
+.submit-btn{width:100%;padding:.88rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;margin-top:.5rem}
+.submit-btn:hover{background:#1A3260;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.success-msg{background:linear-gradient(135deg,rgba(11,30,61,.05),rgba(200,151,43,.05));border:1.5px solid rgba(200,151,43,.3);border-radius:12px;padding:1.5rem;text-align:center;display:none;margin-top:1.25rem}
+.success-msg.show{display:block}
+.success-ico{font-size:2.5rem;margin-bottom:.5rem}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
+.success-text{font-size:.82rem;color:#6B7C93}
+.form-footer{text-align:center;margin-top:1.5rem;font-size:.82rem;color:#6B7C93}
+.form-footer a{color:#C8972B;font-weight:600;text-decoration:none}
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.2rem;font-size:.74rem;color:#6B7C93;margin-top:auto}
 </style>
 </head>
-<body class="bg-animate">
-
-<!-- Floating Particles Background -->
-<div class="particles" id="particles"></div>
-
-<!-- Navigation -->
+<body>
 <nav>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="database.html" class="nav-link">Alumni Database</a>
-  <a href="register.html" class="nav-link">Register</a>
-  <a href="donation.html" class="nav-link">Donation</a>
-  <a href="notices.html" class="nav-link">Notice</a>
-  <a href="event.html" class="nav-link">Next Event</a>
-  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">Profile</a>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon">🎓</div>
+    <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="database.html">Alumni Database</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="profile.html" class="cta">My Profile</a></li>
+  </ul>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero-section">
-  <h1 class="hero-title">Alumni Registration</h1>
-  <p class="hero-subtitle">Join Accounting & Information Systems Alumni Community</p>
-</section>
-
-<!-- Form Container -->
-<div class="form-container">
-  <div class="form-card">
-    <h2 class="form-title">📝 Register Now</h2>
-    <p class="form-subtitle">আমাদের Alumni পরিবারের অংশ হন</p>
-
-    <!-- Info Card -->
-    <div class="info-card">
-      💡 <strong>Note:</strong> সব তথ্য সঠিকভাবে দিন। Registration সম্পূর্ণ হলে আপনি Alumni Database এ দেখা যাবে এবং আপনার profile access পাবেন।
+<div class="main">
+  <div class="form-wrap">
+    <div class="form-card">
+      <div class="form-logo">🎓</div>
+      <h1 class="form-title">Join Our Network</h1>
+      <p class="form-sub">Register as an AIS Alumni member</p>
+      <p class="form-dept">Accounting &amp; Information Systems · University of Barishal</p>
+      <div class="info-note">💡 Please fill in all details accurately. After registration you will appear in the Alumni Database and can access your profile.</div>
+      <form id="regForm">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" name="name" class="form-input" placeholder="Your full name" required>
+          <div class="form-error">Please enter your full name</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+          <div class="form-error">Please enter a valid email</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" name="phone" class="form-input" placeholder="01XXXXXXXXX" required pattern="[0-9]{11}">
+          <div class="form-error">Please enter an 11-digit phone number</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Job / Position *</label>
+          <input type="text" name="job" class="form-input" placeholder="Company Name – Position" required>
+          <div class="form-error">Please enter your current job</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Select Your Batch *</label>
+          <div class="batch-grid">
+            <div class="batch-opt"><input type="radio" id="b1" name="batch" value="1" required><label class="batch-lbl" for="b1">Batch 1</label></div>
+            <div class="batch-opt"><input type="radio" id="b2" name="batch" value="2"><label class="batch-lbl" for="b2">Batch 2</label></div>
+            <div class="batch-opt"><input type="radio" id="b3" name="batch" value="3"><label class="batch-lbl" for="b3">Batch 3</label></div>
+            <div class="batch-opt"><input type="radio" id="b4" name="batch" value="4"><label class="batch-lbl" for="b4">Batch 4</label></div>
+            <div class="batch-opt"><input type="radio" id="b5" name="batch" value="5"><label class="batch-lbl" for="b5">Batch 5</label></div>
+            <div class="batch-opt"><input type="radio" id="b6" name="batch" value="6"><label class="batch-lbl" for="b6">Batch 6</label></div>
+            <div class="batch-opt"><input type="radio" id="b7" name="batch" value="7"><label class="batch-lbl" for="b7">Batch 7</label></div>
+            <div class="batch-opt"><input type="radio" id="b8" name="batch" value="8"><label class="batch-lbl" for="b8">Batch 8</label></div>
+            <div class="batch-opt"><input type="radio" id="b9" name="batch" value="9"><label class="batch-lbl" for="b9">Batch 9</label></div>
+            <div class="batch-opt"><input type="radio" id="b10" name="batch" value="10"><label class="batch-lbl" for="b10">Batch 10</label></div>
+            <div class="batch-opt"><input type="radio" id="b11" name="batch" value="11"><label class="batch-lbl" for="b11">Batch 11</label></div>
+            <div class="batch-opt"><input type="radio" id="b12" name="batch" value="12"><label class="batch-lbl" for="b12">Batch 12</label></div>
+          </div>
+          <div class="form-error">Please select your batch</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passing Year *</label>
+          <input type="text" name="year" class="form-input" placeholder="YYYY (e.g. 2020)" required pattern="[0-9]{4}">
+          <div class="form-error">Please enter a valid year</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Create Password *</label>
+          <div class="pass-wrap">
+            <input type="password" name="password" class="form-input" placeholder="Minimum 6 characters" required minlength="6">
+            <button type="button" class="pass-toggle" id="passToggle">👁️</button>
+          </div>
+          <div class="form-error">Password must be at least 6 characters</div>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Create Account</button>
+        <div class="success-msg" id="successMsg">
+          <div class="success-ico">🎉</div>
+          <div class="success-title">Registration Successful!</div>
+          <div class="success-text">Welcome to the AIS Alumni family! Redirecting to your profile...</div>
+        </div>
+      </form>
+      <div class="form-footer">Already a member? <a href="login.html">Sign in</a></div>
     </div>
-
-    <!-- Registration Form -->
-    <form id="registrationForm">
-      
-      <!-- Full Name -->
-      <div class="form-group">
-        <label class="form-label" for="name">👤 Full Name *</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          class="futuristic" 
-          placeholder="আপনার পূর্ণ নাম লিখুন" 
-          required
-        >
-        <span class="error-message">Please enter your full name</span>
-      </div>
-
-      <!-- Email -->
-      <div class="form-group">
-        <label class="form-label" for="email">📧 Email Address *</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          class="futuristic" 
-          placeholder="your.email@example.com" 
-          required
-        >
-        <span class="error-message">Please enter a valid email</span>
-      </div>
-
-      <!-- Phone Number -->
-      <div class="form-group">
-        <label class="form-label" for="phone">📱 Phone Number *</label>
-        <input 
-          type="tel" 
-          id="phone" 
-          name="phone" 
-          class="futuristic" 
-          placeholder="01XXXXXXXXX" 
-          required
-          pattern="[0-9]{11}"
-        >
-        <span class="error-message">Please enter 11 digit phone number</span>
-      </div>
-
-      <!-- Current Job -->
-      <div class="form-group">
-        <label class="form-label" for="job">💼 Current Job/Position *</label>
-        <input 
-          type="text" 
-          id="job" 
-          name="job" 
-          class="futuristic" 
-          placeholder="Company Name - Position" 
-          required
-        >
-        <span class="error-message">Please enter your current job</span>
-      </div>
-
-      <!-- Batch Selection -->
-      <div class="form-group">
-        <label class="form-label">🎓 Select Your Batch *</label>
-        <div class="batch-grid">
-          <div class="batch-option">
-            <input type="radio" id="batch1" name="batch" value="1" required>
-            <label class="batch-label" for="batch1">Batch 1</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch2" name="batch" value="2">
-            <label class="batch-label" for="batch2">Batch 2</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch3" name="batch" value="3">
-            <label class="batch-label" for="batch3">Batch 3</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch4" name="batch" value="4">
-            <label class="batch-label" for="batch4">Batch 4</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch5" name="batch" value="5">
-            <label class="batch-label" for="batch5">Batch 5</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch6" name="batch" value="6">
-            <label class="batch-label" for="batch6">Batch 6</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch7" name="batch" value="7">
-            <label class="batch-label" for="batch7">Batch 7</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch8" name="batch" value="8">
-            <label class="batch-label" for="batch8">Batch 8</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch9" name="batch" value="9">
-            <label class="batch-label" for="batch9">Batch 9</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch10" name="batch" value="10">
-            <label class="batch-label" for="batch10">Batch 10</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch11" name="batch" value="11">
-            <label class="batch-label" for="batch11">Batch 11</label>
-          </div>
-          <div class="batch-option">
-            <input type="radio" id="batch12" name="batch" value="12">
-            <label class="batch-label" for="batch12">Batch 12</label>
-          </div>
-        </div>
-        <span class="error-message">Please select your batch</span>
-      </div>
-
-      <!-- Passing Year -->
-      <div class="form-group">
-        <label class="form-label" for="year">📅 Passing Year *</label>
-        <input 
-          type="text" 
-          id="year" 
-          name="year" 
-          class="futuristic" 
-          placeholder="YYYY (e.g., 2020)" 
-          required
-          pattern="[0-9]{4}"
-        >
-        <span class="error-message">Please enter valid year (YYYY)</span>
-      </div>
-
-      <!-- Password -->
-      <div class="form-group">
-        <label class="form-label" for="password">🔒 Create Password *</label>
-        <div style="position: relative;">
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            class="futuristic" 
-            placeholder="Minimum 6 characters" 
-            required
-            minlength="6"
-          >
-          <span class="password-toggle" onclick="togglePassword()">👁️</span>
-        </div>
-        <span class="error-message">Password must be at least 6 characters</span>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="submit-btn">
-        <span>🚀 Register as Alumni</span>
-      </button>
-
-      <!-- Success Message -->
-      <div class="success-message" id="successMessage">
-        <div class="success-icon">✨🎉✨</div>
-        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Registration Successful!</h3>
-        <p>স্বাগতম AIS Alumni পরিবারে! আপনার তথ্য সফলভাবে সংরক্ষিত হয়েছে।</p>
-      </div>
-
-    </form>
   </div>
 </div>
 
-<!-- Firebase SDK -->
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
-
 <script>
-// Create floating particles
-function createParticles() {
-  const container = document.getElementById('particles');
-  const particleCount = window.innerWidth < 768 ? 25 : 40;
-  
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-    
-    // Random colors
-    const colors = ['rgba(138, 80, 255, 0.4)', 'rgba(255, 107, 157, 0.4)', 'rgba(255, 217, 61, 0.4)'];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    
-    container.appendChild(particle);
-  }
-}
+document.getElementById('passToggle').addEventListener('click',function(){
+  const p=document.querySelector('input[name="password"]');
+  const show=p.type==='password';
+  p.type=show?'text':'password';
+  this.textContent=show?'🙈':'👁️';
+});
 
-// Toggle password visibility
-function togglePassword() {
-  const passwordInput = document.getElementById('password');
-  const toggle = document.querySelector('.password-toggle');
-  
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    toggle.textContent = '🙈';
-  } else {
-    passwordInput.type = 'password';
-    toggle.textContent = '👁️';
-  }
-}
-
-// Form validation
-function validateForm(formData) {
-  let isValid = true;
-  const formGroups = document.querySelectorAll('.form-group');
-  
-  // Remove previous errors
-  formGroups.forEach(group => group.classList.remove('error'));
-  
-  // Name validation
-  if (!formData.name || formData.name.trim().length < 3) {
-    document.querySelector('[name="name"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(formData.email)) {
-    document.querySelector('[name="email"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Phone validation (11 digits)
-  const phoneRegex = /^[0-9]{11}$/;
-  if (!phoneRegex.test(formData.phone)) {
-    document.querySelector('[name="phone"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Job validation
-  if (!formData.job || formData.job.trim().length < 3) {
-    document.querySelector('[name="job"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Batch validation
-  if (!formData.batch) {
-    document.querySelector('[name="batch"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Year validation (4 digits)
-  const yearRegex = /^[0-9]{4}$/;
-  if (!yearRegex.test(formData.year)) {
-    document.querySelector('[name="year"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  // Password validation (minimum 6 characters)
-  if (!formData.password || formData.password.length < 6) {
-    document.querySelector('[name="password"]').closest('.form-group').classList.add('error');
-    isValid = false;
-  }
-  
-  return isValid;
-}
-
-// Form submission
-const form = document.getElementById('registrationForm');
-const submitBtn = form.querySelector('.submit-btn');
-const successMessage = document.getElementById('successMessage');
-
-form.addEventListener('submit', async (e) => {
+document.getElementById('regForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  
-  // Get form data
-  const formData = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    job: form.job.value,
-    batch: form.batch.value,
-    year: form.year.value,
-    password: form.password.value,
-    createdAt: new Date().toISOString()
+  const f=this;
+  const data={
+    name:f.name.value.trim(),
+    email:f.email.value.trim(),
+    phone:f.phone.value.trim(),
+    job:f.job.value.trim(),
+    batch:f.batch.value,
+    year:f.year.value.trim(),
+    password:f.password.value,
+    createdAt:new Date().toISOString()
   };
-  
-  // Validate form
-  if (!validateForm(formData)) {
-    return;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='Creating account...';
+  try{
+    await db.collection('alumni').add(data);
+    localStorage.setItem('alumniUserEmail',data.email);
+    localStorage.setItem('alumniUserName',data.name);
+    document.getElementById('successMsg').classList.add('show');
+    f.reset();
+    setTimeout(()=>window.location.href='profile.html',2000);
+  }catch(err){
+    alert('Registration failed: '+err.message);
+    btn.disabled=false;btn.textContent='Create Account';
   }
-  
-  // Show loading state
-  submitBtn.classList.add('loading');
-  submitBtn.querySelector('span').textContent = 'Processing...';
-  
-  try {
-    // Save to Firebase
-    const docRef = await db.collection("alumni").add(formData);
-    console.log("Document written with ID: ", docRef.id);
-    
-    // Save email to localStorage for profile access
-    localStorage.setItem('alumniUserEmail', formData.email);
-    localStorage.setItem('alumniUserName', formData.name);
-    
-    // Show success message
-    successMessage.classList.add('show');
-    form.reset();
-    
-    // Scroll to success message
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    // Redirect after 2 seconds (give Firebase time to sync)
-    setTimeout(() => {
-      window.location.href = 'profile.html';
-    }, 2000);
-    
-  } catch (error) {
-    console.error('Registration Error:', error);
-    alert('Registration failed: ' + error.message);
-  } finally {
-    // Remove loading state
-    submitBtn.classList.remove('loading');
-    submitBtn.querySelector('span').textContent = '🚀 Register as Alumni';
-  }
-});
-
-// Initialize
-window.addEventListener('load', function() {
-  createParticles();
-});
-
-// Real-time validation feedback
-const inputs = document.querySelectorAll('.futuristic');
-inputs.forEach(input => {
-  input.addEventListener('blur', function() {
-    const formGroup = this.closest('.form-group');
-    
-    if (this.value.trim() === '' && this.hasAttribute('required')) {
-      formGroup.classList.add('error');
-    } else {
-      formGroup.classList.remove('error');
-    }
-  });
-  
-  input.addEventListener('input', function() {
-    const formGroup = this.closest('.form-group');
-    if (this.value.trim() !== '') {
-      formGroup.classList.remove('error');
-    }
-  });
 });
 </script>
-
 </body>
 </html>
