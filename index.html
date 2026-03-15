@@ -4,550 +4,168 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIS Alumni | University of Barishal</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ─── VARIABLES ─────────────────────────────── */
-:root {
-  --navy:      #0B1E3D;
-  --navy-mid:  #1A3260;
-  --navy-light:#2A4A8A;
-  --gold:      #C8972B;
-  --gold-light:#E8B84B;
-  --gold-pale: #FFF6E0;
-  --cream:     #F9F7F3;
-  --white:     #FFFFFF;
-  --text:      #0B1E3D;
-  --muted:     #6B7C93;
-  --border:    rgba(11,30,61,0.1);
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
+nav.scrolled{height:56px}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 4px 10px rgba(11,30,61,.22);flex-shrink:0}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
+.nav-brand-sub{font-size:.62rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-menu a{color:#3a4f6a;font-size:.81rem;font-weight:500;padding:.42rem .75rem;border-radius:6px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.48rem 1.15rem;border-radius:8px;margin-left:.4rem;box-shadow:0 4px 12px rgba(11,30,61,.25)}
+.nav-menu .cta:hover{background:#1A3260!important}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:8px 9px;cursor:pointer}
+.nav-burger span{display:block;width:18px;height:2px;background:#0B1E3D;border-radius:2px}
+.has-drop{position:relative}
+.drop-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:12px;padding:.4rem;min-width:155px;box-shadow:0 8px 32px rgba(11,30,61,.1);z-index:9}
+.has-drop:hover .drop-menu{display:block}
+.drop-menu a{display:block;padding:.45rem .7rem;border-radius:6px;font-size:.81rem;color:#3a4f6a}
+.drop-menu a:hover{background:#FFF6E0;color:#0B1E3D}
+@media(max-width:860px){
+  .nav-burger{display:flex}
+  .nav-menu{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
+  .nav-menu.open{display:flex}
+  .nav-menu a{padding:.75rem 1rem}
+  .nav-menu .cta{margin-left:0;text-align:center}
+  .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
+  .nav-brand-sub{display:none}
 }
 
-/* ─── BASE ───────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  overflow-x: hidden;
-}
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:66px;overflow:hidden;background:linear-gradient(155deg,#EDF1FF 0%,#F5F2EC 50%,#FFF9ED 100%)}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.28;z-index:1}
+/* Gradient overlay so left text area stays clean */
+.hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(237,241,255,.85) 0%,rgba(237,241,255,.6) 40%,transparent 70%)}
+.hero-wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 320px;gap:clamp(2rem,4vw,4rem);align-items:center}
+@media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.hero-actions{justify-content:center}.stats-row{justify-content:center}}
 
-/* ─── NAV ────────────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: 68px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(1rem,4vw,3rem);
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 2px 24px rgba(11,30,61,0.07);
-  transition: height 0.3s, box-shadow 0.3s;
-}
-nav.scrolled { height: 58px; box-shadow: 0 4px 32px rgba(11,30,61,0.11); }
+.pill{display:inline-flex;align-items:center;gap:6px;background:#FFF6E0;border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:4px 14px;font-size:11px;font-weight:600;color:#9a6c0a;letter-spacing:.07em;text-transform:uppercase;margin-bottom:18px}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:#C8972B;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,3.8rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1.1rem}
+.hero-h1 em{font-style:italic;color:#C8972B}
+.hero-desc{font-size:14px;color:#5a6e84;line-height:1.82;max-width:400px;margin-bottom:1.8rem}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-p{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;background:#0B1E3D;color:#fff;border-radius:10px;font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 6px 18px rgba(11,30,61,.28);transition:all .25s}
+.btn-p:hover{background:#1A3260;transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.2);border-radius:10px;font-size:13px;text-decoration:none;background:rgba(255,255,255,.8);transition:all .25s}
+.btn-s:hover{border-color:#0B1E3D;box-shadow:0 4px 14px rgba(11,30,61,.1)}
+.stats-row{display:flex;gap:2rem;margin-top:2rem;padding-top:1.75rem;border-top:1px solid rgba(11,30,61,.1)}
+.sn{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#0B1E3D;line-height:1}
+.sn span{color:#C8972B}
+.sl{font-size:11px;color:#6B7C93;margin-top:3px}
 
-.nav-brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-.nav-brand-icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; box-shadow: 0 4px 10px rgba(11,30,61,0.22);
-}
-.nav-brand-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 700; color: var(--navy); display: block; line-height: 1.1;
-}
-.nav-brand-sub {
-  font-size: 0.62rem; color: var(--gold); font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-}
+/* CARD — smooth float, no shake */
+.card-col{display:flex;align-items:center;justify-content:center}
+.card-wrap{will-change:transform;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;animation:floatOnly 5s ease-in-out infinite}
+@keyframes floatOnly{0%,100%{transform:translateZ(0) translateY(0px)}50%{transform:translateZ(0) translateY(-16px)}}
+.card{width:310px;background:linear-gradient(148deg,#172E58 0%,#0B1E3D 55%,#0E2549 100%);border-radius:22px;padding:1.6rem 1.5rem 1.4rem;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 48px rgba(11,30,61,.38);position:relative;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)}
+.cg1{position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%);pointer-events:none}
+.cg2{position:absolute;bottom:-50px;left:-50px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.28) 0%,transparent 68%);pointer-events:none}
+.c-hdr{display:flex;align-items:center;gap:10px;margin-bottom:13px;position:relative;z-index:1}
+.c-logo{width:44px;height:44px;border-radius:11px;background:rgba(200,151,43,.18);border:1px solid rgba(200,151,43,.36);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.c-ht{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff;line-height:1.2}
+.c-hs{font-size:11px;color:rgba(200,151,43,.8);font-weight:500;margin-top:2px}
+.c-div{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);margin-bottom:12px;position:relative;z-index:1}
+.c-dept{background:rgba(200,151,43,.1);border:1px solid rgba(200,151,43,.25);border-radius:10px;padding:12px 13px;margin-bottom:11px;position:relative;z-index:1}
+.c-dlbl{font-size:9px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.c-dval{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#F0CB5A;line-height:1.28}
+.c-row{display:flex;align-items:center;gap:9px;margin-bottom:8px;position:relative;z-index:1}
+.c-ico{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.c-rl{font-size:9px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.06em;line-height:1}
+.c-rv{font-size:12px;color:rgba(255,255,255,.9);font-weight:500;margin-top:2px}
+.c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07);position:relative;z-index:1}
+.c-est{font-size:10px;color:rgba(255,255,255,.35)}
+.c-est strong{color:rgba(255,255,255,.6)}
+.c-badge{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;font-size:9px;font-weight:800;letter-spacing:.07em;padding:5px 11px;border-radius:100px;text-transform:uppercase;box-shadow:0 3px 10px rgba(200,151,43,.4)}
 
-.nav-menu { display: flex; align-items: center; gap: 0.1rem; list-style: none; }
-.nav-menu a {
-  color: #3a4f6a; font-size: 0.81rem; font-weight: 500;
-  padding: 0.42rem 0.75rem; border-radius: 6px;
-  text-decoration: none; white-space: nowrap;
-  transition: color 0.2s, background 0.2s;
-}
-.nav-menu a:hover { color: var(--navy); background: rgba(11,30,61,0.05); }
-.nav-menu .cta {
-  background: var(--navy); color: #fff !important;
-  padding: 0.48rem 1.15rem; border-radius: 8px; margin-left: 0.4rem;
-  box-shadow: 0 4px 12px rgba(11,30,61,0.25);
-}
-.nav-menu .cta:hover { background: var(--navy-mid) !important; transform: translateY(-1px); }
+/* STATS BAR */
+.sbar{background:#0B1E3D;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem)}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;max-width:1100px;margin:0 auto}
+.sc{text-align:center;padding:1.25rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;transition:all .3s}
+.sc:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+.sc-i{font-size:1.4rem;margin-bottom:6px}
+.sc-n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#E8B84B;line-height:1;margin-bottom:4px}
+.sc-l{font-size:11px;color:rgba(255,255,255,.5)}
 
-.nav-burger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: 1px solid var(--border);
-  border-radius: 8px; padding: 8px 9px; cursor: pointer;
-}
-.nav-burger span { display: block; width: 18px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
+/* ABOUT */
+.about{background:#fff;padding:clamp(3.5rem,7vw,6rem) clamp(1.5rem,5vw,4rem)}
+.about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:768px){.about-inner{grid-template-columns:1fr;gap:2.5rem}}
+.about-vis{position:relative;height:380px}
+.about-card-main{position:absolute;top:0;left:0;width:76%;background:linear-gradient(145deg,#0B1E3D,#1A3260);border-radius:18px;padding:2rem;box-shadow:0 24px 50px rgba(11,30,61,.2);color:#fff}
+.about-main-ico{font-size:2rem;margin-bottom:.8rem}
+.about-main-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.6rem;line-height:1.3}
+.about-main-dept{font-size:.82rem;color:#E8B84B;font-weight:600;margin-bottom:.6rem}
+.about-main-text{font-size:.83rem;color:rgba(255,255,255,.65);line-height:1.72}
+.about-card-accent{position:absolute;bottom:0;right:0;width:52%;background:#FFF6E0;border:1.5px solid rgba(200,151,43,.22);border-radius:14px;padding:1.5rem}
+.accent-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#C8972B;line-height:1;margin-bottom:.2rem}
+.accent-txt{font-size:.8rem;color:#3a4f6a;line-height:1.5}
+.about-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#C8972B;top:50%;right:40%;transform:translate(50%,-50%);box-shadow:0 0 0 5px rgba(200,151,43,.18)}
+.sec-eye{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8972B;margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem}
+.sec-eye::before{content:'';width:20px;height:2px;background:#C8972B;border-radius:2px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:700;color:#0B1E3D;line-height:1.12;margin-bottom:.9rem}
+.sec-title em{font-style:italic;color:#C8972B}
+.sec-dept-tag{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.28);border-radius:6px;padding:4px 10px;font-size:.78rem;font-weight:600;color:#9a6c0a;margin-bottom:.9rem}
+.sec-desc{color:#5a6e84;font-size:.96rem;line-height:1.75;max-width:480px}
+.about-list{list-style:none;margin-top:1.3rem}
+.about-list li{display:flex;align-items:flex-start;gap:.7rem;padding:.65rem 0;border-bottom:1px solid rgba(11,30,61,.07);font-size:.9rem;color:#3a4f6a;line-height:1.6}
+.about-list li:last-child{border-bottom:none}
+.ali-icon{width:26px;height:26px;border-radius:7px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:.1rem}
 
-/* dropdown */
-.has-drop { position: relative; }
-.drop-menu {
-  display: none; position: absolute; top: calc(100% + 6px); left: 50%;
-  transform: translateX(-50%); background: var(--white);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 0.4rem; min-width: 155px;
-  box-shadow: 0 8px 32px rgba(11,30,61,0.1); z-index: 9;
-}
-.has-drop:hover .drop-menu { display: block; }
-.drop-menu a { display: block; padding: 0.45rem 0.7rem; border-radius: 6px; font-size: 0.81rem; }
-.drop-menu a:hover { background: var(--gold-pale); }
+/* FEATURES */
+.feats{background:#F9F7F3;padding:clamp(3.5rem,7vw,6rem) clamp(1.5rem,5vw,4rem)}
+.feats-inner{max-width:1100px;margin:0 auto}
+.feats-head{margin-bottom:2.5rem}
+.feats-dept{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.28);border-radius:6px;padding:4px 10px;font-size:.78rem;font-weight:600;color:#9a6c0a;margin-bottom:.75rem}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.1rem}
+.fc{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.5rem;position:relative;overflow:hidden;transition:all .3s}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.fc:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(11,30,61,.08);border-color:rgba(200,151,43,.2)}
+.fc:hover::before{transform:scaleX(1)}
+.fi{width:40px;height:40px;border-radius:10px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:10px;transition:background .3s}
+.fc:hover .fi{background:#0B1E3D}
+.ft{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#0B1E3D;margin-bottom:5px}
+.fd{font-size:.85rem;color:#6B7C93;line-height:1.65}
 
-@media (max-width: 860px) {
-  .nav-burger { display: flex; }
-  .nav-menu {
-    display: none; position: absolute; top: 68px; left: 0; right: 0;
-    flex-direction: column; align-items: stretch;
-    background: var(--white); padding: 0.75rem;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 8px 24px rgba(11,30,61,0.09); gap: 0.15rem;
-  }
-  .nav-menu.open { display: flex; }
-  .nav-menu a { padding: 0.75rem 1rem; }
-  .nav-menu .cta { margin-left: 0; text-align: center; }
-  .drop-menu { position: static; transform: none; box-shadow: none; background: var(--gold-pale); }
-  .nav-brand-sub { display: none; }
-}
+/* CTA */
+.cta{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:clamp(3rem,7vw,5.5rem) clamp(1.5rem,5vw,4rem);text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:350px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,151,43,.1) 0%,transparent 70%);pointer-events:none}
+.cta-inner{position:relative;max-width:620px;margin:0 auto}
+.cta-pill{display:inline-block;background:rgba(200,151,43,.18);color:#E8B84B;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.38rem 1rem;border-radius:100px;border:1px solid rgba(200,151,43,.28);margin-bottom:1.3rem}
+.cta-dept{font-size:.82rem;color:rgba(232,184,75,.75);margin-bottom:1.2rem;font-weight:500}
+.cta-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.12;margin-bottom:.85rem}
+.cta-h2 em{font-style:italic;color:#E8B84B}
+.cta-p{color:rgba(255,255,255,.55);font-size:.96rem;line-height:1.75;margin-bottom:2rem}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap}
+.cg{display:inline-flex;align-items:center;gap:6px;padding:11px 24px;background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;font-weight:700;font-size:.9rem;border-radius:10px;text-decoration:none;box-shadow:0 6px 18px rgba(200,151,43,.36);transition:all .25s}
+.cg:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(200,151,43,.46)}
+.cw{display:inline-flex;align-items:center;gap:6px;padding:11px 24px;color:#fff;font-size:.9rem;border-radius:10px;text-decoration:none;border:1.5px solid rgba(255,255,255,.18);transition:all .25s}
+.cw:hover{background:rgba(255,255,255,.1)}
 
-/* ─── HERO ───────────────────────────────────── */
-.hero {
-  position: relative; min-height: 100vh;
-  display: flex; align-items: center;
-  padding-top: 68px; overflow: hidden;
-  background: linear-gradient(155deg, #EBF0FF 0%, #F5F2EC 45%, #FFF8E8 100%);
-}
-#hero-canvas {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; pointer-events: none;
-}
-.hero-wrap {
-  position: relative; z-index: 5;
-  max-width: 1180px; margin: 0 auto;
-  padding: clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,4rem);
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem,4vw,5rem); align-items: center;
-}
-@media (max-width: 768px) {
-  .hero-wrap { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
-  .hero-card-col { display: none; }
-  .hero-actions { justify-content: center; }
-  .hero-stats { justify-content: center; }
-}
+/* FOOTER */
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.6rem;font-size:.78rem;color:#6B7C93}
 
-/* eyebrow pill */
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: var(--gold-pale); border: 1px solid rgba(200,151,43,0.28);
-  border-radius: 100px; padding: 0.32rem 0.9rem;
-  font-size: 0.73rem; font-weight: 600; color: #a0700a;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 1.4rem;
-  animation: up 0.8s ease both;
-}
-.eyebrow-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
-  animation: blink 2s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
 
-.hero-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.8rem,5.5vw,4.6rem);
-  font-weight: 700; color: var(--navy);
-  line-height: 1.08; margin-bottom: 1.4rem;
-  animation: up 0.8s 0.1s ease both;
-}
-.hero-h1 em { font-style: italic; color: var(--gold); }
-
-.hero-p {
-  font-size: clamp(0.97rem,1.6vw,1.08rem); color: var(--muted);
-  line-height: 1.82; max-width: 460px;
-  margin-bottom: 2.2rem; animation: up 0.8s 0.2s ease both;
-}
-
-.hero-actions {
-  display: flex; gap: 0.85rem; flex-wrap: wrap;
-  animation: up 0.8s 0.3s ease both;
-}
-.btn-p {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.82rem 1.9rem; background: var(--navy); color: #fff;
-  border-radius: 10px; font-weight: 600; font-size: 0.9rem;
-  text-decoration: none; box-shadow: 0 8px 22px rgba(11,30,61,0.28);
-  transition: all 0.25s;
-}
-.btn-p:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(11,30,61,0.32); }
-.btn-s {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.82rem 1.9rem; color: var(--navy);
-  border: 1.5px solid rgba(11,30,61,0.22); border-radius: 10px;
-  font-weight: 500; font-size: 0.9rem; text-decoration: none;
-  transition: all 0.25s;
-}
-.btn-s:hover { background: var(--white); border-color: var(--navy); box-shadow: 0 6px 18px rgba(11,30,61,0.1); }
-
-.hero-stats {
-  display: flex; gap: 2.2rem; margin-top: 2.8rem;
-  padding-top: 2.2rem; border-top: 1px solid var(--border);
-  animation: up 0.8s 0.4s ease both;
-}
-.hs-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.95rem; font-weight: 700; color: var(--navy); line-height: 1;
-}
-.hs-num span { color: var(--gold); }
-.hs-lbl { font-size: 0.76rem; color: var(--muted); margin-top: 0.18rem; font-weight: 500; }
-
-/* ─── ALUMNI CARD ────────────────────────────── */
-.hero-card-col {
-  display: flex; justify-content: center; align-items: center;
-  animation: up 0.8s 0.25s ease both;
-}
-
-/* The floating wrapper — ONLY translateY, nothing else */
-.alumni-card-float {
-  width: 310px;
-  animation: smoothFloat 5s ease-in-out infinite;
-  will-change: transform;
-  transform: translateZ(0);
-}
-@keyframes smoothFloat {
-  0%,100% { transform: translateZ(0) translateY(0px); }
-  50%      { transform: translateZ(0) translateY(-18px); }
-}
-
-/* Card — backface-visibility stops subpixel jitter */
-.alumni-card {
-  width: 100%;
-  background: linear-gradient(148deg, #172E58 0%, #0B1E3D 55%, #0E2549 100%);
-  border-radius: 24px;
-  padding: 1.75rem 1.75rem 1.5rem;
-  border: 1px solid rgba(255,255,255,0.09);
-  box-shadow: 0 28px 50px rgba(11,30,61,0.35);
-  position: relative;
-  overflow: hidden;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Top shine */
-.alumni-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
-}
-
-/* Glow blobs */
-.ac-glow1 {
-  position: absolute; top: -70px; right: -70px;
-  width: 220px; height: 220px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,151,43,0.18) 0%, transparent 65%);
-  pointer-events: none;
-}
-.ac-glow2 {
-  position: absolute; bottom: -50px; left: -50px;
-  width: 170px; height: 170px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(42,74,138,0.28) 0%, transparent 68%);
-  pointer-events: none;
-}
-
-/* Card header row */
-.ac-header {
-  display: flex; align-items: center; gap: 0.9rem;
-  margin-bottom: 1.4rem; position: relative; z-index: 1;
-}
-.ac-logo {
-  width: 46px; height: 46px; border-radius: 12px;
-  background: rgba(200,151,43,0.18);
-  border: 1px solid rgba(200,151,43,0.38);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; flex-shrink: 0;
-}
-.ac-head-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.2;
-}
-.ac-head-sub {
-  font-size: 0.68rem; color: rgba(200,151,43,0.8);
-  font-weight: 500; margin-top: 0.15rem; letter-spacing: 0.02em;
-}
-
-/* Divider */
-.ac-div {
-  height: 1px; margin-bottom: 1.2rem;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  position: relative; z-index: 1;
-}
-
-/* Department block — highlighted, large */
-.ac-dept {
-  background: rgba(200,151,43,0.1);
-  border: 1px solid rgba(200,151,43,0.22);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.1rem;
-  position: relative; z-index: 1;
-}
-.ac-dept-lbl {
-  font-size: 0.62rem; color: rgba(255,255,255,0.4);
-  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.28rem;
-}
-.ac-dept-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.45rem; font-weight: 700;
-  color: #F0CB5A; line-height: 1.25;
-}
-
-/* Info rows */
-.ac-row {
-  display: flex; align-items: center; gap: 0.7rem;
-  margin-bottom: 0.7rem; position: relative; z-index: 1;
-}
-.ac-row-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.07);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; flex-shrink: 0;
-}
-.ac-row-lbl {
-  font-size: 0.61rem; color: rgba(255,255,255,0.38);
-  text-transform: uppercase; letter-spacing: 0.07em; line-height: 1;
-}
-.ac-row-val {
-  font-size: 0.85rem; color: rgba(255,255,255,0.9); font-weight: 500;
-}
-
-/* Card footer */
-.ac-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 1.1rem; padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  position: relative; z-index: 1;
-}
-.ac-est { font-size: 0.72rem; color: rgba(255,255,255,0.38); }
-.ac-est strong { color: rgba(255,255,255,0.62); font-weight: 600; }
-.ac-badge {
-  background: linear-gradient(135deg, #C8972B, #E8B84B);
-  color: #0B1E3D; font-size: 0.65rem; font-weight: 800;
-  letter-spacing: 0.07em; padding: 0.36rem 0.85rem;
-  border-radius: 100px; text-transform: uppercase;
-  box-shadow: 0 3px 12px rgba(200,151,43,0.42);
-}
-
-/* ─── STATS BAR ──────────────────────────────── */
-.stats-bar {
-  background: var(--navy);
-  padding: clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem);
-}
-.stats-inner {
-  max-width: 1180px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit,minmax(175px,1fr)); gap: 1.25rem;
-}
-.stat-card {
-  text-align: center; padding: 1.5rem 1rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px; transition: all 0.3s;
-}
-.stat-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
-.stat-ico { font-size: 1.6rem; margin-bottom: 0.6rem; }
-.stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem; font-weight: 700;
-  color: var(--gold-light); line-height: 1; margin-bottom: 0.3rem;
-}
-.stat-lbl { font-size: 0.8rem; color: rgba(255,255,255,0.55); font-weight: 400; }
-
-/* ─── ABOUT ──────────────────────────────────── */
-.about { background: var(--white); padding: clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem); }
-.about-inner {
-  max-width: 1180px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
-}
-@media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-.about-vis { position: relative; height: 400px; }
-.about-card-main {
-  position: absolute; top: 0; left: 0; width: 76%;
-  background: linear-gradient(145deg, var(--navy), var(--navy-mid));
-  border-radius: 20px; padding: 2.2rem;
-  box-shadow: 0 28px 55px rgba(11,30,61,0.22); color: var(--white);
-}
-.about-main-ico { font-size: 2.2rem; margin-bottom: 0.9rem; }
-.about-main-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.3;
-}
-.about-main-text { font-size: 0.84rem; color: rgba(255,255,255,0.68); line-height: 1.75; }
-
-.about-card-accent {
-  position: absolute; bottom: 0; right: 0; width: 52%;
-  background: var(--gold-pale); border: 1.5px solid rgba(200,151,43,0.22);
-  border-radius: 16px; padding: 1.6rem;
-}
-.accent-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.22rem;
-}
-.accent-txt { font-size: 0.8rem; color: #3a4f6a; line-height: 1.5; }
-
-.about-dot {
-  position: absolute; width: 10px; height: 10px;
-  border-radius: 50%; background: var(--gold);
-  top: 50%; right: 40%; transform: translate(50%,-50%);
-  box-shadow: 0 0 0 5px rgba(200,151,43,0.18);
-}
-
-/* eyebrow + title shared */
-.sec-eyebrow {
-  font-size: 0.73rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
-  margin-bottom: 0.65rem;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.sec-eyebrow::before { content:''; width:20px; height:2px; background:var(--gold); border-radius:2px; }
-.sec-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.9rem,3.8vw,2.9rem); font-weight: 700;
-  color: var(--navy); line-height: 1.13; margin-bottom: 0.9rem;
-}
-.sec-title em { font-style: italic; color: var(--gold); }
-.sec-desc { color: var(--muted); font-size: 0.97rem; line-height: 1.75; max-width: 520px; }
-
-.about-list { list-style: none; margin-top: 1.4rem; }
-.about-list li {
-  display: flex; align-items: flex-start; gap: 0.7rem;
-  padding: 0.7rem 0; border-bottom: 1px solid var(--border);
-  font-size: 0.91rem; color: #3a4f6a; line-height: 1.6;
-}
-.about-list li:last-child { border-bottom: none; }
-.ali-icon {
-  width: 26px; height: 26px; border-radius: 7px;
-  background: var(--gold-pale);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem;
-}
-
-/* ─── FEATURES ───────────────────────────────── */
-.features { background: var(--cream); padding: clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem); }
-.features-inner { max-width: 1180px; margin: 0 auto; }
-.feat-head {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
-}
-.feat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(275px,1fr));
-  gap: 1.25rem;
-}
-.feat-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 18px; padding: 1.9rem;
-  transition: all 0.3s; position: relative; overflow: hidden;
-}
-.feat-card::before {
-  content:''; position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
-}
-.feat-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(11,30,61,0.09); border-color: rgba(200,151,43,0.2); }
-.feat-card:hover::before { transform: scaleX(1); }
-.feat-ico-wrap {
-  width: 48px; height: 48px; border-radius: 12px;
-  background: var(--gold-pale);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; margin-bottom: 1.1rem; transition: background 0.3s;
-}
-.feat-card:hover .feat-ico-wrap { background: var(--navy); }
-.feat-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.18rem; font-weight: 700; color: var(--navy); margin-bottom: 0.45rem;
-}
-.feat-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.72; }
-
-/* ─── CTA ────────────────────────────────────── */
-.cta {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  padding: clamp(4rem,8vw,6rem) clamp(1.5rem,5vw,4rem);
-  text-align: center; position: relative; overflow: hidden;
-}
-.cta::before {
-  content:''; position: absolute;
-  top: -80px; left: 50%; transform: translateX(-50%);
-  width: 500px; height: 350px; border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(200,151,43,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-.cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
-.cta-pill {
-  display: inline-block; background: rgba(200,151,43,0.18);
-  color: var(--gold-light); font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 0.38rem 1rem; border-radius: 100px;
-  border: 1px solid rgba(200,151,43,0.28); margin-bottom: 1.4rem;
-}
-.cta-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem,4.5vw,3.1rem); font-weight: 700;
-  color: #fff; line-height: 1.13; margin-bottom: 0.9rem;
-}
-.cta-h2 em { font-style: italic; color: var(--gold-light); }
-.cta-p { color: rgba(255,255,255,0.6); font-size: 0.98rem; line-height: 1.75; margin-bottom: 2.2rem; }
-.cta-btns { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
-.cta-btn-g {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.88rem 2.1rem;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--navy); font-weight: 700; font-size: 0.9rem;
-  border-radius: 10px; text-decoration: none;
-  box-shadow: 0 8px 22px rgba(200,151,43,0.38); transition: all 0.25s;
-}
-.cta-btn-g:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(200,151,43,0.46); }
-.cta-btn-w {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.88rem 2.1rem; color: #fff; font-weight: 500; font-size: 0.9rem;
-  border-radius: 10px; text-decoration: none;
-  border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.08);
-  transition: all 0.25s;
-}
-.cta-btn-w:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.35); }
-
-/* ─── FOOTER ─────────────────────────────────── */
-footer {
-  background: var(--white); border-top: 1px solid var(--border);
-  text-align: center; padding: 1.75rem;
-  font-size: 0.8rem; color: var(--muted);
-}
-
-/* ─── ANIMATIONS ─────────────────────────────── */
-@keyframes up {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.vis { opacity: 1; transform: translateY(0); }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-icon">🎓</div>
@@ -556,9 +174,7 @@ footer {
       <span class="nav-brand-sub">University of Barishal</span>
     </div>
   </a>
-  <button class="nav-burger" id="burger" aria-label="menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
   <ul class="nav-menu" id="navMenu">
     <li><a href="index.html">Home</a></li>
     <li class="has-drop">
@@ -584,83 +200,54 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
+  <div class="hero-overlay"></div>
   <div class="hero-wrap">
-
-    <!-- LEFT TEXT -->
     <div>
-      <div class="eyebrow"><span class="eyebrow-dot"></span>Accounting &amp; Information Systems</div>
+      <div class="pill"><span class="pill-dot"></span>Accounting &amp; Information Systems</div>
       <h1 class="hero-h1">Where <em>Alumni</em><br>Come Together</h1>
-      <p class="hero-p">Connect with fellow graduates, celebrate achievements, and build a stronger future for the Department of AIS at University of Barishal.</p>
+      <p class="hero-desc">Connect with fellow graduates of the Department of Accounting &amp; Information Systems, University of Barishal — celebrate achievements and build a stronger future together.</p>
       <div class="hero-actions">
         <a href="register.html" class="btn-p">📝 Join Alumni Network</a>
         <a href="database.html" class="btn-s">👥 Browse Directory</a>
       </div>
-      <div class="hero-stats">
-        <div><div class="hs-num" id="alumniNum">—</div><div class="hs-lbl">Registered Alumni</div></div>
-        <div><div class="hs-num">12</div><div class="hs-lbl">Batches</div></div>
-        <div><div class="hs-num">10<span>+</span></div><div class="hs-lbl">Faculty Members</div></div>
+      <div class="stats-row">
+        <div><div class="sn" id="heroCount">—</div><div class="sl">Registered Alumni</div></div>
+        <div><div class="sn">12</div><div class="sl">Batches</div></div>
+        <div><div class="sn">10<span>+</span></div><div class="sl">Faculty Members</div></div>
       </div>
     </div>
-
-    <!-- RIGHT — ALUMNI CARD -->
-    <div class="hero-card-col">
-      <div class="alumni-card-float">
-        <div class="alumni-card">
-          <div class="ac-glow1"></div>
-          <div class="ac-glow2"></div>
-
-          <!-- Header -->
-          <div class="ac-header">
-            <div class="ac-logo">🎓</div>
-            <div>
-              <div class="ac-head-title">AIS Alumni Card</div>
-              <div class="ac-head-sub">University of Barishal</div>
-            </div>
+    <div class="card-col">
+      <div class="card-wrap">
+        <div class="card">
+          <div class="cg1"></div><div class="cg2"></div>
+          <div class="c-hdr">
+            <div class="c-logo">🎓</div>
+            <div><div class="c-ht">AIS Alumni Card</div><div class="c-hs">University of Barishal</div></div>
           </div>
-
-          <div class="ac-div"></div>
-
-          <!-- Department — big & highlighted -->
-          <div class="ac-dept">
-            <div class="ac-dept-lbl">Department</div>
-            <div class="ac-dept-val">Accounting &amp; Information Systems</div>
+          <div class="c-div"></div>
+          <div class="c-dept">
+            <div class="c-dlbl">Department</div>
+            <div class="c-dval">Accounting &amp; Information Systems</div>
           </div>
-
-          <!-- Info rows -->
-          <div class="ac-row">
-            <div class="ac-row-icon">👤</div>
-            <div>
-              <div class="ac-row-lbl">Member Type</div>
-              <div class="ac-row-val">Alumni Network</div>
-            </div>
-          </div>
-          <div class="ac-row">
-            <div class="ac-row-icon">📍</div>
-            <div>
-              <div class="ac-row-lbl">Institution</div>
-              <div class="ac-row-val">University of Barishal</div>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <div class="ac-footer">
-            <div class="ac-est">Est. <strong>2015–2016</strong></div>
-            <div class="ac-badge">Active Member</div>
+          <div class="c-row"><div class="c-ico">👤</div><div><div class="c-rl">Member Type</div><div class="c-rv">Alumni Network</div></div></div>
+          <div class="c-row"><div class="c-ico">📍</div><div><div class="c-rl">Institution</div><div class="c-rv">University of Barishal</div></div></div>
+          <div class="c-foot">
+            <div class="c-est">Est. <strong>2015–2016</strong></div>
+            <div class="c-badge">Active Member</div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-card reveal"><div class="stat-ico">👨‍🏫</div><div class="stat-num">10</div><div class="stat-lbl">Faculty Members</div></div>
-    <div class="stat-card reveal"><div class="stat-ico">🎓</div><div class="stat-num">12</div><div class="stat-lbl">Total Batches</div></div>
-    <div class="stat-card reveal"><div class="stat-ico">📚</div><div class="stat-num">216</div><div class="stat-lbl">Running Students</div></div>
-    <div class="stat-card reveal"><div class="stat-ico">👥</div><div class="stat-num" id="statCount">—</div><div class="stat-lbl">Registered Alumni</div></div>
+<!-- STATS -->
+<div class="sbar">
+  <div class="sg">
+    <div class="sc reveal"><div class="sc-i">👨‍🏫</div><div class="sc-n">10</div><div class="sc-l">Faculty Members</div></div>
+    <div class="sc reveal"><div class="sc-i">🎓</div><div class="sc-n">12</div><div class="sc-l">Total Batches</div></div>
+    <div class="sc reveal"><div class="sc-i">📚</div><div class="sc-n">216</div><div class="sc-l">Running Students</div></div>
+    <div class="sc reveal"><div class="sc-i">👥</div><div class="sc-n" id="statCount">—</div><div class="sc-l">Registered Alumni</div></div>
   </div>
 </div>
 
@@ -671,7 +258,8 @@ footer {
       <div class="about-card-main">
         <div class="about-main-ico">🚀</div>
         <div class="about-main-title">Building Futures Since 2015</div>
-        <div class="about-main-text">The Department of AIS began its journey equipping students with cutting-edge skills in accounting and technology to meet global business challenges.</div>
+        <div class="about-main-dept">Accounting &amp; Information Systems</div>
+        <div class="about-main-text">Equipping students with cutting-edge skills in accounting and technology to meet global business challenges.</div>
       </div>
       <div class="about-dot"></div>
       <div class="about-card-accent">
@@ -680,8 +268,9 @@ footer {
       </div>
     </div>
     <div class="reveal">
-      <div class="sec-eyebrow">About Our Department</div>
+      <div class="sec-eye">About Our Department</div>
       <h2 class="sec-title">Excellence in<br><em>Accounting &amp; IS</em></h2>
+      <div class="sec-dept-tag">Accounting &amp; Information Systems · University of Barishal</div>
       <p class="sec-desc">Our program provides a strong foundation in accounting, financial expertise, quantitative skills, and information technology — applied within real business contexts.</p>
       <ul class="about-list">
         <li><div class="ali-icon">📖</div><span>Innovative curriculum blending traditional accounting with modern information systems.</span></li>
@@ -693,22 +282,20 @@ footer {
 </section>
 
 <!-- FEATURES -->
-<section class="features">
-  <div class="features-inner">
-    <div class="feat-head reveal">
-      <div>
-        <div class="sec-eyebrow">Platform Features</div>
-        <h2 class="sec-title">Everything in<br><em>One Place</em></h2>
-      </div>
-      <p class="sec-desc" style="max-width:320px;">A complete digital home for the AIS alumni community.</p>
+<section class="feats">
+  <div class="feats-inner">
+    <div class="feats-head reveal">
+      <div class="sec-eye">Platform Features</div>
+      <div class="feats-dept">Accounting &amp; Information Systems Alumni Platform</div>
+      <h2 class="sec-title">Everything in <em>One Place</em></h2>
     </div>
-    <div class="feat-grid">
-      <div class="feat-card reveal"><div class="feat-ico-wrap">🔍</div><div class="feat-title">Alumni Directory</div><p class="feat-desc">Search alumni by batch, name, job, or graduation year in one powerful database.</p></div>
-      <div class="feat-card reveal"><div class="feat-ico-wrap">👤</div><div class="feat-title">Personal Profile</div><p class="feat-desc">Create and manage your own profile. Keep information current and connected.</p></div>
-      <div class="feat-card reveal"><div class="feat-ico-wrap">💰</div><div class="feat-title">Donation Portal</div><p class="feat-desc">Support the community through a seamless bKash donation system.</p></div>
-      <div class="feat-card reveal"><div class="feat-ico-wrap">📢</div><div class="feat-title">Notice Board</div><p class="feat-desc">Stay updated with the latest announcements and alumni news in real time.</p></div>
-      <div class="feat-card reveal"><div class="feat-ico-wrap">🎉</div><div class="feat-title">Events Calendar</div><p class="feat-desc">Never miss a reunion, career fair, or networking event.</p></div>
-      <div class="feat-card reveal"><div class="feat-ico-wrap">📱</div><div class="feat-title">Mobile Friendly</div><p class="feat-desc">Seamless experience on any device — desktop, tablet, or smartphone.</p></div>
+    <div class="fg">
+      <div class="fc reveal"><div class="fi">🔍</div><div class="ft">Alumni Directory</div><p class="fd">Search alumni by batch, name, job or graduation year in one powerful database.</p></div>
+      <div class="fc reveal"><div class="fi">👤</div><div class="ft">Personal Profile</div><p class="fd">Create and manage your own profile. Keep information current and connected.</p></div>
+      <div class="fc reveal"><div class="fi">💰</div><div class="ft">Donation Portal</div><p class="fd">Support the community through a seamless bKash donation system.</p></div>
+      <div class="fc reveal"><div class="fi">📢</div><div class="ft">Notice Board</div><p class="fd">Stay updated with the latest announcements and alumni news in real time.</p></div>
+      <div class="fc reveal"><div class="fi">🎉</div><div class="ft">Events Calendar</div><p class="fd">Never miss a reunion, career fair, or networking event.</p></div>
+      <div class="fc reveal"><div class="fi">📱</div><div class="ft">Mobile Friendly</div><p class="fd">Seamless experience on desktop, tablet, or smartphone.</p></div>
     </div>
   </div>
 </section>
@@ -717,149 +304,91 @@ footer {
 <section class="cta">
   <div class="cta-inner reveal">
     <div class="cta-pill">Join Today</div>
+    <div class="cta-dept">Department of Accounting &amp; Information Systems · University of Barishal</div>
     <h2 class="cta-h2">Be Part of the<br><em>AIS Alumni Family</em></h2>
     <p class="cta-p">Register today and reconnect with thousands of AIS alumni. Build new connections and make our community stronger together.</p>
     <div class="cta-btns">
-      <a href="register.html" class="cta-btn-g">🚀 Register Now</a>
-      <a href="login.html" class="cta-btn-w">🔐 Login</a>
+      <a href="register.html" class="cg">🚀 Register Now</a>
+      <a href="login.html" class="cw">🔐 Login</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  © 2025 AIS Alumni Association — University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra
+  © 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra
 </footer>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
-
-<!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
 <script>
-/* NAV */
-document.getElementById('burger').addEventListener('click', () => {
-  document.getElementById('navMenu').classList.toggle('open');
-});
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 36);
-}, { passive: true });
+// NAV
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('navMenu').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
 
-/* THREE.JS BACKGROUND */
-(function() {
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor(0x000000, 0);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.z = 22;
-
-  function resize() {
-    const W = canvas.clientWidth, H = canvas.clientHeight;
-    renderer.setSize(W, H, false);
-    camera.aspect = W / H;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize', resize, { passive: true });
-
-  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-  const dLight = new THREE.DirectionalLight(0xE8B84B, 1.1);
-  dLight.position.set(5, 8, 6);
-  scene.add(dLight);
-  const pLight = new THREE.PointLight(0x0B1E3D, 1.4, 40);
-  pLight.position.set(-8, -4, 6);
-  scene.add(pLight);
-
-  const mNavy  = new THREE.MeshStandardMaterial({ color: 0x0B1E3D, roughness: 0.3, metalness: 0.6 });
-  const mGold  = new THREE.MeshStandardMaterial({ color: 0xC8972B, roughness: 0.2, metalness: 0.8 });
-  const mGoldL = new THREE.MeshStandardMaterial({ color: 0xE8B84B, roughness: 0.15, metalness: 0.85, emissive: 0xC8972B, emissiveIntensity: 0.08 });
-  const mWireG = new THREE.MeshBasicMaterial({ color: 0xC8972B, wireframe: true, opacity: 0.14, transparent: true });
-  const mWireN = new THREE.MeshBasicMaterial({ color: 0x0B1E3D, wireframe: true, opacity: 0.09, transparent: true });
-
-  const objs = [];
-  function add(mesh, rx, ry, rz) { scene.add(mesh); objs.push({ mesh, rx, ry, rz }); }
-
-  const ico = new THREE.IcosahedronGeometry(4.5, 1);
-  add(new THREE.Mesh(ico, mNavy), 0.003, 0.005, 0.002);
-  const icoW = new THREE.Mesh(ico, mWireG);
-  add(icoW, 0.003, 0.005, 0.002);
-  objs[0].mesh.position.set(7, 0, -6);
-  objs[1].mesh.position.set(7, 0, -6);
-
-  const tk = new THREE.Mesh(new THREE.TorusKnotGeometry(2.2, 0.42, 120, 16), mGold);
-  tk.position.set(-8, 3, -8); add(tk, 0.004, 0.006, 0.002);
-
-  const oct = new THREE.Mesh(new THREE.OctahedronGeometry(1.6, 0), mGoldL);
-  oct.position.set(-6, -4, -4); add(oct, 0.006, 0.004, 0.005);
-
-  const dod = new THREE.Mesh(new THREE.DodecahedronGeometry(1.4, 0), mNavy);
-  const dodW = new THREE.Mesh(new THREE.DodecahedronGeometry(1.4, 0), mWireN);
-  dod.position.set(4, 5, -3); dodW.position.set(4, 5, -3);
-  add(dod, 0.005, 0.003, 0.004); add(dodW, 0.005, 0.003, 0.004);
-
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(2.8, 0.2, 16, 80), mGold);
-  ring.position.set(10, -5, -9); ring.rotation.x = Math.PI / 3;
-  add(ring, 0.002, 0.007, 0.003);
-
-  const sphGeo = new THREE.SphereGeometry(0.5, 14, 14);
-  [[-3,6,-2],[5,-5,-3],[-9,1,-5],[9,4,-7],[-5,-6,-6],[2,-7,-5],[-7,5,-10],[6,8,-10]].forEach(([x,y,z], i) => {
-    const s = new THREE.Mesh(sphGeo, i%2===0 ? mGoldL : mNavy);
-    s.position.set(x, y, z);
-    s.scale.setScalar(0.5 + Math.random() * 0.75);
-    add(s, 0.004+i*0.001, 0.003, 0.002);
+// THREE.JS
+(function(){
+  const cv=document.getElementById('hero-canvas');
+  function sz(){cv.width=cv.parentElement.offsetWidth;cv.height=cv.parentElement.offsetHeight;}
+  sz();window.addEventListener('resize',sz,{passive:true});
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+  R.setClearColor(0,0);R.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(55,1,.1,100);
+  C.position.z=22;
+  function rsz(){R.setSize(cv.width,cv.height,false);C.aspect=cv.width/cv.height;C.updateProjectionMatrix();}
+  rsz();window.addEventListener('resize',()=>{sz();rsz();},{passive:true});
+  S.add(new THREE.AmbientLight(0xffffff,.45));
+  const dl=new THREE.DirectionalLight(0xE8B84B,.9);dl.position.set(5,8,6);S.add(dl);
+  const pl=new THREE.PointLight(0x3a6abf,1.2,40);pl.position.set(-8,-4,6);S.add(pl);
+  const mN=new THREE.MeshStandardMaterial({color:0x1a3a6e,roughness:.4,metalness:.5,opacity:.7,transparent:true});
+  const mG=new THREE.MeshStandardMaterial({color:0xC8972B,roughness:.25,metalness:.7,opacity:.65,transparent:true});
+  const mGL=new THREE.MeshStandardMaterial({color:0xE8B84B,roughness:.2,metalness:.8,opacity:.6,transparent:true,emissive:0xC8972B,emissiveIntensity:.05});
+  const mWG=new THREE.MeshBasicMaterial({color:0xC8972B,wireframe:true,opacity:.09,transparent:true});
+  const mWN=new THREE.MeshBasicMaterial({color:0x1a3a6e,wireframe:true,opacity:.06,transparent:true});
+  const O=[];
+  function mk(geo,mat,x,y,z,rx,ry,rz){const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);S.add(m);O.push({m,rx,ry,rz});}
+  const iG=new THREE.IcosahedronGeometry(4.2,1);
+  mk(iG,mN,7,0,-8,.003,.005,.002);mk(iG,mWG,7,0,-8,.003,.005,.002);
+  mk(new THREE.TorusKnotGeometry(2,.38,100,14),mG,-8,3,-10,.004,.006,.002);
+  mk(new THREE.OctahedronGeometry(1.5,0),mGL,-6,-4,-6,.006,.004,.005);
+  const dG=new THREE.DodecahedronGeometry(1.3,0);
+  mk(dG,mN,4,5,-5,.005,.003,.004);mk(dG,mWN,4,5,-5,.005,.003,.004);
+  mk(new THREE.TorusGeometry(2.6,.18,14,70),mG,10,-5,-11,.002,.007,.003);
+  const sG=new THREE.SphereGeometry(.45,12,12);
+  [[-3,6,-4],[5,-5,-5],[-9,1,-7],[9,4,-9],[-5,-6,-8],[2,-7,-7],[-7,5,-12],[6,8,-12]].forEach(([x,y,z],i)=>{
+    const s=new THREE.Mesh(sG,i%2===0?mGL:mN);s.position.set(x,y,z);s.scale.setScalar(.5+Math.random()*.7);S.add(s);O.push({m:s,rx:.004+i*.001,ry:.003,rz:.002});
   });
-
-  const lMat = new THREE.LineBasicMaterial({ color: 0xC8972B, opacity: 0.1, transparent: true });
-  const pts = [[-3,6,-2],[5,-5,-3],[-9,1,-5],[9,4,-7],[-5,-6,-6],[2,-7,-5],[-7,5,-10]].map(p => new THREE.Vector3(...p));
-  [[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[1,3]].forEach(([a,b]) => {
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[a],pts[b]]), lMat));
-  });
-
-  let mx = 0, my = 0;
-  window.addEventListener('mousemove', e => {
-    mx = (e.clientX/window.innerWidth - 0.5) * 2;
-    my = (e.clientY/window.innerHeight - 0.5) * 2;
-  }, { passive: true });
-
-  let t = 0;
-  (function tick() {
-    requestAnimationFrame(tick);
-    t += 0.012;
-    objs.forEach(({ mesh, rx, ry, rz }) => {
-      mesh.rotation.x += rx;
-      mesh.rotation.y += ry;
-      mesh.rotation.z += rz;
-    });
-    scene.rotation.y = mx * 0.055 + Math.sin(t * 0.28) * 0.04;
-    scene.rotation.x = my * 0.035 + Math.cos(t * 0.2) * 0.02;
-    scene.position.y = Math.sin(t * 0.38) * 0.28;
-    pLight.intensity = 1.2 + Math.sin(t * 0.75) * 0.35;
-    renderer.render(scene, camera);
+  const lM=new THREE.LineBasicMaterial({color:0xC8972B,opacity:.07,transparent:true});
+  const pts=[[-3,6,-4],[5,-5,-5],[-9,1,-7],[9,4,-9],[-5,-6,-8],[2,-7,-7],[-7,5,-12]].map(p=>new THREE.Vector3(...p));
+  [[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[1,3]].forEach(([a,b])=>{S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[a],pts[b]]),lM));});
+  let mx=0,my=0;
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;},{passive:true});
+  let t=0;
+  (function tick(){requestAnimationFrame(tick);t+=.01;
+    O.forEach(({m,rx,ry,rz})=>{m.rotation.x+=rx;m.rotation.y+=ry;m.rotation.z+=rz;});
+    S.rotation.y=mx*.04+Math.sin(t*.25)*.03;
+    S.rotation.x=my*.025+Math.cos(t*.18)*.015;
+    S.position.y=Math.sin(t*.35)*.2;
+    pl.intensity=1.1+Math.sin(t*.7)*.28;
+    R.render(S,C);
   })();
 })();
 
-/* SCROLL REVEAL */
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+// SCROLL REVEAL
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-/* FIREBASE COUNT */
-try {
-  db.collection('alumni').onSnapshot(snap => {
-    const n = snap.size;
-    const el1 = document.getElementById('alumniNum');
-    const el2 = document.getElementById('statCount');
-    if (el1) el1.textContent = n;
-    if (el2) el2.textContent = n;
+// FIREBASE
+try{
+  db.collection('alumni').onSnapshot(snap=>{
+    const n=snap.size;
+    const a=document.getElementById('heroCount');
+    const b=document.getElementById('statCount');
+    if(a)a.textContent=n;
+    if(b)b.textContent=n;
   });
-} catch(e) {}
+}catch(e){}
 </script>
 </body>
 </html>
