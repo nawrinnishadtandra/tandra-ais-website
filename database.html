@@ -1,1064 +1,328 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alumni Database | AIS Alumni</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Hind Siliguri', sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-  background: #0a0e27;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* Animated Gradient Background */
-.bg-animate {
-  background: linear-gradient(135deg, #0a0e27, #1a1f3a, #2d1b4e, #1a1f3a, #0a0e27);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  min-height: 100vh;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating Particles */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: rgba(138, 80, 255, 0.3);
-  border-radius: 50%;
-  animation: float 20s infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% {
-    transform: translateY(-100vh) translateX(100px);
-    opacity: 0;
-  }
-}
-
-/* Navigation */
-nav {
-  position: relative;
-  z-index: 30;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-link {
-  position: relative;
-  color: #ffffff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.75rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.nav-link:hover::before {
-  opacity: 1;
-}
-
-.nav-link:hover {
-  color: #8A50FF;
-  transform: translateY(-2px);
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  z-index: 10;
-  min-height: 35vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem 1rem 2rem;
-}
-
-.hero-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D, #FFD93D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.75rem;
-  animation: titleGlow 3s ease-in-out infinite;
-}
-
-@keyframes titleGlow {
-  0%, 100% { filter: drop-shadow(0 0 20px rgba(138, 80, 255, 0.5)); }
-  50% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.7)); }
-}
-
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  margin-bottom: 1.5rem;
-}
-
-/* Stats Section */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  padding: 0 1rem;
-}
-
-.stat-box {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.25rem;
-  padding: 1.25rem;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.stat-box:hover {
-  transform: translateY(-5px);
-  background: rgba(138, 80, 255, 0.1);
-  border-color: rgba(138, 80, 255, 0.3);
-}
-
-.stat-number {
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.25rem;
-}
-
-.stat-label {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-/* Search & Filter Section */
-.search-filter-container {
-  position: relative;
-  z-index: 20;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem 2rem;
-}
-
-.filter-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  padding: 2rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.filter-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(138, 80, 255, 0.1), transparent);
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-/* Search Bar */
-.search-wrapper {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.search-input {
-  width: 100%;
-  padding: 1.25rem 4rem 1.25rem 3.5rem;
-  border-radius: 1.5rem;
-  border: 2px solid rgba(138, 80, 255, 0.3);
-  outline: none;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  color: white;
-  font-weight: 500;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.4s ease;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.search-input:focus {
-  border-color: #8A50FF;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 30px rgba(138, 80, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.search-icon {
-  position: absolute;
-  left: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  pointer-events: none;
-}
-
-.clear-search {
-  position: absolute;
-  right: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 107, 157, 0.3);
-  border: none;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.25rem;
-}
-
-.clear-search:hover {
-  background: rgba(255, 107, 157, 0.5);
-  transform: translateY(-50%) scale(1.1);
-}
-
-/* Batch Filter Tabs */
-.batch-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.batch-btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 1rem;
-  border: 2px solid rgba(138, 80, 255, 0.3);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.batch-btn:hover {
-  background: rgba(138, 80, 255, 0.1);
-  border-color: rgba(138, 80, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.batch-btn.active {
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  border-color: transparent;
-  color: white;
-  box-shadow: 0 4px 15px rgba(138, 80, 255, 0.4);
-}
-
-/* Sort Options */
-.sort-container {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.sort-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.sort-btn {
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.75rem;
-  border: 2px solid rgba(138, 80, 255, 0.3);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.85rem;
-}
-
-.sort-btn:hover {
-  background: rgba(138, 80, 255, 0.1);
-  border-color: rgba(138, 80, 255, 0.5);
-}
-
-.sort-btn.active {
-  background: rgba(138, 80, 255, 0.2);
-  border-color: #8A50FF;
-  color: #8A50FF;
-}
-
-/* Alumni Grid */
-.alumni-container {
-  position: relative;
-  z-index: 10;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem 3rem;
-}
-
-.alumni-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* Alumni Card - Premium Design */
-.alumni-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.75rem;
-  padding: 2rem;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.alumni-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(138, 80, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.alumni-card:hover::before {
-  left: 100%;
-}
-
-.alumni-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(138, 80, 255, 0.4);
-  box-shadow: 0 20px 50px rgba(138, 80, 255, 0.3);
-}
-
-/* Profile Avatar */
-.profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8A50FF, #FF6B9D);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  margin: 0 auto 1.25rem;
-  box-shadow: 0 10px 30px rgba(138, 80, 255, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-.profile-avatar::after {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: avatarSpin 3s linear infinite;
-}
-
-@keyframes avatarSpin {
-  to { transform: rotate(360deg); }
-}
-
-.avatar-text {
-  position: relative;
-  z-index: 1;
-}
-
-/* Card Content */
-.card-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: white;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-
-.card-batch {
-  display: inline-block;
-  padding: 0.375rem 1rem;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(138, 80, 255, 0.3), rgba(255, 107, 157, 0.3));
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 0 auto 1rem;
-  display: block;
-  width: fit-content;
-  text-align: center;
-}
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-}
-
-.info-icon {
-  font-size: 1.25rem;
-  width: 35px;
-  height: 35px;
-  border-radius: 0.75rem;
-  background: rgba(138, 80, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.info-text {
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.empty-icon {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.empty-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0.5rem;
-}
-
-.empty-text {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Loading Animation */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-}
-
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(138, 80, 255, 0.2);
-  border-top-color: #8A50FF;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.loading-text {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-/* Results Count */
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.results-count {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.results-number {
-  color: #8A50FF;
-  font-weight: 700;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  nav {
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
-  }
-
-  .nav-link {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  .hero-section {
-    padding: 2rem 1rem 1.5rem;
-    min-height: 30vh;
-  }
-
-  .stats-container {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.75rem;
-  }
-
-  .stat-box {
-    padding: 1rem;
-  }
-
-  .filter-card {
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-  }
-
-  .search-input {
-    padding: 1rem 3rem 1rem 2.75rem;
-    font-size: 0.95rem;
-  }
-
-  .search-icon {
-    font-size: 1.25rem;
-    left: 1rem;
-  }
-
-  .clear-search {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-    right: 1rem;
-  }
-
-  .batch-filters {
-    gap: 0.5rem;
-  }
-
-  .batch-btn {
-    padding: 0.625rem 1rem;
-    font-size: 0.85rem;
-  }
-
-  .alumni-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .alumni-card {
-    padding: 1.75rem;
-  }
-
-  .profile-avatar {
-    width: 70px;
-    height: 70px;
-    font-size: 1.75rem;
-  }
-
-  .card-name {
-    font-size: 1.1rem;
-  }
-
-  .sort-container {
-    width: 100%;
-  }
-
-  .sort-btn {
-    flex: 1;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .batch-btn {
-    padding: 0.5rem 0.875rem;
-    font-size: 0.8rem;
-  }
-
-  .filter-card {
-    padding: 1.25rem;
-  }
-}
-
-/* Scroll Animations */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
+nav.scrolled{height:54px}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 4px 10px rgba(11,30,61,.22);flex-shrink:0}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
+.nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-menu a{color:#3a4f6a;font-size:.8rem;font-weight:500;padding:.4rem .7rem;border-radius:6px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem;box-shadow:0 4px 12px rgba(11,30,61,.25)}
+.nav-menu .cta:hover{background:#1A3260!important}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
+.nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
+.has-drop{position:relative}
+.drop-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:12px;padding:.4rem;min-width:155px;box-shadow:0 8px 32px rgba(11,30,61,.1);z-index:9}
+.has-drop:hover .drop-menu{display:block}
+.drop-menu a{display:block;padding:.42rem .7rem;border-radius:6px;font-size:.8rem;color:#3a4f6a}
+.drop-menu a:hover{background:#FFF6E0;color:#0B1E3D}
+@media(max-width:860px){
+  .nav-burger{display:flex}
+  .nav-menu{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
+  .nav-menu.open{display:flex}
+  .nav-menu a{padding:.7rem 1rem}
+  .nav-menu .cta{margin-left:0;text-align:center}
+  .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
+  .nav-brand-sub{display:none}
+}
+
+/* PAGE HEADER */
+.page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:5rem clamp(1.5rem,5vw,4rem) 3rem;margin-top:62px;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
+.page-header-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.page-eyebrow::before{content:'';width:18px;height:2px;background:#E8B84B;border-radius:2px}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:.5rem}
+.page-title em{font-style:italic;color:#E8B84B}
+.page-desc{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:520px}
+
+/* STATS ROW */
+.stats-strip{background:#fff;border-bottom:1px solid rgba(11,30,61,.07);padding:1.25rem clamp(1.5rem,5vw,4rem)}
+.stats-strip-inner{max-width:1100px;margin:0 auto;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
+.strip-stat{text-align:center}
+.strip-num{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:#0B1E3D;line-height:1}
+.strip-num span{color:#C8972B}
+.strip-lbl{font-size:.72rem;color:#6B7C93;margin-top:2px}
+
+/* FILTER SECTION */
+.filter-wrap{background:#fff;padding:1.5rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(11,30,61,.07);position:sticky;top:62px;z-index:50;box-shadow:0 2px 12px rgba(11,30,61,.05)}
+.filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.search-row{display:flex;gap:.75rem;align-items:center}
+.search-box{flex:1;position:relative}
+.search-box input{width:100%;padding:.65rem 1rem .65rem 2.5rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.85rem;font-family:inherit;background:#F9F7F3;color:#0B1E3D;outline:none;transition:all .25s}
+.search-box input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none}
+.batch-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.batch-lbl{font-size:.75rem;font-weight:600;color:#6B7C93;white-space:nowrap}
+.batch-btn{padding:.32rem .8rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.12);background:transparent;font-size:.75rem;font-weight:500;color:#3a4f6a;cursor:pointer;transition:all .2s;font-family:inherit}
+.batch-btn:hover{border-color:#C8972B;color:#0B1E3D}
+.batch-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
+.sort-row{display:flex;gap:.5rem;align-items:center}
+.sort-lbl{font-size:.75rem;font-weight:600;color:#6B7C93}
+.sort-btn{padding:.3rem .8rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.75rem;font-weight:500;color:#3a4f6a;cursor:pointer;transition:all .2s;font-family:inherit}
+.sort-btn:hover{border-color:#C8972B}
+.sort-btn.active{background:rgba(200,151,43,.1);border-color:#C8972B;color:#9a6c0a}
+
+/* RESULTS */
+.results-wrap{max-width:1100px;margin:0 auto;padding:2rem clamp(1.5rem,5vw,4rem)}
+.results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
+.results-count{font-size:.85rem;color:#6B7C93}
+.results-count strong{color:#0B1E3D;font-weight:600}
+
+/* ALUMNI GRID */
+.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
+
+/* ALUMNI CARD */
+.alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.5rem;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.alumni-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.alumni-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
+.alumni-card:hover::before{transform:scaleX(1)}
+.alumni-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#E8B84B;margin:0 auto 1rem;box-shadow:0 6px 16px rgba(11,30,61,.2)}
+.alumni-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;text-align:center;margin-bottom:.4rem;line-height:1.3}
+.alumni-batch{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;text-align:center;margin:0 auto .9rem;display:block;width:fit-content;margin-left:auto;margin-right:auto}
+.alumni-info{display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem;border-top:1px solid rgba(11,30,61,.06);padding-top:.75rem}
+.info-row{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:#5a6e84}
+.info-row-icon{width:24px;height:24px;border-radius:6px;background:#F9F7F3;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.info-row-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* LOADING */
+.loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem;gap:1rem}
+.loader{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:.85rem;color:#6B7C93}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:5rem 2rem}
+.empty-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#0B1E3D;margin-bottom:.5rem}
+.empty-text{font-size:.85rem;color:#6B7C93}
+
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93;margin-top:2rem}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
 </style>
 </head>
-<body class="bg-animate">
+<body>
 
-<!-- Floating Particles Background -->
-<div class="particles" id="particles"></div>
-
-<!-- Navigation -->
-<nav>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="database.html" class="nav-link">Alumni Database</a>
-  <a href="register.html" class="nav-link">Register</a>
-  <a href="donation.html" class="nav-link">Donation</a>
-  <a href="notices.html" class="nav-link">Notice</a>
-  <a href="event.html" class="nav-link">Next Event</a>
-  <a href="profile.html" class="nav-link" style="background: linear-gradient(135deg, #8A50FF, #FF6B9D); border-radius: 0.5rem; color: white;">Profile</a>
+<nav id="nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon">🎓</div>
+    <div>
+      <span class="nav-brand-title">AIS Alumni</span>
+      <span class="nav-brand-sub">University of Barishal</span>
+    </div>
+  </a>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-drop">
+      <a href="database.html">Alumni Database ▾</a>
+      <div class="drop-menu">
+        <a href="database.html">All Batches</a>
+        <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
+        <a href="database.html?batch=3">Batch 3</a><a href="database.html?batch=4">Batch 4</a>
+        <a href="database.html?batch=5">Batch 5</a><a href="database.html?batch=6">Batch 6</a>
+        <a href="database.html?batch=7">Batch 7</a><a href="database.html?batch=8">Batch 8</a>
+        <a href="database.html?batch=9">Batch 9</a><a href="database.html?batch=10">Batch 10</a>
+        <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
+      </div>
+    </li>
+    <li><a href="donation.html">Donation</a></li>
+    <li><a href="notices.html">Notice</a></li>
+    <li><a href="event.html">Events</a></li>
+    <li><a href="register.html">Register</a></li>
+    <li><a href="profile.html" class="cta">My Profile</a></li>
+  </ul>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero-section">
-  <h1 class="hero-title">Alumni Database</h1>
-  <p class="hero-subtitle">Accounting & Information Systems | University of Barishal</p>
-  
-  <!-- Stats -->
-  <div class="stats-container">
-    <div class="stat-box">
-      <div class="stat-number" id="totalCount">0</div>
-      <div class="stat-label">Total Alumni</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-number" id="batchCount">12</div>
-      <div class="stat-label">Batches</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-number" id="activeCount">0</div>
-      <div class="stat-label">Active Members</div>
-    </div>
-  </div>
-</section>
-
-<!-- Search & Filter Section -->
-<div class="search-filter-container">
-  <div class="filter-card">
-    
-    <!-- Search Bar -->
-    <div class="search-wrapper">
-      <span class="search-icon">🔍</span>
-      <input 
-        type="text" 
-        id="searchInput" 
-        class="search-input" 
-        placeholder="Search by name, batch, job, or year..."
-        autocomplete="off"
-      >
-      <button class="clear-search" id="clearSearch" style="display: none;">✕</button>
-    </div>
-
-    <!-- Batch Filters -->
-    <div class="batch-filters">
-      <button class="batch-btn active" data-batch="all">All Batches</button>
-      <button class="batch-btn" data-batch="1">Batch 1</button>
-      <button class="batch-btn" data-batch="2">Batch 2</button>
-      <button class="batch-btn" data-batch="3">Batch 3</button>
-      <button class="batch-btn" data-batch="4">Batch 4</button>
-      <button class="batch-btn" data-batch="5">Batch 5</button>
-      <button class="batch-btn" data-batch="6">Batch 6</button>
-      <button class="batch-btn" data-batch="7">Batch 7</button>
-      <button class="batch-btn" data-batch="8">Batch 8</button>
-      <button class="batch-btn" data-batch="9">Batch 9</button>
-      <button class="batch-btn" data-batch="10">Batch 10</button>
-      <button class="batch-btn" data-batch="11">Batch 11</button>
-      <button class="batch-btn" data-batch="12">Batch 12</button>
-    </div>
-
-    <!-- Sort Options -->
-    <div class="sort-container">
-      <span class="sort-label">Sort by:</span>
-      <button class="sort-btn active" data-sort="name">Name A-Z</button>
-      <button class="sort-btn" data-sort="batch">Batch</button>
-      <button class="sort-btn" data-sort="year">Year</button>
-    </div>
-
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Alumni Network</div>
+    <h1 class="page-title">Alumni <em>Database</em></h1>
+    <p class="page-desc">Accounting &amp; Information Systems · University of Barishal — Connect with graduates across all batches.</p>
   </div>
 </div>
 
-<!-- Alumni Grid -->
-<div class="alumni-container">
-  <!-- Results Header -->
-  <div class="results-header">
-    <div class="results-count">
-      Showing <span class="results-number" id="resultsCount">0</span> Alumni
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="strip-stat"><div class="strip-num" id="totalCount">0</div><div class="strip-lbl">Total Alumni</div></div>
+    <div class="strip-stat"><div class="strip-num">12</div><div class="strip-lbl">Batches</div></div>
+    <div class="strip-stat"><div class="strip-num" id="activeCount">0</div><div class="strip-lbl">Active Members</div></div>
+  </div>
+</div>
+
+<div class="filter-wrap">
+  <div class="filter-inner">
+    <div class="search-row">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search by name, batch, job or year..." autocomplete="off">
+      </div>
+      <button class="batch-btn" id="clearBtn" style="display:none" onclick="clearSearch()">✕ Clear</button>
+    </div>
+    <div class="batch-row">
+      <span class="batch-lbl">Batch:</span>
+      <button class="batch-btn active" data-batch="all">All</button>
+      <button class="batch-btn" data-batch="1">1</button>
+      <button class="batch-btn" data-batch="2">2</button>
+      <button class="batch-btn" data-batch="3">3</button>
+      <button class="batch-btn" data-batch="4">4</button>
+      <button class="batch-btn" data-batch="5">5</button>
+      <button class="batch-btn" data-batch="6">6</button>
+      <button class="batch-btn" data-batch="7">7</button>
+      <button class="batch-btn" data-batch="8">8</button>
+      <button class="batch-btn" data-batch="9">9</button>
+      <button class="batch-btn" data-batch="10">10</button>
+      <button class="batch-btn" data-batch="11">11</button>
+      <button class="batch-btn" data-batch="12">12</button>
+    </div>
+    <div class="sort-row">
+      <span class="sort-lbl">Sort by:</span>
+      <button class="sort-btn active" data-sort="name">Name A–Z</button>
+      <button class="sort-btn" data-sort="batch">Batch</button>
+      <button class="sort-btn" data-sort="year">Year</button>
     </div>
   </div>
+</div>
 
-  <!-- Loading State -->
-  <div class="loading-container" id="loadingState">
-    <div class="loading-spinner"></div>
-    <div class="loading-text">Loading Alumni Data...</div>
+<div class="results-wrap">
+  <div class="results-header">
+    <div class="results-count">Showing <strong id="resultsCount">0</strong> alumni</div>
   </div>
-
-  <!-- Alumni Grid -->
+  <div class="loading-state" id="loadingState">
+    <div class="loader"></div>
+    <div class="loading-text">Loading alumni data...</div>
+  </div>
   <div class="alumni-grid" id="alumniGrid"></div>
-
-  <!-- Empty State -->
-  <div class="empty-state" id="emptyState" style="display: none;">
+  <div class="empty-state" id="emptyState" style="display:none">
     <div class="empty-icon">🔍</div>
     <div class="empty-title">No Alumni Found</div>
     <div class="empty-text">Try adjusting your search or filters</div>
   </div>
 </div>
 
-<!-- Firebase SDK -->
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
-
 <script>
-// Global state
-let allAlumni = [];
-let filteredAlumni = [];
-let currentBatch = 'all';
-let currentSort = 'name';
-let searchQuery = '';
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('navMenu').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
 
-// Create floating particles
-function createParticles() {
-  const container = document.getElementById('particles');
-  const particleCount = window.innerWidth < 768 ? 25 : 40;
-  
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-    
-    const colors = ['rgba(138, 80, 255, 0.3)', 'rgba(255, 107, 157, 0.3)', 'rgba(255, 217, 61, 0.3)'];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    
-    container.appendChild(particle);
-  }
-}
+let allAlumni=[],currentBatch='all',currentSort='name',searchQuery='';
 
-// Get initials from name
-function getInitials(name) {
-  return name
-    .split(' ')
-    .map(word => word[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-}
+function getInitials(name){return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
 
-// Create alumni card HTML
-function createAlumniCard(alumni) {
-  const initials = getInitials(alumni.name);
-  
-  return `
-    <div class="alumni-card fade-in">
-      <div class="profile-avatar">
-        <span class="avatar-text">${initials}</span>
-      </div>
-      <div class="card-name">${alumni.name}</div>
-      <div class="card-batch">Batch ${alumni.batch} | ${alumni.year}</div>
-      <div class="card-info">
-        <div class="info-item">
-          <div class="info-icon">💼</div>
-          <div class="info-text">${alumni.job}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">📱</div>
-          <div class="info-text">${alumni.phone}</div>
-        </div>
-        ${alumni.email ? `
-        <div class="info-item">
-          <div class="info-icon">📧</div>
-          <div class="info-text">${alumni.email}</div>
-        </div>
-        ` : ''}
-      </div>
+function createCard(a){
+  return `<div class="alumni-card reveal">
+    <div class="alumni-avatar">${getInitials(a.name)}</div>
+    <div class="alumni-name">${a.name}</div>
+    <div class="alumni-batch">Batch ${a.batch} &nbsp;·&nbsp; ${a.year}</div>
+    <div class="alumni-info">
+      <div class="info-row"><div class="info-row-icon">💼</div><div class="info-row-text">${a.job||'—'}</div></div>
+      <div class="info-row"><div class="info-row-icon">📱</div><div class="info-row-text">${a.phone||'—'}</div></div>
+      ${a.email?`<div class="info-row"><div class="info-row-icon">📧</div><div class="info-row-text">${a.email}</div></div>`:''}
     </div>
-  `;
+  </div>`;}
+
+function sortAlumni(arr,by){
+  return [...arr].sort((a,b)=>{
+    if(by==='name')return a.name.localeCompare(b.name);
+    if(by==='batch')return parseInt(a.batch)-parseInt(b.batch);
+    if(by==='year')return parseInt(a.year)-parseInt(b.year);
+  });
 }
 
-// Render alumni grid
-function renderAlumni(alumniList) {
-  const grid = document.getElementById('alumniGrid');
-  const loadingState = document.getElementById('loadingState');
-  const emptyState = document.getElementById('emptyState');
-  const resultsCount = document.getElementById('resultsCount');
-  
-  loadingState.style.display = 'none';
-  
-  if (alumniList.length === 0) {
-    grid.innerHTML = '';
-    emptyState.style.display = 'block';
-    resultsCount.textContent = '0';
-    return;
-  }
-  
-  emptyState.style.display = 'none';
-  resultsCount.textContent = alumniList.length;
-  
-  grid.innerHTML = alumniList.map(alumni => createAlumniCard(alumni)).join('');
-  
-  // Animate cards
-  setTimeout(() => {
-    const cards = document.querySelectorAll('.fade-in');
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('visible');
-      }, index * 50);
-    });
-  }, 100);
-}
-
-// Sort alumni
-function sortAlumni(alumni, sortBy) {
-  const sorted = [...alumni];
-  
-  switch(sortBy) {
-    case 'name':
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case 'batch':
-      sorted.sort((a, b) => parseInt(a.batch) - parseInt(b.batch));
-      break;
-    case 'year':
-      sorted.sort((a, b) => parseInt(a.year) - parseInt(b.year));
-      break;
-  }
-  
-  return sorted;
-}
-
-// Filter alumni
-function filterAlumni() {
-  let filtered = [...allAlumni];
-  
-  // Filter by batch
-  if (currentBatch !== 'all') {
-    filtered = filtered.filter(a => a.batch === currentBatch);
-  }
-  
-  // Filter by search query
-  if (searchQuery) {
-    const query = searchQuery.toLowerCase();
-    filtered = filtered.filter(a => 
-      a.name.toLowerCase().includes(query) ||
-      a.batch.toString().includes(query) ||
-      a.job.toLowerCase().includes(query) ||
-      a.year.toString().includes(query) ||
-      (a.phone && a.phone.includes(query)) ||
-      (a.email && a.email.toLowerCase().includes(query))
+function render(){
+  let filtered=[...allAlumni];
+  if(currentBatch!=='all')filtered=filtered.filter(a=>a.batch===currentBatch);
+  if(searchQuery){
+    const q=searchQuery.toLowerCase();
+    filtered=filtered.filter(a=>
+      a.name.toLowerCase().includes(q)||
+      String(a.batch).includes(q)||
+      (a.job&&a.job.toLowerCase().includes(q))||
+      String(a.year).includes(q)||
+      (a.phone&&a.phone.includes(q))||
+      (a.email&&a.email.toLowerCase().includes(q))
     );
   }
-  
-  // Sort
-  filtered = sortAlumni(filtered, currentSort);
-  
-  filteredAlumni = filtered;
-  renderAlumni(filtered);
+  filtered=sortAlumni(filtered,currentSort);
+  const grid=document.getElementById('alumniGrid');
+  const empty=document.getElementById('emptyState');
+  document.getElementById('resultsCount').textContent=filtered.length;
+  if(!filtered.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=filtered.map(createCard).join('');
+  setTimeout(()=>{
+    const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.05});
+    document.querySelectorAll('.alumni-card.reveal').forEach(el=>ro.observe(el));
+  },50);
 }
 
-// Update stats
-function updateStats() {
-  document.getElementById('totalCount').textContent = allAlumni.length;
-  document.getElementById('activeCount').textContent = allAlumni.length;
+function clearSearch(){
+  document.getElementById('searchInput').value='';
+  searchQuery='';
+  document.getElementById('clearBtn').style.display='none';
+  render();
 }
 
-// Batch filter buttons
-document.querySelectorAll('.batch-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
+document.getElementById('searchInput').addEventListener('input',function(){
+  searchQuery=this.value.trim();
+  document.getElementById('clearBtn').style.display=searchQuery?'inline-block':'none';
+  render();
+});
+
+document.querySelectorAll('.batch-btn[data-batch]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.batch-btn[data-batch]').forEach(b=>b.classList.remove('active'));
     this.classList.add('active');
-    currentBatch = this.dataset.batch;
-    filterAlumni();
+    currentBatch=this.dataset.batch;
+    render();
   });
 });
 
-// Sort buttons
-document.querySelectorAll('.sort-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.sort-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
     this.classList.add('active');
-    currentSort = this.dataset.sort;
-    filterAlumni();
+    currentSort=this.dataset.sort;
+    render();
   });
 });
 
-// Search input
-const searchInput = document.getElementById('searchInput');
-const clearSearch = document.getElementById('clearSearch');
-
-searchInput.addEventListener('input', function(e) {
-  searchQuery = e.target.value.trim();
-  clearSearch.style.display = searchQuery ? 'flex' : 'none';
-  filterAlumni();
+db.collection('alumni').onSnapshot(snap=>{
+  allAlumni=[];
+  snap.forEach(doc=>allAlumni.push(doc.data()));
+  document.getElementById('totalCount').textContent=allAlumni.length;
+  document.getElementById('activeCount').textContent=allAlumni.length;
+  document.getElementById('loadingState').style.display='none';
+  render();
 });
 
-clearSearch.addEventListener('click', function() {
-  searchInput.value = '';
-  searchQuery = '';
-  this.style.display = 'none';
-  filterAlumni();
-});
-
-// Load alumni from Firebase
-db.collection("alumni").onSnapshot(snapshot => {
-  allAlumni = [];
-  
-  snapshot.forEach(doc => {
-    allAlumni.push(doc.data());
-  });
-  
-  updateStats();
-  filterAlumni();
-});
-
-// Initialize
-window.addEventListener('load', function() {
-  createParticles();
-  
-  // Check for batch filter from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const batchParam = urlParams.get('batch');
-  
-  if (batchParam) {
-    const batchBtn = document.querySelector(`[data-batch="${batchParam}"]`);
-    if (batchBtn) {
-      batchBtn.click();
-    }
+window.addEventListener('load',()=>{
+  const p=new URLSearchParams(window.location.search).get('batch');
+  if(p){
+    const btn=document.querySelector(`[data-batch="${p}"]`);
+    if(btn)btn.click();
   }
 });
-
-// Scroll animation observer
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, observerOptions);
-
-// Observe stat boxes
-document.querySelectorAll('.stat-box').forEach(el => {
-  el.classList.add('fade-in');
-  observer.observe(el);
-});
 </script>
-
 </body>
 </html>
