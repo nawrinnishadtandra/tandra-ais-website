@@ -215,8 +215,8 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .td-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
 .td-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
 .td-val{font-size:.84rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.35}
-.td-val a{color:#C8972B;text-decoration:none}
-.td-val a:hover{text-decoration:underline}
+.td-val a{color:#C8972B;text-decoration:none;font-weight:500}
+.td-val a:hover{text-decoration:underline;color:#9a6c0a}
 
 .t-modal-body{padding:1.5rem}
 .t-grid{display:flex;flex-direction:column;gap:.6rem}
@@ -271,7 +271,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   <div class="hero-wrap">
     <div>
       <div class="pill"><span class="pill-dot"></span>Accounting &amp; Information Systems</div>
-      <h1 class="hero-h1">Connecting the <em>AIS</em> Family,<br>Building Department Legacy</h1>
+      <h1 class="hero-h1">Connecting the <em>AIS</em> Family,<br>Building Our Legacy</h1>
       <p class="hero-desc">Connect with fellow graduates of the Department of Accounting &amp; Information Systems, University of Barishal — celebrate achievements and build a stronger future together.</p>
       <div class="hero-actions">
         <a href="register.html" class="btn-p">Join Alumni Network</a>
@@ -280,7 +280,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <div class="stats-row">
         <div><div class="sn" id="heroCount">—</div><div class="sl">Registered Alumni</div></div>
         <div><div class="sn">12</div><div class="sl">Batches</div></div>
-        <div><div class="sn">10<span>+</span></div><div class="sl">Faculty Members</div></div>
+        <div><div class="sn">8</div><div class="sl">Faculty Members</div></div>
       </div>
     </div>
     <div class="card-col">
@@ -534,7 +534,8 @@ function openTDetail(i){
   document.getElementById('tdName').textContent = t.name;
   document.getElementById('tdDesg').textContent = t.desg;
   document.getElementById('tdChairBadge').style.display = t.chair ? 'block' : 'none';
-  document.getElementById('tdPhone').textContent = t.phone;
+  const phones = t.phone.split(',').map(p=>p.trim());
+  document.getElementById('tdPhone').innerHTML = phones.map(p=>`<a href="tel:${p}">${p}</a>`).join('<br>');
   const emails = t.email.split(',').map(e=>e.trim());
   document.getElementById('tdEmail').innerHTML = emails.map(e=>`<a href="mailto:${e}">${e}</a>`).join('<br>');
   document.getElementById('tDetailBg').classList.add('open');
