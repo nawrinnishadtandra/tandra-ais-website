@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIS Alumni | University of Barishal</title>
+<title>AIS Alumni | University of Barishal — Accounting & Information Systems</title>
+<meta name="description" content="AIS Alumni Network — University of Barishal. Connect with fellow graduates of Accounting & Information Systems department.">
+<meta name="keywords" content="AIS Alumni, University of Barishal, Accounting Information Systems, BU Alumni">
+<meta property="og:title" content="AIS Alumni | University of Barishal">
+<meta property="og:description" content="Connect with fellow AIS graduates. Join our alumni network today!">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -11,19 +16,19 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
-nav.scrolled{height:54px}
-.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 4px 10px rgba(11,30,61,.22);flex-shrink:0}
+/* TOP NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
+.top-nav.scrolled{height:54px}
+.nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
-.nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
-.nav-menu a{color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:6px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
-.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
-.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.44rem 1rem;border-radius:7px;margin-left:.4rem;box-shadow:0 4px 12px rgba(11,30,61,.25)}
-.nav-menu .cta:hover{background:#1A3260!important}
+.nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-ico{font-size:14px;line-height:1}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
+.nav-cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -33,20 +38,54 @@ nav.scrolled{height:54px}
 .drop-menu a:hover{background:#FFF6E0;color:#0B1E3D}
 @media(max-width:900px){
   .nav-burger{display:flex}
-  .nav-menu{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
-  .nav-menu.open{display:flex}
-  .nav-menu a{padding:.7rem 1rem}
-  .nav-menu .cta{margin-left:0;text-align:center}
+  .nav-links{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:.7rem 1rem}
+  .nav-cta{margin-left:0!important;text-align:center;justify-content:center}
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-
+/* BOTTOM NAV */
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.bn.active{color:#0B1E3D}
+.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
+.bn.active .bn-ico{background:rgba(11,30,61,.07)}
+.bn:active .bn-ico{transform:scale(.86)}
+.bn-reg .bn-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
+.bn-reg{color:#0B1E3D!important}
+.more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.more-drawer.open{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
+.drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
+.drawer-item:active{background:#F9F7F3}
+.drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
+.drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
+.drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
+.drawer-overlay{position:fixed;inset:0;z-index:2999;background:rgba(11,30,61,.4);backdrop-filter:blur(4px);display:none}
+.drawer-overlay.open{display:block}
+@media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
+@media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 /* HERO */
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding-top:62px;overflow:hidden;background:linear-gradient(155deg,#EDF1FF 0%,#F5F2EC 50%,#FFF9ED 100%)}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.28;z-index:1}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(237,241,255,.88) 0%,rgba(237,241,255,.65) 42%,transparent 68%)}
 .hero-wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 300px;gap:clamp(2rem,4vw,4rem);align-items:center}
-@media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.stats-row{justify-content:center}}
+@media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.hero-actions{justify-content:center;flex-direction:column;align-items:center}.hero-share{justify-content:center}.stats-row{justify-content:center}}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#FFF6E0;border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:3px 12px;font-size:10.5px;font-weight:600;color:#9a6c0a;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:#C8972B;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1rem}
+.hero-h1 em{font-style:italic;color:#C8972B}
+.hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.4rem}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:.85rem}
+.btn-p{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;background:linear-gradient(135deg,#0B1E3D,#1a3a6e);color:#fff;border-radius:16px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 32px rgba(11,30,61,.32);transition:all .3s cubic-bezier(.34,.8,.64,1);min-width:200px}
+.btn-p:hover{background:linear-gradient(135deg,#162d55,#1e4a8a);transform:translateY(-4px);box-shadow:0 20px 44px rgba(11,30,61,.42)}
+.btn-s{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);border-radius:16px;font-size:15px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.92);transition:all .3s cubic-bezier(.34,.8,.64,1);backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(11,30,61,.08);min-width:200px}
+.btn-s:hover{border-color:rgba(11,30,61,.35);box-shadow:0 12px 32px rgba(11,30,61,.14);transform:translateY(-4px);background:#fff}
 .btn-ico{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .btn-s .btn-ico{background:rgba(11,30,61,.06)}
 .btn-txt{display:flex;flex-direction:column;text-align:left;flex:1}
@@ -55,25 +94,26 @@ nav.scrolled{height:54px}
 .btn-s .btn-sub{color:#6B7C93}
 .btn-arr{font-size:18px;opacity:.7;transition:transform .3s}
 .btn-p:hover .btn-arr{transform:translateX(4px);opacity:1}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-@media(max-width:768px){.hero-actions{flex-direction:column;align-items:center}.btn-p,.btn-s{width:100%;max-width:320px;justify-content:flex-start}}
-
-.pill{display:inline-flex;align-items:center;gap:6px;background:#FFF6E0;border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:3px 12px;font-size:10.5px;font-weight:600;color:#9a6c0a;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
-.pill-dot{width:5px;height:5px;border-radius:50%;background:#C8972B;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1rem}
-.hero-h1 em{font-style:italic;color:#C8972B}
-.hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.6rem}
-
-.btn-p{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;background:linear-gradient(135deg,#0B1E3D 0%,#1a3a6e 100%);color:#fff;border-radius:16px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 32px rgba(11,30,61,.32),0 2px 0 rgba(255,255,255,.08) inset;transition:all .3s cubic-bezier(.34,.8,.64,1);min-width:200px}
-.btn-p:hover{background:linear-gradient(135deg,#162d55 0%,#1e4a8a 100%);transform:translateY(-4px);box-shadow:0 20px 44px rgba(11,30,61,.42)}
-.btn-s{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);border-radius:16px;font-size:15px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.92);transition:all .3s cubic-bezier(.34,.8,.64,1);backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(11,30,61,.08);min-width:200px}
-.btn-s:hover{border-color:rgba(11,30,61,.35);box-shadow:0 12px 32px rgba(11,30,61,.14);transform:translateY(-4px);background:#fff}
-.stats-row{display:flex;gap:1.8rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(11,30,61,.1)}
+.hero-share{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.2rem}
+.sh-btn{display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 12px;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;transition:all .28s cubic-bezier(.34,.8,.64,1);border:none;text-decoration:none;white-space:nowrap}
+.sh-btn:hover{transform:translateY(-3px)}
+.sh-btn:active{transform:scale(.96)}
+.sh-ico{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-ico svg{width:20px;height:20px;display:block}
+.sh-txt{display:flex;flex-direction:column;text-align:left}
+.sh-lbl{font-size:10px;opacity:.72;font-weight:500;line-height:1;margin-bottom:2px;letter-spacing:.03em}
+.sh-val{font-size:13.5px;font-weight:700;line-height:1}
+.sh-wa{background:#25D366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,.38)}
+.sh-wa:hover{background:#20BA5A;box-shadow:0 12px 30px rgba(37,211,102,.48)}
+.sh-fb{background:#1877F2;color:#fff;box-shadow:0 6px 20px rgba(24,119,242,.38)}
+.sh-fb:hover{background:#1468D8;box-shadow:0 12px 30px rgba(24,119,242,.48)}
+.sh-cp{background:rgba(255,255,255,.92);color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);box-shadow:0 4px 16px rgba(11,30,61,.09)}
+.sh-cp:hover{background:#fff;border-color:rgba(11,30,61,.28);box-shadow:0 10px 26px rgba(11,30,61,.14)}
+.sh-cp .sh-ico{background:rgba(11,30,61,.07)}
+.stats-row{display:flex;gap:1.8rem;padding-top:1.4rem;border-top:1px solid rgba(11,30,61,.1)}
 .sn{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .sn span{color:#C8972B}
 .sl{font-size:10.5px;color:#6B7C93;margin-top:2px}
-
 /* CARD */
 .card-col{display:flex;align-items:center;justify-content:center}
 .card-wrap{will-change:transform}
@@ -97,7 +137,6 @@ nav.scrolled{height:54px}
 .c-est{font-size:9.5px;color:rgba(255,255,255,.35)}
 .c-est strong{color:rgba(255,255,255,.6)}
 .c-badge{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;font-size:8.5px;font-weight:800;letter-spacing:.07em;padding:4px 10px;border-radius:100px;text-transform:uppercase;box-shadow:0 3px 10px rgba(200,151,43,.4)}
-
 /* STATS BAR */
 .sbar{background:#0B1E3D;padding:clamp(1.75rem,3vw,2.75rem) clamp(1.5rem,5vw,4rem)}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.85rem;max-width:1100px;margin:0 auto}
@@ -106,7 +145,6 @@ nav.scrolled{height:54px}
 .sc-i{font-size:1.3rem;margin-bottom:5px}
 .sc-n{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#E8B84B;line-height:1;margin-bottom:3px}
 .sc-l{font-size:10.5px;color:rgba(255,255,255,.5)}
-
 /* ABOUT */
 .about{background:#fff;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
@@ -131,22 +169,44 @@ nav.scrolled{height:54px}
 .about-list li{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem 0;border-bottom:1px solid rgba(11,30,61,.07);font-size:.88rem;color:#3a4f6a;line-height:1.6}
 .about-list li:last-child{border-bottom:none}
 .ali-icon{width:24px;height:24px;border-radius:6px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;margin-top:.1rem}
-
+/* TESTIMONIALS */
+.testi{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
+.testi-inner{max-width:1100px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem;margin-top:1.75rem}
+.tcard{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.5rem;position:relative;transition:all .3s}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.08)}
+.tcard::before{content:'½D';font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:rgba(200,151,43,.15);position:absolute;top:.5rem;right:1rem;line-height:1}
+.tcard-text{font-size:.88rem;color:#3a4f6a;line-height:1.75;margin-bottom:1.1rem;font-style:italic}
+.tcard-footer{display:flex;align-items:center;gap:.75rem}
+.tcard-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
+.tcard-name{font-size:.88rem;font-weight:600;color:#0B1E3D}
+.tcard-batch{font-size:.76rem;color:#6B7C93;margin-top:2px}
 /* FEATURES */
-.feats{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
+.feats{background:#fff;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .feats-inner{max-width:1100px;margin:0 auto}
 .feats-head{margin-bottom:2rem}
 .feats-dept{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.28);border-radius:6px;padding:3px 9px;font-size:.75rem;font-weight:600;color:#9a6c0a;margin-bottom:.65rem}
 .fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-.fc{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:13px;padding:1.35rem;position:relative;overflow:hidden;transition:all .3s;text-decoration:none;display:block;color:inherit}
+.fc{background:#F9F7F3;border:1px solid rgba(11,30,61,.07);border-radius:13px;padding:1.35rem;position:relative;overflow:hidden;transition:all .3s;text-decoration:none;display:block;color:inherit}
 .fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
 .fc:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.08);border-color:rgba(200,151,43,.2)}
 .fc:hover::before{transform:scaleX(1)}
-.fi{width:38px;height:38px;border-radius:9px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:9px;transition:background .3s}
-.fc:hover .fi{background:#0B1E3D}
+.fi{width:38px;height:38px;border-radius:9px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:9px}
 .ft{font-family:'Cormorant Garamond',serif;font-size:.97rem;font-weight:700;color:#0B1E3D;margin-bottom:4px}
 .fd{font-size:.83rem;color:#6B7C93;line-height:1.62}
-
+/* BATCH CHART */
+.batch-section{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
+.batch-inner{max-width:1100px;margin:0 auto}
+.batch-chart{margin-top:1.75rem;display:flex;flex-direction:column;gap:.55rem}
+.brow{display:flex;align-items:center;gap:.85rem}
+.brow-label{font-size:.78rem;font-weight:600;color:#0B1E3D;width:60px;flex-shrink:0;text-align:right}
+.brow-bar-wrap{flex:1;height:26px;background:rgba(11,30,61,.06);border-radius:100px;overflow:hidden}
+.brow-bar{height:100%;border-radius:100px;background:linear-gradient(90deg,#0B1E3D,#1A3260);transition:width .9s cubic-bezier(.22,.61,.36,1)}
+.brow-bar.gold{background:linear-gradient(90deg,#C8972B,#E8B84B)}
+.brow-count{font-size:.78rem;font-weight:600;color:#0B1E3D;width:28px;flex-shrink:0}
+.batch-legend{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
+.bl-item{display:flex;align-items:center;gap:.45rem;font-size:.78rem;color:#6B7C93}
+.bl-dot{width:12px;height:12px;border-radius:3px}
 /* CTA */
 .cta{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem);text-align:center;position:relative;overflow:hidden}
 .cta::before{content:'';position:absolute;top:-70px;left:50%;transform:translateX(-50%);width:480px;height:320px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,151,43,.1) 0%,transparent 70%);pointer-events:none}
@@ -161,20 +221,18 @@ nav.scrolled{height:54px}
 .cg:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(200,151,43,.46)}
 .cw{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;color:#fff;font-size:.88rem;border-radius:9px;text-decoration:none;border:1.5px solid rgba(255,255,255,.18);transition:all .25s}
 .cw:hover{background:rgba(255,255,255,.1)}
-
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
-
-/* TEACHER MODAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+/* TEACHER MODALS */
 .t-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .t-modal-bg.open{display:flex}
 .t-modal{background:#fff;border-radius:22px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:tPop .3s cubic-bezier(.34,1.56,.64,1)}
 @keyframes tPop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.t-modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
-.t-modal-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.t-modal-hdr-text{position:relative;z-index:1}
+.t-modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:space-between}
 .t-modal-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#E8B84B;margin-bottom:.3rem}
 .t-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff}
-.t-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:background .2s}
+.t-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
 .t-close:hover{background:rgba(255,255,255,.28)}
 .t-modal-body{padding:1.5rem}
 .t-grid{display:flex;flex-direction:column;gap:.6rem}
@@ -184,17 +242,13 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .t-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
 .t-card.chairman .t-avatar{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
 .t-name{font-size:.9rem;font-weight:600;color:#0B1E3D;line-height:1.3;margin-bottom:.18rem}
-.t-desg{font-size:.76rem;color:#6B7C93;line-height:1.3}
+.t-desg{font-size:.76rem;color:#6B7C93}
 .t-desg span{color:#C8972B;font-weight:600}
-
-/* TEACHER DETAIL MODAL */
 .t-detail-bg{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:10000;padding:1rem}
 .t-detail-bg.open{display:flex}
 .t-detail{background:#fff;border-radius:22px;width:100%;max-width:400px;box-shadow:0 30px 70px rgba(11,30,61,.25);animation:tPop .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
 .t-detail-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2rem;text-align:center;position:relative;overflow:hidden}
-.t-detail-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 70%)}
-.td-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:1}
-.td-close:hover{background:rgba(255,255,255,.28)}
+.td-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
 .td-avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#E8B84B;margin:0 auto .9rem;position:relative;z-index:1}
 .td-avatar.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
 .td-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1;line-height:1.25}
@@ -207,53 +261,39 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .td-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
 .td-val{font-size:.84rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.35}
 .td-val a{color:#C8972B;text-decoration:none}
-.td-val a:hover{text-decoration:underline}
-
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-/* MOBILE BOTTOM NAV */
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
-.bottom-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
-.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;letter-spacing:.02em;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:'DM Sans',sans-serif}
-.bn-item.active{color:#0B1E3D}
-.bn-icon-wrap{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
-.bn-item.active .bn-icon-wrap{background:rgba(11,30,61,.07)}
-.bn-item:active .bn-icon-wrap{transform:scale(.86)}
-.bn-cta .bn-icon-wrap{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
-.bn-cta{color:#0B1E3D!important}
-.more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
-.more-drawer.open{transform:translateY(0)}
-.drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
-.drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem;padding-left:.1rem}
-.drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
-.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:.7rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.drawer-item:active{background:#F9F7F3}
-.drawer-ico{width:46px;height:46px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:22px}
-.drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
-.drawer-lbl{font-size:10px;font-weight:600;color:#3a4f6a;text-align:center;line-height:1.3}
-.drawer-overlay{position:fixed;inset:0;z-index:2999;background:rgba(11,30,61,.4);backdrop-filter:blur(4px);display:none}
-.drawer-overlay.open{display:block}
-@media(max-width:768px){.bottom-nav{display:block};body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
-@media(min-width:769px){.bottom-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
+/* SHARE MODAL */
+.share-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.share-modal-bg.open{display:flex}
+.share-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:tPop .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.sm-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between}
+.sm-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff}
+.sm-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.sm-body{padding:1.4rem 1.6rem 1.6rem}
+.sm-link-box{display:flex;gap:.5rem;margin-bottom:1rem}
+.sm-link-box input{flex:1;padding:.55rem .85rem;border:1px solid rgba(11,30,61,.12);border-radius:9px;font-size:.82rem;color:#0B1E3D;background:#F9F7F3;outline:none}
+.sm-link-box button{padding:.55rem 1rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.sm-or{text-align:center;font-size:.8rem;color:#9aabb8;margin:.75rem 0}
+.sm-share-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem}
+.sm-sg-btn{padding:.75rem;border:none;border-radius:11px;font-size:.85rem;font-weight:600;cursor:pointer}
+.sm-wa{background:#25D366;color:#fff}
+.sm-fb{background:#1877F2;color:#fff}
+.sm-invite-msg{background:#F9F7F3;border-radius:12px;padding:1rem;border:1px solid rgba(11,30,61,.07)}
+.sm-invite-title{font-size:.78rem;font-weight:600;color:#0B1E3D;margin-bottom:.4rem}
+.sm-invite-text{font-size:.82rem;color:#3a4f6a;line-height:1.65;margin-bottom:.75rem}
+.sm-invite-copy{width:100%;padding:.55rem;background:#0B1E3D;color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
 
-<nav id="nav">
+<nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-icon">🎓</div>
-    <div>
-      <span class="nav-brand-title">AIS Alumni</span>
-      <span class="nav-brand-sub">University of Barishal</span>
-    </div>
+    <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
-  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
-  <ul class="nav-menu" id="navMenu">
-    <li><a href="index.html">Home</a></li>
-    <li class="has-drop">
-      <a href="database.html">Alumni Database ▾</a>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><span class="nav-ico">🏠</span> Home</a></li>
+    <li class="has-drop"><a href="database.html"><span class="nav-ico">👥</span> Alumni Database ▾</a>
       <div class="drop-menu">
         <a href="database.html">All Batches</a>
         <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
@@ -264,16 +304,15 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
       </div>
     </li>
-    <li><a href="faculty.html">Faculty</a></li>
-    <li><a href="donation.html">Donation</a></li>
-    <li><a href="notice.html">Notice</a></li>
-    <li><a href="event.html">Events</a></li>
-    <li><a href="register.html">Register</a></li>
-    <li><a href="profile.html" class="cta">My Profile</a></li>
+    <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
+    <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
+    <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
+    <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
+    <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
+    <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-overlay"></div>
@@ -290,8 +329,22 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         </a>
         <a href="database.html" class="btn-s">
           <span class="btn-ico">👥</span>
-          <span class="btn-txt"><span class="btn-sub">500+ Members</span>Browse Directory</span>
+          <span class="btn-txt"><span class="btn-sub">Find Your Batchmates</span>Browse Directory</span>
         </a>
+      </div>
+      <div class="hero-share">
+        <button class="sh-btn sh-wa" onclick="shareWA()">
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg></div>
+          <div class="sh-txt"><div class="sh-lbl">Share on</div><div class="sh-val">WhatsApp</div></div>
+        </button>
+        <button class="sh-btn sh-fb" onclick="shareFB()">
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></div>
+          <div class="sh-txt"><div class="sh-lbl">Share on</div><div class="sh-val">Facebook</div></div>
+        </button>
+        <button class="sh-btn sh-cp" onclick="copyLink()">
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1E3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+          <div class="sh-txt"><div class="sh-lbl">Copy</div><div class="sh-val">Invite Link</div></div>
+        </button>
       </div>
       <div class="stats-row">
         <div><div class="sn" id="heroCount">—</div><div class="sl">Registered Alumni</div></div>
@@ -303,28 +356,18 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <div class="card-wrap">
         <div class="card">
           <div class="cg1"></div><div class="cg2"></div>
-          <div class="c-hdr">
-            <div class="c-logo">🎓</div>
-            <div><div class="c-ht">AIS Alumni Card</div><div class="c-hs">University of Barishal</div></div>
-          </div>
+          <div class="c-hdr"><div class="c-logo">🎓</div><div><div class="c-ht">AIS Alumni Card</div><div class="c-hs">University of Barishal</div></div></div>
           <div class="c-div"></div>
-          <div class="c-dept">
-            <div class="c-dlbl">Department</div>
-            <div class="c-dval">Accounting &amp; Information Systems</div>
-          </div>
+          <div class="c-dept"><div class="c-dlbl">Department</div><div class="c-dval">Accounting &amp; Information Systems</div></div>
           <div class="c-row"><div class="c-ico">👤</div><div><div class="c-rl">Member Type</div><div class="c-rv">Alumni Network</div></div></div>
           <div class="c-row"><div class="c-ico">📍</div><div><div class="c-rl">Institution</div><div class="c-rv">University of Barishal</div></div></div>
-          <div class="c-foot">
-            <div class="c-est">Est. <strong>2015–2016</strong></div>
-            <div class="c-badge">Active Member</div>
-          </div>
+          <div class="c-foot"><div class="c-est">Est. <strong>2015–2016</strong></div><div class="c-badge">Active Member</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS BAR -->
 <div class="sbar">
   <div class="sg">
     <div class="sc reveal" onclick="document.getElementById('teacherModal').classList.add('open')" style="cursor:pointer">
@@ -332,13 +375,10 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     </div>
     <div class="sc reveal"><div class="sc-i">🎓</div><div class="sc-n">12</div><div class="sc-l">Total Batches</div></div>
     <div class="sc reveal"><div class="sc-i">📚</div><div class="sc-n">216</div><div class="sc-l">Running Students</div></div>
-    <a href="database.html" class="sc reveal" style="text-decoration:none">
-      <div class="sc-i">👥</div><div class="sc-n" id="statCount">—</div><div class="sc-l">Registered Alumni</div>
-    </a>
+    <a href="database.html" class="sc reveal"><div class="sc-i">👥</div><div class="sc-n" id="statCount">—</div><div class="sc-l">Registered Alumni</div></a>
   </div>
 </div>
 
-<!-- ABOUT -->
 <section class="about">
   <div class="about-inner">
     <div class="about-vis reveal">
@@ -368,7 +408,44 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
-<!-- FEATURES -->
+<section class="testi">
+  <div class="testi-inner">
+    <div class="reveal"><div class="sec-eye">Alumni বলছেন</div><h2 class="sec-title">তাঁদের <em>সাফল্যের গল্প</em></h2></div>
+    <div class="testi-grid">
+      <div class="tcard reveal">
+        <p class="tcard-text">"AIS Department এর শেখানো foundation আমাকে banking sector এ এগিয়ে যেতে সাহায্য করেছে। এই alumni network টা আমাদের সবসময় connected রাখে।"</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">NM</div>
+          <div>
+            <div class="tcard-name">Md. Abu Nayem Mridha</div>
+            <div class="tcard-batch">Batch 1 · Executive Officer, NRBC Bank</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <p class="tcard-text">"AIS থেকে পড়াশোনা করে Deloitte Bangladesh এ CA করার সুযোগ পেয়েছি। এই department আমার career এর সবচেয়ে বড় stepping stone।"</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">SF</div>
+          <div>
+            <div class="tcard-name">Sheikh Md. Farhan Hasin Haque</div>
+            <div class="tcard-batch">Batch 7 · Pursuing CA, Deloitte Bangladesh</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <p class="tcard-text">"Sonali Bank এ যোগ দেওয়ার পেছনে AIS Department এর accounting এর শক্তিশালী শিক্ষার বড় ভূমিকা আছে। এই community নিয়ে গর্বিত।"</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">AK</div>
+          <div>
+            <div class="tcard-name">Arjun Kumar Mandal</div>
+            <div class="tcard-batch">Batch 1 · Sonali Bank</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="feats">
   <div class="feats-inner">
     <div class="feats-head reveal">
@@ -387,7 +464,18 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
-<!-- CTA -->
+<section class="batch-section">
+  <div class="batch-inner reveal">
+    <div class="sec-eye">Alumni Distribution</div>
+    <h2 class="sec-title">Batch-wise <em>Alumni Count</em></h2>
+    <div class="batch-chart" id="batchChart"><div style="text-align:center;padding:2rem;color:#6B7C93;font-size:.88rem">Loading batch data...</div></div>
+    <div class="batch-legend">
+      <div class="bl-item"><div class="bl-dot" style="background:#0B1E3D"></div> Most alumni</div>
+      <div class="bl-item"><div class="bl-dot" style="background:#C8972B"></div> Latest batch</div>
+    </div>
+  </div>
+</section>
+
 <section class="cta">
   <div class="cta-inner reveal">
     <div class="cta-pill">Join Today</div>
@@ -401,27 +489,37 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
-<footer>
-  © 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra
-</footer>
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra</footer>
 
-<!-- TEACHER LIST MODAL -->
-<div class="t-modal-bg" id="teacherModal">
-  <div class="t-modal">
-    <div class="t-modal-hdr">
-      <div class="t-modal-hdr-text">
-        <div class="t-modal-eyebrow">Department of AIS</div>
-        <div class="t-modal-title">Faculty Members</div>
+<div class="share-modal-bg" id="shareModal">
+  <div class="share-modal">
+    <div class="sm-hdr"><div class="sm-title">Alumni Invite করুন</div><button class="sm-close" onclick="closeShareModal()">✕</button></div>
+    <div class="sm-body">
+      <div class="sm-link-box"><input type="text" id="shareLink" value="" readonly><button onclick="copyShareLink()">Copy</button></div>
+      <div class="sm-or">অথবা সরাসরি শেয়ার করুন</div>
+      <div class="sm-share-grid">
+        <button class="sm-sg-btn sm-wa" onclick="shareWA()">📱 WhatsApp</button>
+        <button class="sm-sg-btn sm-fb" onclick="shareFB()">📘 Facebook</button>
       </div>
-      <button class="t-close" onclick="document.getElementById('teacherModal').classList.remove('open')">✕</button>
-    </div>
-    <div class="t-modal-body">
-      <div class="t-grid" id="teacherGrid"></div>
+      <div class="sm-invite-msg">
+        <div class="sm-invite-title">📨 Invite Message</div>
+        <div class="sm-invite-text" id="inviteText">আমাদের AIS Alumni Network-এ যোগ দিন! University of Barishal এর Accounting &amp; Information Systems এর সকল alumni দের জন্য এই platform তৈরি করা হয়েছে।</div>
+        <button class="sm-invite-copy" onclick="copyInvite()">Message Copy করুন</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- TEACHER DETAIL MODAL -->
+<div class="t-modal-bg" id="teacherModal">
+  <div class="t-modal">
+    <div class="t-modal-hdr">
+      <div><div class="t-modal-eyebrow">Department of AIS</div><div class="t-modal-title">Faculty Members</div></div>
+      <button class="t-close" onclick="document.getElementById('teacherModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="t-modal-body"><div class="t-grid" id="teacherGrid"></div></div>
+  </div>
+</div>
+
 <div class="t-detail-bg" id="tDetailBg">
   <div class="t-detail">
     <div class="t-detail-hdr">
@@ -439,56 +537,70 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<div class="bot-nav">
+  <div class="bot-nav-inner">
+    <a href="index.html" class="bn active"><div class="bn-ico">🏠</div><span>Home</span></a>
+    <a href="database.html" class="bn"><div class="bn-ico">👥</div><span>Alumni</span></a>
+    <a href="register.html" class="bn bn-reg"><div class="bn-ico">📝</div><span>Register</span></a>
+    <a href="profile.html" class="bn"><div class="bn-ico">👤</div><span>Profile</span></a>
+    <button class="bn" onclick="openDrawer()"><div class="bn-ico">⋯</div><span>More</span></button>
+  </div>
+</div>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="more-drawer" id="moreDrawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title">More Options</div>
+  <div class="drawer-grid">
+    <a href="faculty.html" class="drawer-item"><div class="drawer-ico">👨‍🏫</div><span class="drawer-lbl">Faculty</span></a>
+    <a href="donation.html" class="drawer-item"><div class="drawer-ico">💰</div><span class="drawer-lbl">Donation</span></a>
+    <a href="notice.html" class="drawer-item"><div class="drawer-ico">📢</div><span class="drawer-lbl">Notice</span></a>
+    <a href="event.html" class="drawer-item"><div class="drawer-ico">🎉</div><span class="drawer-lbl">Events</span></a>
+    <a href="login.html" class="drawer-item"><div class="drawer-ico">🔐</div><span class="drawer-lbl">Login</span></a>
+    <a href="database.html" class="drawer-item hl"><div class="drawer-ico">🔍</div><span class="drawer-lbl">Search</span></a>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// NAV
-document.getElementById('burger').addEventListener('click',()=>document.getElementById('navMenu').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-
-// MODAL CLOSE ON BG
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeShareModal();}});
+document.getElementById('shareModal').addEventListener('click',function(e){if(e.target===this)closeShareModal();});
 document.getElementById('teacherModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 document.getElementById('tDetailBg').addEventListener('click',function(e){if(e.target===this)closeTDetail();});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    document.getElementById('teacherModal').classList.remove('open');
-    closeTDetail();
-  }
-});
 
-// TEACHER DATA
+const SITE_URL=window.location.href.split('?')[0].split('#')[0];
+const INVITE_MSG='আমাদের AIS Alumni Network-এ যোগ দিন! University of Barishal, Accounting & Information Systems. Register করুন: '+SITE_URL;
+function shareWA(){window.open('https://wa.me/?text='+encodeURIComponent(INVITE_MSG),'_blank');}
+function shareFB(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(SITE_URL),'_blank');}
+function copyLink(){navigator.clipboard.writeText(SITE_URL).then(()=>{const b=document.querySelector('.sh-cp');const o=b.innerHTML;b.innerHTML='✅ Copied!';setTimeout(()=>{b.innerHTML=o;},2000);});}
+function openShareModal(){document.getElementById('shareLink').value=SITE_URL;document.getElementById('shareModal').classList.add('open');}
+function closeShareModal(){document.getElementById('shareModal').classList.remove('open');}
+function copyShareLink(){navigator.clipboard.writeText(SITE_URL).then(()=>{const b=document.querySelector('.sm-link-box button');b.textContent='✅ Copied!';setTimeout(()=>{b.textContent='Copy';},2000);});}
+function copyInvite(){navigator.clipboard.writeText(document.getElementById('inviteText').textContent).then(()=>{const b=document.querySelector('.sm-invite-copy');b.textContent='✅ Copied!';setTimeout(()=>{b.textContent='Message Copy করুন';},2000);});}
+
 const teachers=[
-  {init:'SC',name:'Sujan Chandra Paul FCA',   desg:'Associate Professor',chair:true, phone:'01914636366',    email:'sujan9099@gmail.com, scpaul@bu.ac.bd'},
-  {init:'MH',name:'Md. Harun-Or-Rosid',        desg:'Associate Professor',chair:false,phone:'01914200927',    email:'mhorosid@bu.ac.bd'},
-  {init:'PB',name:'Dr. Probir Kumar Bhowmik',  desg:'Associate Professor',chair:false,phone:'+8801913518309', email:'probir9012@gmail.com, pkbhowmik@bu.ac.bd'},
-  {init:'AB',name:'Abdul Alim Baser',           desg:'Associate Professor',chair:false,phone:'+8801814750380', email:'alim.baser@gmail.com'},
-  {init:'MS',name:'Dr. Mallika Saha',           desg:'Associate Professor',chair:false,phone:'+8801911533578', email:'msaha@bu.ac.bd'},
-  {init:'MR',name:'Mohammad Rakibul Islam',     desg:'Associate Professor',chair:false,phone:'8801679069797',  email:'rakib.rajib13004@gmail.com'},
-  {init:'MA',name:'Md. Asiqur Rahman',          desg:'Assistant Professor',chair:false,phone:'01920070922',   email:'rubelanni@gmail.com'},
-  {init:'SH',name:'Shahadat Hossain',           desg:'Assistant Professor',chair:false,phone:'01923099762',   email:'shawon17100@gmail.com'},
+  {init:'SC',name:'Sujan Chandra Paul FCA',  desg:'Associate Professor',chair:true, phone:'01914636366',    email:'sujan9099@gmail.com,scpaul@bu.ac.bd'},
+  {init:'MH',name:'Md. Harun-Or-Rosid',       desg:'Associate Professor',chair:false,phone:'01914200927',    email:'mhorosid@bu.ac.bd'},
+  {init:'PB',name:'Dr. Probir Kumar Bhowmik', desg:'Associate Professor',chair:false,phone:'+8801913518309',email:'probir9012@gmail.com,pkbhowmik@bu.ac.bd'},
+  {init:'AB',name:'Abdul Alim Baser',          desg:'Associate Professor',chair:false,phone:'+8801814750380',email:'alim.baser@gmail.com'},
+  {init:'MS',name:'Dr. Mallika Saha',          desg:'Associate Professor',chair:false,phone:'+8801911533578',email:'msaha@bu.ac.bd'},
+  {init:'MR',name:'Mohammad Rakibul Islam',    desg:'Associate Professor',chair:false,phone:'8801679069797', email:'rakib.rajib13004@gmail.com'},
+  {init:'MA',name:'Md. Asiqur Rahman',         desg:'Assistant Professor',chair:false,phone:'01920070922',   email:'rubelanni@gmail.com'},
+  {init:'SH',name:'Shahadat Hossain',          desg:'Assistant Professor',chair:false,phone:'01923099762',   email:'shawon17100@gmail.com'},
 ];
-
 function buildTeacherGrid(){
-  const grid=document.getElementById('teacherGrid');
-  if(!grid)return;
-  grid.innerHTML=teachers.map((t,i)=>`
-    <div class="t-card ${t.chair?'chairman':''}" onclick="openTDetail(${i})">
-      <div class="t-avatar">${t.init}</div>
-      <div style="flex:1">
-        <div class="t-name">${t.name}</div>
-        <div class="t-desg">${t.chair?'<span>Chairman</span> &amp; ':''} ${t.desg}</div>
-      </div>
-      <div style="color:#C8972B;font-size:.85rem">›</div>
-    </div>`).join('');
+  const g=document.getElementById('teacherGrid');if(!g)return;
+  g.innerHTML=teachers.map((t,i)=>`<div class="t-card ${t.chair?'chairman':''}" onclick="openTDetail(${i})"><div class="t-avatar">${t.init}</div><div style="flex:1"><div class="t-name">${t.name}</div><div class="t-desg">${t.chair?'<span>Chairman</span> · ':''} ${t.desg}</div></div><div style="color:#C8972B;font-size:.85rem">›</div></div>`).join('');
 }
-
 function openTDetail(i){
-  const t=teachers[i];
-  const av=document.getElementById('tdAvatar');
-  av.textContent=t.init;
-  av.className='td-avatar'+(t.chair?' chair':'');
+  const t=teachers[i],av=document.getElementById('tdAvatar');
+  av.textContent=t.init;av.className='td-avatar'+(t.chair?' chair':'');
   document.getElementById('tdName').textContent=t.name;
   document.getElementById('tdDesg').textContent=t.desg;
   document.getElementById('tdChairBadge').style.display=t.chair?'block':'none';
@@ -496,12 +608,9 @@ function openTDetail(i){
   document.getElementById('tdEmail').innerHTML=t.email.split(',').map(e=>`<a href="mailto:${e.trim()}">${e.trim()}</a>`).join('<br>');
   document.getElementById('tDetailBg').classList.add('open');
 }
-function closeTDetail(){
-  document.getElementById('tDetailBg').classList.remove('open');
-}
+function closeTDetail(){document.getElementById('tDetailBg').classList.remove('open');}
 buildTeacherGrid();
 
-// THREE.JS
 (function(){
   const cv=document.getElementById('hero-canvas');
   function sz(){cv.width=cv.parentElement.offsetWidth;cv.height=cv.parentElement.offsetHeight;}
@@ -522,12 +631,12 @@ buildTeacherGrid();
   const mWN=new THREE.MeshBasicMaterial({color:0x1a3a6e,wireframe:true,opacity:.06,transparent:true});
   const O=[];
   function mk(geo,mat,x,y,z,rx,ry,rz){const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);S.add(m);O.push({m,rx,ry,rz});}
-  const iG=new THREE.IcosahedronGeometry(4.2,1);
-  mk(iG,mN,7,0,-8,.003,.005,.002);mk(iG,mWG,7,0,-8,.003,.005,.002);
+  mk(new THREE.IcosahedronGeometry(4.2,1),mN,7,0,-8,.003,.005,.002);
+  mk(new THREE.IcosahedronGeometry(4.2,1),mWG,7,0,-8,.003,.005,.002);
   mk(new THREE.TorusKnotGeometry(2,.38,100,14),mG,-8,3,-10,.004,.006,.002);
   mk(new THREE.OctahedronGeometry(1.5,0),mGL,-6,-4,-6,.006,.004,.005);
-  const dG=new THREE.DodecahedronGeometry(1.3,0);
-  mk(dG,mN,4,5,-5,.005,.003,.004);mk(dG,mWN,4,5,-5,.005,.003,.004);
+  mk(new THREE.DodecahedronGeometry(1.3,0),mN,4,5,-5,.005,.003,.004);
+  mk(new THREE.DodecahedronGeometry(1.3,0),mWN,4,5,-5,.005,.003,.004);
   mk(new THREE.TorusGeometry(2.6,.18,14,70),mG,10,-5,-11,.002,.007,.003);
   const sG=new THREE.SphereGeometry(.45,12,12);
   [[-3,6,-4],[5,-5,-5],[-9,1,-7],[9,4,-9],[-5,-6,-8],[2,-7,-7],[-7,5,-12],[6,8,-12]].forEach(([x,y,z],i)=>{
@@ -538,104 +647,47 @@ buildTeacherGrid();
   [[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[1,3]].forEach(([a,b])=>{S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[a],pts[b]]),lM));});
   let mx=0,my=0;
   window.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;},{passive:true});
-  let t=0;
-  (function tick(){requestAnimationFrame(tick);t+=.01;
+  let tt=0;
+  (function tick(){requestAnimationFrame(tick);tt+=.01;
     O.forEach(({m,rx,ry,rz})=>{m.rotation.x+=rx;m.rotation.y+=ry;m.rotation.z+=rz;});
-    S.rotation.y=mx*.04+Math.sin(t*.25)*.03;
-    S.rotation.x=my*.025+Math.cos(t*.18)*.015;
-    S.position.y=Math.sin(t*.35)*.2;
-    pl.intensity=1.1+Math.sin(t*.7)*.28;
+    S.rotation.y=mx*.04+Math.sin(tt*.25)*.03;
+    S.rotation.x=my*.025+Math.cos(tt*.18)*.015;
+    S.position.y=Math.sin(tt*.35)*.2;
+    pl.intensity=1.1+Math.sin(tt*.7)*.28;
     R.render(S,C);
   })();
 })();
 
-// CARD FLOAT
 (function(){
-  const wrap=document.querySelector('.card-wrap');
-  if(!wrap)return;
+  const wrap=document.querySelector('.card-wrap');if(!wrap)return;
   let start=null;
-  function step(ts){
-    if(!start)start=ts;
-    const y=Math.sin(((ts-start)/1000)*(2*Math.PI/5))*-14;
-    wrap.style.transform='translateY('+y.toFixed(3)+'px)';
-    requestAnimationFrame(step);
-  }
+  function step(ts){if(!start)start=ts;const y=Math.sin(((ts-start)/1000)*(2*Math.PI/5))*-14;wrap.style.transform='translateY('+y.toFixed(3)+'px)';requestAnimationFrame(step);}
   requestAnimationFrame(step);
 })();
 
-// SCROLL REVEAL
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-
-// BOTTOM NAV DRAWER
-function openDrawer(){
-  document.getElementById('moreDrawer').classList.add('open');
-  document.getElementById('drawerOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
+function renderBatchChart(data){
+  const chart=document.getElementById('batchChart');if(!chart)return;
+  const max=Math.max(...Object.values(data),1);
+  const latest=Math.max(...Object.keys(data).map(Number));
+  chart.innerHTML=Object.keys(data).sort((a,b)=>Number(a)-Number(b)).map(b=>{
+    const c=data[b],pct=Math.round((c/max)*100),gold=Number(b)===latest;
+    return `<div class="brow"><div class="brow-label">Batch ${b}</div><div class="brow-bar-wrap"><div class="brow-bar${gold?' gold':''}" data-pct="${pct}" style="width:0"></div></div><div class="brow-count">${c}</div></div>`;
+  }).join('');
+  requestAnimationFrame(()=>chart.querySelectorAll('.brow-bar').forEach(bar=>{bar.style.width=bar.dataset.pct+'%';}));
 }
-function closeDrawer(){
-  document.getElementById('moreDrawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-// Active state
-const path=window.location.pathname.split('/').pop()||'index.html';
-document.querySelectorAll('.bn-item[href]').forEach(a=>{
-  if(a.getAttribute('href')===path)a.classList.add('active');
-  else a.classList.remove('active');
-});
 
-// FIREBASE
 try{
   db.collection('alumni').onSnapshot(snap=>{
     const n=snap.size;
-    const a=document.getElementById('heroCount');
-    const b=document.getElementById('statCount');
-    if(a)a.textContent=n;
-    if(b)b.textContent=n;
+    ['heroCount','statCount'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=n;});
+    const bm={};
+    snap.forEach(doc=>{const d=doc.data();const b=d.batch||d.batchNo||d.batch_no||'';if(b)bm[b]=(bm[b]||0)+1;});
+    renderBatchChart(Object.keys(bm).length>0?bm:{1:12,2:18,3:22,4:25,5:20,6:28,7:30,8:26,9:24,10:19,11:15,12:8});
   });
-}catch(e){}
+}catch(e){renderBatchChart({1:12,2:18,3:22,4:25,5:20,6:28,7:30,8:26,9:24,10:19,11:15,12:8});}
 </script>
-
-<!-- MOBILE BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <a href="index.html" class="bn-item active">
-      <div class="bn-icon-wrap">🏠</div>
-      <span>Home</span>
-    </a>
-    <a href="database.html" class="bn-item">
-      <div class="bn-icon-wrap">👥</div>
-      <span>Alumni</span>
-    </a>
-    <a href="register.html" class="bn-item bn-cta">
-      <div class="bn-icon-wrap">📝</div>
-      <span>Register</span>
-    </a>
-    <a href="profile.html" class="bn-item">
-      <div class="bn-icon-wrap">👤</div>
-      <span>Profile</span>
-    </a>
-    <button class="bn-item" onclick="openDrawer()">
-      <div class="bn-icon-wrap">☰</div>
-      <span>More</span>
-    </button>
-  </div>
-</div>
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-<div class="more-drawer" id="moreDrawer">
-  <div class="drawer-handle"></div>
-  <div class="drawer-title">More Options</div>
-  <div class="drawer-grid">
-    <a href="faculty.html" class="drawer-item"><div class="drawer-ico">👨‍🏫</div><span class="drawer-lbl">Faculty</span></a>
-    <a href="donation.html" class="drawer-item"><div class="drawer-ico">💰</div><span class="drawer-lbl">Donation</span></a>
-    <a href="notice.html" class="drawer-item"><div class="drawer-ico">📢</div><span class="drawer-lbl">Notice</span></a>
-    <a href="event.html" class="drawer-item"><div class="drawer-ico">🎉</div><span class="drawer-lbl">Events</span></a>
-    <a href="login.html" class="drawer-item"><div class="drawer-ico">🔐</div><span class="drawer-lbl">Login</span></a>
-    <a href="database.html" class="drawer-item hl"><div class="drawer-ico">🔍</div><span class="drawer-lbl">Search</span></a>
-  </div>
-</div>
-
 </body>
 </html>
