@@ -3,247 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Profile | AIS Alumni</title>
+<title>My Profile | AIS Alumni — University of Barishal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh;display:flex;flex-direction:column}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
-.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
+
+/* TOP NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
+.top-nav.scrolled{height:54px}
+.nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
 .nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
-.nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
-.nav-menu a{color:#3a4f6a;font-size:.8rem;font-weight:500;padding:.4rem .7rem;border-radius:6px;text-decoration:none;transition:color .2s,background .2s}
-.nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
-.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem}
-@media(max-width:768px){.nav-menu{display:none}}
+.nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-ico{font-size:14px;line-height:1}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
+.nav-cta:hover{background:#1A3260!important}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
+.nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
+.has-drop{position:relative}
+.drop-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:12px;padding:.4rem;min-width:155px;box-shadow:0 8px 32px rgba(11,30,61,.1);z-index:9}
+.has-drop:hover .drop-menu{display:block}
+.drop-menu a{display:block;padding:.42rem .7rem;border-radius:6px;font-size:.8rem;color:#3a4f6a}
+.drop-menu a:hover{background:#FFF6E0;color:#0B1E3D}
+@media(max-width:900px){
+  .nav-burger{display:flex}
+  .nav-links{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:.7rem 1rem}
+  .nav-cta{margin-left:0!important;text-align:center;justify-content:center}
+  .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
+  .nav-brand-sub{display:none}
+}
 
-.main{flex:1;padding:5rem 1.5rem 3rem}
-.profile-wrap{max-width:700px;margin:0 auto}
+/* BOTTOM NAV */
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.bn.active{color:#0B1E3D}
+.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
+.bn.active .bn-ico{background:rgba(11,30,61,.07)}
+.bn:active .bn-ico{transform:scale(.86)}
+.bn-reg .bn-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
+.bn-reg{color:#0B1E3D!important}
+.more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.more-drawer.open{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
+.drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
+.drawer-item:active{background:#F9F7F3}
+.drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
+.drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
+.drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
+.drawer-overlay{position:fixed;inset:0;z-index:2999;background:rgba(11,30,61,.4);backdrop-filter:blur(4px);display:none}
+.drawer-overlay.open{display:block}
+@media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
+@media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* LOADING */
-.loading-state{display:flex;flex-direction:column;align-items:center;padding:5rem 2rem;gap:1rem}
-.loader{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* PAGE */
+.page-wrap{min-height:100vh;padding:calc(62px + 2rem) 1.5rem 3rem;background:linear-gradient(155deg,#EDF1FF 0%,#F9F7F3 60%,#FFF9ED 100%)}
+.profile-wrap{max-width:680px;margin:0 auto}
 
 /* LOGIN PROMPT */
-.login-prompt{text-align:center;padding:4rem 2rem;background:#fff;border-radius:20px;border:1px solid rgba(11,30,61,.08)}
-.login-prompt-ico{font-size:3rem;margin-bottom:1rem;opacity:.5}
-.login-prompt-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.5rem}
-.login-prompt-text{font-size:.85rem;color:#6B7C93;line-height:1.7;margin-bottom:1.5rem}
-.prompt-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
-.btn-p{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:#0B1E3D;color:#fff;border-radius:9px;font-weight:600;font-size:.88rem;text-decoration:none}
-.btn-s{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.2);border-radius:9px;font-size:.88rem;text-decoration:none;background:rgba(255,255,255,.8)}
+.login-prompt{background:#fff;border-radius:22px;padding:3rem 2rem;text-align:center;box-shadow:0 8px 40px rgba(11,30,61,.08);border:1px solid rgba(11,30,61,.07)}
+.lp-ico{font-size:3rem;margin-bottom:1rem}
+.lp-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.5rem}
+.lp-text{font-size:.88rem;color:#6B7C93;margin-bottom:1.5rem;line-height:1.7}
+.lp-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.lp-btn-p{padding:.72rem 1.75rem;background:#0B1E3D;color:#fff;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem}
+.lp-btn-s{padding:.72rem 1.75rem;background:#FFF6E0;color:#9a6c0a;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;border:1px solid rgba(200,151,43,.25)}
 
 /* PROFILE CARD */
-.profile-card{background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(11,30,61,.08)}
-.profile-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2.5rem 2rem;text-align:center;position:relative}
+.profile-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 40px rgba(11,30,61,.08);border:1px solid rgba(11,30,61,.07)}
+
+/* HEADER */
+.profile-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
 .profile-header::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.15));border:3px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#E8B84B;margin:0 auto 1rem;position:relative;z-index:1}
-.profile-name{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:.4rem;position:relative;z-index:1}
+.profile-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.2) 0%,transparent 70%)}
+.profile-avatar{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.15));border:3px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;color:#E8B84B;margin:0 auto 1rem;position:relative;z-index:1}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#fff;margin-bottom:.4rem;position:relative;z-index:1}
 .profile-batch-tag{display:inline-block;background:rgba(200,151,43,.2);border:1px solid rgba(200,151,43,.35);border-radius:100px;padding:3px 14px;font-size:.76rem;color:#E8B84B;font-weight:600;position:relative;z-index:1}
-.profile-actions{display:flex;gap:.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap;position:relative;z-index:1}
-.profile-btn{padding:.55rem 1.4rem;border-radius:8px;font-size:.82rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;border:none}
-.btn-edit{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
-.btn-edit:hover{transform:translateY(-1px)}
-.btn-logout{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
-.btn-logout:hover{background:rgba(255,255,255,.18)}
+
+/* SOCIAL LINKS IN HEADER */
+.profile-socials{display:flex;gap:.6rem;justify-content:center;margin-top:1rem;position:relative;z-index:1}
+.social-link{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s;border:1px solid rgba(255,255,255,.1)}
+.social-link:hover{background:rgba(255,255,255,.22)}
+.social-link svg{width:16px;height:16px}
+
+/* HEADER ACTIONS */
+.profile-actions{display:flex;gap:.65rem;justify-content:center;margin-top:1.4rem;flex-wrap:wrap;position:relative;z-index:1}
+.profile-btn{padding:.55rem 1.3rem;border-radius:9px;font-size:.82rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;gap:5px}
+.btn-edit{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;box-shadow:0 4px 12px rgba(200,151,43,.3)}
+.btn-edit:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(200,151,43,.4)}
+.btn-share{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.btn-share:hover{background:rgba(255,255,255,.25)}
+.btn-logout{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
+.btn-logout:hover{background:rgba(255,255,255,.18);color:#fff}
 
 /* VIEW MODE */
 .profile-body{padding:1.75rem 2rem}
-.info-grid{display:flex;flex-direction:column;gap:.75rem}
-.info-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06);transition:border-color .2s}
-.info-item:hover{border-color:rgba(200,151,43,.25)}
-.info-item-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.info-item-label{font-size:.72rem;font-weight:600;color:#6B7C93;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
-.info-item-value{font-size:.92rem;color:#0B1E3D;font-weight:500;word-break:break-word}
+@media(max-width:480px){.profile-body{padding:1.25rem 1.25rem}}
+.info-section{margin-bottom:1.75rem}
+.info-section:last-child{margin-bottom:0}
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C8972B;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
+.sec-label::before{content:'';width:14px;height:2px;background:#C8972B;border-radius:2px}
+.info-grid{display:flex;flex-direction:column;gap:.5rem}
+.info-item{display:flex;align-items:flex-start;gap:.85rem;padding:.8rem 1rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06)}
+.ii-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+.ii-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.ii-val{font-size:.88rem;color:#0B1E3D;font-weight:500;line-height:1.4;word-break:break-word}
+.ii-val a{color:#C8972B;text-decoration:none}
+.ii-val a:hover{text-decoration:underline}
+
+/* ACHIEVEMENTS */
+.achievements-grid{display:flex;flex-direction:column;gap:.5rem}
+.ach-item{display:flex;align-items:center;gap:.85rem;padding:.8rem 1rem;background:#FFF6E0;border-radius:10px;border:1px solid rgba(200,151,43,.18)}
+.ach-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#C8972B,#E8B84B);display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.ach-title{font-size:.86rem;font-weight:600;color:#0B1E3D;margin-bottom:.12rem}
+.ach-date{font-size:.74rem;color:#9a6c0a}
+.add-ach-btn{width:100%;padding:.65rem;background:transparent;border:1.5px dashed rgba(200,151,43,.3);border-radius:10px;font-size:.82rem;color:#C8972B;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:.5rem}
+.add-ach-btn:hover{background:#FFF6E0;border-color:#C8972B}
 
 /* EDIT MODE */
 .edit-mode{display:none;padding:1.75rem 2rem}
 .edit-mode.active{display:block}
-.form-group{margin-bottom:1.1rem}
-.form-label{display:block;font-size:.76rem;font-weight:600;color:#3a4f6a;margin-bottom:.35rem}
+@media(max-width:480px){.edit-mode{padding:1.25rem 1.25rem}}
+.form-section-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C8972B;margin:1.25rem 0 .75rem;display:flex;align-items:center;gap:.5rem}
+.form-section-label::before{content:'';width:14px;height:2px;background:#C8972B;border-radius:2px}
+.form-section-label:first-child{margin-top:0}
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.4rem}
 .form-input{width:100%;padding:.68rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.86rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
 .form-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
-.form-input:disabled{opacity:.5;cursor:not-allowed}
-.edit-btns{display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap}
-.save-btn{flex:1;padding:.82rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;min-width:140px}
-.save-btn:hover{background:#1A3260}
-.cancel-btn{flex:1;padding:.82rem;background:transparent;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.15);border-radius:9px;font-size:.88rem;font-weight:500;font-family:inherit;cursor:pointer;transition:all .25s;min-width:140px}
-.cancel-btn:hover{background:rgba(11,30,61,.04)}
+.form-input:disabled{opacity:.45;cursor:not-allowed;background:#f0f0f0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.li-wrap{position:relative}
+.li-prefix{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);font-size:.78rem;color:#6B7C93;pointer-events:none}
+.li-input{padding-left:9.5rem!important}
+.fb-wrap{position:relative}
+.fb-prefix{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);font-size:.78rem;color:#6B7C93;pointer-events:none}
+.fb-input{padding-left:10rem!important}
+.edit-btns{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
+.save-btn{flex:1;padding:.85rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;min-width:140px;box-shadow:0 6px 18px rgba(11,30,61,.25)}
+.save-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(11,30,61,.32)}
+.cancel-btn{padding:.85rem 1.5rem;background:#F9F7F3;color:#3a4f6a;border:1.5px solid rgba(11,30,61,.12);border-radius:10px;font-size:.88rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s}
+.cancel-btn:hover{background:#f0f0f0}
 
 /* TOAST */
-.toast{position:fixed;top:80px;right:1.5rem;background:#0B1E3D;color:#fff;padding:.85rem 1.4rem;border-radius:10px;font-size:.85rem;font-weight:500;box-shadow:0 8px 24px rgba(11,30,61,.25);display:none;align-items:center;gap:.5rem;z-index:9999;border-left:3px solid #C8972B}
-.toast.show{display:flex;animation:slideIn .4s ease}
-@keyframes slideIn{from{transform:translateX(200px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.7rem 1.5rem;border-radius:100px;font-size:.84rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.2rem;font-size:.74rem;color:#6B7C93;margin-top:auto}
+/* SHARE MODAL */
+.share-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.share-modal-bg.open{display:flex}
+.share-modal{background:#fff;border-radius:22px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.sm-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between}
+.sm-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#fff}
+.sm-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.sm-body{padding:1.4rem 1.6rem 1.6rem}
+.sm-link-box{display:flex;gap:.5rem;margin-bottom:1rem}
+.sm-link-box input{flex:1;padding:.55rem .85rem;border:1px solid rgba(11,30,61,.12);border-radius:9px;font-size:.82rem;color:#0B1E3D;background:#F9F7F3;outline:none;font-family:inherit}
+.sm-link-box button{padding:.55rem 1rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.sm-btns{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.sm-btn{padding:.75rem;border:none;border-radius:11px;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;font-family:inherit}
+.sm-wa{background:#25D366;color:#fff}
+.sm-wa:hover{background:#20BA5A}
+.sm-fb{background:#1877F2;color:#fff}
+.sm-fb:hover{background:#1468D8}
+
+/* ACH MODAL */
+.ach-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.ach-modal-bg.open{display:flex}
+.ach-modal{background:#fff;border-radius:18px;width:100%;max-width:380px;overflow:hidden;box-shadow:0 20px 60px rgba(11,30,61,.2);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+.ach-modal-hdr{padding:1.25rem 1.5rem;border-bottom:1px solid rgba(11,30,61,.07);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D;display:flex;align-items:center;justify-content:space-between}
+.ach-modal-body{padding:1.25rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.85rem}
+.ach-save-btn{width:100%;padding:.78rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer}
+
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
 <body>
-<nav>
+
+<!-- TOP NAV -->
+<nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-icon">🎓</div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
-  <ul class="nav-menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="database.html">Alumni Database</a></li>
-    <li><a href="donation.html">Donation</a></li>
-    <li><a href="notices.html">Notice</a></li>
-    <li><a href="event.html">Events</a></li>
-    <li><a href="profile.html" class="cta">My Profile</a></li>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><span class="nav-ico">🏠</span> Home</a></li>
+    <li class="has-drop"><a href="database.html"><span class="nav-ico">👥</span> Alumni Database ▾</a>
+      <div class="drop-menu">
+        <a href="database.html">All Batches</a>
+        <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
+        <a href="database.html?batch=3">Batch 3</a><a href="database.html?batch=4">Batch 4</a>
+        <a href="database.html?batch=5">Batch 5</a><a href="database.html?batch=6">Batch 6</a>
+        <a href="database.html?batch=7">Batch 7</a><a href="database.html?batch=8">Batch 8</a>
+        <a href="database.html?batch=9">Batch 9</a><a href="database.html?batch=10">Batch 10</a>
+        <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
+      </div>
+    </li>
+    <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
+    <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
+    <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
+    <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
+    <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
+    <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
   </ul>
 </nav>
 
-<div class="toast" id="toast">✅ Profile updated successfully!</div>
-
-<div class="main">
+<div class="page-wrap">
   <div class="profile-wrap">
-    <div class="loading-state" id="loadingState"><div class="loader"></div></div>
 
-    <div id="loginPrompt" style="display:none" class="login-prompt">
-      <div class="login-prompt-ico">🔐</div>
-      <h1 class="login-prompt-title">Please Sign In First</h1>
-      <p class="login-prompt-text">Sign in to view and edit your alumni profile. If you haven't registered yet, create a free account.</p>
-      <div class="prompt-btns">
-        <a href="login.html" class="btn-p">🔐 Sign In</a>
-        <a href="register.html" class="btn-s">📝 Register</a>
+    <!-- NOT LOGGED IN -->
+    <div id="loginPrompt" class="login-prompt" style="display:none">
+      <div class="lp-ico">🔐</div>
+      <h2 class="lp-title">Sign in to view your profile</h2>
+      <p class="lp-text">Your alumni profile lets you connect with batchmates, update your job, and share your journey. Sign in or create a free account.</p>
+      <div class="lp-btns">
+        <a href="login.html" class="lp-btn-p">🔐 Sign In</a>
+        <a href="register.html" class="lp-btn-s">📝 Register</a>
       </div>
     </div>
 
+    <!-- PROFILE CARD -->
     <div id="profileCard" class="profile-card" style="display:none">
+
+      <!-- HEADER -->
       <div class="profile-header">
         <div class="profile-avatar" id="avatarText">?</div>
         <div class="profile-name" id="profileName">—</div>
         <div class="profile-batch-tag" id="profileBatch">—</div>
+
+        <!-- SOCIAL LINKS -->
+        <div class="profile-socials" id="profileSocials"></div>
+
         <div class="profile-actions">
-          <button class="profile-btn btn-edit" onclick="toggleEdit()">✏️ Edit Profile</button>
+          <button class="profile-btn btn-edit" id="editToggleBtn" onclick="toggleEdit()">✏️ Edit Profile</button>
+          <button class="profile-btn btn-share" onclick="openShareModal()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share Profile
+          </button>
           <button class="profile-btn btn-logout" onclick="logout()">Sign Out</button>
         </div>
       </div>
 
-      <!-- VIEW -->
+      <!-- VIEW MODE -->
       <div class="profile-body" id="viewMode">
-        <div class="info-grid">
-          <div class="info-item"><div class="info-item-icon">📧</div><div><div class="info-item-label">Email Address</div><div class="info-item-value" id="vEmail">—</div></div></div>
-          <div class="info-item"><div class="info-item-icon">📱</div><div><div class="info-item-label">Phone Number</div><div class="info-item-value" id="vPhone">—</div></div></div>
-          <div class="info-item"><div class="info-item-icon">💼</div><div><div class="info-item-label">Current Job / Position</div><div class="info-item-value" id="vJob">—</div></div></div>
-          <div class="info-item"><div class="info-item-icon">🎓</div><div><div class="info-item-label">Batch &amp; Passing Year</div><div class="info-item-value" id="vBatch">—</div></div></div>
-          <div class="info-item"><div class="info-item-icon">🏛️</div><div><div class="info-item-label">Department</div><div class="info-item-value">Accounting &amp; Information Systems · University of Barishal</div></div></div>
+
+        <div class="info-section">
+          <div class="sec-label">Personal Information</div>
+          <div class="info-grid">
+            <div class="info-item"><div class="ii-ico">📧</div><div><div class="ii-lbl">Email</div><div class="ii-val" id="vEmail">—</div></div></div>
+            <div class="info-item"><div class="ii-ico">📱</div><div><div class="ii-lbl">Phone</div><div class="ii-val" id="vPhone">—</div></div></div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="sec-label">Academic Information</div>
+          <div class="info-grid">
+            <div class="info-item"><div class="ii-ico">🎓</div><div><div class="ii-lbl">Batch</div><div class="ii-val" id="vBatch">—</div></div></div>
+            <div class="info-item"><div class="ii-ico">📅</div><div><div class="ii-lbl">Passing Year</div><div class="ii-val" id="vYear">—</div></div></div>
+            <div class="info-item"><div class="ii-ico">🏛️</div><div><div class="ii-lbl">Department</div><div class="ii-val">Accounting &amp; Information Systems · University of Barishal</div></div></div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="sec-label">Professional Information</div>
+          <div class="info-grid">
+            <div class="info-item"><div class="ii-ico">💼</div><div><div class="ii-lbl">Current Job / Position</div><div class="ii-val" id="vJob">—</div></div></div>
+            <div class="info-item" id="vLinkedinRow" style="display:none"><div class="ii-ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </div><div><div class="ii-lbl">LinkedIn</div><div class="ii-val" id="vLinkedin">—</div></div></div>
+            <div class="info-item" id="vFacebookRow" style="display:none"><div class="ii-ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </div><div><div class="ii-lbl">Facebook</div><div class="ii-val" id="vFacebook">—</div></div></div>
+          </div>
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+        <div class="info-section">
+          <div class="sec-label">Achievements &amp; Milestones</div>
+          <div class="achievements-grid" id="achGrid">
+            <div style="font-size:.82rem;color:#9aabb8;padding:.5rem 0">No achievements added yet.</div>
+          </div>
+          <button class="add-ach-btn" onclick="openAchModal()">+ Add Achievement or Milestone</button>
+        </div>
+
+      </div>
+
+      <!-- EDIT MODE -->
+      <div class="edit-mode" id="editMode">
+
+        <div class="form-section-label">Personal Information</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="eName" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="ePhone" class="form-input" required></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email <span style="color:#9aabb8;font-weight:400">(cannot be changed)</span></label><input type="email" id="eEmail" class="form-input" disabled></div>
+
+        <div class="form-section-label">Academic Information</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Batch <span style="color:#9aabb8;font-weight:400">(cannot be changed)</span></label><input type="text" id="eBatch" class="form-input" disabled></div>
+          <div class="form-group"><label class="form-label">Passing Year *</label><input type="text" id="eYear" class="form-input" placeholder="e.g. 2022" required></div>
+        </div>
+
+        <div class="form-section-label">Professional Information</div>
+        <div class="form-group"><label class="form-label">Current Job / Position *</label><input type="text" id="eJob" class="form-input" placeholder="Company – Position" required></div>
+
+        <div class="form-section-label">Social Media Links</div>
+        <div class="form-group">
+          <label class="form-label">LinkedIn Profile</label>
+          <div class="li-wrap">
+            <span class="li-prefix">linkedin.com/in/</span>
+            <input type="text" id="eLinkedin" class="form-input li-input" placeholder="your-profile-id">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Facebook Profile</label>
+          <div class="fb-wrap">
+            <span class="fb-prefix">facebook.com/</span>
+            <input type="text" id="eFacebook" class="form-input fb-input" placeholder="your.profile.name">
+          </div>
+        </div>
+
+        <div class="edit-btns">
+          <button class="save-btn" onclick="saveProfile()">💾 Save Changes</button>
+          <button class="cancel-btn" onclick="toggleEdit()">Cancel</button>
         </div>
       </div>
 
-      <!-- EDIT -->
-      <div class="edit-mode" id="editMode">
-        <form id="editForm">
-          <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="eName" class="form-input" required></div>
-          <div class="form-group"><label class="form-label">Email (cannot be changed)</label><input type="email" id="eEmail" class="form-input" disabled></div>
-          <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="ePhone" class="form-input" required></div>
-          <div class="form-group"><label class="form-label">Current Job / Position *</label><input type="text" id="eJob" class="form-input" required></div>
-          <div class="form-group"><label class="form-label">Batch (cannot be changed)</label><input type="text" id="eBatch" class="form-input" disabled></div>
-          <div class="form-group"><label class="form-label">Passing Year *</label><input type="text" id="eYear" class="form-input" required></div>
-          <div class="edit-btns">
-            <button type="submit" class="save-btn">💾 Save Changes</button>
-            <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 </div>
 
 <footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
+<!-- SHARE MODAL -->
+<div class="share-modal-bg" id="shareModal">
+  <div class="share-modal">
+    <div class="sm-hdr">
+      <div class="sm-title">Share My Profile</div>
+      <button class="sm-close" onclick="closeShareModal()">✕</button>
+    </div>
+    <div class="sm-body">
+      <div class="sm-link-box">
+        <input type="text" id="shareLink" readonly>
+        <button onclick="copyProfileLink()">Copy</button>
+      </div>
+      <div class="sm-btns">
+        <button class="sm-btn sm-wa" onclick="shareProfileWA()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+          WhatsApp
+        </button>
+        <button class="sm-btn sm-fb" onclick="shareProfileFB()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          Facebook
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT MODAL -->
+<div class="ach-modal-bg" id="achModal">
+  <div class="ach-modal">
+    <div class="ach-modal-hdr">
+      <span>Add Achievement</span>
+      <button class="sm-close" onclick="closeAchModal()" style="background:rgba(11,30,61,.08);color:#0B1E3D">✕</button>
+    </div>
+    <div class="ach-modal-body">
+      <div class="form-group">
+        <label class="form-label">Achievement / Milestone</label>
+        <input type="text" id="achTitle" class="form-input" placeholder="e.g. Promoted to Senior Manager">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Icon (emoji)</label>
+        <input type="text" id="achIco" class="form-input" placeholder="🏆" maxlength="2" value="🏆">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date / Year</label>
+        <input type="text" id="achDate" class="form-input" placeholder="e.g. January 2024">
+      </div>
+      <button class="ach-save-btn" onclick="saveAchievement()">✓ Add Achievement</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BOTTOM NAV -->
+<div class="bot-nav">
+  <div class="bot-nav-inner">
+    <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
+    <a href="database.html" class="bn"><div class="bn-ico">👥</div><span>Alumni</span></a>
+    <a href="register.html" class="bn bn-reg"><div class="bn-ico">📝</div><span>Register</span></a>
+    <a href="profile.html" class="bn active"><div class="bn-ico">👤</div><span>Profile</span></a>
+    <button class="bn" onclick="openDrawer()"><div class="bn-ico">⋯</div><span>More</span></button>
+  </div>
+</div>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="more-drawer" id="moreDrawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title">More Options</div>
+  <div class="drawer-grid">
+    <a href="faculty.html" class="drawer-item"><div class="drawer-ico">👨‍🏫</div><span class="drawer-lbl">Faculty</span></a>
+    <a href="donation.html" class="drawer-item"><div class="drawer-ico">💰</div><span class="drawer-lbl">Donation</span></a>
+    <a href="notice.html" class="drawer-item"><div class="drawer-ico">📢</div><span class="drawer-lbl">Notice</span></a>
+    <a href="event.html" class="drawer-item"><div class="drawer-ico">🎉</div><span class="drawer-lbl">Events</span></a>
+    <a href="login.html" class="drawer-item"><div class="drawer-ico">🔐</div><span class="drawer-lbl">Login</span></a>
+    <a href="database.html" class="drawer-item hl"><div class="drawer-ico">🔍</div><span class="drawer-lbl">Search</span></a>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
 <script>
-let userEmail=null,docId=null,userData=null;
+// NAV
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeShareModal();closeAchModal();}});
 
-function getInitials(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
-
-function showToast(){
+// TOAST
+function showToast(msg){
   const t=document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-function displayProfile(d){
-  document.getElementById('avatarText').textContent=getInitials(d.name||'?');
+// STATE
+let userDocId=null;
+let userAchievements=[];
+
+const userEmail=localStorage.getItem('alumniUserEmail');
+
+if(!userEmail){
+  document.getElementById('loginPrompt').style.display='block';
+} else {
+  db.collection('alumni').where('email','==',userEmail).limit(1).get().then(snap=>{
+    if(snap.empty){document.getElementById('loginPrompt').style.display='block';return;}
+    const doc=snap.docs[0];
+    userDocId=doc.id;
+    const d=doc.data();
+    userAchievements=d.achievements||[];
+    loadProfile(d);
+    document.getElementById('profileCard').style.display='block';
+  }).catch(()=>document.getElementById('loginPrompt').style.display='block');
+}
+
+function loadProfile(d){
+  const initials=(d.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('avatarText').textContent=initials;
   document.getElementById('profileName').textContent=d.name||'—';
   document.getElementById('profileBatch').textContent=`Batch ${d.batch||'—'} · ${d.year||'—'}`;
   document.getElementById('vEmail').textContent=d.email||'—';
   document.getElementById('vPhone').textContent=d.phone||'—';
+  document.getElementById('vBatch').textContent=d.batch?`Batch ${d.batch}`:'—';
+  document.getElementById('vYear').textContent=d.year||'—';
   document.getElementById('vJob').textContent=d.job||'—';
-  document.getElementById('vBatch').textContent=`Batch ${d.batch||'—'} · Year ${d.year||'—'}`;
+
+  // LinkedIn
+  if(d.linkedin){
+    document.getElementById('vLinkedinRow').style.display='flex';
+    document.getElementById('vLinkedin').innerHTML=`<a href="${d.linkedin}" target="_blank">${d.linkedin}</a>`;
+  }
+  // Facebook
+  if(d.facebook){
+    document.getElementById('vFacebookRow').style.display='flex';
+    document.getElementById('vFacebook').innerHTML=`<a href="${d.facebook}" target="_blank">${d.facebook}</a>`;
+  }
+
+  // Social icons in header
+  buildSocialLinks(d);
+
+  // Fill edit fields
   document.getElementById('eName').value=d.name||'';
   document.getElementById('eEmail').value=d.email||'';
   document.getElementById('ePhone').value=d.phone||'';
   document.getElementById('eJob').value=d.job||'';
-  document.getElementById('eBatch').value=d.batch||'';
+  document.getElementById('eBatch').value=d.batch?`Batch ${d.batch}`:'';
   document.getElementById('eYear').value=d.year||'';
+  // LinkedIn/FB prefixes
+  if(d.linkedin) document.getElementById('eLinkedin').value=d.linkedin.replace('https://linkedin.com/in/','').replace('https://www.linkedin.com/in/','');
+  if(d.facebook) document.getElementById('eFacebook').value=d.facebook.replace('https://facebook.com/','').replace('https://www.facebook.com/','');
+
+  // Achievements
+  userAchievements=d.achievements||[];
+  renderAchievements();
 }
 
-function toggleEdit(){
-  document.getElementById('viewMode').style.display='none';
-  document.getElementById('editMode').classList.add('active');
-}
-function cancelEdit(){
-  document.getElementById('editMode').classList.remove('active');
-  document.getElementById('viewMode').style.display='block';
-  displayProfile(userData);
+function buildSocialLinks(d){
+  const wrap=document.getElementById('profileSocials');
+  let html='';
+  if(d.linkedin) html+=`<a class="social-link" href="${d.linkedin}" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>`;
+  if(d.facebook) html+=`<a class="social-link" href="${d.facebook}" target="_blank" title="Facebook"><svg viewBox="0 0 24 24" fill="#fff"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>`;
+  wrap.innerHTML=html;
 }
 
-document.getElementById('editForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const updated={name:document.getElementById('eName').value.trim(),phone:document.getElementById('ePhone').value.trim(),job:document.getElementById('eJob').value.trim(),year:document.getElementById('eYear').value.trim(),updatedAt:new Date().toISOString()};
-  try{
-    await db.collection('alumni').doc(docId).update(updated);
-    userData={...userData,...updated};
-    displayProfile(userData);
-    cancelEdit();
-    showToast();
-  }catch(err){alert('Update failed: '+err.message);}
-});
-
-function logout(){
-  if(confirm('Are you sure you want to sign out?')){
-    localStorage.removeItem('alumniUserEmail');
-    localStorage.removeItem('alumniUserName');
-    window.location.href='index.html';
-  }
-}
-
-window.addEventListener('load',()=>{
-  userEmail=localStorage.getItem('alumniUserEmail');
-  if(!userEmail){
-    document.getElementById('loadingState').style.display='none';
-    document.getElementById('loginPrompt').style.display='block';
+function renderAchievements(){
+  const grid=document.getElementById('achGrid');
+  if(!userAchievements.length){
+    grid.innerHTML='<div style="font-size:.82rem;color:#9aabb8;padding:.5rem 0">No achievements added yet.</div>';
     return;
   }
-  const tryLoad=(retry=0)=>{
-    db.collection('alumni').where('email','==',userEmail).limit(1).get().then(snap=>{
-      if(snap.empty){
-        if(retry<2){setTimeout(()=>tryLoad(retry+1),1000);return;}
-        document.getElementById('loadingState').style.display='none';
-        document.getElementById('loginPrompt').style.display='block';
-        return;
-      }
-      docId=snap.docs[0].id;
-      userData=snap.docs[0].data();
-      displayProfile(userData);
-      document.getElementById('loadingState').style.display='none';
-      document.getElementById('profileCard').style.display='block';
-    }).catch(()=>{
-      document.getElementById('loadingState').style.display='none';
-      document.getElementById('loginPrompt').style.display='block';
-    });
+  grid.innerHTML=userAchievements.map((a,i)=>`
+    <div class="ach-item">
+      <div class="ach-ico">${a.ico||'🏆'}</div>
+      <div style="flex:1">
+        <div class="ach-title">${a.title}</div>
+        <div class="ach-date">${a.date||''}</div>
+      </div>
+      <button onclick="removeAchievement(${i})" style="background:none;border:none;cursor:pointer;color:#c0392b;font-size:.8rem;padding:2px 6px;border-radius:5px">✕</button>
+    </div>`).join('');
+}
+
+// EDIT TOGGLE
+function toggleEdit(){
+  const em=document.getElementById('editMode');
+  const vm=document.getElementById('viewMode');
+  const btn=document.getElementById('editToggleBtn');
+  const isEditing=em.classList.contains('active');
+  em.classList.toggle('active',!isEditing);
+  vm.style.display=isEditing?'block':'none';
+  btn.innerHTML=isEditing?'✏️ Edit Profile':'✕ Cancel Edit';
+}
+
+// SAVE
+async function saveProfile(){
+  if(!userDocId){showToast('❌ Session expired. Please login again.');return;}
+  const name=document.getElementById('eName').value.trim();
+  const phone=document.getElementById('ePhone').value.trim();
+  const job=document.getElementById('eJob').value.trim();
+  const year=document.getElementById('eYear').value.trim();
+  const li=document.getElementById('eLinkedin').value.trim();
+  const fb=document.getElementById('eFacebook').value.trim();
+  if(!name||!phone||!job){showToast('❌ Name, Phone এবং Job দেওয়া বাধ্যতামূলক');return;}
+  const updated={
+    name, phone, job, year,
+    linkedin: li?'https://linkedin.com/in/'+li:'',
+    facebook: fb?'https://facebook.com/'+fb:'',
+    updatedAt: new Date().toISOString()
   };
-  tryLoad();
-});
+  try{
+    await db.collection('alumni').doc(userDocId).update(updated);
+    localStorage.setItem('alumniUserName',name);
+    loadProfile({...updated,
+      email:document.getElementById('eEmail').value,
+      batch:document.getElementById('eBatch').value.replace('Batch ',''),
+      achievements:userAchievements
+    });
+    toggleEdit();
+    showToast('✅ Profile সফলভাবে update হয়েছে!');
+  }catch(err){
+    showToast('❌ Update failed: '+err.message);
+  }
+}
+
+// ACHIEVEMENTS
+function openAchModal(){document.getElementById('achModal').classList.add('open');}
+function closeAchModal(){document.getElementById('achModal').classList.remove('open');}
+document.getElementById('achModal').addEventListener('click',function(e){if(e.target===this)closeAchModal();});
+
+async function saveAchievement(){
+  const title=document.getElementById('achTitle').value.trim();
+  const ico=document.getElementById('achIco').value.trim()||'🏆';
+  const date=document.getElementById('achDate').value.trim();
+  if(!title){showToast('❌ Achievement title দিন');return;}
+  userAchievements.push({title,ico,date});
+  try{
+    await db.collection('alumni').doc(userDocId).update({achievements:userAchievements});
+    renderAchievements();
+    closeAchModal();
+    document.getElementById('achTitle').value='';
+    document.getElementById('achDate').value='';
+    document.getElementById('achIco').value='🏆';
+    showToast('✅ Achievement যোগ হয়েছে!');
+  }catch(err){
+    userAchievements.pop();
+    showToast('❌ Error: '+err.message);
+  }
+}
+
+async function removeAchievement(idx){
+  userAchievements.splice(idx,1);
+  try{
+    await db.collection('alumni').doc(userDocId).update({achievements:userAchievements});
+    renderAchievements();
+    showToast('Removed.');
+  }catch(err){
+    showToast('❌ Error: '+err.message);
+  }
+}
+
+// SHARE
+function openShareModal(){
+  const url=window.location.origin+'/profile.html';
+  document.getElementById('shareLink').value=url;
+  document.getElementById('shareModal').classList.add('open');
+}
+function closeShareModal(){document.getElementById('shareModal').classList.remove('open');}
+document.getElementById('shareModal').addEventListener('click',function(e){if(e.target===this)closeShareModal();});
+function copyProfileLink(){
+  navigator.clipboard.writeText(document.getElementById('shareLink').value).then(()=>{
+    const b=document.querySelector('.sm-link-box button');
+    b.textContent='✅ Copied!';setTimeout(()=>b.textContent='Copy',2000);
+  });
+}
+function shareProfileWA(){
+  const name=localStorage.getItem('alumniUserName')||'আমি';
+  const url=window.location.origin+'/profile.html';
+  window.open('https://wa.me/?text='+encodeURIComponent(`${name} এর AIS Alumni Profile দেখুন: ${url}`),'_blank');
+}
+function shareProfileFB(){
+  window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.origin+'/profile.html'),'_blank');
+}
+
+// LOGOUT
+function logout(){
+  localStorage.removeItem('alumniUserEmail');
+  localStorage.removeItem('alumniUserName');
+  window.location.href='index.html';
+}
 </script>
 </body>
 </html>
