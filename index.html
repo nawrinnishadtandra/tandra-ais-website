@@ -26,19 +26,26 @@ nav.scrolled{height:54px}
 .nav-menu .cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
+/* Mobile bottom nav */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-top:1px solid rgba(11,30,61,.08);padding:.5rem 0;box-shadow:0 -4px 20px rgba(11,30,61,.08)}
+.mobile-nav-inner{display:flex;align-items:center;justify-content:space-around}
+.mob-nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:.4rem .5rem;border-radius:8px;text-decoration:none;color:#5a6e84;transition:all .2s;min-width:44px;cursor:pointer;border:none;background:none;font-family:inherit}
+.mob-nav-item:hover,.mob-nav-item.active{color:#0B1E3D}
+.mob-nav-ico{font-size:1.2rem;line-height:1}
+.mob-nav-lbl{font-size:.6rem;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.mob-nav-item.cta-mob{background:#0B1E3D;border-radius:10px;padding:.45rem .6rem}
+.mob-nav-item.cta-mob .mob-nav-ico,.mob-nav-item.cta-mob .mob-nav-lbl{color:#fff}
 .has-drop{position:relative}
 .drop-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:12px;padding:.4rem;min-width:155px;box-shadow:0 8px 32px rgba(11,30,61,.1);z-index:9}
 .has-drop:hover .drop-menu{display:block}
 .drop-menu a{display:block;padding:.42rem .7rem;border-radius:6px;font-size:.8rem;color:#3a4f6a}
 .drop-menu a:hover{background:#FFF6E0;color:#0B1E3D}
 @media(max-width:860px){
-  .nav-burger{display:flex}
-  .nav-menu{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:.75rem;border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 8px 24px rgba(11,30,61,.09);gap:.15rem}
-  .nav-menu.open{display:flex}
-  .nav-menu a{padding:.7rem 1rem}
-  .nav-menu .cta{margin-left:0;text-align:center}
-  .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
+  .nav-burger{display:none}
+  .nav-menu{display:none!important}
+  .mobile-nav{display:block}
   .nav-brand-sub{display:none}
+  body{padding-bottom:70px}
 }
 
 /* HERO — tighter height, less padding */
@@ -54,11 +61,30 @@ nav.scrolled{height:54px}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1rem}
 .hero-h1 em{font-style:italic;color:#C8972B}
 .hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.6rem}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn-p{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#0B1E3D;color:#fff;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 6px 18px rgba(11,30,61,.28);transition:all .25s}
-.btn-p:hover{background:#1A3260;transform:translateY(-2px)}
-.btn-s{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.2);border-radius:9px;font-size:13px;text-decoration:none;background:rgba(255,255,255,.8);transition:all .25s}
-.btn-s:hover{border-color:#0B1E3D;box-shadow:0 4px 14px rgba(11,30,61,.1)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;
+  background:#0B1E3D;color:#fff;
+  border-radius:12px;font-weight:700;font-size:14px;
+  text-decoration:none;
+  box-shadow:0 8px 24px rgba(11,30,61,.32);
+  transition:all .25s;letter-spacing:.01em;
+  border:2px solid transparent;
+}
+.btn-p:hover{background:#1A3260;transform:translateY(-2px);box-shadow:0 12px 30px rgba(11,30,61,.38)}
+.btn-s{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;
+  color:#0B1E3D;
+  border:2px solid #0B1E3D;
+  border-radius:12px;font-weight:700;font-size:14px;
+  text-decoration:none;
+  background:#fff;
+  transition:all .25s;letter-spacing:.01em;
+  box-shadow:0 4px 14px rgba(11,30,61,.08);
+}
+.btn-s:hover{background:#0B1E3D;color:#fff;box-shadow:0 8px 24px rgba(11,30,61,.25)}
 .stats-row{display:flex;gap:1.8rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(11,30,61,.1)}
 .sn{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .sn span{color:#C8972B}
@@ -157,6 +183,52 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
 
+
+/* TEACHER MODAL */
+.t-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.t-modal-bg.open{display:flex}
+.t-modal{background:#fff;border-radius:22px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:tPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tPop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.t-modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.t-modal-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
+.t-modal-hdr-text{position:relative;z-index:1}
+.t-modal-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#E8B84B;margin-bottom:.3rem}
+.t-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff}
+.t-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:background .2s}
+.t-close:hover{background:rgba(255,255,255,.28)}
+
+.t-detail-bg{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:10000;padding:1rem}
+.t-detail-bg.open{display:flex}
+.t-detail{background:#fff;border-radius:22px;width:100%;max-width:400px;box-shadow:0 30px 70px rgba(11,30,61,.25);animation:tPop .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.t-detail-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2rem;text-align:center;position:relative;overflow:hidden}
+.t-detail-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 70%)}
+.td-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:1}
+.td-close:hover{background:rgba(255,255,255,.28)}
+.td-avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#E8B84B;margin:0 auto .9rem;position:relative;z-index:1}
+.td-avatar.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
+.td-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1;line-height:1.25}
+.td-desg{font-size:.78rem;color:rgba(255,255,255,.75);position:relative;z-index:1}
+.td-chair-badge{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:2px 12px;font-size:.7rem;color:#E8B84B;font-weight:600;margin-top:.4rem;position:relative;z-index:1}
+.t-detail-body{padding:1.4rem 1.6rem 1.6rem}
+.td-row{display:flex;align-items:center;gap:.85rem;padding:.75rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.55rem}
+.td-row:last-child{margin-bottom:0}
+.td-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.td-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.td-val{font-size:.84rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.35}
+.td-val a{color:#C8972B;text-decoration:none}
+.td-val a:hover{text-decoration:underline}
+
+.t-modal-body{padding:1.5rem}
+.t-grid{display:flex;flex-direction:column;gap:.6rem}
+.t-card{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06);transition:all .2s}
+.t-card:hover{border-color:rgba(200,151,43,.25);background:#fff;transform:translateX(4px)}
+.t-card.chairman{background:#FFF6E0;border-color:rgba(200,151,43,.3)}
+.t-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
+.t-card.chairman .t-avatar{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
+.t-name{font-size:.9rem;font-weight:600;color:#0B1E3D;line-height:1.3;margin-bottom:.18rem}
+.t-desg{font-size:.76rem;color:#6B7C93;line-height:1.3}
+.t-desg span{color:#C8972B;font-weight:600}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -186,7 +258,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       </div>
     </li>
     <li><a href="donation.html">Donation</a></li>
-    <li><a href="notices.html">Notice</a></li>
+    <li><a href="notice.html">Notice</a></li>
     <li><a href="event.html">Events</a></li>
     <li><a href="register.html">Register</a></li>
     <li><a href="profile.html" class="cta">My Profile</a></li>
@@ -199,11 +271,11 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   <div class="hero-wrap">
     <div>
       <div class="pill"><span class="pill-dot"></span>Accounting &amp; Information Systems</div>
-      <h1 class="hero-h1">Where <em>Alumni</em><br>Come Together</h1>
+      <h1 class="hero-h1">Connecting the <em>AIS</em> Family,<br>Building Department Legacy</h1>
       <p class="hero-desc">Connect with fellow graduates of the Department of Accounting &amp; Information Systems, University of Barishal — celebrate achievements and build a stronger future together.</p>
       <div class="hero-actions">
-        <a href="register.html" class="btn-p">📝 Join Alumni Network</a>
-        <a href="database.html" class="btn-s">👥 Browse Directory</a>
+        <a href="register.html" class="btn-p">Join Alumni Network</a>
+        <a href="database.html" class="btn-s">Browse Directory</a>
       </div>
       <div class="stats-row">
         <div><div class="sn" id="heroCount">—</div><div class="sl">Registered Alumni</div></div>
@@ -238,10 +310,10 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="sbar">
   <div class="sg">
-    <div class="sc reveal"><div class="sc-i">👨‍🏫</div><div class="sc-n">10</div><div class="sc-l">Faculty Members</div></div>
+    <div class="sc reveal" onclick="document.getElementById('teacherModal').classList.add('open')" style="cursor:pointer"><div class="sc-i">👨‍🏫</div><div class="sc-n">8</div><div class="sc-l">Faculty Members</div></div>
     <div class="sc reveal"><div class="sc-i">🎓</div><div class="sc-n">12</div><div class="sc-l">Total Batches</div></div>
     <div class="sc reveal"><div class="sc-i">📚</div><div class="sc-n">216</div><div class="sc-l">Running Students</div></div>
-    <div class="sc reveal"><div class="sc-i">👥</div><div class="sc-n" id="statCount">—</div><div class="sc-l">Registered Alumni</div></div>
+    <a href="database.html" class="sc reveal" style="text-decoration:none;display:block"><div class="sc-i">👥</div><div class="sc-n" id="statCount">—</div><div class="sc-l">Registered Alumni</div></a>
   </div>
 </div>
 
@@ -282,12 +354,12 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <h2 class="sec-title">Everything in <em>One Place</em></h2>
     </div>
     <div class="fg">
-      <div class="fc reveal"><div class="fi">🔍</div><div class="ft">Alumni Directory</div><p class="fd">Search alumni by batch, name, job or graduation year in one powerful database.</p></div>
-      <div class="fc reveal"><div class="fi">👤</div><div class="ft">Personal Profile</div><p class="fd">Create and manage your own profile. Keep information current and connected.</p></div>
-      <div class="fc reveal"><div class="fi">💰</div><div class="ft">Donation Portal</div><p class="fd">Support the community through a seamless bKash donation system.</p></div>
-      <div class="fc reveal"><div class="fi">📢</div><div class="ft">Notice Board</div><p class="fd">Stay updated with the latest announcements and alumni news in real time.</p></div>
-      <div class="fc reveal"><div class="fi">🎉</div><div class="ft">Events Calendar</div><p class="fd">Never miss a reunion, career fair, or networking event.</p></div>
-      <div class="fc reveal"><div class="fi">📱</div><div class="ft">Mobile Friendly</div><p class="fd">Seamless experience on desktop, tablet, or smartphone.</p></div>
+      <a href="database.html" class="fc reveal" style="text-decoration:none"><div class="fi">🔍</div><div class="ft">Alumni Directory</div><p class="fd">Search alumni by batch, name, job or graduation year in one powerful database.</p></a>
+      <a href="profile.html" class="fc reveal" style="text-decoration:none"><div class="fi">👤</div><div class="ft">Personal Profile</div><p class="fd">Create and manage your own profile. Keep information current and connected.</p></a>
+      <a href="donation.html" class="fc reveal" style="text-decoration:none"><div class="fi">💰</div><div class="ft">Donation Portal</div><p class="fd">Support the community through a seamless bKash donation system.</p></a>
+      <a href="notice.html" class="fc reveal" style="text-decoration:none"><div class="fi">📢</div><div class="ft">Notice Board</div><p class="fd">Stay updated with the latest announcements and alumni news in real time.</p></a>
+      <a href="event.html" class="fc reveal" style="text-decoration:none"><div class="fi">🎉</div><div class="ft">Events Calendar</div><p class="fd">Never miss a reunion, career fair, or networking event.</p></a>
+      <a href="register.html" class="fc reveal" style="text-decoration:none"><div class="fi">📱</div><div class="ft">Mobile Friendly</div><p class="fd">Seamless experience on desktop, tablet, or smartphone.</p></a>
     </div>
   </div>
 </section>
@@ -309,11 +381,52 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   © 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra
 </footer>
 
+
+
+<!-- TEACHER DETAIL MODAL -->
+<div class="t-detail-bg" id="tDetailBg">
+  <div class="t-detail">
+    <div class="t-detail-hdr">
+      <button class="td-close" onclick="closeTDetail()">✕</button>
+      <div class="td-avatar" id="tdAvatar">?</div>
+      <div class="td-name" id="tdName">—</div>
+      <div class="td-desg" id="tdDesg">—</div>
+      <div id="tdChairBadge" style="display:none"><div class="td-chair-badge">Chairman</div></div>
+    </div>
+    <div class="t-detail-body">
+      <div class="td-row"><div class="td-ico">📱</div><div><div class="td-lbl">Phone</div><div class="td-val" id="tdPhone">—</div></div></div>
+      <div class="td-row"><div class="td-ico">📧</div><div><div class="td-lbl">Email</div><div class="td-val" id="tdEmail">—</div></div></div>
+      <div class="td-row"><div class="td-ico">🏛️</div><div><div class="td-lbl">Department</div><div class="td-val">Accounting &amp; Information Systems<br>University of Barishal</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER MODAL -->
+<div class="t-modal-bg" id="teacherModal">
+  <div class="t-modal">
+    <div class="t-modal-hdr">
+      <div class="t-modal-hdr-text">
+        <div class="t-modal-eyebrow">Department of AIS</div>
+        <div class="t-modal-title">Faculty Members</div>
+      </div>
+      <button class="t-close" onclick="document.getElementById('teacherModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="t-modal-body">
+      <div class="t-grid" id="teacherGrid"></div>
+    </div>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+
+// TEACHER MODAL BG CLICK
+document.getElementById('teacherModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('teacherModal').classList.remove('open');}});
+
 // NAV
 document.getElementById('burger').addEventListener('click',()=>document.getElementById('navMenu').classList.toggle('open'));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
@@ -385,6 +498,58 @@ const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
 // FIREBASE
+
+
+// TEACHER DATA
+const teachers = [
+  {init:'SC', name:'Sujan Chandra Paul FCA', desg:'Associate Professor', chair:true,  phone:'01914636366', email:'sujan9099@gmail.com, scpaul@bu.ac.bd'},
+  {init:'MH', name:'Md. Harun-Or-Rosid',      desg:'Associate Professor', chair:false, phone:'01914200927',  email:'mhorosid@bu.ac.bd'},
+  {init:'PB', name:'Dr. Probir Kumar Bhowmik', desg:'Associate Professor', chair:false, phone:'+8801913518309', email:'probir9012@gmail.com, pkbhowmik@bu.ac.bd'},
+  {init:'AB', name:'Abdul Alim Baser',          desg:'Associate Professor', chair:false, phone:'+8801814750380', email:'alim.baser@gmail.com'},
+  {init:'MS', name:'Dr. Mallika Saha',          desg:'Associate Professor', chair:false, phone:'+8801911533578', email:'msaha@bu.ac.bd'},
+  {init:'MR', name:'Mohammad Rakibul Islam',    desg:'Associate Professor', chair:false, phone:'8801679069797',  email:'rakib.rajib13004@gmail.com'},
+  {init:'MA', name:'Md. Asiqur Rahman',         desg:'Assistant Professor', chair:false, phone:'01920070922',   email:'rubelanni@gmail.com'},
+  {init:'SH', name:'Shahadat Hossain',          desg:'Assistant Professor', chair:false, phone:'01923099762',   email:'shawon17100@gmail.com'},
+];
+
+function buildTeacherGrid(){
+  const grid = document.getElementById('teacherGrid');
+  if(!grid) return;
+  grid.innerHTML = teachers.map((t,i) => `
+    <div class="t-card ${t.chair?'chairman':''}" style="cursor:pointer" onclick="openTDetail(${i})">
+      <div class="t-avatar">${t.init}</div>
+      <div>
+        <div class="t-name">${t.name}</div>
+        <div class="t-desg">${t.chair?'<span>Chairman</span> &amp; ':''} ${t.desg}</div>
+      </div>
+      <div style="margin-left:auto;font-size:.75rem;color:#C8972B;font-weight:600">›</div>
+    </div>`).join('');
+}
+
+function openTDetail(i){
+  const t = teachers[i];
+  const av = document.getElementById('tdAvatar');
+  av.textContent = t.init;
+  av.className = 'td-avatar' + (t.chair?' chair':'');
+  document.getElementById('tdName').textContent = t.name;
+  document.getElementById('tdDesg').textContent = t.desg;
+  document.getElementById('tdChairBadge').style.display = t.chair ? 'block' : 'none';
+  document.getElementById('tdPhone').textContent = t.phone;
+  const emails = t.email.split(',').map(e=>e.trim());
+  document.getElementById('tdEmail').innerHTML = emails.map(e=>`<a href="mailto:${e}">${e}</a>`).join('<br>');
+  document.getElementById('tDetailBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeTDetail(){
+  document.getElementById('tDetailBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.getElementById('tDetailBg').addEventListener('click',function(e){if(e.target===this)closeTDetail();});
+
+buildTeacherGrid();
+
 try{
   db.collection('alumni').onSnapshot(snap=>{
     const n=snap.size;
@@ -395,5 +560,32 @@ try{
   });
 }catch(e){}
 </script>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mob-nav-item active">
+      <span class="mob-nav-ico">🏠</span>
+      <span class="mob-nav-lbl">Home</span>
+    </a>
+    <a href="database.html" class="mob-nav-item">
+      <span class="mob-nav-ico">👥</span>
+      <span class="mob-nav-lbl">Directory</span>
+    </a>
+    <a href="register.html" class="mob-nav-item cta-mob">
+      <span class="mob-nav-ico">📝</span>
+      <span class="mob-nav-lbl">Register</span>
+    </a>
+    <a href="notice.html" class="mob-nav-item">
+      <span class="mob-nav-ico">📢</span>
+      <span class="mob-nav-lbl">Notice</span>
+    </a>
+    <a href="profile.html" class="mob-nav-item">
+      <span class="mob-nav-ico">👤</span>
+      <span class="mob-nav-lbl">Profile</span>
+    </a>
+  </div>
+</nav>
+
 </body>
 </html>
