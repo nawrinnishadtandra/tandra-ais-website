@@ -580,5 +580,44 @@ try{
 }catch(e){}
 </script>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" class="bn-item active">
+      <div class="bn-icon-wrap">🏠</div>
+      <span>Home</span>
+    </a>
+    <a href="database.html" class="bn-item">
+      <div class="bn-icon-wrap">👥</div>
+      <span>Alumni</span>
+    </a>
+    <a href="register.html" class="bn-item bn-cta">
+      <div class="bn-icon-wrap">📝</div>
+      <span>Register</span>
+    </a>
+    <a href="profile.html" class="bn-item">
+      <div class="bn-icon-wrap">👤</div>
+      <span>Profile</span>
+    </a>
+    <button class="bn-item" onclick="openDrawer()">
+      <div class="bn-icon-wrap">☰</div>
+      <span>More</span>
+    </button>
+  </div>
+</nav>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="more-drawer" id="moreDrawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title">More Options</div>
+  <div class="drawer-grid">
+    <a href="faculty.html" class="drawer-item"><div class="drawer-ico">👨‍🏫</div><span class="drawer-lbl">Faculty</span></a>
+    <a href="donation.html" class="drawer-item"><div class="drawer-ico">💰</div><span class="drawer-lbl">Donation</span></a>
+    <a href="notice.html" class="drawer-item"><div class="drawer-ico">📢</div><span class="drawer-lbl">Notice</span></a>
+    <a href="event.html" class="drawer-item"><div class="drawer-ico">🎉</div><span class="drawer-lbl">Events</span></a>
+    <a href="login.html" class="drawer-item"><div class="drawer-ico">🔐</div><span class="drawer-lbl">Login</span></a>
+    <a href="database.html" class="drawer-item hl"><div class="drawer-ico">🔍</div><span class="drawer-lbl">Search</span></a>
+  </div>
+</div>
 
+</body>
 </html>
