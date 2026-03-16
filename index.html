@@ -201,6 +201,31 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* MOBILE BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bottom-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;letter-spacing:.02em;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:'DM Sans',sans-serif}
+.bn-item.active{color:#0B1E3D}
+.bn-icon-wrap{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
+.bn-item.active .bn-icon-wrap{background:rgba(11,30,61,.07)}
+.bn-item:active .bn-icon-wrap{transform:scale(.86)}
+.bn-cta .bn-icon-wrap{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
+.bn-cta{color:#0B1E3D!important}
+.more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.more-drawer.open{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem;padding-left:.1rem}
+.drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:.7rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
+.drawer-item:active{background:#F9F7F3}
+.drawer-ico{width:46px;height:46px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:22px}
+.drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
+.drawer-lbl{font-size:10px;font-weight:600;color:#3a4f6a;text-align:center;line-height:1.3}
+.drawer-overlay{position:fixed;inset:0;z-index:2999;background:rgba(11,30,61,.4);backdrop-filter:blur(4px);display:none}
+.drawer-overlay.open{display:block}
+@media(max-width:768px){.bottom-nav{display:block};body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
+@media(min-width:769px){.bottom-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 </style>
 </head>
 <body>
@@ -524,6 +549,25 @@ buildTeacherGrid();
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
+
+// BOTTOM NAV DRAWER
+function openDrawer(){
+  document.getElementById('moreDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  document.getElementById('moreDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+// Active state
+const path=window.location.pathname.split('/').pop()||'index.html';
+document.querySelectorAll('.bn-item[href]').forEach(a=>{
+  if(a.getAttribute('href')===path)a.classList.add('active');
+  else a.classList.remove('active');
+});
+
 // FIREBASE
 try{
   db.collection('alumni').onSnapshot(snap=>{
@@ -535,5 +579,6 @@ try{
   });
 }catch(e){}
 </script>
-</body>
+
+
 </html>
