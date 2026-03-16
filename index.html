@@ -46,18 +46,29 @@ nav.scrolled{height:54px}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.28;z-index:1}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(237,241,255,.88) 0%,rgba(237,241,255,.65) 42%,transparent 68%)}
 .hero-wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 300px;gap:clamp(2rem,4vw,4rem);align-items:center}
-@media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.hero-actions{justify-content:center}.stats-row{justify-content:center}}
+@media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.stats-row{justify-content:center}}
+.btn-ico{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.btn-s .btn-ico{background:rgba(11,30,61,.06)}
+.btn-txt{display:flex;flex-direction:column;text-align:left;flex:1}
+.btn-sub{font-size:10px;font-weight:500;opacity:.65;letter-spacing:.02em;line-height:1;margin-bottom:2px;text-transform:uppercase}
+.btn-p .btn-sub{color:rgba(255,255,255,.7)}
+.btn-s .btn-sub{color:#6B7C93}
+.btn-arr{font-size:18px;opacity:.7;transition:transform .3s}
+.btn-p:hover .btn-arr{transform:translateX(4px);opacity:1}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:768px){.hero-actions{flex-direction:column;align-items:center}.btn-p,.btn-s{width:100%;max-width:320px;justify-content:flex-start}}
+
 .pill{display:inline-flex;align-items:center;gap:6px;background:#FFF6E0;border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:3px 12px;font-size:10.5px;font-weight:600;color:#9a6c0a;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:#C8972B;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1rem}
 .hero-h1 em{font-style:italic;color:#C8972B}
 .hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.6rem}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn-p{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#0B1E3D;color:#fff;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 8px 24px rgba(11,30,61,.32);transition:all .28s;letter-spacing:.01em}
-.btn-p:hover{background:#1A3260;transform:translateY(-3px);box-shadow:0 14px 32px rgba(11,30,61,.38)}
-.btn-s{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.18);border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.9);transition:all .28s;backdrop-filter:blur(8px)}
-.btn-s:hover{border-color:#0B1E3D;box-shadow:0 8px 24px rgba(11,30,61,.12);transform:translateY(-3px)}
+
+.btn-p{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;background:linear-gradient(135deg,#0B1E3D 0%,#1a3a6e 100%);color:#fff;border-radius:16px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 32px rgba(11,30,61,.32),0 2px 0 rgba(255,255,255,.08) inset;transition:all .3s cubic-bezier(.34,.8,.64,1);min-width:200px}
+.btn-p:hover{background:linear-gradient(135deg,#162d55 0%,#1e4a8a 100%);transform:translateY(-4px);box-shadow:0 20px 44px rgba(11,30,61,.42)}
+.btn-s{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);border-radius:16px;font-size:15px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.92);transition:all .3s cubic-bezier(.34,.8,.64,1);backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(11,30,61,.08);min-width:200px}
+.btn-s:hover{border-color:rgba(11,30,61,.35);box-shadow:0 12px 32px rgba(11,30,61,.14);transform:translateY(-4px);background:#fff}
 .stats-row{display:flex;gap:1.8rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(11,30,61,.1)}
 .sn{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .sn span{color:#C8972B}
@@ -272,8 +283,15 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <h1 class="hero-h1">Connecting the <em>AIS</em> Family,<br>Building Our Legacy</h1>
       <p class="hero-desc">Connect with fellow graduates of the Department of Accounting &amp; Information Systems, University of Barishal — celebrate achievements and build a stronger future together.</p>
       <div class="hero-actions">
-        <a href="register.html" class="btn-p">📝 Join Alumni Network</a>
-        <a href="database.html" class="btn-s">👥 Browse Directory</a>
+        <a href="register.html" class="btn-p">
+          <span class="btn-ico">📝</span>
+          <span class="btn-txt"><span class="btn-sub">Free to Join</span>Join Alumni Network</span>
+          <span class="btn-arr">→</span>
+        </a>
+        <a href="database.html" class="btn-s">
+          <span class="btn-ico">👥</span>
+          <span class="btn-txt"><span class="btn-sub">500+ Members</span>Browse Directory</span>
+        </a>
       </div>
       <div class="stats-row">
         <div><div class="sn" id="heroCount">—</div><div class="sl">Registered Alumni</div></div>
