@@ -138,15 +138,15 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .info-ico{font-size:.8rem;flex-shrink:0;margin-top:.1rem}
 .info-txt{font-size:.78rem;color:#5a6e84;line-height:1.45;word-break:break-word}
 
-/* CONNECT BUTTONS — NEW */
-.card-actions{display:flex;gap:.5rem;margin-top:.85rem;padding-top:.75rem;border-top:1px solid rgba(11,30,61,.06)}
-.act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:.4rem .3rem;border-radius:8px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:inherit}
-.act-wa{background:#25D366;color:#fff}
-.act-wa:hover{background:#1fba59}
-.act-call{background:rgba(11,30,61,.06);color:#0B1E3D;border:1px solid rgba(11,30,61,.1)}
-.act-call:hover{background:rgba(11,30,61,.1)}
-.act-view{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.2)}
-.act-view:hover{background:#FFE8A0}
+/* CONNECT BUTTONS */
+.card-actions{display:flex;gap:.55rem;margin-top:.85rem;padding-top:.75rem;border-top:1px solid rgba(11,30,61,.06)}
+.act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:.52rem .3rem;border-radius:10px;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .25s cubic-bezier(.34,.8,.64,1);border:none;font-family:inherit;letter-spacing:.01em}
+.act-btn:hover{transform:translateY(-2px)}
+.act-btn:active{transform:scale(.95)}
+.act-wa{background:#25D366;color:#fff;box-shadow:0 4px 12px rgba(37,211,102,.3)}
+.act-wa:hover{background:#20BA5A;box-shadow:0 8px 20px rgba(37,211,102,.4)}
+.act-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;box-shadow:0 4px 12px rgba(11,30,61,.22)}
+.act-call:hover{box-shadow:0 8px 20px rgba(11,30,61,.32)}
 
 /* EMPTY */
 .empty-state{text-align:center;padding:4rem 1rem}
@@ -444,7 +444,6 @@ function render(){
       <div class="card-actions">
         ${a.phone?`<button class="act-btn act-wa" onclick="event.stopPropagation();waContact('${a.phone}','${(a.name||'').replace(/'/g,"\\'")}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg> WhatsApp</button>`:''}
         ${a.phone?`<button class="act-btn act-call" onclick="event.stopPropagation();window.location.href='tel:${a.phone}'">📞 Call</button>`:''}
-        <button class="act-btn act-view" onclick="event.stopPropagation();openModal(currentList[${i}])">👤 View</button>
       </div>
     </div>`;
   }).join('');
