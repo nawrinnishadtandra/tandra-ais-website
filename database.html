@@ -11,17 +11,16 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,3rem);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 4px 10px rgba(11,30,61,.22);flex-shrink:0}
+.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.6rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .nav-menu{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-menu a{color:#3a4f6a;font-size:.8rem;font-weight:500;padding:.4rem .7rem;border-radius:6px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
 .nav-menu a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
-.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem;box-shadow:0 4px 12px rgba(11,30,61,.25)}
+.nav-menu .cta{background:#0B1E3D;color:#fff!important;padding:.46rem 1.1rem;border-radius:7px;margin-left:.4rem}
 .nav-menu .cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
@@ -39,8 +38,6 @@ nav.scrolled{height:54px}
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-
-/* PAGE HEADER */
 .page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:5rem clamp(1.5rem,5vw,4rem) 3rem;margin-top:62px;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
 .page-header-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
@@ -49,72 +46,87 @@ nav.scrolled{height:54px}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:.5rem}
 .page-title em{font-style:italic;color:#E8B84B}
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:520px}
+.stats-strip{background:#fff;border-bottom:1px solid rgba(11,30,61,.07);padding:1.1rem clamp(1.5rem,5vw,4rem)}
+.stats-strip-inner{max-width:1100px;margin:0 auto;display:flex;gap:2.5rem;flex-wrap:wrap}
+.strip-num{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:#0B1E3D;line-height:1}
+.strip-lbl{font-size:.7rem;color:#6B7C93;margin-top:2px}
 
-/* STATS ROW */
-.stats-strip{background:#fff;border-bottom:1px solid rgba(11,30,61,.07);padding:1.25rem clamp(1.5rem,5vw,4rem)}
-.stats-strip-inner{max-width:1100px;margin:0 auto;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
-.strip-stat{text-align:center}
-.strip-num{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:#0B1E3D;line-height:1}
-.strip-num span{color:#C8972B}
-.strip-lbl{font-size:.72rem;color:#6B7C93;margin-top:2px}
-
-/* FILTER SECTION */
-.filter-wrap{background:#fff;padding:1.5rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(11,30,61,.07);position:sticky;top:62px;z-index:50;box-shadow:0 2px 12px rgba(11,30,61,.05)}
-.filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
-.search-row{display:flex;gap:.75rem;align-items:center}
-.search-box{flex:1;position:relative}
-.search-box input{width:100%;padding:.65rem 1rem .65rem 2.5rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.85rem;font-family:inherit;background:#F9F7F3;color:#0B1E3D;outline:none;transition:all .25s}
+/* FILTER — hide on scroll down */
+.filter-wrap{background:#fff;padding:1.1rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(11,30,61,.07);position:sticky;top:62px;z-index:50;box-shadow:0 2px 12px rgba(11,30,61,.05);transition:transform .3s ease,opacity .3s ease}
+.filter-wrap.hidden{transform:translateY(-100%);opacity:0;pointer-events:none}
+.filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:.85rem}
+.search-box{position:relative}
+.search-box input{width:100%;padding:.65rem 2.8rem .65rem 2.4rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.85rem;font-family:inherit;background:#F9F7F3;color:#0B1E3D;outline:none;transition:all .25s}
 .search-box input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
-.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none}
-.batch-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.batch-lbl{font-size:.75rem;font-weight:600;color:#6B7C93;white-space:nowrap}
-.batch-btn{padding:.32rem .8rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.12);background:transparent;font-size:.75rem;font-weight:500;color:#3a4f6a;cursor:pointer;transition:all .2s;font-family:inherit}
+.search-box input::placeholder{color:#9aabb8}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.85rem;pointer-events:none}
+.clear-btn{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:.85rem;color:#9aabb8;padding:2px;display:none;line-height:1}
+.clear-btn.show{display:block}
+.batch-row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.batch-lbl{font-size:.73rem;font-weight:600;color:#6B7C93;white-space:nowrap;margin-right:.2rem}
+.batch-btn{padding:.28rem .7rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.73rem;font-weight:500;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
 .batch-btn:hover{border-color:#C8972B;color:#0B1E3D}
 .batch-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
-.sort-row{display:flex;gap:.5rem;align-items:center}
-.sort-lbl{font-size:.75rem;font-weight:600;color:#6B7C93}
-.sort-btn{padding:.3rem .8rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.75rem;font-weight:500;color:#3a4f6a;cursor:pointer;transition:all .2s;font-family:inherit}
+.sort-row{display:flex;gap:.4rem;align-items:center}
+.sort-lbl{font-size:.73rem;font-weight:600;color:#6B7C93}
+.sort-btn{padding:.26rem .72rem;border-radius:6px;border:1.5px solid rgba(11,30,61,.09);background:transparent;font-size:.73rem;font-weight:500;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
 .sort-btn:hover{border-color:#C8972B}
-.sort-btn.active{background:rgba(200,151,43,.1);border-color:#C8972B;color:#9a6c0a}
+.sort-btn.active{background:#FFF6E0;border-color:#C8972B;color:#9a6c0a;font-weight:600}
 
-/* RESULTS */
-.results-wrap{max-width:1100px;margin:0 auto;padding:2rem clamp(1.5rem,5vw,4rem)}
-.results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
-.results-count{font-size:.85rem;color:#6B7C93}
+.results-wrap{max-width:1100px;margin:0 auto;padding:1.75rem clamp(1.5rem,5vw,4rem) 3rem}
+.results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
+.results-count{font-size:.82rem;color:#6B7C93}
 .results-count strong{color:#0B1E3D;font-weight:600}
-
-/* ALUMNI GRID */
-.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
-
-/* ALUMNI CARD */
-.alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.5rem;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
-.alumni-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.alumni-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
+.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.35rem;transition:all .28s;cursor:pointer;position:relative;overflow:hidden}
+.alumni-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .28s}
+.alumni-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
 .alumni-card:hover::before{transform:scaleX(1)}
-.alumni-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#E8B84B;margin:0 auto 1rem;box-shadow:0 6px 16px rgba(11,30,61,.2)}
-.alumni-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;text-align:center;margin-bottom:.4rem;line-height:1.3}
-.alumni-batch{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;text-align:center;margin:0 auto .9rem;display:block;width:fit-content;margin-left:auto;margin-right:auto}
-.alumni-info{display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem;border-top:1px solid rgba(11,30,61,.06);padding-top:.75rem}
-.info-row{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:#5a6e84}
-.info-row-icon{width:24px;height:24px;border-radius:6px;background:#F9F7F3;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
-.info-row-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.alumni-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#E8B84B;margin:0 auto .9rem;box-shadow:0 4px 14px rgba(11,30,61,.18)}
+.alumni-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;text-align:center;margin-bottom:.35rem;line-height:1.3}
+.alumni-batch-tag{display:block;width:fit-content;margin:0 auto .8rem;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.69rem;font-weight:600;color:#9a6c0a}
+.alumni-info{display:flex;flex-direction:column;gap:.4rem;border-top:1px solid rgba(11,30,61,.06);padding-top:.7rem}
+.info-row{display:flex;align-items:center;gap:.5rem;font-size:.77rem;color:#5a6e84}
+.info-ico{width:22px;height:22px;border-radius:5px;background:#F9F7F3;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.info-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 
-/* LOADING */
-.loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem;gap:1rem}
-.loader{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin 1s linear infinite}
+.loading-state{display:flex;flex-direction:column;align-items:center;padding:5rem 2rem;gap:1rem}
+.loader{width:38px;height:38px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:.85rem;color:#6B7C93}
-
-/* EMPTY */
+.loading-txt{font-size:.82rem;color:#6B7C93}
 .empty-state{text-align:center;padding:5rem 2rem}
-.empty-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
-.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#0B1E3D;margin-bottom:.5rem}
-.empty-text{font-size:.85rem;color:#6B7C93}
+.empty-ico{font-size:3rem;margin-bottom:1rem;opacity:.35}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
+.empty-txt{font-size:.83rem;color:#6B7C93}
 
-footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93;margin-top:2rem}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.52);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:22px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);position:relative}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);border-radius:22px 22px 0 0;padding:2rem 2rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.modal-header::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.18) 0%,transparent 70%)}
+.modal-close{position:absolute;top:1rem;right:1rem;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
+.modal-close:hover{background:rgba(255,255,255,.28)}
+.modal-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#E8B84B;margin:0 auto 1rem;position:relative;z-index:1}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:.4rem;position:relative;z-index:1;line-height:1.2}
+.modal-batch-tag{display:inline-block;background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.35);border-radius:100px;padding:3px 14px;font-size:.74rem;color:#E8B84B;font-weight:600;position:relative;z-index:1}
+.modal-body{padding:1.5rem 1.75rem 1.75rem}
+.modal-sec-title{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C8972B;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
+.modal-sec-title::before{content:'';width:14px;height:2px;background:#C8972B;border-radius:2px}
+.modal-info-grid{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
+.modal-info-item{display:flex;align-items:flex-start;gap:.9rem;padding:.85rem 1rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06)}
+.modal-info-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.modal-info-lbl{font-size:.68rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.18rem}
+.modal-info-val{font-size:.88rem;color:#0B1E3D;font-weight:500;word-break:break-word;line-height:1.4}
+.modal-dept-tag{background:#FFF6E0;border:1px solid rgba(200,151,43,.22);border-radius:10px;padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem}
+.modal-dept-ico{font-size:1.1rem;flex-shrink:0}
+.modal-dept-lbl{font-size:.68rem;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.modal-dept-val{font-size:.85rem;color:#9a6c0a;font-weight:600;line-height:1.3}
 
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93;margin-top:1rem}
 </style>
 </head>
 <body>
@@ -122,10 +134,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <nav id="nav">
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-icon">🎓</div>
-    <div>
-      <span class="nav-brand-title">AIS Alumni</span>
-      <span class="nav-brand-sub">University of Barishal</span>
-    </div>
+    <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
   <ul class="nav-menu" id="navMenu">
@@ -143,7 +152,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       </div>
     </li>
     <li><a href="donation.html">Donation</a></li>
-    <li><a href="notices.html">Notice</a></li>
+    <li><a href="notice.html">Notice</a></li>
     <li><a href="event.html">Events</a></li>
     <li><a href="register.html">Register</a></li>
     <li><a href="profile.html" class="cta">My Profile</a></li>
@@ -160,39 +169,31 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="stats-strip">
   <div class="stats-strip-inner">
-    <div class="strip-stat"><div class="strip-num" id="totalCount">0</div><div class="strip-lbl">Total Alumni</div></div>
-    <div class="strip-stat"><div class="strip-num">12</div><div class="strip-lbl">Batches</div></div>
-    <div class="strip-stat"><div class="strip-num" id="activeCount">0</div><div class="strip-lbl">Active Members</div></div>
+    <div><div class="strip-num" id="totalCount">—</div><div class="strip-lbl">Total Alumni</div></div>
+    <div><div class="strip-num">12</div><div class="strip-lbl">Batches</div></div>
+    <div><div class="strip-num" id="activeCount">—</div><div class="strip-lbl">Active Members</div></div>
   </div>
 </div>
 
-<div class="filter-wrap">
+<div class="filter-wrap" id="filterWrap">
   <div class="filter-inner">
-    <div class="search-row">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search by name, batch, job or year..." autocomplete="off">
-      </div>
-      <button class="batch-btn" id="clearBtn" style="display:none" onclick="clearSearch()">✕ Clear</button>
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search by name, batch, job, year, phone..." autocomplete="off">
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
     <div class="batch-row">
       <span class="batch-lbl">Batch:</span>
       <button class="batch-btn active" data-batch="all">All</button>
-      <button class="batch-btn" data-batch="1">1</button>
-      <button class="batch-btn" data-batch="2">2</button>
-      <button class="batch-btn" data-batch="3">3</button>
-      <button class="batch-btn" data-batch="4">4</button>
-      <button class="batch-btn" data-batch="5">5</button>
-      <button class="batch-btn" data-batch="6">6</button>
-      <button class="batch-btn" data-batch="7">7</button>
-      <button class="batch-btn" data-batch="8">8</button>
-      <button class="batch-btn" data-batch="9">9</button>
-      <button class="batch-btn" data-batch="10">10</button>
-      <button class="batch-btn" data-batch="11">11</button>
-      <button class="batch-btn" data-batch="12">12</button>
+      <button class="batch-btn" data-batch="1">1</button><button class="batch-btn" data-batch="2">2</button>
+      <button class="batch-btn" data-batch="3">3</button><button class="batch-btn" data-batch="4">4</button>
+      <button class="batch-btn" data-batch="5">5</button><button class="batch-btn" data-batch="6">6</button>
+      <button class="batch-btn" data-batch="7">7</button><button class="batch-btn" data-batch="8">8</button>
+      <button class="batch-btn" data-batch="9">9</button><button class="batch-btn" data-batch="10">10</button>
+      <button class="batch-btn" data-batch="11">11</button><button class="batch-btn" data-batch="12">12</button>
     </div>
     <div class="sort-row">
-      <span class="sort-lbl">Sort by:</span>
+      <span class="sort-lbl">Sort:</span>
       <button class="sort-btn active" data-sort="name">Name A–Z</button>
       <button class="sort-btn" data-sort="batch">Batch</button>
       <button class="sort-btn" data-sort="year">Year</button>
@@ -204,15 +205,40 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   <div class="results-header">
     <div class="results-count">Showing <strong id="resultsCount">0</strong> alumni</div>
   </div>
-  <div class="loading-state" id="loadingState">
-    <div class="loader"></div>
-    <div class="loading-text">Loading alumni data...</div>
-  </div>
+  <div class="loading-state" id="loadingState"><div class="loader"></div><div class="loading-txt">Loading alumni data...</div></div>
   <div class="alumni-grid" id="alumniGrid"></div>
   <div class="empty-state" id="emptyState" style="display:none">
-    <div class="empty-icon">🔍</div>
+    <div class="empty-ico">🔍</div>
     <div class="empty-title">No Alumni Found</div>
-    <div class="empty-text">Try adjusting your search or filters</div>
+    <div class="empty-txt">Try a different search or filter</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-avatar" id="mAvatar">?</div>
+      <div class="modal-name" id="mName">—</div>
+      <div class="modal-batch-tag" id="mBatchTag">—</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-sec-title">Contact Information</div>
+      <div class="modal-info-grid">
+        <div class="modal-info-item"><div class="modal-info-ico">📧</div><div><div class="modal-info-lbl">Email</div><div class="modal-info-val" id="mEmail">—</div></div></div>
+        <div class="modal-info-item"><div class="modal-info-ico">📱</div><div><div class="modal-info-lbl">Phone</div><div class="modal-info-val" id="mPhone">—</div></div></div>
+        <div class="modal-info-item"><div class="modal-info-ico">💼</div><div><div class="modal-info-lbl">Current Job / Position</div><div class="modal-info-val" id="mJob">—</div></div></div>
+        <div class="modal-info-item"><div class="modal-info-ico">🎓</div><div><div class="modal-info-lbl">Batch &amp; Passing Year</div><div class="modal-info-val" id="mBatchYear">—</div></div></div>
+      </div>
+      <div class="modal-dept-tag">
+        <div class="modal-dept-ico">🏛️</div>
+        <div>
+          <div class="modal-dept-lbl">Department</div>
+          <div class="modal-dept-val">Accounting &amp; Information Systems · University of Barishal</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -222,106 +248,138 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
 <script>
+/* NAV */
 document.getElementById('burger').addEventListener('click',()=>document.getElementById('navMenu').classList.toggle('open'));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
 
+/* HIDE FILTER ON SCROLL DOWN */
+let lastY=window.scrollY;
+const fw=document.getElementById('filterWrap');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y>220){fw.classList.toggle('hidden',y>lastY);}
+  else{fw.classList.remove('hidden');}
+  lastY=y;
+},{passive:true});
+
+/* STATE */
 let allAlumni=[],currentBatch='all',currentSort='name',searchQuery='';
 
-function getInitials(name){return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
+function getInitials(n){if(!n)return'?';return n.trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);}
 
-function createCard(a){
-  return `<div class="alumni-card reveal">
-    <div class="alumni-avatar">${getInitials(a.name)}</div>
-    <div class="alumni-name">${a.name}</div>
-    <div class="alumni-batch">Batch ${a.batch} &nbsp;·&nbsp; ${a.year}</div>
-    <div class="alumni-info">
-      <div class="info-row"><div class="info-row-icon">💼</div><div class="info-row-text">${a.job||'—'}</div></div>
-      <div class="info-row"><div class="info-row-icon">📱</div><div class="info-row-text">${a.phone||'—'}</div></div>
-      ${a.email?`<div class="info-row"><div class="info-row-icon">📧</div><div class="info-row-text">${a.email}</div></div>`:''}
-    </div>
-  </div>`;}
+/* RENDER */
+function render(){
+  let list=[...allAlumni];
+  if(currentBatch!=='all') list=list.filter(a=>String(a.batch)===String(currentBatch));
+  const q=searchQuery.trim().toLowerCase();
+  if(q){
+    const words=q.split(/\s+/);
+    list=list.filter(a=>{
+      const hay=[a.name,a.batch,a.year,a.job,a.phone,a.email].filter(Boolean).join(' ').toLowerCase();
+      return words.every(w=>hay.includes(w));
+    });
+  }
+  list.sort((a,b)=>{
+    if(currentSort==='name')return(a.name||'').localeCompare(b.name||'');
+    if(currentSort==='batch')return parseInt(a.batch||0)-parseInt(b.batch||0);
+    if(currentSort==='year')return parseInt(a.year||0)-parseInt(b.year||0);
+    return 0;
+  });
+  const grid=document.getElementById('alumniGrid');
+  const empty=document.getElementById('emptyState');
+  document.getElementById('resultsCount').textContent=list.length;
+  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=list.map(a=>`
+    <div class="alumni-card reveal" data-id="${a.id||''}">
+      <div class="alumni-avatar">${getInitials(a.name)}</div>
+      <div class="alumni-name">${a.name}</div>
+      <div class="alumni-batch-tag">Batch ${a.batch} &nbsp;·&nbsp; ${a.year}</div>
+      <div class="alumni-info">
+        <div class="info-row"><div class="info-ico">💼</div><div class="info-txt">${a.job||'—'}</div></div>
+        <div class="info-row"><div class="info-ico">📱</div><div class="info-txt">${a.phone||'—'}</div></div>
+      </div>
+    </div>`).join('');
 
-function sortAlumni(arr,by){
-  return [...arr].sort((a,b)=>{
-    if(by==='name')return a.name.localeCompare(b.name);
-    if(by==='batch')return parseInt(a.batch)-parseInt(b.batch);
-    if(by==='year')return parseInt(a.year)-parseInt(b.year);
+  /* attach click handlers */
+  grid.querySelectorAll('.alumni-card').forEach((card,i)=>{
+    card.addEventListener('click',()=>openModal(list[i]));
+  });
+
+  /* reveal */
+  requestAnimationFrame(()=>{
+    const ro=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}});
+    },{threshold:.04});
+    grid.querySelectorAll('.reveal').forEach(el=>{
+      if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');
+      else ro.observe(el);
+    });
   });
 }
 
-function render(){
-  let filtered=[...allAlumni];
-  if(currentBatch!=='all')filtered=filtered.filter(a=>a.batch===currentBatch);
-  if(searchQuery){
-    const q=searchQuery.toLowerCase();
-    filtered=filtered.filter(a=>
-      a.name.toLowerCase().includes(q)||
-      String(a.batch).includes(q)||
-      (a.job&&a.job.toLowerCase().includes(q))||
-      String(a.year).includes(q)||
-      (a.phone&&a.phone.includes(q))||
-      (a.email&&a.email.toLowerCase().includes(q))
-    );
-  }
-  filtered=sortAlumni(filtered,currentSort);
-  const grid=document.getElementById('alumniGrid');
-  const empty=document.getElementById('emptyState');
-  document.getElementById('resultsCount').textContent=filtered.length;
-  if(!filtered.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  grid.innerHTML=filtered.map(createCard).join('');
-  setTimeout(()=>{
-    const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.05});
-    document.querySelectorAll('.alumni-card.reveal').forEach(el=>ro.observe(el));
-  },50);
-}
-
+/* SEARCH */
+document.getElementById('searchInput').addEventListener('input',function(){
+  searchQuery=this.value;
+  document.getElementById('clearBtn').classList.toggle('show',!!this.value.trim());
+  render();
+});
 function clearSearch(){
   document.getElementById('searchInput').value='';
   searchQuery='';
-  document.getElementById('clearBtn').style.display='none';
+  document.getElementById('clearBtn').classList.remove('show');
   render();
 }
 
-document.getElementById('searchInput').addEventListener('input',function(){
-  searchQuery=this.value.trim();
-  document.getElementById('clearBtn').style.display=searchQuery?'inline-block':'none';
-  render();
-});
-
+/* BATCH */
 document.querySelectorAll('.batch-btn[data-batch]').forEach(btn=>{
   btn.addEventListener('click',function(){
     document.querySelectorAll('.batch-btn[data-batch]').forEach(b=>b.classList.remove('active'));
-    this.classList.add('active');
-    currentBatch=this.dataset.batch;
-    render();
+    this.classList.add('active');currentBatch=this.dataset.batch;render();
   });
 });
 
+/* SORT */
 document.querySelectorAll('.sort-btn').forEach(btn=>{
   btn.addEventListener('click',function(){
     document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
-    this.classList.add('active');
-    currentSort=this.dataset.sort;
-    render();
+    this.classList.add('active');currentSort=this.dataset.sort;render();
   });
 });
 
+/* MODAL */
+function openModal(a){
+  document.getElementById('mAvatar').textContent=getInitials(a.name);
+  document.getElementById('mName').textContent=a.name||'—';
+  document.getElementById('mBatchTag').textContent=`Batch ${a.batch||'—'} · ${a.year||'—'}`;
+  document.getElementById('mEmail').textContent=a.email||'—';
+  document.getElementById('mPhone').textContent=a.phone||'—';
+  document.getElementById('mJob').textContent=a.job||'—';
+  document.getElementById('mBatchYear').textContent=`Batch ${a.batch||'—'} · Passing Year ${a.year||'—'}`;
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* FIREBASE */
 db.collection('alumni').onSnapshot(snap=>{
   allAlumni=[];
-  snap.forEach(doc=>allAlumni.push(doc.data()));
+  snap.forEach(doc=>allAlumni.push({id:doc.id,...doc.data()}));
   document.getElementById('totalCount').textContent=allAlumni.length;
   document.getElementById('activeCount').textContent=allAlumni.length;
   document.getElementById('loadingState').style.display='none';
   render();
 });
 
+/* URL BATCH PARAM */
 window.addEventListener('load',()=>{
   const p=new URLSearchParams(window.location.search).get('batch');
-  if(p){
-    const btn=document.querySelector(`[data-batch="${p}"]`);
-    if(btn)btn.click();
-  }
+  if(p){const btn=document.querySelector(`.batch-btn[data-batch="${p}"]`);if(btn)btn.click();}
 });
 </script>
 </body>
