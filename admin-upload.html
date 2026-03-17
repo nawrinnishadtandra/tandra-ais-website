@@ -10,17 +10,19 @@
 <meta property="og:type" content="website">
 <title>Admin Upload | AIS Alumni</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
-// NAV
-// DRAWER
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
 // ADMIN GATE
 (function(){
   const PASS='ais2025admin';
   const unlocked=sessionStorage.getItem('adminUnlocked');
-  if(unlocked===PASS){document.getElementById('adminGate').style.display='none';return;}
-  document.getElementById('adminGate').style.display='flex';
+  if(unlocked===PASS){
+    // will hide gate after DOM loads
+    document.addEventListener('DOMContentLoaded',function(){
+      var g=document.getElementById('adminGate');
+      if(g)g.style.display='none';
+    });
+  }
 })();
 function adminUnlock(){
   const v=document.getElementById('gatePass').value;
