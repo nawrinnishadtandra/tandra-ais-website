@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Donation | AIS Alumni — University of Barishal</title>
 <meta name="description" content="Support the AIS Alumni community through bKash donation. Help fund scholarships, events, and department growth.">
+<meta property="og:title" content="Donation | AIS Alumni — University of Barishal">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -66,127 +68,148 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* PAGE HEADER */
-.page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
-.page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
-.page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
-.page-title em{font-style:italic;color:#E8B84B}
-.page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:520px;margin:0 auto;position:relative;z-index:1}
+/* HERO HEADER */
+.page-hero{background:linear-gradient(145deg,#0B1E3D 0%,#162d55 60%,#1a3570 100%);padding:calc(62px + 3rem) clamp(1.5rem,5vw,4rem) 3.5rem;text-align:center;position:relative;overflow:hidden}
+.ph-glow1{position:absolute;top:-100px;right:-100px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 65%)}
+.ph-glow2{position:absolute;bottom:-80px;left:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.2) 0%,transparent 70%)}
+.ph-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#E8B84B;margin-bottom:.75rem;position:relative;z-index:1}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.2rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:.75rem;position:relative;z-index:1}
+.ph-title em{font-style:italic;color:#E8B84B}
+.ph-desc{font-size:.92rem;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 2.5rem;line-height:1.75;position:relative;z-index:1}
+/* IMPACT STATS IN HEADER */
+.ph-stats{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
+.ph-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1rem 1.5rem;text-align:center;backdrop-filter:blur(8px)}
+.ph-stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#E8B84B;line-height:1}
+.ph-stat-num span{font-size:1.2rem}
+.ph-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+
+/* GOAL SECTION */
+.goal-section{background:#fff;margin:0;padding:2.5rem clamp(1.5rem,5vw,4rem)}
+.goal-inner{max-width:780px;margin:0 auto}
+.goal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.goal-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C8972B;display:flex;align-items:center;gap:.5rem}
+.goal-label::before{content:'';width:14px;height:2px;background:#C8972B;border-radius:2px}
+.goal-numbers{display:flex;align-items:baseline;gap:.5rem}
+.goal-raised{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#0B1E3D;line-height:1}
+.goal-total{font-size:.85rem;color:#9aabb8}
+.goal-bar-track{height:10px;background:rgba(11,30,61,.06);border-radius:100px;overflow:hidden;margin-bottom:.85rem}
+.goal-bar-fill{height:100%;background:linear-gradient(90deg,#C8972B,#E8B84B);border-radius:100px;transition:width 1.4s cubic-bezier(.22,.61,.36,1);width:0}
+.goal-meta{display:flex;gap:1.5rem;flex-wrap:wrap}
+.gm-item{display:flex;align-items:center;gap:.5rem}
+.gm-dot{width:8px;height:8px;border-radius:50%;background:#C8972B}
+.gm-txt{font-size:.8rem;color:#6B7C93}
+.gm-txt strong{color:#0B1E3D}
 
 /* CONTENT */
 .content{max-width:780px;margin:0 auto;padding:2rem clamp(1.5rem,5vw,4rem) 3rem}
 
-/* GOAL PROGRESS */
-.goal-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:18px;padding:1.75rem;margin-bottom:1.75rem}
-.goal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.goal-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D}
-.goal-pct{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#C8972B}
-.goal-bar-wrap{height:12px;background:rgba(11,30,61,.06);border-radius:100px;overflow:hidden;margin-bottom:.85rem}
-.goal-bar{height:100%;background:linear-gradient(90deg,#C8972B,#E8B84B);border-radius:100px;transition:width 1.2s cubic-bezier(.22,.61,.36,1);width:0}
-.goal-stats{display:flex;gap:1.5rem;flex-wrap:wrap}
-.gs-item{text-align:center}
-.gs-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;line-height:1}
-.gs-lbl{font-size:.72rem;color:#6B7C93;margin-top:2px}
+/* WHY DONATE */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;margin-bottom:2rem}
+@media(max-width:480px){.why-grid{grid-template-columns:1fr}}
+.why-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.25rem;display:flex;align-items:flex-start;gap:.85rem;transition:all .25s}
+.why-card:hover{border-color:rgba(200,151,43,.25);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,30,61,.07)}
+.why-ico-wrap{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.why-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:#0B1E3D;margin-bottom:.25rem}
+.why-text{font-size:.78rem;color:#6B7C93;line-height:1.65}
 
-/* IMPACT */
-.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.75rem}
-@media(max-width:480px){.impact-grid{grid-template-columns:1fr}}
-.impact-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.25rem;text-align:center}
-.impact-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#C8972B;line-height:1;margin-bottom:.3rem}
-.impact-num span{font-size:1.2rem}
-.impact-lbl{font-size:.78rem;color:#6B7C93}
+/* SECTION DIVIDER */
+.sec-eye{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C8972B;margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem}
+.sec-eye::before{content:'';width:14px;height:2px;background:#C8972B;border-radius:2px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:#0B1E3D;margin-bottom:1.25rem;line-height:1.2}
 
-/* SECTION CARD */
-.section-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:18px;padding:1.75rem;margin-bottom:1.75rem}
-.sec-eye{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8972B;margin-bottom:.55rem;display:flex;align-items:center;gap:.5rem}
-.sec-eye::before{content:'';width:16px;height:2px;background:#C8972B;border-radius:2px}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#0B1E3D;margin-bottom:1.25rem;line-height:1.2}
-.reasons-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.85rem}
-.reason{background:#F9F7F3;border-radius:12px;padding:1.1rem;border:1px solid rgba(11,30,61,.06)}
-.reason-ico{font-size:1.6rem;margin-bottom:.6rem}
-.reason-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
-.reason-text{font-size:.78rem;color:#6B7C93;line-height:1.65}
-
-/* BKASH CARD */
-.bkash-wrap{margin:1.5rem 0;display:flex;justify-content:center}
-.bkash-card{background:linear-gradient(135deg,#E2136E,#C70D5C);border-radius:20px;padding:2.25rem;width:100%;max-width:380px;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(226,19,110,.35)}
-.bkash-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.07)}
-.bkash-card::after{content:'';position:absolute;bottom:-50px;left:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.05)}
-.bkash-title{font-size:2rem;font-weight:700;color:#fff;text-align:center;letter-spacing:.06em;margin-bottom:1.1rem;position:relative;z-index:1}
-.bkash-label{font-size:.73rem;color:rgba(255,255,255,.7);text-align:center;margin-bottom:.5rem;position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em}
-.bkash-number-box{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:.9rem;text-align:center;margin-bottom:.85rem;position:relative;z-index:1}
-.bkash-number{font-size:1.75rem;font-weight:700;color:#fff;letter-spacing:.08em}
-.copy-btn{width:100%;padding:.7rem;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.28);border-radius:9px;color:#fff;font-size:.85rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .25s;position:relative;z-index:1}
-.copy-btn:hover{background:rgba(255,255,255,.28)}
-.bkash-ref{font-size:.75rem;color:rgba(255,255,255,.65);text-align:center;margin-top:.7rem;position:relative;z-index:1}
+/* BKASH PREMIUM */
+.bkash-section{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:20px;padding:2rem;margin-bottom:2rem;overflow:hidden;position:relative}
+.bkash-section::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(226,19,110,.04) 0%,transparent 70%)}
+.bkash-card-premium{background:linear-gradient(145deg,#d60060 0%,#E2136E 50%,#c0005a 100%);border-radius:20px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;box-shadow:0 16px 40px rgba(226,19,110,.3)}
+.bkash-card-premium::before{content:'';position:absolute;top:-70px;right:-70px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.07)}
+.bkash-card-premium::after{content:'';position:absolute;bottom:-50px;left:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04)}
+.bk-logo{font-size:2.2rem;font-weight:800;color:#fff;text-align:center;letter-spacing:.08em;margin-bottom:1.5rem;position:relative;z-index:1}
+.bk-number-label{font-size:.68rem;color:rgba(255,255,255,.6);text-align:center;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;position:relative;z-index:1}
+.bk-number{font-size:2rem;font-weight:700;color:#fff;text-align:center;letter-spacing:.12em;margin-bottom:1.25rem;position:relative;z-index:1}
+.bk-copy-btn{width:100%;padding:.78rem;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:12px;color:#fff;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px}
+.bk-copy-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
+.bk-copy-btn:active{transform:scale(.97)}
+.bk-ref{font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:.85rem;position:relative;z-index:1}
+.bk-ref strong{color:rgba(255,255,255,.9)}
 
 /* STEPS */
-.steps{display:flex;flex-direction:column;gap:.65rem}
-.step{display:flex;align-items:flex-start;gap:.9rem;padding:.9rem 1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06)}
-.step-num{width:32px;height:32px;border-radius:50%;background:#0B1E3D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0}
+.steps-list{display:flex;flex-direction:column;gap:.6rem}
+.step{display:flex;align-items:flex-start;gap:.9rem;padding:.88rem 1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06);transition:all .2s}
+.step:hover{background:#fff;border-color:rgba(200,151,43,.18)}
+.step-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#E8B84B;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0}
 .step-title{font-size:.86rem;font-weight:600;color:#0B1E3D;margin-bottom:.18rem}
 .step-text{font-size:.78rem;color:#6B7C93;line-height:1.6}
 
-/* DONATION FORM */
-.donation-form{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(11,30,61,.07)}
-.form-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:1rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem}
+/* FORM */
+.form-section{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:20px;padding:2rem;margin-bottom:2rem}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#0B1E3D;margin-bottom:1.1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.85rem}
 @media(max-width:480px){.form-row{grid-template-columns:1fr}}
 .form-group{margin-bottom:.85rem}
-.form-label{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.38rem}
-.form-input{width:100%;padding:.65rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.86rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.form-label{display:block;font-size:.76rem;font-weight:600;color:#3a4f6a;margin-bottom:.38rem}
+.form-input{width:100%;padding:.68rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:10px;font-size:.87rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
 .form-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
-.amount-grid{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.85rem}
-.amt-btn{padding:.45rem .9rem;border-radius:8px;border:1.5px solid rgba(11,30,61,.12);background:transparent;font-size:.82rem;font-weight:600;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
-.amt-btn:hover{border-color:#C8972B;color:#0B1E3D}
+/* AMOUNT PRESETS */
+.amt-grid{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.85rem}
+.amt-btn{padding:.45rem 1rem;border-radius:9px;border:1.5px solid rgba(11,30,61,.12);background:transparent;font-size:.82rem;font-weight:600;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
+.amt-btn:hover{border-color:#C8972B;color:#0B1E3D;background:#FFF6E0}
 .amt-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
-.donated-btn{width:100%;padding:.88rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:11px;font-size:.92rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .28s;box-shadow:0 6px 20px rgba(11,30,61,.25);margin-top:.5rem}
-.donated-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(11,30,61,.32)}
-.donated-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+/* SUBMIT BTN */
+.donate-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:13px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s cubic-bezier(.34,.8,.64,1);box-shadow:0 8px 24px rgba(11,30,61,.28);display:flex;align-items:center;justify-content:center;gap:8px}
+.donate-btn:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(11,30,61,.36)}
+.donate-btn:active{transform:scale(.97)}
+.donate-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* TOP DONORS */
-.donors-section{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:18px;padding:1.75rem;margin-bottom:1.75rem}
-.donors-list{display:flex;flex-direction:column;gap:.55rem;margin-top:1rem}
-.donor-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 1rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06)}
-.donor-item:first-child{background:#FFF6E0;border-color:rgba(200,151,43,.2)}
-.donor-item:nth-child(2){background:#F5F7FF;border-color:rgba(11,30,61,.1)}
-.donor-rank{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;flex-shrink:0}
-.rank-1{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#fff}
-.rank-2{background:linear-gradient(135deg,#8a9db5,#aab8cc);color:#fff}
-.rank-3{background:linear-gradient(135deg,#c8845a,#e0a07a);color:#fff}
-.rank-n{background:rgba(11,30,61,.08);color:#5a6e84}
-.donor-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:#E8B84B;flex-shrink:0}
-.donor-name{font-size:.88rem;font-weight:600;color:#0B1E3D;flex:1}
-.donor-amount{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#C8972B}
-.donors-empty{font-size:.82rem;color:#9aabb8;text-align:center;padding:1rem 0}
+/* LEADERBOARD */
+.leaders-section{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:20px;padding:2rem;margin-bottom:2rem}
+.donors-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+.donor-row{display:flex;align-items:center;gap:.85rem;padding:.8rem 1rem;border-radius:12px;border:1px solid rgba(11,30,61,.06);transition:all .2s}
+.donor-row:first-child{background:linear-gradient(135deg,#FFF6E0,#FFFBF0);border-color:rgba(200,151,43,.22)}
+.donor-row:nth-child(2){background:#F7F9FF;border-color:rgba(11,30,61,.09)}
+.donor-row:nth-child(3){background:#FFF8F4;border-color:rgba(200,120,80,.12)}
+.donor-row:hover{transform:translateX(4px)}
+.d-rank{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0}
+.r1{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
+.r2{background:linear-gradient(135deg,#8a9db5,#aab8cc);color:#fff}
+.r3{background:linear-gradient(135deg,#c8845a,#e0a07a);color:#fff}
+.rn{background:rgba(11,30,61,.07);color:#5a6e84;font-size:.78rem}
+.d-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:#E8B84B;flex-shrink:0}
+.d-name{flex:1;font-size:.88rem;font-weight:600;color:#0B1E3D;line-height:1.3}
+.d-msg{font-size:.73rem;color:#6B7C93;font-weight:400;font-style:italic;margin-top:.12rem}
+.d-amt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#C8972B;flex-shrink:0}
 
 /* THANK YOU WALL */
-.thankyou-wall{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
-.ty-tag{display:inline-flex;align-items:center;gap:5px;background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:100px;padding:4px 12px;font-size:.78rem;color:#9a6c0a;font-weight:600}
+.ty-wall-wrap{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(11,30,61,.07)}
+.ty-wall-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6B7C93;margin-bottom:.75rem}
+.ty-wall{display:flex;flex-wrap:wrap;gap:.45rem}
+.ty-tag{display:inline-flex;align-items:center;gap:4px;background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:100px;padding:4px 12px;font-size:.76rem;color:#9a6c0a;font-weight:600;transition:all .2s}
+.ty-tag:hover{background:#FFE8A0}
+.donors-empty{font-size:.82rem;color:#9aabb8;text-align:center;padding:1.5rem 0}
 
 /* RECEIPT MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:22px;max-width:420px;width:100%;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:pop .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
-@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-.modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2rem;text-align:center;position:relative;overflow:hidden}
-.modal-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.18) 0%,transparent 70%)}
-.modal-ico{font-size:3rem;margin-bottom:.75rem;position:relative;z-index:1;animation:bounce .6s cubic-bezier(.34,1.56,.64,1)}
-@keyframes bounce{from{transform:scale(0)}to{transform:scale(1)}}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1}
-.modal-sub{font-size:.82rem;color:rgba(255,255,255,.65);position:relative;z-index:1}
-.modal-body{padding:1.5rem 1.75rem 1.75rem}
-.receipt-row{display:flex;align-items:center;gap:.85rem;padding:.7rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
-.receipt-ico{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
-.receipt-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.12rem}
-.receipt-val{font-size:.86rem;color:#0B1E3D;font-weight:600}
-.modal-share{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.1rem}
-.ms-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.65rem;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
-.ms-wa{background:#25D366;color:#fff}
-.ms-wa:hover{background:#20BA5A}
-.ms-close{background:#F9F7F3;color:#0B1E3D;border:1px solid rgba(11,30,61,.12)}
-.ms-close:hover{background:#f0f0f0}
+.modal{background:#fff;border-radius:24px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.25);animation:popIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-hdr{background:linear-gradient(145deg,#0B1E3D,#1A3260);padding:2.25rem 2rem;text-align:center;position:relative;overflow:hidden}
+.modal-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.18) 0%,transparent 70%)}
+.modal-hdr::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(42,74,138,.15)}
+.m-ico{font-size:3.5rem;margin-bottom:.75rem;display:block;position:relative;z-index:1;animation:bounce .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bounce{from{transform:scale(0) rotate(-10deg)}to{transform:scale(1) rotate(0)}}
+.m-title{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.25rem}
+.m-sub{font-size:.8rem;color:rgba(255,255,255,.55);position:relative;z-index:1}
+.modal-body{padding:1.6rem 1.75rem 1.75rem}
+.receipt-row{display:flex;align-items:center;gap:.85rem;padding:.72rem .9rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
+.receipt-row:last-of-type{margin-bottom:1.1rem}
+.r-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+.r-lbl{font-size:.64rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.12rem}
+.r-val{font-size:.86rem;color:#0B1E3D;font-weight:600}
+.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mb-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.7rem;border-radius:11px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.mb-wa{background:#25D366;color:#fff}
+.mb-wa:hover{background:#20BA5A}
+.mb-close{background:#F9F7F3;color:#0B1E3D;border:1px solid rgba(11,30,61,.1)}
+.mb-close:hover{background:#f0f0f0}
 
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -225,112 +248,135 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </ul>
 </nav>
 
-<div class="page-header">
-  <div class="page-eyebrow">Support Us</div>
-  <h1 class="page-title">Make a <em>Donation</em></h1>
-  <p class="page-desc">Your contribution strengthens the AIS Alumni community and creates opportunities for future generations.</p>
+<!-- HERO -->
+<div class="page-hero">
+  <div class="ph-glow1"></div>
+  <div class="ph-glow2"></div>
+  <div class="ph-eyebrow">Support Our Community</div>
+  <h1 class="ph-title">Make a <em>Difference</em><br>with Your Donation</h1>
+  <p class="ph-desc">আপনার অবদান AIS Alumni community কে আরও শক্তিশালী করবে এবং ভবিষ্যৎ প্রজন্মের জন্য সুযোগ তৈরি করবে।</p>
+  <div class="ph-stats">
+    <div class="ph-stat"><div class="ph-stat-num">50<span>+</span></div><div class="ph-stat-lbl">Scholarships</div></div>
+    <div class="ph-stat"><div class="ph-stat-num">10<span>+</span></div><div class="ph-stat-lbl">Events Funded</div></div>
+    <div class="ph-stat"><div class="ph-stat-num" id="donorCountHero">—</div><div class="ph-stat-lbl">Donors</div></div>
+  </div>
+</div>
+
+<!-- GOAL PROGRESS -->
+<div class="goal-section">
+  <div class="goal-inner reveal">
+    <div class="goal-top">
+      <div class="goal-label">Annual Donation Goal 2025</div>
+      <div class="goal-numbers">
+        <div class="goal-raised" id="raisedAmt">৳0</div>
+        <div class="goal-total">of ৳50,000</div>
+      </div>
+    </div>
+    <div class="goal-bar-track"><div class="goal-bar-fill" id="goalBar"></div></div>
+    <div class="goal-meta">
+      <div class="gm-item"><div class="gm-dot"></div><div class="gm-txt"><strong id="goalPct">0%</strong> reached</div></div>
+      <div class="gm-item"><div class="gm-dot" style="background:#6B7C93"></div><div class="gm-txt"><strong id="donorCount">0</strong> donors</div></div>
+    </div>
+  </div>
 </div>
 
 <div class="content">
 
-  <!-- GOAL PROGRESS -->
-  <div class="goal-card reveal">
-    <div class="goal-header">
-      <div class="goal-title">🎯 Annual Donation Goal</div>
-      <div class="goal-pct" id="goalPct">0%</div>
-    </div>
-    <div class="goal-bar-wrap"><div class="goal-bar" id="goalBar"></div></div>
-    <div class="goal-stats">
-      <div class="gs-item"><div class="gs-num" id="raisedAmt">৳0</div><div class="gs-lbl">Raised</div></div>
-      <div class="gs-item"><div class="gs-num">৳50,000</div><div class="gs-lbl">Goal</div></div>
-      <div class="gs-item"><div class="gs-num" id="donorCount">0</div><div class="gs-lbl">Donors</div></div>
-    </div>
-  </div>
-
-  <!-- IMPACT -->
-  <div class="impact-grid reveal">
-    <div class="impact-card"><div class="impact-num">50<span>+</span></div><div class="impact-lbl">Scholarships Awarded</div></div>
-    <div class="impact-card"><div class="impact-num">10<span>+</span></div><div class="impact-lbl">Events Organized</div></div>
-    <div class="impact-card"><div class="impact-num">200<span>+</span></div><div class="impact-lbl">Alumni Connected</div></div>
-  </div>
-
   <!-- WHY DONATE -->
-  <div class="section-card reveal">
+  <div style="margin-bottom:1.25rem" class="reveal">
     <div class="sec-eye">Why Donate</div>
     <div class="sec-title">Your Support Makes a Difference</div>
-    <div class="reasons-grid">
-      <div class="reason"><div class="reason-ico">🎓</div><div class="reason-title">Scholarship Program</div><div class="reason-text">Fund scholarships for talented students who need financial support.</div></div>
-      <div class="reason"><div class="reason-ico">🌟</div><div class="reason-title">Alumni Events</div><div class="reason-text">Support annual reunions, career fairs, and networking events.</div></div>
-      <div class="reason"><div class="reason-ico">💼</div><div class="reason-title">Career Support</div><div class="reason-text">Enable job placement, mentorship, and career counseling.</div></div>
-      <div class="reason"><div class="reason-ico">🏆</div><div class="reason-title">Department Growth</div><div class="reason-text">Improve labs, library resources, and infrastructure.</div></div>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-ico-wrap">🎓</div>
+      <div><div class="why-title">Scholarship Program</div><div class="why-text">Talented students যারা financial support এর দরকার তাদের জন্য scholarship fund করুন।</div></div>
+    </div>
+    <div class="why-card">
+      <div class="why-ico-wrap">🌟</div>
+      <div><div class="why-title">Alumni Events</div><div class="why-text">Annual reunions, career fairs এবং networking events support করুন।</div></div>
+    </div>
+    <div class="why-card">
+      <div class="why-ico-wrap">💼</div>
+      <div><div class="why-title">Career Support</div><div class="why-text">Job placement, mentorship এবং career counseling program সচল রাখুন।</div></div>
+    </div>
+    <div class="why-card">
+      <div class="why-ico-wrap">🏆</div>
+      <div><div class="why-title">Department Growth</div><div class="why-text">Labs, library resources এবং department infrastructure উন্নত করুন।</div></div>
     </div>
   </div>
 
-  <!-- BKASH + FORM -->
-  <div class="section-card reveal">
+  <!-- BKASH + STEPS -->
+  <div class="bkash-section reveal">
     <div class="sec-eye">How to Donate</div>
     <div class="sec-title">Send via bKash</div>
-    <div class="bkash-wrap">
-      <div class="bkash-card">
-        <div class="bkash-title">bKash</div>
-        <div class="bkash-label">Send Money Number</div>
-        <div class="bkash-number-box"><div class="bkash-number">01328988100</div></div>
-        <button class="copy-btn" onclick="copyNum()">📋 Copy Number</button>
-        <div class="bkash-ref">Reference: <strong>AIS Alumni Donation</strong></div>
-      </div>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><div class="step-title">Open bKash App</div><div class="step-text">Launch the bKash app on your mobile device.</div></div></div>
-      <div class="step"><div class="step-num">2</div><div><div class="step-title">Select Send Money</div><div class="step-text">Tap "Send Money" from the main menu.</div></div></div>
-      <div class="step"><div class="step-num">3</div><div><div class="step-title">Enter Number</div><div class="step-text">Paste the number: <strong>01328988100</strong></div></div></div>
-      <div class="step"><div class="step-num">4</div><div><div class="step-title">Add Reference</div><div class="step-text">Enter amount and write <strong>"AIS Alumni Donation"</strong> as reference.</div></div></div>
-      <div class="step"><div class="step-num">5</div><div><div class="step-title">Confirm &amp; Submit Below</div><div class="step-text">After payment, fill the form below so we can record your donation.</div></div></div>
+
+    <div class="bkash-card-premium">
+      <div class="bk-logo">bKash</div>
+      <div class="bk-number-label">Send Money Number</div>
+      <div class="bk-number">01328988100</div>
+      <button class="bk-copy-btn" onclick="copyNum()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy Number
+      </button>
+      <div class="bk-ref">Reference: <strong>AIS Alumni Donation</strong></div>
     </div>
 
-    <!-- RECORD FORM -->
-    <div class="donation-form">
-      <div class="form-title">📝 Record Your Donation</div>
-      <div class="form-row">
-        <div class="form-group" style="margin-bottom:0">
-          <label class="form-label">Your Name *</label>
-          <input type="text" id="dName" class="form-input" placeholder="Full name">
-        </div>
-        <div class="form-group" style="margin-bottom:0">
-          <label class="form-label">bKash Transaction ID *</label>
-          <input type="text" id="dTxn" class="form-input" placeholder="e.g. 8FG4T12K9P">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Amount (৳) *</label>
-        <div class="amount-grid">
-          <button class="amt-btn" onclick="setAmt(100)">৳100</button>
-          <button class="amt-btn" onclick="setAmt(200)">৳200</button>
-          <button class="amt-btn" onclick="setAmt(500)">৳500</button>
-          <button class="amt-btn" onclick="setAmt(1000)">৳1,000</button>
-          <button class="amt-btn" onclick="setAmt(2000)">৳2,000</button>
-          <button class="amt-btn" onclick="setAmt(0)">Custom</button>
-        </div>
-        <input type="number" id="dAmount" class="form-input" placeholder="Enter amount in ৳" min="1">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message <span style="color:#9aabb8;font-weight:400">(optional)</span></label>
-        <input type="text" id="dMessage" class="form-input" placeholder="A short message for the community...">
-      </div>
-      <button class="donated-btn" id="donateBtn" onclick="submitDonation()">💖 Submit Donation Record</button>
+    <div class="steps-list">
+      <div class="step"><div class="step-num">1</div><div><div class="step-title">bKash App খুলুন</div><div class="step-text">আপনার mobile এ bKash app launch করুন।</div></div></div>
+      <div class="step"><div class="step-num">2</div><div><div class="step-title">Send Money Select করুন</div><div class="step-text">Main menu থেকে "Send Money" tap করুন।</div></div></div>
+      <div class="step"><div class="step-num">3</div><div><div class="step-title">Number Paste করুন</div><div class="step-text">Copy করা number paste করুন: <strong>01328988100</strong></div></div></div>
+      <div class="step"><div class="step-num">4</div><div><div class="step-title">Reference দিন</div><div class="step-text">Amount দিন এবং reference এ লিখুন: <strong>"AIS Alumni Donation"</strong></div></div></div>
+      <div class="step"><div class="step-num">5</div><div><div class="step-title">নিচে Submit করুন</div><div class="step-text">Payment complete হলে নিচের form এ record করুন।</div></div></div>
     </div>
   </div>
 
-  <!-- TOP DONORS LEADERBOARD -->
-  <div class="donors-section reveal">
+  <!-- DONATION FORM -->
+  <div class="form-section reveal">
+    <div class="form-title">📝 Donation Record করুন</div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">আপনার নাম <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="dName" class="form-input" placeholder="Full name">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">bKash Transaction ID <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="dTxn" class="form-input" placeholder="e.g. 8FG4T12K9P">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Amount (৳) <span style="color:#e74c3c">*</span></label>
+      <div class="amt-grid">
+        <button class="amt-btn" onclick="setAmt(this,100)">৳100</button>
+        <button class="amt-btn" onclick="setAmt(this,200)">৳200</button>
+        <button class="amt-btn" onclick="setAmt(this,500)">৳500</button>
+        <button class="amt-btn" onclick="setAmt(this,1000)">৳1,000</button>
+        <button class="amt-btn" onclick="setAmt(this,2000)">৳2,000</button>
+        <button class="amt-btn" onclick="setAmt(this,0)">Custom</button>
+      </div>
+      <input type="number" id="dAmount" class="form-input" placeholder="Amount লিখুন (৳)" min="1">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message <span style="color:#9aabb8;font-weight:400">(optional)</span></label>
+      <input type="text" id="dMessage" class="form-input" placeholder="Community এর জন্য একটা কথা...">
+    </div>
+    <button class="donate-btn" id="donateBtn" onclick="submitDonation()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      Submit Donation Record
+    </button>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="leaders-section reveal">
     <div class="sec-eye">Community</div>
-    <div class="sec-title" style="margin-bottom:.25rem">🏆 Top Donors</div>
-    <p style="font-size:.82rem;color:#6B7C93;margin-bottom:.25rem">Thank you to everyone who has contributed!</p>
+    <div class="sec-title" style="margin-bottom:.35rem">🏆 Top Donors</div>
+    <p style="font-size:.82rem;color:#6B7C93;margin-bottom:0">আমাদের সকল generous donors কে ধন্যবাদ!</p>
     <div class="donors-list" id="donorsList">
       <div class="donors-empty">Loading donors...</div>
     </div>
-    <div style="margin-top:1.25rem">
-      <div class="sec-eye" style="margin-bottom:.65rem">Thank You Wall 💛</div>
-      <div class="thankyou-wall" id="tyWall"></div>
+    <div class="ty-wall-wrap">
+      <div class="ty-wall-label">💛 Thank You Wall</div>
+      <div class="ty-wall" id="tyWall"></div>
     </div>
   </div>
 
@@ -342,21 +388,21 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <div class="modal-bg" id="receiptModal">
   <div class="modal">
     <div class="modal-hdr">
-      <div class="modal-ico">🙏</div>
-      <div class="modal-title">Thank You!</div>
-      <div class="modal-sub">Your donation has been recorded</div>
+      <span class="m-ico">🙏</span>
+      <div class="m-title">Thank You!</div>
+      <div class="m-sub">আপনার donation record হয়েছে</div>
     </div>
     <div class="modal-body">
-      <div class="receipt-row"><div class="receipt-ico">👤</div><div><div class="receipt-lbl">Donor</div><div class="receipt-val" id="rName">—</div></div></div>
-      <div class="receipt-row"><div class="receipt-ico">💰</div><div><div class="receipt-lbl">Amount</div><div class="receipt-val" id="rAmount">—</div></div></div>
-      <div class="receipt-row"><div class="receipt-ico">🔑</div><div><div class="receipt-lbl">Transaction ID</div><div class="receipt-val" id="rTxn">—</div></div></div>
-      <div class="receipt-row"><div class="receipt-ico">📅</div><div><div class="receipt-lbl">Date</div><div class="receipt-val" id="rDate">—</div></div></div>
-      <div class="modal-share">
-        <button class="ms-btn ms-wa" onclick="shareReceiptWA()">
+      <div class="receipt-row"><div class="r-ico">👤</div><div><div class="r-lbl">Donor</div><div class="r-val" id="rName">—</div></div></div>
+      <div class="receipt-row"><div class="r-ico">💰</div><div><div class="r-lbl">Amount</div><div class="r-val" id="rAmount">—</div></div></div>
+      <div class="receipt-row"><div class="r-ico">🔑</div><div><div class="r-lbl">Transaction ID</div><div class="r-val" id="rTxn">—</div></div></div>
+      <div class="receipt-row"><div class="r-ico">📅</div><div><div class="r-lbl">Date</div><div class="r-val" id="rDate">—</div></div></div>
+      <div class="modal-btns">
+        <button class="mb-btn mb-wa" onclick="shareReceiptWA()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-          Share on WhatsApp
+          WhatsApp Share
         </button>
-        <button class="ms-btn ms-close" onclick="closeReceipt()">Close</button>
+        <button class="mb-btn mb-close" onclick="closeReceipt()">Close</button>
       </div>
     </div>
   </div>
@@ -364,7 +410,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="toast" id="toast"></div>
 
-<!-- BOTTOM NAV -->
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -405,136 +450,100 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 // COPY NUMBER
 function copyNum(){
   navigator.clipboard.writeText('01328988100').then(()=>{
-    const btn=document.querySelector('.copy-btn');
-    btn.textContent='✅ Copied!';
-    setTimeout(()=>btn.textContent='📋 Copy Number',2000);
+    const btn=document.querySelector('.bk-copy-btn');
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+    setTimeout(()=>{btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Number';},2000);
+    showToast('✅ Number copied!');
   });
 }
 
-// AMOUNT PRESETS
-let selectedAmt=0;
-function setAmt(amt){
+// AMOUNT
+function setAmt(btn,amt){
   document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  if(amt>0){
-    document.getElementById('dAmount').value=amt;
-    selectedAmt=amt;
-  } else {
-    document.getElementById('dAmount').value='';
-    document.getElementById('dAmount').focus();
-  }
+  btn.classList.add('active');
+  if(amt>0){document.getElementById('dAmount').value=amt;}
+  else{document.getElementById('dAmount').value='';document.getElementById('dAmount').focus();}
 }
 
-// RECEIPT STATE
+// STATE
 let lastDonation={};
 
-// SUBMIT DONATION
+// SUBMIT
 async function submitDonation(){
   const name=document.getElementById('dName').value.trim();
   const txn=document.getElementById('dTxn').value.trim();
   const amount=parseInt(document.getElementById('dAmount').value)||0;
   const message=document.getElementById('dMessage').value.trim();
-
   if(!name){showToast('❌ নাম দিন');return;}
   if(!txn){showToast('❌ Transaction ID দিন');return;}
-  if(!amount||amount<1){showToast('❌ সঠিক amount দিন');return;}
-
+  if(!amount||amount<1){showToast('❌ Amount দিন');return;}
   const btn=document.getElementById('donateBtn');
-  btn.disabled=true;btn.textContent='⏳ Saving...';
-
-  const data={
-    name, txn, amount, message,
-    date:new Date().toISOString(),
-    createdAt:firebase.firestore.FieldValue.serverTimestamp()
-  };
-
+  btn.disabled=true;btn.innerHTML='⏳ Saving...';
+  const data={name,txn,amount,message,date:new Date().toISOString(),createdAt:firebase.firestore.FieldValue.serverTimestamp()};
   try{
     await db.collection('donations').add(data);
     lastDonation=data;
-
-    // Show receipt
     document.getElementById('rName').textContent=name;
-    document.getElementById('rAmount').textContent=`৳${amount.toLocaleString()}`;
+    document.getElementById('rAmount').textContent='৳'+amount.toLocaleString();
     document.getElementById('rTxn').textContent=txn;
     document.getElementById('rDate').textContent=new Date().toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});
     document.getElementById('receiptModal').classList.add('open');
-
-    // Reset form
     document.getElementById('dName').value='';
     document.getElementById('dTxn').value='';
     document.getElementById('dAmount').value='';
     document.getElementById('dMessage').value='';
     document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
-  }catch(err){
-    showToast('❌ Error: '+err.message);
-  }
-  btn.disabled=false;btn.textContent='💖 Submit Donation Record';
+  }catch(err){showToast('❌ Error: '+err.message);}
+  btn.disabled=false;
+  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Submit Donation Record';
 }
 
 function closeReceipt(){document.getElementById('receiptModal').classList.remove('open');}
-
 function shareReceiptWA(){
-  const msg=`💛 আমি AIS Alumni Community-কে ৳${lastDonation.amount?.toLocaleString()} donate করেছি!\n\nAIS Alumni-র উন্নয়নে আপনিও অবদান রাখুন: ${window.location.href}`;
+  const msg='💛 আমি AIS Alumni Community-কে ৳'+lastDonation.amount?.toLocaleString()+' donate করেছি! আপনিও অবদান রাখুন: '+window.location.href;
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 }
 
-// GOAL ৳50,000
+// GOAL & DONORS
 const GOAL=50000;
-function updateGoal(total, count){
+function updateGoal(total,count){
   const pct=Math.min(Math.round((total/GOAL)*100),100);
   document.getElementById('goalPct').textContent=pct+'%';
   document.getElementById('raisedAmt').textContent='৳'+total.toLocaleString();
   document.getElementById('donorCount').textContent=count;
-  requestAnimationFrame(()=>{
-    document.getElementById('goalBar').style.width=pct+'%';
-  });
+  document.getElementById('donorCountHero').textContent=count;
+  requestAnimationFrame(()=>{document.getElementById('goalBar').style.width=pct+'%';});
 }
 
-// DONORS LEADERBOARD
 function renderDonors(donations){
   const sorted=[...donations].sort((a,b)=>b.amount-a.amount);
   const list=document.getElementById('donorsList');
   const wall=document.getElementById('tyWall');
-
   if(!sorted.length){
     list.innerHTML='<div class="donors-empty">কোনো donation record নেই এখনও। প্রথম donor হন! 💛</div>';
     wall.innerHTML='';return;
   }
-
-  const rankClass=['rank-1','rank-2','rank-3'];
+  const rankCls=['r1','r2','r3'];
   const rankEmoji=['🥇','🥈','🥉'];
-
   list.innerHTML=sorted.slice(0,10).map((d,i)=>{
-    const initials=d.name.trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const rc=rankClass[i]||'rank-n';
-    const re=rankEmoji[i]||(i+1);
-    return `<div class="donor-item">
-      <div class="donor-rank ${rc}">${re}</div>
-      <div class="donor-av">${initials}</div>
-      <div class="donor-name">${d.name}${d.message?`<div style="font-size:.72rem;color:#6B7C93;font-weight:400;margin-top:1px">"${d.message}"</div>`:''}</div>
-      <div class="donor-amount">৳${d.amount.toLocaleString()}</div>
+    const init=d.name.trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    return `<div class="donor-row">
+      <div class="d-rank ${rankCls[i]||'rn'}">${rankEmoji[i]||(i+1)}</div>
+      <div class="d-av">${init}</div>
+      <div class="d-name">${d.name}${d.message?`<div class="d-msg">"${d.message}"</div>`:''}</div>
+      <div class="d-amt">৳${d.amount.toLocaleString()}</div>
     </div>`;
   }).join('');
-
   wall.innerHTML=sorted.map(d=>`<div class="ty-tag">💛 ${d.name}</div>`).join('');
 }
 
 // FIREBASE
 db.collection('donations').orderBy('createdAt','desc').onSnapshot(snap=>{
-  const donations=[];
-  let total=0;
-  snap.forEach(doc=>{
-    const d={id:doc.id,...doc.data()};
-    donations.push(d);
-    total+=d.amount||0;
-  });
+  const donations=[];let total=0;
+  snap.forEach(doc=>{const d={id:doc.id,...doc.data()};donations.push(d);total+=d.amount||0;});
   updateGoal(total,donations.length);
   renderDonors(donations);
-},err=>{
-  console.error(err);
-  updateGoal(0,0);
-  document.getElementById('donorsList').innerHTML='<div class="donors-empty">Firebase connection needed to load donors.</div>';
-});
+},err=>{updateGoal(0,0);document.getElementById('donorsList').innerHTML='<div class="donors-empty">Firebase connection needed.</div>';});
 
 // REVEAL
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
