@@ -415,5 +415,88 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js">
+// NAV
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeShareModal();closeAchModal();}});
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+let userDocId=null;let userAchievements=[];
+const userEmail=localStorage.getItem('alumniUserEmail');
+if(!userEmail){document.getElementById('loginPrompt').style.display='block';}
+else{
+  db.collection('alumni').where('email','==',userEmail).limit(1).get().then(snap=>{
+    if(snap.empty){document.getElementById('loginPrompt').style.display='block';return;}
+    const doc=snap.docs[0];userDocId=doc.id;const d=doc.data();userAchievements=d.achievements||[];
+    loadProfile(d);document.getElementById('profileCard').style.display='block';
+  }).catch(()=>document.getElementById('loginPrompt').style.display='block');
+}
+function loadProfile(d){
+  const initials=(d.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('avatarText').textContent=initials;
+  document.getElementById('profileName').textContent=d.name||'—';
+  document.getElementById('profileBatch').textContent='Batch '+(d.batch||'—')+' · '+(d.year||'—');
+  document.getElementById('vEmail').textContent=d.email||'—';
+  document.getElementById('vPhone').textContent=d.phone||'—';
+  document.getElementById('vBatch').textContent=d.batch?'Batch '+d.batch:'—';
+  document.getElementById('vYear').textContent=d.year||'—';
+  document.getElementById('vJob').textContent=d.job||'—';
+  if(d.linkedin){document.getElementById('vLinkedinRow').style.display='flex';document.getElementById('vLinkedin').innerHTML='<a href="'+d.linkedin+'" target="_blank">'+d.linkedin+'</a>';}
+  if(d.facebook){document.getElementById('vFacebookRow').style.display='flex';document.getElementById('vFacebook').innerHTML='<a href="'+d.facebook+'" target="_blank">'+d.facebook+'</a>';}
+  buildSocialLinks(d);
+  document.getElementById('eName').value=d.name||'';document.getElementById('eEmail').value=d.email||'';
+  document.getElementById('ePhone').value=d.phone||'';document.getElementById('eJob').value=d.job||'';
+  document.getElementById('eBatch').value=d.batch?'Batch '+d.batch:'';document.getElementById('eYear').value=d.year||'';
+  if(d.linkedin)document.getElementById('eLinkedin').value=d.linkedin.replace('https://linkedin.com/in/','').replace('https://www.linkedin.com/in/','');
+  if(d.facebook)document.getElementById('eFacebook').value=d.facebook.replace('https://facebook.com/','').replace('https://www.facebook.com/','');
+  userAchievements=d.achievements||[];renderAchievements();
+}
+function buildSocialLinks(d){
+  const wrap=document.getElementById('profileSocials');let html='';
+  if(d.linkedin)html+='<a class="social-link" href="'+d.linkedin+'" target="_blank"><svg viewBox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>';
+  if(d.facebook)html+='<a class="social-link" href="'+d.facebook+'" target="_blank"><svg viewBox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>';
+  wrap.innerHTML=html;
+}
+function renderAchievements(){
+  const grid=document.getElementById('achGrid');
+  if(!userAchievements.length){grid.innerHTML='<div style="font-size:.82rem;color:#9aabb8;padding:.5rem 0">No achievements added yet.</div>';return;}
+  grid.innerHTML=userAchievements.map((a,i)=>'<div class="ach-item"><div class="ach-ico">'+(a.ico||'🏆')+'</div><div style="flex:1"><div class="ach-title">'+a.title+'</div><div class="ach-date">'+(a.date||'')+'</div></div><button onclick="removeAchievement('+i+')" style="background:none;border:none;cursor:pointer;color:#c0392b;font-size:.8rem;padding:2px 6px;border-radius:5px">✕</button></div>').join('');
+}
+function toggleEdit(){
+  const em=document.getElementById('editMode');const vm=document.getElementById('viewMode');const btn=document.getElementById('editToggleBtn');
+  const isEditing=em.classList.contains('active');em.classList.toggle('active',!isEditing);vm.style.display=isEditing?'block':'none';btn.innerHTML=isEditing?'✏️ Edit Profile':'✕ Cancel Edit';
+}
+async function saveProfile(){
+  if(!userDocId){showToast('❌ Session expired');return;}
+  const name=document.getElementById('eName').value.trim();const phone=document.getElementById('ePhone').value.trim();const job=document.getElementById('eJob').value.trim();const year=document.getElementById('eYear').value.trim();
+  const li=document.getElementById('eLinkedin').value.trim();const fb=document.getElementById('eFacebook').value.trim();
+  if(!name||!phone||!job){showToast('❌ Name, Phone এবং Job দিন');return;}
+  const updated={name,phone,job,year,linkedin:li?'https://linkedin.com/in/'+li:'',facebook:fb?'https://facebook.com/'+fb:'',updatedAt:new Date().toISOString()};
+  try{await db.collection('alumni').doc(userDocId).update(updated);localStorage.setItem('alumniUserName',name);
+  loadProfile({...updated,email:document.getElementById('eEmail').value,batch:document.getElementById('eBatch').value.replace('Batch ',''),achievements:userAchievements});toggleEdit();showToast('✅ Profile updated!');}
+  catch(err){showToast('❌ '+err.message);}
+}
+function openAchModal(){document.getElementById('achModal').classList.add('open');}
+function closeAchModal(){document.getElementById('achModal').classList.remove('open');}
+document.getElementById('achModal').addEventListener('click',function(e){if(e.target===this)closeAchModal();});
+async function saveAchievement(){
+  const title=document.getElementById('achTitle').value.trim();const ico=document.getElementById('achIco').value.trim()||'🏆';const date=document.getElementById('achDate').value.trim();
+  if(!title){showToast('❌ Achievement title দিন');return;}
+  userAchievements.push({title,ico,date});
+  try{await db.collection('alumni').doc(userDocId).update({achievements:userAchievements});renderAchievements();closeAchModal();document.getElementById('achTitle').value='';document.getElementById('achDate').value='';document.getElementById('achIco').value='🏆';showToast('✅ Achievement added!');}
+  catch(err){userAchievements.pop();showToast('❌ '+err.message);}
+}
+async function removeAchievement(idx){userAchievements.splice(idx,1);try{await db.collection('alumni').doc(userDocId).update({achievements:userAchievements});renderAchievements();showToast('Removed.');}catch(err){showToast('❌ '+err.message);}}
+function openShareModal(){document.getElementById('shareLink').value=window.location.origin+'/profile.html';document.getElementById('shareModal').classList.add('open');}
+function closeShareModal(){document.getElementById('shareModal').classList.remove('open');}
+document.getElementById('shareModal').addEventListener('click',function(e){if(e.target===this)closeShareModal();});
+function copyProfileLink(){navigator.clipboard.writeText(document.getElementById('shareLink').value).then(()=>{const b=document.querySelector('.sm-link-box button');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='Copy',2000);});}
+function shareProfileWA(){const name=localStorage.getItem('alumniUserName')||'আমি';window.open('https://wa.me/?text='+encodeURIComponent(name+' এর AIS Alumni Profile: '+window.location.origin+'/profile.html'),'_blank');}
+function shareProfileFB(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.origin+'/profile.html'),'_blank');}
+function logout(){localStorage.removeItem('alumniUserEmail');localStorage.removeItem('alumniUserName');window.location.href='index.html';}
+
+</script>
 </body>
 </html>
