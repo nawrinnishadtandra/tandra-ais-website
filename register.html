@@ -10,6 +10,8 @@
 <meta property="og:description" content="Join the AIS Alumni Network at University of Barishal.">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init("WLcQCp1sdynrVY6WY");</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
@@ -399,13 +401,34 @@ async function handleSubmit(){
     createdAt:new Date().toISOString()
   };
   try{
+    // STEP 1: Save to Firebase
+    btn.innerHTML='💾 Saving profile...';
     await db.collection('alumni').add(data);
     localStorage.setItem('alumniUserEmail',data.email);
     localStorage.setItem('alumniUserName', data.name);
+
+    // STEP 2: Send welcome email
+    btn.innerHTML='📧 Sending welcome email...';
+    try{
+      await emailjs.send('service_9zlw4wg','template_amsnm5s',{
+        to_email: data.email,
+        name:     data.name,
+        batch:    data.batch,
+        year:     data.year,
+        job:      data.job,
+        site_url: window.location.origin+'/'
+      });
+    }catch(emailErr){
+      // email fail হলেও registration সফল
+      console.warn('Email send failed:',emailErr);
+    }
+
+    // STEP 3: Show success
     document.getElementById('formContent').style.display='none';
     document.getElementById('successCard').classList.add('show');
     document.getElementById('successName').textContent=data.name.split(' ')[0];
     setTimeout(()=>window.location.href='profile.html',5000);
+
   }catch(err){
     alert('Registration failed. Please try again.\n'+err.message);
     btn.disabled=false;btn.innerHTML='🚀 Create Account';
