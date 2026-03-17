@@ -334,5 +334,73 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js">
+// NAV
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+let allEvents=[];let currentTab='upcoming';let isAdmin=false;
+const ADMIN_PASS='ais2025admin';
+function getRsvps(){try{return JSON.parse(localStorage.getItem('aisRsvps')||'{}');}catch{return{};}}
+function setRsvp(id,val){const r=getRsvps();if(val)r[id]=true;else delete r[id];localStorage.setItem('aisRsvps',JSON.stringify(r));}
+function hasRsvp(id){return!!getRsvps()[id];}
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');currentTab=this.dataset.tab;renderEvents();});});
+function formatDate(d){return new Date(d).toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});}
+function getCountdown(d){const diff=new Date(d)-new Date();if(diff<=0)return null;return{days:Math.floor(diff/86400000),hours:Math.floor((diff%86400000)/3600000),minutes:Math.floor((diff%3600000)/60000)};}
+function isToday(d){const n=new Date(),e=new Date(d);return n.toDateString()===e.toDateString();}
+function createEventCard(ev){
+  const now=new Date();const evDate=new Date(ev.date);const isPast=evDate<now;const today=isToday(ev.date);
+  const cd=getCountdown(ev.date);const rsvped=hasRsvp(ev.id);const rsvpCount=ev.rsvpCount||0;
+  const shareText=encodeURIComponent('🎉 '+ev.title+' — AIS Alumni Event!\n📅 '+formatDate(ev.date)+(ev.location?'\n📍 '+ev.location:'')+'\n'+window.location.href);
+  const shareUrl=encodeURIComponent(window.location.href);
+  return '<div class="event-card '+(isPast?'past':'')+' reveal" data-id="'+(ev.id||'')+'">'+(isAdmin&&ev.id?'<button class="event-delete-btn" onclick="deleteEvent(''+ev.id+'')" title="Delete">✕</button>':'')+
+    '<div class="event-badge '+(today?'badge-today':isPast?'badge-past':'badge-upcoming')+'">'+(today?'🔥 TODAY':isPast?'Past Event':'Upcoming')+'</div>'+
+    '<div class="event-hdr"><div class="event-ico">'+(ev.icon||'🎊')+'</div><div style="flex:1"><div class="event-title">'+ev.title+'</div>'+
+    '<div class="event-meta"><div class="meta-pill">📅 '+formatDate(ev.date)+'</div>'+(ev.time?'<div class="meta-pill">⏰ '+ev.time+'</div>':'')+(ev.location?'<div class="meta-pill">📍 '+ev.location+'</div>':'')+
+    '</div></div></div>'+(cd?'<div class="countdown"><div class="cd-box"><div class="cd-num">'+cd.days+'</div><div class="cd-lbl">Days</div></div><span class="cd-sep">:</span><div class="cd-box"><div class="cd-num">'+cd.hours+'</div><div class="cd-lbl">Hours</div></div><span class="cd-sep">:</span><div class="cd-box"><div class="cd-num">'+cd.minutes+'</div><div class="cd-lbl">Minutes</div></div></div>':'')+
+    (ev.description?'<div class="event-desc">'+ev.description+'</div>':'')+
+    '<div class="event-footer">'+(!isPast?'<div class="rsvp-wrap"><span class="rsvp-count"><strong>'+rsvpCount+'</strong> attending</span><button class="rsvp-btn '+(rsvped?'done':'attending')+'" onclick="toggleRsvp(''+ev.id+'','+rsvpCount+','+rsvped+')">'+(rsvped?'✅ Attending':'✋ I'm Attending')+'</button></div>':'<div class="rsvp-wrap"><span class="rsvp-count">'+rsvpCount+' attended</span></div>')+
+    '<div class="event-share"><button class="es-btn es-wa" onclick="window.open('https://wa.me/?text='+shareText+'','_blank')">Share</button>'+
+    '<button class="es-btn es-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+shareUrl+'','_blank')">Share</button>'+
+    '<button class="es-btn es-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Copied!'))">Copy</button></div></div></div>';
+}
+async function toggleRsvp(id,cur,already){
+  if(already){setRsvp(id,false);try{await db.collection('events').doc(id).update({rsvpCount:Math.max(0,cur-1)});}catch(e){}showToast('RSVP cancelled');}
+  else{setRsvp(id,true);try{await db.collection('events').doc(id).update({rsvpCount:cur+1});}catch(e){}showToast('✅ Attending!');}
+}
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObserver.unobserve(e.target);}});},{threshold:.06});
+function renderEvents(){
+  document.getElementById('loadingState').style.display='none';
+  const now=new Date();
+  const list=currentTab==='upcoming'?allEvents.filter(e=>new Date(e.date)>=now).sort((a,b)=>new Date(a.date)-new Date(b.date)):allEvents.filter(e=>new Date(e.date)<now).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const container=document.getElementById('eventsContainer');
+  const empty=document.getElementById('emptyState');
+  document.getElementById('emptyTitle').textContent=currentTab==='upcoming'?'No Upcoming Events':'No Past Events';
+  if(!list.length){container.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';container.innerHTML=list.map(createEventCard).join('');
+  if(isAdmin)container.classList.add('admin-mode');else container.classList.remove('admin-mode');
+  requestAnimationFrame(()=>{container.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');else revealObserver.observe(el);});});
+}
+function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('open');}
+function toggleAdminPass(){const p=document.getElementById('adminPass');p.type=p.type==='password'?'text':'password';}
+function checkAdmin(){if(document.getElementById('adminPass').value===ADMIN_PASS){isAdmin=true;document.getElementById('adminAuth').style.display='none';document.getElementById('adminForm').style.display='block';showToast('✅ Admin activated');renderEvents();}else showToast('❌ Wrong password');}
+async function postEvent(){
+  const title=document.getElementById('eTitle').value.trim();const date=document.getElementById('eDate').value;
+  if(!title||!date){showToast('❌ Title আর date দিন');return;}
+  const btn=document.getElementById('postEventBtn');btn.disabled=true;btn.textContent='Adding...';
+  try{await db.collection('events').add({title,description:document.getElementById('eDesc').value.trim(),date:new Date(date).toISOString(),location:document.getElementById('eLocation').value.trim(),time:document.getElementById('eTime').value.trim(),icon:document.getElementById('eIcon').value||'🎊',rsvpCount:0,createdAt:new Date().toISOString()});
+  ['eTitle','eDesc','eDate','eLocation','eTime','eIcon'].forEach(id=>document.getElementById(id).value='');showToast('✅ Event added!');}
+  catch(err){showToast('❌ '+err.message);}
+  btn.disabled=false;btn.textContent='📤 Add Event';
+}
+async function deleteEvent(id){if(!confirm('Delete করবেন?'))return;try{await db.collection('events').doc(id).delete();showToast('🗑️ Deleted');}catch(err){showToast('❌ '+err.message);}}
+db.collection('events').onSnapshot(snap=>{allEvents=[];snap.forEach(doc=>allEvents.push({id:doc.id,...doc.data()}));renderEvents();},()=>renderEvents([]));
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.nudge-card.reveal').forEach(el=>ro.observe(el));
+
+</script>
 </body>
 </html>
