@@ -325,5 +325,61 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js">
+// NAV
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+let allNotices=[];let currentCat='all';let isAdmin=false;
+const ADMIN_PASS='ais2025admin';
+document.querySelectorAll('.cat-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');currentCat=this.dataset.cat;renderNotices();});});
+function formatDate(d){return new Date(d).toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});}
+const catConfig={urgent:{badge:'urgent',badgeText:'🔴 URGENT',label:'Urgent'},event:{badge:'event',badgeText:'🎉 EVENT',label:'Event'},academic:{badge:'academic',badgeText:'📚 ACADEMIC',label:'Academic'},general:{badge:'general',badgeText:'📢 GENERAL',label:'General'},new:{badge:'new',badgeText:'✨ NEW',label:'New'}};
+function createCard(n,idx){
+  const cat=n.category||'general';const cfg=catConfig[cat]||catConfig.general;
+  const icon=n.icon||'📢';
+  const shareUrl=encodeURIComponent(window.location.href);
+  const shareText=encodeURIComponent('📢 '+n.title+' — AIS Alumni Notice: '+window.location.href);
+  return '<div class="notice-card '+(idx===0&&!n.id?'featured':'')+(cat==='urgent'?' urgent':'')+' reveal" data-cat="'+cat+'">'+(isAdmin&&n.id?'<button class="notice-delete-btn" onclick="deleteNotice(''+n.id+'')" title="Delete">✕</button>':'')+
+    '<div class="notice-badge badge-'+cfg.badge+'">'+cfg.badgeText+'</div>'+
+    '<div class="notice-hdr"><div class="notice-ico">'+icon+'</div><div style="flex:1"><div class="notice-title">'+n.title+'</div><div class="notice-meta"><span>📅 '+formatDate(n.date||n.createdAt||new Date())+'</span>'+(n.author?'<span>✍️ '+n.author+'</span>':'')+
+    '</div></div></div><div class="notice-body">'+n.content+'</div>'+
+    (n.signature?'<div class="notice-sig"><div class="sig-name">'+n.signature.name+'</div><div class="sig-role">'+n.signature.title+(n.signature.batch?' · Batch '+n.signature.batch:'')+'</div></div>':'')+
+    '<div class="notice-footer"><span class="nf-cat-tag">'+cfg.label+'</span><div class="nf-share">'+
+    '<button class="nf-share-btn nf-wa" onclick="window.open('https://wa.me/?text='+shareText+'','_blank')">Share</button>'+
+    '<button class="nf-share-btn nf-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+shareUrl+'','_blank')">Share</button>'+
+    '<button class="nf-share-btn nf-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Copied!'))">Copy</button></div></div></div>';
+}
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObserver.unobserve(e.target);}});},{threshold:.05});
+function renderNotices(){
+  document.getElementById('loadingState').style.display='none';
+  const featured={title:'Welcome to the New AIS Alumni Digital Platform!',icon:'🌟',date:new Date().toISOString(),category:'new',author:'Website Development Team',content:'<p><strong>Dear AIS Alumni Family,</strong></p><p>We are excited to announce that the <strong>AIS Alumni Website</strong> is now fully live!</p><div class="highlight-box">💜 Built with love for every AIS alumni by the development team.</div>',signature:{name:'Mst. Nawrin Nishad Tandra',title:'Website Developer & Designer',batch:'12'}};
+  let list=currentCat==='all'?[featured,...allNotices]:allNotices.filter(n=>(n.category||'general')===currentCat);
+  const container=document.getElementById('noticesContainer');
+  document.getElementById('emptyState').style.display=list.length?'none':'block';
+  if(!list.length){container.innerHTML='';return;}
+  container.innerHTML=list.map(createCard).join('');
+  if(isAdmin)container.classList.add('admin-mode');else container.classList.remove('admin-mode');
+  requestAnimationFrame(()=>{container.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');else revealObserver.observe(el);});});
+}
+function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('open');}
+function toggleAdminPass(){const p=document.getElementById('adminPass');p.type=p.type==='password'?'text':'password';}
+function checkAdmin(){if(document.getElementById('adminPass').value===ADMIN_PASS){isAdmin=true;document.getElementById('adminAuth').style.display='none';document.getElementById('adminForm').style.display='block';showToast('✅ Admin mode activated');renderNotices();}else{showToast('❌ Wrong password');}}
+async function postNotice(){
+  const title=document.getElementById('nTitle').value.trim();const content=document.getElementById('nContent').value.trim();
+  if(!title||!content){showToast('❌ Title আর content দিন');return;}
+  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
+  try{await db.collection('notices').add({title,content:content.replace(/\n/g,'<br>'),category:document.getElementById('nCategory').value,icon:document.getElementById('nIcon').value||'📢',author:document.getElementById('nAuthor').value.trim()||'Admin',date:new Date().toISOString(),createdAt:new Date().toISOString()});
+  document.getElementById('nTitle').value='';document.getElementById('nContent').value='';document.getElementById('nAuthor').value='';document.getElementById('nIcon').value='';showToast('✅ Notice posted!');}
+  catch(err){showToast('❌ Error: '+err.message);}
+  btn.disabled=false;btn.textContent='📤 Post Notice';
+}
+async function deleteNotice(id){if(!confirm('Delete করবেন?'))return;try{await db.collection('notices').doc(id).delete();showToast('🗑️ Deleted');}catch(err){showToast('❌ '+err.message);}}
+db.collection('notices').orderBy('date','desc').onSnapshot(snap=>{allNotices=[];snap.forEach(doc=>allNotices.push({id:doc.id,...doc.data()}));renderNotices();},err=>{console.error(err);renderNotices();});
+
+</script>
 </body>
 </html>
