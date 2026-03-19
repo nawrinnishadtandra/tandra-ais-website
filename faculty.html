@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Faculty | AIS Alumni — University of Barishal</title>
-<meta name="description" content="Meet the faculty of the Department of Accounting & Information Systems, University of Barishal.">
-<meta property="og:title" content="Faculty | AIS Alumni — University of Barishal">
-<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,19 +11,18 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-/* TOP NAV */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
-.top-nav.scrolled{height:54px}
+@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
-.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
-.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
-.nav-cta:hover{background:#1A3260!important}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -43,14 +39,14 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-/* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+
+/* BOT NAV */
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
-.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
-.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
+.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
 .bn.active .bn-ico{background:rgba(11,30,61,.07)}
-.bn:active .bn-ico{transform:scale(.86)}
 .bn-reg .bn-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
 .bn-reg{color:#0B1E3D!important}
 .more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
@@ -58,8 +54,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
 .drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
 .drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.drawer-item:active{background:#F9F7F3}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a}
 .drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
 .drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
 .drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
@@ -89,73 +84,75 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .ch-info{flex:1;position:relative;z-index:1}
 .ch-badge{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:2px 10px;font-size:.69rem;color:#E8B84B;font-weight:600;margin-bottom:.4rem}
 .ch-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.18rem}
-.ch-desg{font-size:.78rem;color:rgba(255,255,255,.65);margin-bottom:.55rem}
-.ch-contacts{display:flex;flex-direction:column;gap:.25rem}
-.ch-contact{font-size:.78rem;color:rgba(255,255,255,.8)}
-.ch-contact a{color:#E8B84B;text-decoration:none}
-.ch-arrow{color:rgba(255,255,255,.4);font-size:1.5rem;position:relative;z-index:1;flex-shrink:0}
+.ch-desg{font-size:.78rem;color:rgba(255,255,255,.65);margin-bottom:.3rem}
+.ch-phones{font-size:.78rem;color:rgba(255,255,255,.8)}
+.ch-arrow{color:rgba(255,255,255,.5);font-size:1.5rem;position:relative;z-index:1;flex-shrink:0}
 
-/* FACULTY GRID */
-.faculty-grid{display:flex;flex-direction:column;gap:.65rem}
+/* FACULTY LIST */
+.faculty-list{display:flex;flex-direction:column;gap:.65rem}
 .faculty-card{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1rem 1.1rem;cursor:pointer;transition:all .25s}
-.faculty-card:hover{transform:translateX(5px);border-color:rgba(200,151,43,.25);box-shadow:0 4px 20px rgba(11,30,61,.07)}
-.fc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
+.faculty-card:hover{transform:translateX(5px);border-color:rgba(200,151,43,.3);box-shadow:0 4px 20px rgba(11,30,61,.08)}
+.fc-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
 .fc-info{flex:1;min-width:0}
-.fc-name{font-size:.9rem;font-weight:600;color:#0B1E3D;margin-bottom:.18rem;line-height:1.3}
-.fc-desg{font-size:.76rem;color:#6B7C93;margin-bottom:.15rem}
+.fc-name{font-size:.9rem;font-weight:600;color:#0B1E3D;margin-bottom:.2rem}
+.fc-desg{font-size:.76rem;color:#6B7C93;margin-bottom:.12rem}
 .fc-phone{font-size:.75rem;color:#9aabb8}
-.fc-arrow{color:#C8972B;font-size:1.1rem;flex-shrink:0}
+.fc-arrow{color:#C8972B;font-size:1.2rem;flex-shrink:0}
 
-/* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
-.modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:22px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.25);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:2rem;text-align:center;position:relative;overflow:hidden}
-.modal-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.18) 0%,transparent 70%)}
-.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s}
-.m-close:hover{background:rgba(255,255,255,.28)}
-.m-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#E8B84B;margin:0 auto .9rem;position:relative;z-index:1}
-.m-avatar.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D}
-.m-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;position:relative;z-index:1;line-height:1.25;margin-bottom:.3rem}
-.m-desg{font-size:.78rem;color:rgba(255,255,255,.7);position:relative;z-index:1}
-.m-chair-tag{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:2px 12px;font-size:.7rem;color:#E8B84B;font-weight:600;margin-top:.4rem;position:relative;z-index:1}
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay{display:none}
+.modal-overlay.open{display:flex}
+
+.modal-box{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 80px rgba(11,30,61,.3);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+
+/* Modal top section */
+.modal-top{background:linear-gradient(135deg,#0B1E3D 0%,#1A3260 100%);padding:2rem 1.75rem 1.75rem;text-align:center;position:relative;overflow:hidden}
+.modal-top::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 70%)}
+.modal-top::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.25) 0%,transparent 70%)}
+
+.modal-close-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1}
+.modal-close-btn:hover{background:rgba(255,255,255,.3)}
+
+.modal-avatar{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;margin:0 auto 1rem;position:relative;z-index:1;border:3px solid rgba(200,151,43,.4)}
+.modal-avatar.normal{background:linear-gradient(135deg,rgba(200,151,43,.25),rgba(200,151,43,.08));color:#E8B84B}
+.modal-avatar.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:rgba(255,255,255,.3)}
+
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;position:relative;z-index:1;line-height:1.25;margin-bottom:.3rem}
+.modal-desg{font-size:.8rem;color:rgba(255,255,255,.7);position:relative;z-index:1;margin-bottom:.5rem}
+.modal-chair-badge{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.5);border-radius:100px;padding:3px 14px;font-size:.72rem;color:#E8B84B;font-weight:700;position:relative;z-index:1}
+
+/* Modal body */
 .modal-body{padding:1.4rem 1.6rem 1.6rem}
-.m-row{display:flex;align-items:flex-start;gap:.85rem;padding:.78rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
-.m-row:last-child{margin-bottom:0}
-.m-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
-.m-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
-.m-val{font-size:.84rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.45}
-.m-val a{color:#C8972B;text-decoration:none}
-.m-val a:hover{text-decoration:underline}
+.info-row{display:flex;align-items:flex-start;gap:.85rem;padding:.78rem .9rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.55rem}
+.info-row:last-child{margin-bottom:0}
+.info-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.info-label{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
+.info-value{font-size:.88rem;color:#0B1E3D;font-weight:500;line-height:1.5;word-break:break-all}
+.info-value a{color:#C8972B;text-decoration:none}
+.info-value a:hover{text-decoration:underline}
 
-/* CONNECT BUTTONS IN MODAL */
-.m-connect{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
-.mc-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.65rem;border-radius:11px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
-.mc-wa{background:#25D366;color:#fff}
-.mc-wa:hover{background:#20BA5A}
-.mc-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
-.mc-call:hover{opacity:.9}
-.mc-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.2);grid-column:span 2}
-.mc-email:hover{background:#FFE8A0}
+/* Action buttons */
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.1rem}
+.action-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:.7rem .5rem;border-radius:11px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1ebe5d}
+.btn-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
+.btn-call:hover{opacity:.88}
+.btn-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.25);grid-column:span 2}
+.btn-email:hover{background:#ffecb3}
 
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div class="nav-brand-icon" style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="34" height="34" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
@@ -172,7 +169,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
       </div>
     </li>
-    <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
+    <li><a href="faculty.html" class="active-link"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
     <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
     <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
     <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
@@ -181,82 +178,83 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </ul>
 </nav>
 
+<!-- PAGE HEADER -->
 <div class="page-header">
-  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center"><div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div></div>
+  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center">
+    <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+  </div>
   <div class="page-eyebrow">Department of AIS</div>
   <h1 class="page-title">Our <em>Faculty</em></h1>
   <p class="page-desc">Meet the dedicated faculty members of the Department of Accounting &amp; Information Systems, University of Barishal.</p>
 </div>
 
+<!-- CONTENT -->
 <div class="content">
+
   <div class="sec-label">Chairman</div>
-  <div class="chairman-card reveal" onclick="openModal(0)">
+  <div class="chairman-card" onclick="openModal(0)">
     <div class="ch-avatar">SC</div>
     <div class="ch-info">
-      <div class="ch-badge" style="display:inline-flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-</svg> Chairman</div>
+      <div class="ch-badge">⭐ Chairman</div>
       <div class="ch-name">Sujan Chandra Paul FCA</div>
       <div class="ch-desg">Associate Professor &amp; Chairman</div>
-      <div class="ch-contacts">
-        <div class="ch-contact">📱 01914636366</div>
-        <div class="ch-contact">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e0d0b141f10474e47473e19131f1712501d1113">[email&#160;protected]</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9baaab9a8bca589abbce7a8aae7abad">[email&#160;protected]</a></div>
-      </div>
+      <div class="ch-phones">📱 01914636366</div>
     </div>
     <div class="ch-arrow">›</div>
   </div>
 
   <div class="sec-label">Faculty Members</div>
-  <div class="faculty-grid" id="facultyGrid"></div>
+  <div class="faculty-list" id="facultyList"></div>
+
 </div>
 
-<!-- DETAIL MODAL -->
-<div class="modal-bg" id="modalBg">
-  <div class="modal">
-    <div class="modal-hdr">
-      <button class="m-close" onclick="closeModal()">✕</button>
-      <div class="m-avatar" id="mAvatar">?</div>
-      <div class="m-name" id="mName">—</div>
-      <div class="m-desg" id="mDesg">—</div>
-      <div id="mChairTag" style="display:none"><div class="m-chair-tag">Chairman</div></div>
+<!-- ===== DETAIL MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+
+    <div class="modal-top">
+      <button class="modal-close-btn" id="closeBtn">✕</button>
+      <div class="modal-avatar" id="mAvatar">?</div>
+      <div class="modal-name" id="mName">—</div>
+      <div class="modal-desg" id="mDesg">—</div>
+      <div id="mChairWrap" style="display:none">
+        <span class="modal-chair-badge">🏛️ Chairman</span>
+      </div>
     </div>
+
     <div class="modal-body">
-      <div class="m-row"><div class="m-ico">📱</div><div><div class="m-lbl">Phone</div><div class="m-val" id="mPhone">—</div></div></div>
-      <div class="m-row"><div class="m-ico">📧</div><div><div class="m-lbl">Email</div><div class="m-val" id="mEmail">—</div></div></div>
-      <div class="m-row"><div class="m-ico" style="background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/>
-</svg></div><div><div class="m-lbl">Department</div><div class="m-val">Accounting &amp; Information Systems<br>University of Barishal</div></div></div>
-      <div class="m-connect" id="mConnect"></div>
+      <div class="info-row">
+        <div class="info-icon">📱</div>
+        <div>
+          <div class="info-label">Phone</div>
+          <div class="info-value" id="mPhone">—</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📧</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-value" id="mEmail">—</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🏛️</div>
+        <div>
+          <div class="info-label">Department</div>
+          <div class="info-value">Accounting &amp; Information Systems<br>University of Barishal</div>
+        </div>
+      </div>
+      <div class="modal-actions" id="mActions"></div>
     </div>
+
   </div>
 </div>
 
-<footer><span style="display:inline-flex;align-items:center;gap:8px;justify-content:center"><svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-</svg> © 2025 AIS Alumni Association</span> · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
+<!-- Bottom Nav -->
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -280,128 +278,162 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// NAV
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer();}});
-document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
+<script>
+/* ===== NAV ===== */
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 
-// FACULTY DATA — all 8 members
-const teachers=[
+/* ===== TEACHER DATA ===== */
+const teachers = [
   {
-    init:'SC',
-    name:'Sujan Chandra Paul FCA',
-    desg:'Associate Professor',
-    chair:true,
-    phone:'01914636366',
-    emails:['sujan9099@gmail.com','scpaul@bu.ac.bd']
+    initials: 'SC',
+    name: 'Sujan Chandra Paul FCA',
+    designation: 'Associate Professor',
+    isChairman: true,
+    phones: ['01914636366'],
+    emails: ['sujan9099@gmail.com', 'scpaul@bu.ac.bd']
   },
   {
-    init:'MH',
-    name:'Md. Harun-Or-Rosid',
-    desg:'Associate Professor',
-    chair:false,
-    phone:'01914200927',
-    emails:['mhorosid@bu.ac.bd']
+    initials: 'MH',
+    name: 'Md. Harun-Or-Rosid',
+    designation: 'Associate Professor',
+    isChairman: false,
+    phones: ['01914200927'],
+    emails: ['mhorosid@bu.ac.bd']
   },
   {
-    init:'PB',
-    name:'Dr. Probir Kumar Bhowmik',
-    desg:'Associate Professor',
-    chair:false,
-    phone:'+8801913518309',
-    emails:['probir9012@gmail.com','pkbhowmik@bu.ac.bd']
+    initials: 'PB',
+    name: 'Dr. Probir Kumar Bhowmik',
+    designation: 'Associate Professor',
+    isChairman: false,
+    phones: ['01913518309'],
+    emails: ['probir9012@gmail.com', 'pkbhowmik@bu.ac.bd']
   },
   {
-    init:'AB',
-    name:'Abdul Alim Baser',
-    desg:'Associate Professor',
-    chair:false,
-    phone:'+8801814750380',
-    emails:['alim.baser@gmail.com']
+    initials: 'AB',
+    name: 'Abdul Alim Baser',
+    designation: 'Associate Professor',
+    isChairman: false,
+    phones: ['01814750380'],
+    emails: ['alim.baser@gmail.com']
   },
   {
-    init:'MS',
-    name:'Dr. Mallika Saha',
-    desg:'Associate Professor',
-    chair:false,
-    phone:'+8801911533578',
-    emails:['msaha@bu.ac.bd']
+    initials: 'MS',
+    name: 'Dr. Mallika Saha',
+    designation: 'Associate Professor',
+    isChairman: false,
+    phones: ['01911533578'],
+    emails: ['msaha@bu.ac.bd']
   },
   {
-    init:'MR',
-    name:'Mohammad Rakibul Islam',
-    desg:'Associate Professor',
-    chair:false,
-    phone:'8801679069797',
-    emails:['rakib.rajib13004@gmail.com']
+    initials: 'MR',
+    name: 'Mohammad Rakibul Islam',
+    designation: 'Associate Professor',
+    isChairman: false,
+    phones: ['01679069797'],
+    emails: ['rakib.rajib13004@gmail.com']
   },
   {
-    init:'MA',
-    name:'Md. Asiqur Rahman',
-    desg:'Assistant Professor',
-    chair:false,
-    phone:'01920070922',
-    emails:['rubelanni@gmail.com']
+    initials: 'MA',
+    name: 'Md. Asiqur Rahman',
+    designation: 'Assistant Professor',
+    isChairman: false,
+    phones: ['01920070922'],
+    emails: ['rubelanni@gmail.com']
   },
   {
-    init:'SH',
-    name:'Shahadat Hossain',
-    desg:'Assistant Professor',
-    chair:false,
-    phone:'01923099762',
-    emails:['shawon17100@gmail.com']
-  },
+    initials: 'SH',
+    name: 'Shahadat Hossain',
+    designation: 'Assistant Professor',
+    isChairman: false,
+    phones: ['01923099762'],
+    emails: ['shawon17100@gmail.com']
+  }
 ];
 
-// Build grid (index 1–7, index 0 = chairman shown separately)
-document.getElementById('facultyGrid').innerHTML=teachers.slice(1).map((t,i)=>`
-  <div class="faculty-card reveal" onclick="openModal(${i+1})">
-    <div class="fc-avatar">${t.init}</div>
+/* ===== BUILD FACULTY LIST (index 1–7) ===== */
+document.getElementById('facultyList').innerHTML = teachers.slice(1).map((t, i) => `
+  <div class="faculty-card" onclick="openModal(${i + 1})">
+    <div class="fc-av">${t.initials}</div>
     <div class="fc-info">
       <div class="fc-name">${t.name}</div>
-      <div class="fc-desg">${t.desg}</div>
-      <div class="fc-phone">📱 ${t.phone}</div>
+      <div class="fc-desg">${t.designation}</div>
+      <div class="fc-phone">📱 ${t.phones[0]}</div>
     </div>
     <div class="fc-arrow">›</div>
   </div>`).join('');
 
-// OPEN MODAL
-function openModal(idx){
-  const t=teachers[idx];
-  // Avatar
-  const av=document.getElementById('mAvatar');
-  av.textContent=t.init;
-  av.className='m-avatar'+(t.chair?' chair':'');
-  // Info
-  document.getElementById('mName').textContent=t.name;
-  document.getElementById('mDesg').textContent=t.desg+(t.chair?' · Chairman':'');
-  document.getElementById('mChairTag').style.display=t.chair?'block':'none';
-  // Phone
-  document.getElementById('mPhone').textContent=t.phone;
-  // Emails
-  document.getElementById('mEmail').innerHTML=t.emails.map(e=>`<a href="mailto:${e}">${e}</a>`).join('<br>');
-  // Connect buttons
-  const num=t.phone.replace(/[^0-9]/g,'');
-  const intl=num.startsWith('0')?'88'+num:num;
-  const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${t.name} স্যার/ম্যাম, আমি AIS Alumni।`);
-  let btns=`<a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-    WhatsApp
-  </a>
-  <a class="mc-btn mc-call" href="tel:${t.phone}">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Call
-  </a>`;
-  if(t.emails.length){
-    btns+=`<a class="mc-btn mc-email" href="mailto:${t.emails[0]}">
-      📧 Send Email
+/* ===== MODAL ===== */
+const overlay = document.getElementById('modalOverlay');
+
+function openModal(idx) {
+  const t = teachers[idx];
+  if (!t) return;
+
+  /* Avatar */
+  const av = document.getElementById('mAvatar');
+  av.textContent = t.initials;
+  av.className = 'modal-avatar ' + (t.isChairman ? 'chair' : 'normal');
+
+  /* Name & designation */
+  document.getElementById('mName').textContent = t.name;
+  document.getElementById('mDesg').textContent = t.designation;
+  document.getElementById('mChairWrap').style.display = t.isChairman ? 'block' : 'none';
+
+  /* Phone */
+  document.getElementById('mPhone').textContent = t.phones.join(' · ');
+
+  /* Email — clickable links */
+  document.getElementById('mEmail').innerHTML = t.emails
+    .map(e => `<a href="mailto:${e}">${e}</a>`)
+    .join('<br>');
+
+  /* Action buttons */
+  const phone = t.phones[0];
+  const num = phone.replace(/[^0-9]/g, '');
+  const intl = num.startsWith('0') ? '88' + num : num;
+  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${t.name} স্যার/ম্যাম, আমি AIS Alumni থেকে বলছি।`);
+
+  let actions = `
+    <a class="action-btn btn-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">
+      📱 WhatsApp
+    </a>
+    <a class="action-btn btn-call" href="tel:${phone}">
+      📞 Call
     </a>`;
+
+  if (t.emails.length > 0) {
+    actions += `<a class="action-btn btn-email" href="mailto:${t.emails[0]}">📧 Send Email</a>`;
   }
-  document.getElementById('mConnect').innerHTML=btns;
-  document.getElementById('modalBg').classList.add('open');
-  document.body.style.overflow='hidden';
+
+  document.getElementById('mActions').innerHTML = actions;
+
+  /* Show modal */
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Close button */
+document.getElementById('closeBtn').addEventListener('click', closeModal);
+
+/* Close on backdrop click */
+overlay.addEventListener('click', function (e) {
+  if (e.target === this) closeModal();
+});
+
+/* Close on Escape */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeDrawer(); }
+});
+</script>
+</body>
+</html>
