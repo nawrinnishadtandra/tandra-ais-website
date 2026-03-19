@@ -14,6 +14,10 @@ html{-webkit-font-smoothing:antialiased}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
+/* NAV */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
@@ -21,7 +25,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
-.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
 .nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
@@ -40,9 +44,11 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
+
+/* BOTTOM NAV */
 .bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
-.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
 .bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
 .bn.active .bn-ico{background:rgba(11,30,61,.07)}
@@ -53,7 +59,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
 .drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
 .drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;-webkit-tap-highlight-color:transparent}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a}
 .drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
 .drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
 .drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
@@ -71,53 +77,65 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;position:relative;z-index:1}
 
 /* FILTER BAR */
-.filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.85rem clamp(1.5rem,5vw,4rem);transition:transform .3s}
-.filter-bar.hide{transform:translateY(-100%)}
+.filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.9rem clamp(1rem,4vw,2.5rem);box-shadow:0 2px 12px rgba(11,30,61,.05)}
 .filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:.65rem}
+
+/* SEARCH ROW */
 .search-row{display:flex;gap:.65rem;align-items:center}
 .search-wrap{position:relative;flex:1}
-.search-icon{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#9aabb8;pointer-events:none;font-size:.9rem}
-.search-input{width:100%;padding:.65rem .9rem .65rem 2.4rem;border:1.5px solid rgba(11,30,61,.12);border-radius:10px;font-size:.86rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.search-icon{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#9aabb8;font-size:.95rem;pointer-events:none}
+.search-input{width:100%;padding:.68rem .9rem .68rem 2.4rem;border:1.5px solid rgba(11,30,61,.12);border-radius:10px;font-size:.87rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
 .search-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
-.export-btn{padding:.65rem 1.1rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;display:flex;align-items:center;gap:5px;transition:background .2s}
+.export-btn{padding:.68rem 1.1rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;display:flex;align-items:center;gap:5px;transition:background .2s;flex-shrink:0}
 .export-btn:hover{background:#1A3260}
-.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.filter-select{padding:.5rem .85rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.8rem;font-family:inherit;color:#3a4f6a;background:#fff;outline:none;cursor:pointer}
+
+/* SORT ROW */
+.sort-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.filter-select{padding:.5rem .85rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.8rem;font-family:inherit;color:#3a4f6a;background:#fff;outline:none;cursor:pointer;transition:border-color .2s}
 .filter-select:focus{border-color:#C8972B}
-.batch-row{display:flex;gap:.35rem;flex-wrap:wrap}
-.batch-btn{padding:.38rem .75rem;border-radius:8px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.75rem;font-weight:600;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
-.batch-btn:hover{border-color:#C8972B;color:#0B1E3D}
+
+/* BATCH BUTTONS */
+.batch-row{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.batch-label{font-size:.72rem;font-weight:700;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-right:.2rem;white-space:nowrap}
+.batch-btn{padding:.38rem .72rem;border-radius:8px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.76rem;font-weight:600;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.batch-btn:hover{border-color:#C8972B;color:#0B1E3D;background:#FFF6E0}
 .batch-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
+.batch-btn.all-btn.active{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;color:#0B1E3D}
 
 /* CONTENT */
-.content{max-width:1100px;margin:0 auto;padding:1.5rem clamp(1.5rem,5vw,4rem) 3rem}
+.content{max-width:1100px;margin:0 auto;padding:1.5rem clamp(1rem,4vw,2.5rem) 3rem}
 .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.results-count{font-size:.82rem;color:#6B7C93}
-.results-count strong{color:#0B1E3D}
+.results-count{font-size:.83rem;color:#6B7C93}
+.results-count strong{color:#0B1E3D;font-weight:700}
+.results-batch-tag{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.5rem}
+
+/* LOADING */
 .loading-state{text-align:center;padding:4rem}
 .loader{width:36px;height:36px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
-@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:.85rem;color:#6B7C93}
+
+/* EMPTY */
 .empty-state{text-align:center;padding:4rem 2rem}
 .empty-ico{font-size:2.5rem;margin-bottom:.75rem}
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
 .empty-text{font-size:.85rem;color:#6B7C93}
 
 /* GRID */
-.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem}
 @media(max-width:480px){.alumni-grid{grid-template-columns:1fr}}
 
-/* CARD */
-.alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.25rem;cursor:pointer;transition:all .28s;position:relative;overflow:hidden}
+/* ALUMNI CARD */
+.alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.2rem;cursor:pointer;transition:all .28s;position:relative;overflow:hidden}
 .alumni-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);opacity:0;transition:opacity .25s}
 .alumni-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
 .alumni-card:hover::before{opacity:1}
-.card-top{display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem}
+.card-top{display:flex;align-items:center;gap:.85rem;margin-bottom:.75rem}
 .card-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;line-height:1.25;margin-bottom:.18rem}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;line-height:1.25;margin-bottom:.2rem}
 .card-batch{display:inline-block;background:#F0F2F8;border-radius:6px;padding:2px 8px;font-size:.7rem;font-weight:600;color:#5a6e84}
-.card-job{font-size:.82rem;color:#5a6e84;margin-bottom:.85rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-job{font-size:.82rem;color:#5a6e84;margin-bottom:.8rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4rem}
 .card-actions{display:flex;gap:.5rem}
-.ca-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:.52rem;border-radius:9px;font-size:.75rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
+.ca-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:.5rem;border-radius:9px;font-size:.76rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
 .ca-wa{background:#25D366;color:#fff}
 .ca-wa:hover{background:#20BA5A}
 .ca-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
@@ -127,10 +145,9 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .modal-bg.open{display:flex}
 .modal{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;text-align:center;position:relative;overflow:hidden}
 .modal-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:2;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:2;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .m-close:hover{background:rgba(255,255,255,.28)}
 .m-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1}
 .m-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.25rem;line-height:1.25}
@@ -143,9 +160,13 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .m-connect{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.85rem}
 .mc-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.65rem;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
 .mc-wa{background:#25D366;color:#fff}
+.mc-wa:hover{background:#20BA5A}
 .mc-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
+.mc-call:hover{opacity:.9}
 .mc-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.2);grid-column:span 2}
+.mc-email:hover{background:#FFE8A0}
 
+/* TOAST */
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
@@ -153,15 +174,18 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 </head>
 <body>
 
+<!-- TOP NAV -->
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/></svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html"><span class="nav-ico">🏠</span> Home</a></li>
-    <li class="has-drop"><a href="database.html"><span class="nav-ico">👥</span> Alumni Database ▾</a>
+    <li class="has-drop"><a href="database.html" class="active-link"><span class="nav-ico">👥</span> Alumni Database ▾</a>
       <div class="drop-menu">
         <a href="database.html">All Batches</a>
         <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
@@ -181,10 +205,11 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </ul>
 </nav>
 
+<!-- PAGE HEADER -->
 <div class="page-header">
   <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center">
     <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.55)" stroke-width="1.2"/></svg>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
     </div>
   </div>
   <div class="page-eyebrow">AIS Alumni Network</div>
@@ -192,19 +217,28 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   <p class="page-desc">Search and connect with graduates from every batch of the Department of Accounting &amp; Information Systems.</p>
 </div>
 
+<!-- FILTER BAR -->
 <div class="filter-bar" id="filterBar">
   <div class="filter-inner">
+
+    <!-- Search + Export -->
     <div class="search-row">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="Search by name, job, phone...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by name, job, phone, email...">
       </div>
       <button class="export-btn" onclick="exportCSV()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Export CSV
+        ⬇️ Export CSV
       </button>
     </div>
-    <div class="filter-row">
+
+    <!-- Sort -->
+    <div class="sort-row">
+      <select id="sortFilter" class="filter-select" onchange="applyFilters()">
+        <option value="batch">Sort: Batch (default)</option>
+        <option value="name">Sort: Name A–Z</option>
+        <option value="year">Sort: Passing Year</option>
+      </select>
       <select id="jobFilter" class="filter-select" onchange="applyFilters()">
         <option value="">All Professions</option>
         <option value="bank">🏦 Banking</option>
@@ -215,45 +249,49 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <option value="education">🎓 Education</option>
         <option value="student">📚 Student</option>
       </select>
-      <select id="sortFilter" class="filter-select" onchange="applyFilters()">
-        <option value="name">Sort: Name</option>
-        <option value="batch">Sort: Batch</option>
-        <option value="year">Sort: Year</option>
-      </select>
     </div>
-    <div class="batch-row" id="batchRow">
-      <button class="batch-btn active" data-batch="all" onclick="setBatch('all',this)">All</button>
-      <button class="batch-btn" data-batch="1" onclick="setBatch('1',this)">B1</button>
-      <button class="batch-btn" data-batch="2" onclick="setBatch('2',this)">B2</button>
-      <button class="batch-btn" data-batch="3" onclick="setBatch('3',this)">B3</button>
-      <button class="batch-btn" data-batch="4" onclick="setBatch('4',this)">B4</button>
-      <button class="batch-btn" data-batch="5" onclick="setBatch('5',this)">B5</button>
-      <button class="batch-btn" data-batch="6" onclick="setBatch('6',this)">B6</button>
-      <button class="batch-btn" data-batch="7" onclick="setBatch('7',this)">B7</button>
-      <button class="batch-btn" data-batch="8" onclick="setBatch('8',this)">B8</button>
-      <button class="batch-btn" data-batch="9" onclick="setBatch('9',this)">B9</button>
+
+    <!-- Batch Filter -->
+    <div class="batch-row">
+      <span class="batch-label">Batch:</span>
+      <button class="batch-btn all-btn active" data-batch="all" onclick="setBatch('all', this)">✅ All</button>
+      <button class="batch-btn" data-batch="1"  onclick="setBatch('1',this)">B1</button>
+      <button class="batch-btn" data-batch="2"  onclick="setBatch('2',this)">B2</button>
+      <button class="batch-btn" data-batch="3"  onclick="setBatch('3',this)">B3</button>
+      <button class="batch-btn" data-batch="4"  onclick="setBatch('4',this)">B4</button>
+      <button class="batch-btn" data-batch="5"  onclick="setBatch('5',this)">B5</button>
+      <button class="batch-btn" data-batch="6"  onclick="setBatch('6',this)">B6</button>
+      <button class="batch-btn" data-batch="7"  onclick="setBatch('7',this)">B7</button>
+      <button class="batch-btn" data-batch="8"  onclick="setBatch('8',this)">B8</button>
+      <button class="batch-btn" data-batch="9"  onclick="setBatch('9',this)">B9</button>
       <button class="batch-btn" data-batch="10" onclick="setBatch('10',this)">B10</button>
       <button class="batch-btn" data-batch="11" onclick="setBatch('11',this)">B11</button>
       <button class="batch-btn" data-batch="12" onclick="setBatch('12',this)">B12</button>
     </div>
+
   </div>
 </div>
 
+<!-- CONTENT -->
 <div class="content">
   <div class="results-bar">
-    <div class="results-count" id="resultsCount">Loading...</div>
+    <div class="results-count" id="resultsCount">Loading alumni...</div>
   </div>
-  <div class="loading-state" id="loadingState"><div class="loader"></div></div>
+  <div class="loading-state" id="loadingState">
+    <div class="loader"></div>
+    <p class="loading-text">Loading alumni database...</p>
+  </div>
   <div class="alumni-grid" id="alumniGrid"></div>
   <div class="empty-state" id="emptyState" style="display:none">
     <div class="empty-ico">🔍</div>
     <div class="empty-title">No Alumni Found</div>
-    <div class="empty-text">Try a different search or filter</div>
+    <div class="empty-text">Try a different search term or batch filter</div>
   </div>
 </div>
 
 <footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
+<!-- DETAIL MODAL -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <div class="modal-hdr">
@@ -263,10 +301,10 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <div class="m-batch" id="mBatch">—</div>
     </div>
     <div class="modal-body">
-      <div class="m-row"><div class="m-ico">💼</div><div><div class="m-lbl">Job</div><div class="m-val" id="mJob">—</div></div></div>
+      <div class="m-row"><div class="m-ico">💼</div><div><div class="m-lbl">Job / Position</div><div class="m-val" id="mJob">—</div></div></div>
       <div class="m-row"><div class="m-ico">📱</div><div><div class="m-lbl">Phone</div><div class="m-val" id="mPhone">—</div></div></div>
       <div class="m-row"><div class="m-ico">📧</div><div><div class="m-lbl">Email</div><div class="m-val" id="mEmail">—</div></div></div>
-      <div class="m-row"><div class="m-ico">🎓</div><div><div class="m-lbl">Passing Year</div><div class="m-val" id="mYear">—</div></div></div>
+      <div class="m-row"><div class="m-ico">📅</div><div><div class="m-lbl">Passing Year</div><div class="m-val" id="mYear">—</div></div></div>
       <div class="m-connect" id="mConnect"></div>
     </div>
   </div>
@@ -274,6 +312,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="toast" id="toast"></div>
 
+<!-- Bottom Nav -->
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -297,175 +336,241 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
+
 <script>
-// NAV
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>{
-  document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36);
-},{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer();}});
-document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
+/* ===== NAV ===== */
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDrawer(); } });
+document.getElementById('modalBg').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
 
-// FILTER BAR HIDE ON SCROLL
-let lastScroll=0;
-window.addEventListener('scroll',()=>{
-  const cur=window.scrollY;
-  const bar=document.getElementById('filterBar');
-  if(cur>220&&cur>lastScroll)bar.classList.add('hide');
-  else bar.classList.remove('hide');
-  lastScroll=cur;
-},{passive:true});
+/* ===== STATE ===== */
+let allAlumni = [];          // সব alumni Firebase থেকে
+let filteredAlumni = [];     // filter করার পরে যা দেখাবে
+let activeBatch = 'all';
+let activeJob = '';
+let activeSort = 'batch';
+let searchQ = '';
 
-// URL BATCH PARAM
-const urlBatch=new URLSearchParams(window.location.search).get('batch');
-
-// STATE
-let allAlumni=[];
-let activeBatch=urlBatch||'all';
-let activeJob='';
-let activeSort='name';
-let searchQ='';
-
-// Init batch button from URL
-if(urlBatch){
-  document.querySelectorAll('.batch-btn').forEach(b=>{
-    b.classList.toggle('active',b.dataset.batch===urlBatch);
+/* ===== URL BATCH PARAM ===== */
+// example: database.html?batch=3 দিলে সরাসরি Batch 3 filter হবে
+const urlBatch = new URLSearchParams(window.location.search).get('batch');
+if (urlBatch) {
+  activeBatch = urlBatch;
+  document.querySelectorAll('.batch-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.batch === urlBatch);
   });
 }
 
-// SEARCH
-let searchTimer=null;
-document.getElementById('searchInput').addEventListener('input',function(){
+/* ===== SEARCH ===== */
+let searchTimer = null;
+document.getElementById('searchInput').addEventListener('input', function () {
   clearTimeout(searchTimer);
-  searchTimer=setTimeout(()=>{searchQ=this.value.trim().toLowerCase();applyFilters();},250);
+  searchTimer = setTimeout(() => {
+    searchQ = this.value.trim().toLowerCase();
+    applyFilters();
+  }, 250);
 });
 
-function setBatch(val,btn){
-  activeBatch=val;
-  document.querySelectorAll('.batch-btn').forEach(b=>b.classList.remove('active'));
+/* ===== BATCH FILTER ===== */
+function setBatch(val, btn) {
+  activeBatch = val;
+  document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   applyFilters();
 }
 
-function applyFilters(){
-  activeJob=document.getElementById('jobFilter').value;
-  activeSort=document.getElementById('sortFilter').value;
+/* ===== JOB MATCH ===== */
+function matchJob(job, filter) {
+  if (!filter) return true;
+  const j = (job || '').toLowerCase();
+  const map = {
+    bank:      ['bank', 'brac bank', 'nrbc', 'dutch', 'islami', 'sonali', 'janata', 'agrani', 'rupali', 'premier'],
+    ca:        ['ca', 'audit', 'deloitte', 'acnabin', 'icab', 'chartered', 'accountant'],
+    govt:      ['government', 'govt', 'public', 'service', 'bcs', 'upazila', 'district', 'civil'],
+    ngo:       ['ngo', 'brac', 'grameen', 'asha', 'care', 'save the children', 'unicef'],
+    business:  ['business', 'entrepreneur', 'owner', 'ceo', 'managing', 'director', 'proprietor'],
+    education: ['teacher', 'professor', 'lecturer', 'school', 'college', 'university', 'tutor'],
+    student:   ['student', 'studying', 'mba', 'pursuing', 'intern'],
+  };
+  return (map[filter] || []).some(k => j.includes(k));
+}
+
+/* ===== MAIN FILTER & SORT ===== */
+function applyFilters() {
+  activeJob = document.getElementById('jobFilter').value;
+  activeSort = document.getElementById('sortFilter').value;
+
+  let list = [...allAlumni];
+
+  // 1. Batch filter
+  if (activeBatch !== 'all') {
+    list = list.filter(a => String(a.batch) === activeBatch);
+  }
+
+  // 2. Job filter
+  if (activeJob) {
+    list = list.filter(a => matchJob(a.job, activeJob));
+  }
+
+  // 3. Search — name, job, phone, email এ খুঁজবে
+  if (searchQ) {
+    list = list.filter(a =>
+      (a.name  || '').toLowerCase().includes(searchQ) ||
+      (a.job   || '').toLowerCase().includes(searchQ) ||
+      (a.phone || '').includes(searchQ) ||
+      (a.email || '').toLowerCase().includes(searchQ) ||
+      String(a.batch || '').includes(searchQ)
+    );
+  }
+
+  // 4. Sort
+  if (activeSort === 'name') {
+    list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  } else if (activeSort === 'year') {
+    list.sort((a, b) => (+a.year || 0) - (+b.year || 0));
+  } else {
+    // default: batch ascending, তারপর name
+    list.sort((a, b) => (+a.batch || 99) - (+b.batch || 99) || (a.name || '').localeCompare(b.name || ''));
+  }
+
+  filteredAlumni = list;
   render();
 }
 
-function matchJob(job,filter){
-  if(!filter)return true;
-  const j=(job||'').toLowerCase();
-  const map={bank:['bank','brac bank','nrbc','dutch','islami','sonali','janata','agrani'],ca:['ca','audit','deloitte','acnabin','icab','chartered'],govt:['government','govt','public','service','bcs','upazila','district'],ngo:['ngo','brac','grameen','asha','care'],business:['business','entrepreneur','owner','ceo','managing'],education:['teacher','professor','lecturer','school','college','university'],student:['student','studying','mba','pursuing']};
-  return (map[filter]||[]).some(k=>j.includes(k));
-}
+/* ===== RENDER CARDS ===== */
+function render() {
+  document.getElementById('loadingState').style.display = 'none';
 
-function render(){
-  let list=[...allAlumni];
-  if(activeBatch!=='all')list=list.filter(a=>String(a.batch)===activeBatch);
-  if(activeJob)list=list.filter(a=>matchJob(a.job,activeJob));
-  if(searchQ)list=list.filter(a=>(a.name||'').toLowerCase().includes(searchQ)||(a.job||'').toLowerCase().includes(searchQ)||(a.phone||'').includes(searchQ)||(a.batch||'').toString().includes(searchQ));
-  if(activeSort==='batch')list.sort((a,b)=>+a.batch- +b.batch);
-  else if(activeSort==='year')list.sort((a,b)=>+a.year- +b.year);
-  else list.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  const grid = document.getElementById('alumniGrid');
+  const empty = document.getElementById('emptyState');
+  const countEl = document.getElementById('resultsCount');
 
-  document.getElementById('loadingState').style.display='none';
-  document.getElementById('resultsCount').innerHTML=`<strong>${list.length}</strong> alumni found`;
-  const grid=document.getElementById('alumniGrid');
-  const empty=document.getElementById('emptyState');
+  // Results count text
+  const batchTag = activeBatch !== 'all'
+    ? `<span class="results-batch-tag">Batch ${activeBatch}</span>` : '';
+  countEl.innerHTML = `<strong>${filteredAlumni.length}</strong> alumni found ${batchTag}`;
 
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
+  if (!filteredAlumni.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
 
-  grid.innerHTML=list.map((a,i)=>{
-    const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const num=(a.phone||'').replace(/[^0-9]/g,'');
-    const intl=num.startsWith('0')?'88'+num:num;
-    const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
-    return `<div class="alumni-card" onclick="openModal(${i},'${list[i].id||''}')">
+  grid.innerHTML = filteredAlumni.map((a, i) => {
+    const init = (a.name || '?').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    const num = (a.phone || '').replace(/[^0-9]/g, '');
+    const intl = num.startsWith('0') ? '88' + num : num;
+    const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
+
+    return `
+    <div class="alumni-card" onclick="openModal(${i})">
       <div class="card-top">
         <div class="card-av">${init}</div>
-        <div>
-          <div class="card-name">${a.name||'—'}</div>
-          <span class="card-batch">Batch ${a.batch||'?'} · ${a.year||'—'}</span>
+        <div style="min-width:0">
+          <div class="card-name">${a.name || '—'}</div>
+          <span class="card-batch">Batch ${a.batch || '?'} · ${a.year || '—'}</span>
         </div>
       </div>
-      <div class="card-job">${a.job||'Not specified'}</div>
+      <div class="card-job">${a.job || 'Not specified'}</div>
       <div class="card-actions">
-        <a class="ca-btn ca-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-          WhatsApp
+        <a class="ca-btn ca-wa"
+           href="https://wa.me/${intl}?text=${waMsg}"
+           target="_blank"
+           onclick="event.stopPropagation()">
+          📱 WhatsApp
         </a>
-        <a class="ca-btn ca-call" href="tel:${a.phone}" onclick="event.stopPropagation()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Call
+        <a class="ca-btn ca-call"
+           href="tel:${a.phone || ''}"
+           onclick="event.stopPropagation()">
+          📞 Call
         </a>
       </div>
     </div>`;
   }).join('');
-  // Store filtered list for modal
-  window._filteredAlumni=list;
 }
 
-// MODAL
-function openModal(idx,id){
-  const a=window._filteredAlumni?window._filteredAlumni[idx]:allAlumni[idx];
-  if(!a)return;
-  const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('mAv').textContent=init;
-  document.getElementById('mName').textContent=a.name||'—';
-  document.getElementById('mBatch').textContent=`Batch ${a.batch||'?'} · ${a.year||'—'}`;
-  document.getElementById('mJob').textContent=a.job||'—';
-  document.getElementById('mPhone').textContent=a.phone||'—';
-  document.getElementById('mEmail').textContent=a.email||'—';
-  document.getElementById('mYear').textContent=a.year||'—';
-  const num=(a.phone||'').replace(/[^0-9]/g,'');
-  const intl=num.startsWith('0')?'88'+num:num;
-  const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
-  let btns=`<a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-    WhatsApp
-  </a>
-  <a class="mc-btn mc-call" href="tel:${a.phone}">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Call
-  </a>`;
-  if(a.email) btns+=`<a class="mc-btn mc-email" href="mailto:${a.email}">📧 Send Email</a>`;
-  if(a.linkedin) btns+=`<a class="mc-btn mc-email" href="${a.linkedin}" target="_blank" style="grid-column:span 2">LinkedIn Profile</a>`;
-  document.getElementById('mConnect').innerHTML=btns;
+/* ===== MODAL ===== */
+function openModal(idx) {
+  const a = filteredAlumni[idx];
+  if (!a) return;
+
+  const init = (a.name || '?').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  document.getElementById('mAv').textContent = init;
+  document.getElementById('mName').textContent = a.name || '—';
+  document.getElementById('mBatch').textContent = `Batch ${a.batch || '?'} · ${a.year || '—'}`;
+  document.getElementById('mJob').textContent = a.job || '—';
+  document.getElementById('mPhone').textContent = a.phone || '—';
+  document.getElementById('mEmail').textContent = a.email || '—';
+  document.getElementById('mYear').textContent = a.year || '—';
+
+  const num = (a.phone || '').replace(/[^0-9]/g, '');
+  const intl = num.startsWith('0') ? '88' + num : num;
+  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
+
+  let btns = `
+    <a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">
+      📱 WhatsApp
+    </a>
+    <a class="mc-btn mc-call" href="tel:${a.phone || ''}">
+      📞 Call
+    </a>`;
+  if (a.email) btns += `<a class="mc-btn mc-email" href="mailto:${a.email}">📧 Send Email</a>`;
+  if (a.linkedin) btns += `<a class="mc-btn mc-email" href="${a.linkedin}" target="_blank" style="grid-column:span 2">🔗 LinkedIn Profile</a>`;
+
+  document.getElementById('mConnect').innerHTML = btns;
   document.getElementById('modalBg').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
-function closeModal(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow='';}
 
-// EXPORT CSV
-function exportCSV(){
-  if(!allAlumni.length){showToast('কোনো data নেই');return;}
-  const rows=[['Name','Batch','Year','Job','Phone','Email'],...allAlumni.map(a=>[a.name,a.batch,a.year,a.job,a.phone,a.email])];
-  const csv=rows.map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='ais-alumni.csv';a.click();
+function closeModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ===== EXPORT CSV ===== */
+function exportCSV() {
+  if (!filteredAlumni.length) { showToast('কোনো data নেই'); return; }
+  const rows = [
+    ['Name', 'Batch', 'Year', 'Job', 'Phone', 'Email'],
+    ...filteredAlumni.map(a => [a.name, a.batch, a.year, a.job, a.phone, a.email])
+  ];
+  const csv = rows.map(r => r.map(v => `"${(v || '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  link.download = activeBatch === 'all' ? 'ais-alumni-all.csv' : `ais-alumni-batch${activeBatch}.csv`;
+  link.click();
   showToast('✅ CSV downloaded!');
 }
 
-// FIREBASE — real-time load
-db.collection('alumni').orderBy('name','asc').onSnapshot(snap=>{
-  allAlumni=[];
-  snap.forEach(doc=>allAlumni.push({id:doc.id,...doc.data()}));
-  render();
-}, err=>{
-  console.error('Firebase error:',err);
-  document.getElementById('loadingState').style.display='none';
-  document.getElementById('resultsCount').textContent='Firebase connection error';
-});
+/* ===== FIREBASE LOAD ===== */
+// সব alumni একবারে load করব, তারপর client-side filter
+db.collection('alumni')
+  .orderBy('batch', 'asc')
+  .onSnapshot(snap => {
+    allAlumni = [];
+    snap.forEach(doc => allAlumni.push({ id: doc.id, ...doc.data() }));
+    applyFilters(); // render with current filters
+  }, err => {
+    console.error('Firebase error:', err);
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('resultsCount').textContent = '❌ Database load failed. Check Firebase connection.';
+  });
 </script>
 </body>
 </html>
