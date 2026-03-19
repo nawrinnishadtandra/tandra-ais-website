@@ -12,7 +12,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
 
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
@@ -62,6 +62,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
+/* PAGE HEADER */
 .page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
 .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
@@ -69,6 +70,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .page-title em{font-style:italic;color:#E8B84B}
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;position:relative;z-index:1}
 
+/* FILTER BAR */
 .filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.9rem clamp(1rem,4vw,2.5rem)}
 .filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:.65rem}
 .search-row{display:flex;gap:.65rem;align-items:center}
@@ -86,11 +88,11 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .batch-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
 .batch-btn.all-btn.active{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;color:#0B1E3D}
 
+/* CONTENT */
 .content{max-width:1100px;margin:0 auto;padding:1.5rem clamp(1rem,4vw,2.5rem) 3rem}
 .results-bar{margin-bottom:1rem}
 .results-count{font-size:.83rem;color:#6B7C93}
 .results-count strong{color:#0B1E3D;font-weight:700}
-
 .loading-state{text-align:center;padding:4rem}
 .loader{width:36px;height:36px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
 .empty-state{text-align:center;padding:4rem 2rem}
@@ -98,6 +100,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
 .empty-text{font-size:.85rem;color:#6B7C93}
 
+/* ALUMNI GRID */
 .alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem}
 @media(max-width:480px){.alumni-grid{grid-template-columns:1fr}}
 .alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.2rem;cursor:pointer;transition:all .28s;position:relative;overflow:hidden}
@@ -111,30 +114,68 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .card-job{font-size:.82rem;color:#5a6e84;margin-bottom:.8rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4rem}
 .card-actions{display:flex;gap:.5rem}
 .ca-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:.5rem;border-radius:9px;font-size:.76rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
-.ca-wa{background:#25D366;color:#fff}
+.ca-wa{background:linear-gradient(135deg,#25D366,#1ebe5d);color:#fff}
 .ca-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
 
-.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+/* ============================
+   PREMIUM MODAL
+   ============================ */
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
-.modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;text-align:center;position:relative;overflow:hidden}
-.modal-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:2;display:flex;align-items:center;justify-content:center}
-.m-close:hover{background:rgba(255,255,255,.28)}
-.m-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1}
-.m-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.25rem;line-height:1.25}
-.m-batch{font-size:.75rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
-.modal-body{padding:1.25rem 1.5rem 1.5rem}
-.m-row{display:flex;align-items:flex-start;gap:.85rem;padding:.72rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
-.m-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
-.m-lbl{font-size:.65rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.12rem}
-.m-val{font-size:.85rem;color:#0B1E3D;font-weight:500;word-break:break-word;line-height:1.4}
-.m-connect{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.85rem}
-.mc-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.65rem;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
-.mc-wa{background:#25D366;color:#fff}
-.mc-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
-.mc-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.2);grid-column:span 2}
 
+.modal{background:#fff;border-radius:24px;width:100%;max-width:440px;overflow:hidden;box-shadow:0 32px 80px rgba(11,30,61,.3);animation:popIn .32s cubic-bezier(.34,1.56,.64,1)}
+
+/* Modal Header */
+.modal-hdr{background:linear-gradient(145deg,#0B1E3D 0%,#162d55 55%,#1a3570 100%);padding:2rem 1.75rem 1.75rem;text-align:center;position:relative;overflow:hidden}
+.modal-hdr::before{content:'';position:absolute;top:-70px;right:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%)}
+.modal-hdr::after{content:'';position:absolute;bottom:-50px;left:-50px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.25) 0%,transparent 70%)}
+
+.m-close{position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.95rem;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.m-close:hover{background:rgba(255,255,255,.28)}
+
+.m-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:3px solid rgba(200,151,43,.5);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#E8B84B;margin:0 auto .9rem;position:relative;z-index:1;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+.m-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.45rem;line-height:1.25}
+
+/* Tags */
+.m-tags{display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:1.1rem}
+.m-tag{display:inline-flex;align-items:center;gap:3px;border-radius:100px;padding:3px 11px;font-size:.73rem;font-weight:600}
+.m-tag-batch{background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.4);color:#E8B84B}
+.m-tag-blood{background:rgba(231,76,60,.22);border:1px solid rgba(231,76,60,.45);color:#ff8a80}
+
+/* Premium social row in modal */
+.m-social-row{display:flex;gap:.6rem;justify-content:center;position:relative;z-index:1}
+.m-social-btn{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .25s;flex-shrink:0}
+.m-social-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.m-social-btn:active{transform:scale(.92)}
+.msb-wa{background:linear-gradient(145deg,#25D366,#1ebe5d);box-shadow:0 4px 14px rgba(37,211,102,.4)}
+.msb-li{background:linear-gradient(145deg,#0077B5,#005f8e);box-shadow:0 4px 14px rgba(0,119,181,.4)}
+.msb-fb{background:linear-gradient(145deg,#1877F2,#1468d8);box-shadow:0 4px 14px rgba(24,119,242,.4)}
+.msb-call{background:linear-gradient(145deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.4)}
+.msb-email{background:linear-gradient(145deg,#C8972B,#E8B84B);box-shadow:0 4px 14px rgba(200,151,43,.4)}
+.m-social-btn svg{width:20px;height:20px;display:block}
+
+/* Modal Body */
+.modal-body{padding:1.35rem 1.6rem 1.6rem}
+
+.m-row{display:flex;align-items:flex-start;gap:.85rem;padding:.78rem .95rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem;transition:background .2s}
+.m-row:hover{background:#f2f2f6}
+.m-row:last-child{margin-bottom:0}
+
+.m-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.m-ico.navy{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
+.m-ico.wa{background:linear-gradient(135deg,#25D366,#1ebe5d)}
+.m-ico.li{background:linear-gradient(135deg,#0077B5,#005f8e)}
+.m-ico.fb{background:linear-gradient(135deg,#1877F2,#1468d8)}
+.m-ico.blood{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+
+.m-lbl{font-size:.65rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.m-val{font-size:.88rem;color:#0B1E3D;font-weight:500;word-break:break-word;line-height:1.45}
+.m-val a{color:#C8972B;text-decoration:none}
+.m-val a:hover{text-decoration:underline}
+.m-val.blood{color:#e74c3c;font-weight:700}
+
+/* TOAST */
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
@@ -246,23 +287,32 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
+<!-- ===== PREMIUM MODAL ===== -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
+
+    <!-- Header -->
     <div class="modal-hdr">
       <button class="m-close" onclick="closeModal()">✕</button>
       <div class="m-av" id="mAv">?</div>
       <div class="m-name" id="mName">—</div>
-      <div class="m-batch" id="mBatch">—</div>
+
+      <!-- Batch + Blood tags -->
+      <div class="m-tags">
+        <span class="m-tag m-tag-batch" id="mBatchTag">—</span>
+        <span class="m-tag m-tag-blood" id="mBloodTag" style="display:none">🩸 —</span>
+      </div>
+
+      <!-- Premium social icons -->
+      <div class="m-social-row" id="mSocialRow"></div>
     </div>
-    <div class="modal-body">
-      <div class="m-row"><div class="m-ico">💼</div><div><div class="m-lbl">Job</div><div class="m-val" id="mJob">—</div></div></div>
-      <div class="m-row"><div class="m-ico">📱</div><div><div class="m-lbl">Phone</div><div class="m-val" id="mPhone">—</div></div></div>
-      <div class="m-row"><div class="m-ico">📧</div><div><div class="m-lbl">Email</div><div class="m-val" id="mEmail">—</div></div></div>
-      <div class="m-row"><div class="m-ico">📅</div><div><div class="m-lbl">Passing Year</div><div class="m-val" id="mYear">—</div></div></div>
-      <div class="m-connect" id="mConnect"></div>
-    </div>
+
+    <!-- Body — all info -->
+    <div class="modal-body" id="mBody"></div>
+
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <div class="bot-nav">
@@ -303,22 +353,7 @@ if (!firebase.apps.length) {
 }
 const db = firebase.firestore();
 </script>
-
 <script>
-/* ✅ SAFE HELPER — যেকোনো value কে string এ convert করে
-   Firebase এ phone/batch/year number হিসেবে save থাকলেও কাজ করবে */
-function s(val) {
-  if (val === null || val === undefined) return '';
-  return String(val);
-}
-
-/* phone থেকে international format বানায় */
-function toIntl(phone) {
-  const num = s(phone).replace(/[^0-9]/g, '');
-  if (!num) return '';
-  return num.startsWith('0') ? '88' + num : num;
-}
-
 /* NAV */
 document.getElementById('navBurger').addEventListener('click', () =>
   document.getElementById('navLinks').classList.toggle('open'));
@@ -335,11 +370,38 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+/* safe string helper */
+function s(v) { return v === null || v === undefined ? '' : String(v); }
+function toIntl(phone) {
+  const n = s(phone).replace(/[^0-9]/g, '');
+  if (!n) return '';
+  return n.startsWith('0') ? '88' + n : n;
+}
+
+/* SVG icons */
+const ICO_WA    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>`;
+const ICO_CALL  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
+const ICO_LI    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>`;
+const ICO_FB    = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>`;
+const ICO_EMAIL = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B1E3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+
+/* Row builder for modal body */
+function infoRow(icoClass, icoSvg, label, value, isLink) {
+  if (!value) return '';
+  const val = isLink
+    ? `<a href="${isLink}" target="_blank">${value}</a>`
+    : value;
+  return `<div class="m-row">
+    <div class="m-ico ${icoClass}">${icoSvg}</div>
+    <div><div class="m-lbl">${label}</div><div class="m-val">${val}</div></div>
+  </div>`;
+}
+
 /* STATE */
 let allAlumni = [], filteredAlumni = [];
 let activeBatch = 'all', activeJob = '', activeSort = 'batch', searchQ = '';
 
-/* URL batch param */
+/* URL batch */
 const urlBatch = new URLSearchParams(window.location.search).get('batch');
 if (urlBatch) {
   activeBatch = urlBatch;
@@ -347,7 +409,6 @@ if (urlBatch) {
     b.classList.toggle('active', b.dataset.batch === urlBatch));
 }
 
-/* SEARCH */
 let st = null;
 document.getElementById('searchInput').addEventListener('input', function () {
   clearTimeout(st);
@@ -365,13 +426,13 @@ function matchJob(job, filter) {
   if (!filter) return true;
   const j = s(job).toLowerCase();
   const map = {
-    bank: ['bank', 'nrbc', 'dutch', 'islami', 'sonali', 'janata', 'agrani', 'rupali', 'premier', 'mtbl', 'ucb', 'trust', 'brac bank'],
-    ca: ['ca', 'audit', 'deloitte', 'acnabin', 'icab', 'chartered', 'accountant'],
-    govt: ['government', 'govt', 'public', 'service', 'bcs', 'upazila', 'district', 'civil', 'ministry'],
-    ngo: ['ngo', 'brac', 'grameen', 'asha', 'care', 'unicef', 'world vision'],
-    business: ['business', 'entrepreneur', 'owner', 'ceo', 'managing', 'director', 'proprietor'],
-    education: ['teacher', 'professor', 'lecturer', 'school', 'college', 'university', 'tutor'],
-    student: ['student', 'studying', 'mba', 'pursuing', 'intern'],
+    bank: ['bank','nrbc','dutch','islami','sonali','janata','agrani','rupali','premier','mtbl','ucb','trust','brac bank'],
+    ca: ['ca','audit','deloitte','acnabin','icab','chartered','accountant'],
+    govt: ['government','govt','public','service','bcs','upazila','district','civil','ministry'],
+    ngo: ['ngo','brac','grameen','asha','care','unicef','world vision'],
+    business: ['business','entrepreneur','owner','ceo','managing','director','proprietor'],
+    education: ['teacher','professor','lecturer','school','college','university','tutor'],
+    student: ['student','studying','mba','pursuing','intern'],
   };
   return (map[filter] || []).some(k => j.includes(k));
 }
@@ -379,31 +440,19 @@ function matchJob(job, filter) {
 function applyFilters() {
   activeJob = document.getElementById('jobFilter').value;
   activeSort = document.getElementById('sortFilter').value;
-
   let list = [...allAlumni];
-
-  if (activeBatch !== 'all')
-    list = list.filter(a => s(a.batch) === s(activeBatch));
-
-  if (activeJob)
-    list = list.filter(a => matchJob(a.job, activeJob));
-
-  if (searchQ)
-    list = list.filter(a =>
-      s(a.name).toLowerCase().includes(searchQ) ||
-      s(a.job).toLowerCase().includes(searchQ) ||
-      s(a.phone).includes(searchQ) ||
-      s(a.email).toLowerCase().includes(searchQ) ||
-      s(a.batch).includes(searchQ)
-    );
-
-  if (activeSort === 'name')
-    list.sort((a, b) => s(a.name).localeCompare(s(b.name)));
-  else if (activeSort === 'year')
-    list.sort((a, b) => (+s(a.year) || 0) - (+s(b.year) || 0));
-  else
-    list.sort((a, b) => (+s(a.batch) || 99) - (+s(b.batch) || 99) || s(a.name).localeCompare(s(b.name)));
-
+  if (activeBatch !== 'all') list = list.filter(a => s(a.batch) === s(activeBatch));
+  if (activeJob) list = list.filter(a => matchJob(a.job, activeJob));
+  if (searchQ) list = list.filter(a =>
+    s(a.name).toLowerCase().includes(searchQ) ||
+    s(a.job).toLowerCase().includes(searchQ) ||
+    s(a.phone).includes(searchQ) ||
+    s(a.email).toLowerCase().includes(searchQ) ||
+    s(a.batch).includes(searchQ)
+  );
+  if (activeSort === 'name') list.sort((a, b) => s(a.name).localeCompare(s(b.name)));
+  else if (activeSort === 'year') list.sort((a, b) => (+s(a.year) || 0) - (+s(b.year) || 0));
+  else list.sort((a, b) => (+s(a.batch) || 99) - (+s(b.batch) || 99) || s(a.name).localeCompare(s(b.name)));
   filteredAlumni = list;
   render();
 }
@@ -412,68 +461,132 @@ function render() {
   document.getElementById('loadingState').style.display = 'none';
   const grid = document.getElementById('alumniGrid');
   const empty = document.getElementById('emptyState');
-
   const bTag = activeBatch !== 'all'
     ? `<span style="display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.5rem">Batch ${activeBatch}</span>` : '';
-  document.getElementById('resultsCount').innerHTML =
-    `<strong>${filteredAlumni.length}</strong> alumni found ${bTag}`;
-
+  document.getElementById('resultsCount').innerHTML = `<strong>${filteredAlumni.length}</strong> alumni found ${bTag}`;
   if (!filteredAlumni.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
 
   grid.innerHTML = filteredAlumni.map((a, i) => {
-    const name = s(a.name) || '—';
-    const init = name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    const init = s(a.name).trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?';
     const intl = toIntl(a.phone);
-    const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${name} ভাই/আপু, আমি AIS Alumni।`);
-
+    const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${s(a.name)} ভাই/আপু, আমি AIS Alumni।`);
     return `
     <div class="alumni-card" onclick="openModal(${i})">
       <div class="card-top">
         <div class="card-av">${init}</div>
         <div style="min-width:0">
-          <div class="card-name">${name}</div>
+          <div class="card-name">${s(a.name) || '—'}</div>
           <span class="card-batch">Batch ${s(a.batch) || '?'} · ${s(a.year) || '—'}</span>
         </div>
       </div>
       <div class="card-job">${s(a.job) || 'Not specified'}</div>
       <div class="card-actions">
-        <a class="ca-btn ca-wa"
-           href="https://wa.me/${intl}?text=${waMsg}"
-           target="_blank"
-           onclick="event.stopPropagation()">📱 WhatsApp</a>
-        <a class="ca-btn ca-call"
-           href="tel:${s(a.phone)}"
-           onclick="event.stopPropagation()">📞 Call</a>
+        <a class="ca-btn ca-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+          WhatsApp
+        </a>
+        <a class="ca-btn ca-call" href="tel:${s(a.phone)}" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call
+        </a>
       </div>
     </div>`;
   }).join('');
 }
 
+/* ===== PREMIUM MODAL ===== */
 function openModal(idx) {
   const a = filteredAlumni[idx];
   if (!a) return;
 
-  const name = s(a.name) || '—';
-  const init = name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  const init = s(a.name).trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?';
   const intl = toIntl(a.phone);
-  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${name} ভাই/আপু, আমি AIS Alumni।`);
+  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${s(a.name)} ভাই/আপু, আমি AIS Alumni।`);
 
+  /* Avatar */
   document.getElementById('mAv').textContent = init;
-  document.getElementById('mName').textContent = name;
-  document.getElementById('mBatch').textContent = `Batch ${s(a.batch) || '?'} · ${s(a.year) || '—'}`;
-  document.getElementById('mJob').textContent = s(a.job) || '—';
-  document.getElementById('mPhone').textContent = s(a.phone) || '—';
-  document.getElementById('mEmail').textContent = s(a.email) || '—';
-  document.getElementById('mYear').textContent = s(a.year) || '—';
 
-  let btns = `
-    <a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">📱 WhatsApp</a>
-    <a class="mc-btn mc-call" href="tel:${s(a.phone)}">📞 Call</a>`;
-  if (a.email) btns += `<a class="mc-btn mc-email" href="mailto:${s(a.email)}">📧 Send Email</a>`;
-  if (a.linkedin) btns += `<a class="mc-btn mc-email" href="${s(a.linkedin)}" target="_blank" style="grid-column:span 2">🔗 LinkedIn</a>`;
+  /* Name */
+  document.getElementById('mName').textContent = s(a.name) || '—';
 
-  document.getElementById('mConnect').innerHTML = btns;
+  /* Tags */
+  document.getElementById('mBatchTag').textContent = 'Batch ' + (s(a.batch) || '?') + ' · ' + (s(a.year) || '—');
+  const bloodTag = document.getElementById('mBloodTag');
+  if (a.blood) {
+    bloodTag.textContent = '🩸 ' + s(a.blood);
+    bloodTag.style.display = 'inline-flex';
+  } else {
+    bloodTag.style.display = 'none';
+  }
+
+  /* ===== PREMIUM SOCIAL ICONS ===== */
+  let socials = '';
+  if (a.phone && intl) {
+    socials += `<a class="m-social-btn msb-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank" title="WhatsApp">${ICO_WA}</a>`;
+    socials += `<a class="m-social-btn msb-call" href="tel:${s(a.phone)}" title="Call">${ICO_CALL}</a>`;
+  }
+  if (a.linkedin) {
+    socials += `<a class="m-social-btn msb-li" href="${s(a.linkedin)}" target="_blank" title="LinkedIn">${ICO_LI}</a>`;
+  }
+  if (a.facebook) {
+    socials += `<a class="m-social-btn msb-fb" href="${s(a.facebook)}" target="_blank" title="Facebook">${ICO_FB}</a>`;
+  }
+  if (a.email) {
+    socials += `<a class="m-social-btn msb-email" href="mailto:${s(a.email)}" title="Email">${ICO_EMAIL}</a>`;
+  }
+  document.getElementById('mSocialRow').innerHTML = socials;
+
+  /* ===== BODY — ALL INFO ===== */
+  // Navy SVG icons for info rows
+  const navySVG = (path) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
+
+  let body = '';
+
+  /* Phone */
+  body += infoRow('wa', ICO_WA,
+    'Phone / WhatsApp', s(a.phone) || '—', false);
+
+  /* Email */
+  body += infoRow('navy',
+    navySVG('<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>'),
+    'Email', s(a.email) || '—', a.email ? `mailto:${s(a.email)}` : false);
+
+  /* Blood */
+  if (a.blood) {
+    body += `<div class="m-row">
+      <div class="m-ico blood"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg></div>
+      <div><div class="m-lbl">Blood Group</div><div class="m-val blood">${s(a.blood)}</div></div>
+    </div>`;
+  }
+
+  /* Job */
+  body += infoRow('navy',
+    navySVG('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>'),
+    'Job / Position', s(a.job) || '—', false);
+
+  /* Batch + Year */
+  body += infoRow('navy',
+    navySVG('<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>'),
+    'Batch & Year', `Batch ${s(a.batch) || '?'} · Passing Year ${s(a.year) || '—'}`, false);
+
+  /* Department */
+  body += infoRow('navy',
+    navySVG('<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'),
+    'Department', 'Accounting & Information Systems · University of Barishal', false);
+
+  /* LinkedIn */
+  if (a.linkedin) {
+    body += infoRow('li', ICO_LI, 'LinkedIn', s(a.linkedin), s(a.linkedin));
+  }
+
+  /* Facebook */
+  if (a.facebook) {
+    body += infoRow('fb', ICO_FB, 'Facebook', s(a.facebook), s(a.facebook));
+  }
+
+  document.getElementById('mBody').innerHTML = body;
+
   document.getElementById('modalBg').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -485,25 +598,20 @@ function closeModal() {
 
 function exportCSV() {
   if (!filteredAlumni.length) { showToast('কোনো data নেই'); return; }
-  const rows = [
-    ['Name', 'Batch', 'Year', 'Job', 'Phone', 'Email'],
-    ...filteredAlumni.map(a => [s(a.name), s(a.batch), s(a.year), s(a.job), s(a.phone), s(a.email)])
-  ];
-  const csv = rows.map(r => r.map(v => `"${v.replace(/"/g, '""')}"`).join(',')).join('\n');
+  const rows = [['Name','Batch','Year','Job','Phone','Email','Blood'],
+    ...filteredAlumni.map(a => [s(a.name),s(a.batch),s(a.year),s(a.job),s(a.phone),s(a.email),s(a.blood)])];
+  const csv = rows.map(r => r.map(v => `"${v.replace(/"/g,'""')}"`).join(',')).join('\n');
   const link = document.createElement('a');
   link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   link.download = activeBatch === 'all' ? 'ais-alumni-all.csv' : `ais-alumni-batch${activeBatch}.csv`;
-  link.click();
-  showToast('✅ CSV downloaded!');
+  link.click(); showToast('✅ CSV downloaded!');
 }
 
-/* FIREBASE LOAD */
+/* FIREBASE */
 function loadAlumni() {
   document.getElementById('loadingState').style.display = 'block';
   document.getElementById('alumniGrid').innerHTML = '';
   document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('resultsCount').textContent = 'Loading...';
-
   db.collection('alumni').get()
     .then(snap => {
       allAlumni = [];
@@ -511,14 +619,11 @@ function loadAlumni() {
       applyFilters();
     })
     .catch(err => {
-      console.error(err);
       document.getElementById('loadingState').style.display = 'none';
       document.getElementById('resultsCount').innerHTML =
-        `<span style="color:#e74c3c">❌ ${err.code || err.message}</span> — 
-         <a href="#" onclick="loadAlumni();return false" style="color:#C8972B;font-weight:600">Retry করুন</a>`;
+        `<span style="color:#e74c3c">❌ ${err.code || err.message}</span> — <a href="#" onclick="loadAlumni();return false" style="color:#C8972B;font-weight:600">Retry</a>`;
     });
 }
-
 loadAlumni();
 </script>
 </body>
