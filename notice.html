@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notice Board | AIS Alumni — University of Barishal</title>
 <meta name="description" content="Latest notices and announcements from AIS Alumni Association, University of Barishal.">
-<meta name="description" content="Latest notices from AIS Alumni Association, University of Barishal.">
 <meta name="keywords" content="AIS Alumni, University of Barishal, Accounting Information Systems">
 <meta property="og:title" content="Notice Board | AIS Alumni — University of Barishal">
-<meta property="og:description" content="Latest notices from AIS Alumni Association, University of Barishal.">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -17,19 +15,16 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-/* TOP NAV */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
-.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
 .nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
-.nav-cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -46,8 +41,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-/* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
@@ -71,44 +65,38 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* PAGE HEADER */
 .page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
 .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
 .page-title em{font-style:italic;color:#E8B84B}
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 1.75rem;position:relative;z-index:1}
-
-/* CATEGORY FILTER */
 .cat-row{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
 .cat-btn{padding:.35rem .85rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
 .cat-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
 .cat-btn.active{background:rgba(200,151,43,.25);border-color:rgba(200,151,43,.5);color:#E8B84B}
 
-/* ADMIN PANEL TOGGLE */
+/* ADMIN */
 .admin-toggle-wrap{max-width:780px;margin:1.5rem auto 0;padding:0 clamp(1.5rem,5vw,4rem);text-align:right}
 .admin-toggle-btn{display:inline-flex;align-items:center;gap:6px;padding:.5rem 1.1rem;background:rgba(200,151,43,.12);border:1px solid rgba(200,151,43,.25);border-radius:9px;color:#C8972B;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .admin-toggle-btn:hover{background:rgba(200,151,43,.2)}
-
-/* ADMIN PANEL */
 .admin-panel{max-width:780px;margin:.75rem auto 0;padding:0 clamp(1.5rem,5vw,4rem);display:none}
 .admin-panel.open{display:block}
 .admin-card{background:#fff;border:1.5px solid rgba(200,151,43,.2);border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(11,30,61,.07)}
-.admin-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#0B1E3D;margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem}
+.admin-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#0B1E3D;margin-bottom:1.1rem}
 .admin-form{display:flex;flex-direction:column;gap:.85rem}
 .admin-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 @media(max-width:540px){.admin-row{grid-template-columns:1fr}}
 .admin-input{width:100%;padding:.65rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.85rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .2s}
 .admin-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
 .admin-textarea{resize:vertical;min-height:100px}
-.admin-select{appearance:none;cursor:pointer}
 .admin-submit{padding:.78rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(11,30,61,.25)}
 .admin-submit:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(11,30,61,.32)}
 .admin-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .admin-pass-wrap{position:relative}
 .admin-pass-toggle{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6B7C93;font-size:.85rem}
 
-/* NOTICES WRAP */
+/* NOTICES */
 .notices-wrap{max-width:780px;margin:1.75rem auto 3rem;padding:0 clamp(1.5rem,5vw,4rem)}
 .loading-state{text-align:center;padding:3rem}
 .loader{width:32px;height:32px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
@@ -118,7 +106,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
 .empty-text{font-size:.85rem;color:#6B7C93}
 
-/* NOTICE CARD */
 .notice-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.75rem;margin-bottom:1rem;position:relative;overflow:hidden;transition:all .3s}
 .notice-card:hover{box-shadow:0 8px 32px rgba(11,30,61,.08);transform:translateY(-2px)}
 .notice-card.featured{border:2px solid rgba(200,151,43,.25);background:linear-gradient(145deg,#fff 0%,#FFFBF0 100%)}
@@ -143,8 +130,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .notice-sig{margin-top:1.1rem;padding-top:.85rem;border-top:1px solid rgba(11,30,61,.07)}
 .sig-name{font-size:.88rem;font-weight:700;color:#0B1E3D}
 .sig-role{font-size:.76rem;color:#6B7C93;margin-top:.15rem}
-
-/* NOTICE FOOTER — share */
 .notice-footer{display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem;padding-top:.85rem;border-top:1px solid rgba(11,30,61,.07);flex-wrap:wrap;gap:.5rem}
 .nf-cat-tag{font-size:.7rem;font-weight:600;padding:2px 9px;border-radius:100px;background:#F0F2F8;color:#5a6e84}
 .nf-share{display:flex;gap:.5rem}
@@ -155,35 +140,24 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .nf-fb:hover{background:#1468D8}
 .nf-cp{background:rgba(11,30,61,.07);color:#0B1E3D}
 .nf-cp:hover{background:rgba(11,30,61,.12)}
-
-/* DELETE BTN (admin) */
-.notice-delete-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.15);color:#e74c3c;width:26px;height:26px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer;transition:all .2s}
-.notice-delete-btn:hover{background:rgba(231,76,60,.15)}
+.notice-delete-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.15);color:#e74c3c;width:28px;height:28px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;transition:all .2s}
+.notice-delete-btn:hover{background:rgba(231,76,60,.2)}
 .admin-mode .notice-delete-btn{display:flex}
 
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
-
-/* TOAST */
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div class="nav-brand-icon" style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="34" height="34" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
@@ -202,23 +176,19 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     </li>
     <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
     <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
-    <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
+    <li><a href="notice.html" class="active-link"><span class="nav-ico">📢</span> Notice</a></li>
     <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
     <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
     <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
   </ul>
 </nav>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
-  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center"><div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div></div>
+  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center">
+    <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+  </div>
   <div class="page-eyebrow">Stay Updated</div>
   <h1 class="page-title"><em>Notices</em> &amp; Announcements</h1>
   <p class="page-desc">Latest updates from AIS Alumni Association · Department of Accounting &amp; Information Systems</p>
@@ -231,26 +201,17 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
-<!-- ADMIN TOGGLE -->
 <div class="admin-toggle-wrap">
   <button class="admin-toggle-btn" onclick="toggleAdmin()">🔐 Admin Panel</button>
 </div>
 
-<!-- ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
   <div class="admin-card">
-    <div class="admin-title" style="display:flex;align-items:center;gap:.6rem"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#9a6c0a"/>
-  <circle cx="22" cy="19" r="2.5" fill="#9a6c0a"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-</svg> Post a New Notice</div>
+    <div class="admin-title">📤 Post a New Notice</div>
     <div id="adminAuth">
       <div class="admin-form">
         <div class="admin-pass-wrap">
-          <input type="password" id="adminPass" class="admin-input" placeholder="Admin password">
+          <input type="password" id="adminPass" class="admin-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAdmin()">
           <button class="admin-pass-toggle" onclick="toggleAdminPass()">👁️</button>
         </div>
         <button class="admin-submit" onclick="checkAdmin()">🔓 Unlock Admin</button>
@@ -259,30 +220,26 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     <div id="adminForm" style="display:none">
       <div class="admin-form">
         <input type="text" id="nTitle" class="admin-input" placeholder="Notice Title *">
-        <textarea id="nContent" class="admin-input admin-textarea" placeholder="Notice content... (supports basic HTML)"></textarea>
+        <textarea id="nContent" class="admin-input admin-textarea" placeholder="Notice content... (supports basic HTML like &lt;strong&gt;, &lt;br&gt;, &lt;ul&gt;&lt;li&gt;)"></textarea>
         <div class="admin-row">
-          <div>
-            <select id="nCategory" class="admin-input admin-select">
-              <option value="general">📢 General</option>
-              <option value="urgent">🔴 Urgent</option>
-              <option value="event">🎉 Event</option>
-              <option value="academic">📚 Academic</option>
-            </select>
-          </div>
-          <div>
-            <input type="text" id="nIcon" class="admin-input" placeholder="Icon emoji (e.g. 📢)" maxlength="2">
-          </div>
+          <select id="nCategory" class="admin-input">
+            <option value="general">📢 General</option>
+            <option value="urgent">🔴 Urgent</option>
+            <option value="event">🎉 Event</option>
+            <option value="academic">📚 Academic</option>
+          </select>
+          <input type="text" id="nIcon" class="admin-input" placeholder="Icon emoji (e.g. 📢)" maxlength="2">
         </div>
         <input type="text" id="nAuthor" class="admin-input" placeholder="Author name (optional)">
         <button class="admin-submit" id="postBtn" onclick="postNotice()">📤 Post Notice</button>
+        <button class="admin-submit" style="background:#e74c3c;box-shadow:none;margin-top:-.4rem" onclick="lockAdmin()">🔒 Lock Admin</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- NOTICES -->
 <div class="notices-wrap">
-  <div class="loading-state" id="loadingState"><div class="loader"></div></div>
+  <div class="loading-state" id="loadingState"><div class="loader"></div><p style="color:#6B7C93;font-size:.85rem;margin-top:.5rem">Loading notices...</p></div>
   <div id="noticesContainer"></div>
   <div class="empty-state" id="emptyState" style="display:none">
     <div class="empty-ico">📭</div>
@@ -291,14 +248,9 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
-<footer><span style="display:inline-flex;align-items:center;gap:8px;justify-content:center"><svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-</svg> © 2025 AIS Alumni Association</span> · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+<div class="toast" id="toast"></div>
+
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
 <div class="bot-nav">
   <div class="bot-nav-inner">
@@ -323,63 +275,208 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js">
-// NAV
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
-let allNotices=[];let currentCat='all';let isAdmin=false;
-const ADMIN_PASS='ais2025admin';
-document.querySelectorAll('.cat-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');currentCat=this.dataset.cat;renderNotices();});});
-function formatDate(d){return new Date(d).toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});}
-const catConfig={urgent:{badge:'urgent',badgeText:'🔴 URGENT',label:'Urgent'},event:{badge:'event',badgeText:'🎉 EVENT',label:'Event'},academic:{badge:'academic',badgeText:'📚 ACADEMIC',label:'Academic'},general:{badge:'general',badgeText:'📢 GENERAL',label:'General'},new:{badge:'new',badgeText:'✨ NEW',label:'New'}};
-function createCard(n,idx){
-  const cat=n.category||'general';const cfg=catConfig[cat]||catConfig.general;
-  const icon=n.icon||'📢';
-  const shareUrl=encodeURIComponent(window.location.href);
-  const shareText=encodeURIComponent('📢 '+n.title+' — AIS Alumni Notice: '+window.location.href);
-  return '<div class="notice-card '+(idx===0&&!n.id?'featured':'')+(cat==='urgent'?' urgent':'')+' reveal" data-cat="'+cat+'">'+(isAdmin&&n.id?'<button class="notice-delete-btn" onclick="deleteNotice(''+n.id+'')" title="Delete">✕</button>':'')+
-    '<div class="notice-badge badge-'+cfg.badge+'">'+cfg.badgeText+'</div>'+
-    '<div class="notice-hdr"><div class="notice-ico">'+icon+'</div><div style="flex:1"><div class="notice-title">'+n.title+'</div><div class="notice-meta"><span>📅 '+formatDate(n.date||n.createdAt||new Date())+'</span>'+(n.author?'<span>✍️ '+n.author+'</span>':'')+
-    '</div></div></div><div class="notice-body">'+n.content+'</div>'+
-    (n.signature?'<div class="notice-sig"><div class="sig-name">'+n.signature.name+'</div><div class="sig-role">'+n.signature.title+(n.signature.batch?' · Batch '+n.signature.batch:'')+'</div></div>':'')+
-    '<div class="notice-footer"><span class="nf-cat-tag">'+cfg.label+'</span><div class="nf-share">'+
-    '<button class="nf-share-btn nf-wa" onclick="window.open('https://wa.me/?text='+shareText+'','_blank')">Share</button>'+
-    '<button class="nf-share-btn nf-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+shareUrl+'','_blank')">Share</button>'+
-    '<button class="nf-share-btn nf-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Copied!'))">Copy</button></div></div></div>';
-}
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObserver.unobserve(e.target);}});},{threshold:.05});
-function renderNotices(){
-  document.getElementById('loadingState').style.display='none';
-  const featured={title:'Welcome to the New AIS Alumni Digital Platform!',icon:'🌟',date:new Date().toISOString(),category:'new',author:'Website Development Team',content:'<p><strong>Dear AIS Alumni Family,</strong></p><p>We are excited to announce that the <strong>AIS Alumni Website</strong> is now fully live!</p><div class="highlight-box">💜 Built with love for every AIS alumni by the development team.</div>',signature:{name:'Mst. Nawrin Nishad Tandra',title:'Website Developer & Designer',batch:'12'}};
-  let list=currentCat==='all'?[featured,...allNotices]:allNotices.filter(n=>(n.category||'general')===currentCat);
-  const container=document.getElementById('noticesContainer');
-  document.getElementById('emptyState').style.display=list.length?'none':'block';
-  if(!list.length){container.innerHTML='';return;}
-  container.innerHTML=list.map(createCard).join('');
-  if(isAdmin)container.classList.add('admin-mode');else container.classList.remove('admin-mode');
-  requestAnimationFrame(()=>{container.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');else revealObserver.observe(el);});});
-}
-function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('open');}
-function toggleAdminPass(){const p=document.getElementById('adminPass');p.type=p.type==='password'?'text':'password';}
-function checkAdmin(){if(document.getElementById('adminPass').value===ADMIN_PASS){isAdmin=true;document.getElementById('adminAuth').style.display='none';document.getElementById('adminForm').style.display='block';showToast('✅ Admin mode activated');renderNotices();}else{showToast('❌ Wrong password');}}
-async function postNotice(){
-  const title=document.getElementById('nTitle').value.trim();const content=document.getElementById('nContent').value.trim();
-  if(!title||!content){showToast('❌ Title আর content দিন');return;}
-  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
-  try{await db.collection('notices').add({title,content:content.replace(/\n/g,'<br>'),category:document.getElementById('nCategory').value,icon:document.getElementById('nIcon').value||'📢',author:document.getElementById('nAuthor').value.trim()||'Admin',date:new Date().toISOString(),createdAt:new Date().toISOString()});
-  document.getElementById('nTitle').value='';document.getElementById('nContent').value='';document.getElementById('nAuthor').value='';document.getElementById('nIcon').value='';showToast('✅ Notice posted!');}
-  catch(err){showToast('❌ Error: '+err.message);}
-  btn.disabled=false;btn.textContent='📤 Post Notice';
-}
-async function deleteNotice(id){if(!confirm('Delete করবেন?'))return;try{await db.collection('notices').doc(id).delete();showToast('🗑️ Deleted');}catch(err){showToast('❌ '+err.message);}}
-db.collection('notices').orderBy('date','desc').onSnapshot(snap=>{allNotices=[];snap.forEach(doc=>allNotices.push({id:doc.id,...doc.data()}));renderNotices();},err=>{console.error(err);renderNotices();});
+<script src="firebase.js"></script>
 
+<!-- Page Script — SEPARATE tag, NOT inside the src tag -->
+<script>
+// NAV
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// STATE
+let allNotices = [];
+let currentCat = 'all';
+let isAdmin = false;
+const ADMIN_PASS = 'ais2025admin';
+
+// FEATURED (always shown first)
+const featuredNotice = {
+  id: null,
+  title: 'Welcome to the New AIS Alumni Digital Platform!',
+  icon: '🌟',
+  date: new Date().toISOString(),
+  category: 'new',
+  author: 'Website Development Team',
+  content: `<p><strong>Dear AIS Alumni Family,</strong></p>
+  <p>We are excited to announce that the <strong>AIS Alumni Website</strong> is now fully live! This platform was built to keep our beloved AIS family stronger and more connected than ever.</p>
+  <div class="highlight-box"><p>💜 <strong>The story behind this website:</strong> Months of hard work, late-night coding, countless bug fixes, and boundless enthusiasm went into creating this platform — built with love for every AIS alumni.</p></div>
+  <p><strong>Features:</strong></p>
+  <ul><li>Alumni Database with search & filters</li><li>Smart Registration system</li><li>bKash Donation platform</li><li>Notice Board (real-time)</li><li>Events Calendar</li><li>Profile System</li></ul>`,
+  signature: { name: 'Mst. Nawrin Nishad Tandra', title: 'Website Developer & Designer', batch: '12' }
+};
+
+// CATEGORY CONFIG
+const catConfig = {
+  urgent:   { badge: 'urgent',   badgeText: '🔴 URGENT',   label: 'Urgent' },
+  event:    { badge: 'event',    badgeText: '🎉 EVENT',     label: 'Event' },
+  academic: { badge: 'academic', badgeText: '📚 ACADEMIC',  label: 'Academic' },
+  general:  { badge: 'general',  badgeText: '📢 GENERAL',   label: 'General' },
+  new:      { badge: 'new',      badgeText: '✨ NEW',        label: 'New' }
+};
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function createCard(n, idx) {
+  const cat = n.category || 'general';
+  const cfg = catConfig[cat] || catConfig.general;
+  const icon = n.icon || '📢';
+  const shareUrl = encodeURIComponent(window.location.href);
+  const shareText = encodeURIComponent('📢 ' + n.title + ' — AIS Alumni: ' + window.location.href);
+  const isFirst = idx === 0;
+  const isFeatured = !n.id; // featured notice has no Firestore id
+
+  return `<div class="notice-card ${isFeatured ? 'featured' : ''} ${cat === 'urgent' ? 'urgent' : ''} reveal" data-id="${n.id || ''}">
+    ${isAdmin && n.id ? `<button class="notice-delete-btn" onclick="deleteNotice('${n.id}')" title="Delete">✕</button>` : ''}
+    <div class="notice-badge badge-${cfg.badge}">${cfg.badgeText}</div>
+    <div class="notice-hdr">
+      <div class="notice-ico">${icon}</div>
+      <div style="flex:1">
+        <div class="notice-title">${n.title}</div>
+        <div class="notice-meta">
+          <span>📅 ${formatDate(n.date || new Date())}</span>
+          ${n.author ? `<span>✍️ ${n.author}</span>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="notice-body">${n.content}</div>
+    ${n.signature ? `<div class="notice-sig"><div class="sig-name">${n.signature.name}</div><div class="sig-role">${n.signature.title}${n.signature.batch ? ' · Batch ' + n.signature.batch : ''}</div></div>` : ''}
+    <div class="notice-footer">
+      <span class="nf-cat-tag">${cfg.label}</span>
+      <div class="nf-share">
+        <button class="nf-share-btn nf-wa" onclick="window.open('https://wa.me/?text=${shareText}','_blank')">📱 Share</button>
+        <button class="nf-share-btn nf-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${shareUrl}','_blank')">Facebook</button>
+        <button class="nf-share-btn nf-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Link copied!'))">Copy Link</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.05 });
+
+function renderNotices() {
+  document.getElementById('loadingState').style.display = 'none';
+
+  let list;
+  if (currentCat === 'all') {
+    list = [featuredNotice, ...allNotices];
+  } else if (currentCat === 'new') {
+    list = [featuredNotice];
+  } else {
+    list = allNotices.filter(n => (n.category || 'general') === currentCat);
+  }
+
+  const container = document.getElementById('noticesContainer');
+  const empty = document.getElementById('emptyState');
+
+  if (!list.length) { container.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  container.innerHTML = list.map(createCard).join('');
+  if (isAdmin) container.classList.add('admin-mode');
+  else container.classList.remove('admin-mode');
+
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('vis');
+      else revealObserver.observe(el);
+    });
+  });
+}
+
+// CATEGORY FILTER
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentCat = this.dataset.cat;
+    renderNotices();
+  });
+});
+
+// ADMIN
+function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+function toggleAdminPass() { const p = document.getElementById('adminPass'); p.type = p.type === 'password' ? 'text' : 'password'; }
+function checkAdmin() {
+  if (document.getElementById('adminPass').value === ADMIN_PASS) {
+    isAdmin = true;
+    document.getElementById('adminAuth').style.display = 'none';
+    document.getElementById('adminForm').style.display = 'block';
+    showToast('✅ Admin mode activated');
+    renderNotices();
+  } else {
+    showToast('❌ Wrong password');
+    document.getElementById('adminPass').value = '';
+  }
+}
+function lockAdmin() {
+  isAdmin = false;
+  document.getElementById('adminAuth').style.display = 'block';
+  document.getElementById('adminForm').style.display = 'none';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('adminPanel').classList.remove('open');
+  renderNotices();
+  showToast('🔒 Admin locked');
+}
+
+async function postNotice() {
+  const title = document.getElementById('nTitle').value.trim();
+  const content = document.getElementById('nContent').value.trim();
+  if (!title || !content) { showToast('❌ Title ও content দিন'); return; }
+  const btn = document.getElementById('postBtn');
+  btn.disabled = true; btn.textContent = 'Posting...';
+  try {
+    await db.collection('notices').add({
+      title,
+      content: content.replace(/\n/g, '<br>'),
+      category: document.getElementById('nCategory').value,
+      icon: document.getElementById('nIcon').value || '📢',
+      author: document.getElementById('nAuthor').value.trim() || 'AIS Admin',
+      date: new Date().toISOString(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('nTitle').value = '';
+    document.getElementById('nContent').value = '';
+    document.getElementById('nAuthor').value = '';
+    document.getElementById('nIcon').value = '';
+    showToast('✅ Notice posted!');
+  } catch (err) { showToast('❌ Error: ' + err.message); }
+  btn.disabled = false; btn.textContent = '📤 Post Notice';
+}
+
+async function deleteNotice(id) {
+  if (!confirm('এই notice delete করবেন?')) return;
+  try { await db.collection('notices').doc(id).delete(); showToast('🗑️ Deleted'); }
+  catch (err) { showToast('❌ ' + err.message); }
+}
+
+// FIREBASE REALTIME
+db.collection('notices').orderBy('date', 'desc').onSnapshot(snap => {
+  allNotices = [];
+  snap.forEach(doc => allNotices.push({ id: doc.id, ...doc.data() }));
+  renderNotices();
+}, err => {
+  console.error('Firebase error:', err);
+  allNotices = [];
+  renderNotices();
+});
 </script>
 </body>
 </html>
