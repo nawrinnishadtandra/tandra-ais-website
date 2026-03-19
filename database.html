@@ -91,22 +91,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .results-count{font-size:.83rem;color:#6B7C93}
 .results-count strong{color:#0B1E3D;font-weight:700}
 
-/* DIAGNOSTIC BOX */
-.diag-box{background:#fff;border:1.5px solid rgba(200,151,43,.25);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
-.diag-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D;margin-bottom:1rem}
-.diag-step{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem .85rem;border-radius:10px;background:#F9F7F3;margin-bottom:.5rem;font-size:.84rem}
-.diag-step.ok{background:#f0fff4;border:1px solid rgba(39,174,96,.2)}
-.diag-step.fail{background:#fff5f5;border:1px solid rgba(231,76,60,.2)}
-.diag-step.pending{background:#FFF6E0;border:1px solid rgba(200,151,43,.2)}
-.diag-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
-.diag-msg{color:#0B1E3D;line-height:1.6}
-.diag-msg code{background:rgba(11,30,61,.07);padding:1px 6px;border-radius:4px;font-size:.8rem;font-family:monospace}
-.rules-box{background:#1e1e2e;border-radius:10px;padding:1rem;margin:.75rem 0;font-family:monospace;font-size:.8rem;color:#cdd6f4;line-height:1.7;white-space:pre}
-.diag-btn{display:inline-flex;align-items:center;gap:6px;padding:.55rem 1.2rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.83rem;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;transition:all .2s}
-.diag-btn:hover{background:#1A3260}
-.diag-btn.green{background:#27ae60}
-.diag-btn.green:hover{background:#1e8449}
-
 .loading-state{text-align:center;padding:4rem}
 .loader{width:36px;height:36px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
 .empty-state{text-align:center;padding:4rem 2rem}
@@ -248,13 +232,9 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   <div class="results-bar">
     <div class="results-count" id="resultsCount">Loading...</div>
   </div>
-
-  <!-- DIAGNOSTIC BOX — only shows on error -->
-  <div id="diagBox" style="display:none"></div>
-
   <div class="loading-state" id="loadingState">
     <div class="loader"></div>
-    <p style="color:#6B7C93;font-size:.85rem;margin-top:.5rem">Connecting to database...</p>
+    <p style="color:#6B7C93;font-size:.85rem;margin-top:.5rem">Loading alumni...</p>
   </div>
   <div class="alumni-grid" id="alumniGrid"></div>
   <div class="empty-state" id="emptyState" style="display:none">
@@ -264,7 +244,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
-<footer>© 2025 AIS Alumni Association · University of Barishal</footer>
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
 <div class="modal-bg" id="modalBg">
   <div class="modal">
@@ -311,7 +291,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script>
-// Firebase init
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "AIzaSyDkdTTdK1Tp3oT5ff--GqYqwHMJHegKV8s",
@@ -326,206 +305,217 @@ const db = firebase.firestore();
 </script>
 
 <script>
+/* ✅ SAFE HELPER — যেকোনো value কে string এ convert করে
+   Firebase এ phone/batch/year number হিসেবে save থাকলেও কাজ করবে */
+function s(val) {
+  if (val === null || val === undefined) return '';
+  return String(val);
+}
+
+/* phone থেকে international format বানায় */
+function toIntl(phone) {
+  const num = s(phone).replace(/[^0-9]/g, '');
+  if (!num) return '';
+  return num.startsWith('0') ? '88' + num : num;
+}
+
 /* NAV */
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer();}});
-document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDrawer(); } });
+document.getElementById('modalBg').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
 
 /* STATE */
-let allAlumni=[],filteredAlumni=[];
-let activeBatch='all',activeJob='',activeSort='batch',searchQ='';
+let allAlumni = [], filteredAlumni = [];
+let activeBatch = 'all', activeJob = '', activeSort = 'batch', searchQ = '';
 
-/* URL batch */
-const urlBatch=new URLSearchParams(window.location.search).get('batch');
-if(urlBatch){
-  activeBatch=urlBatch;
-  document.querySelectorAll('.batch-btn').forEach(b=>b.classList.toggle('active',b.dataset.batch===urlBatch));
+/* URL batch param */
+const urlBatch = new URLSearchParams(window.location.search).get('batch');
+if (urlBatch) {
+  activeBatch = urlBatch;
+  document.querySelectorAll('.batch-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.batch === urlBatch));
 }
 
 /* SEARCH */
-let st=null;
-document.getElementById('searchInput').addEventListener('input',function(){
-  clearTimeout(st);st=setTimeout(()=>{searchQ=this.value.trim().toLowerCase();applyFilters();},250);
+let st = null;
+document.getElementById('searchInput').addEventListener('input', function () {
+  clearTimeout(st);
+  st = setTimeout(() => { searchQ = this.value.trim().toLowerCase(); applyFilters(); }, 250);
 });
 
-function setBatch(val,btn){
-  activeBatch=val;
-  document.querySelectorAll('.batch-btn').forEach(b=>b.classList.remove('active'));
+function setBatch(val, btn) {
+  activeBatch = val;
+  document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   applyFilters();
 }
 
-function matchJob(job,filter){
-  if(!filter)return true;
-  const j=(job||'').toLowerCase();
-  const map={
-    bank:['bank','nrbc','dutch','islami','sonali','janata','agrani','rupali','premier','mtbl','ucb','trust','brac bank'],
-    ca:['ca','audit','deloitte','acnabin','icab','chartered','accountant'],
-    govt:['government','govt','public','service','bcs','upazila','district','civil','ministry'],
-    ngo:['ngo','brac','grameen','asha','care','unicef','world vision'],
-    business:['business','entrepreneur','owner','ceo','managing','director','proprietor'],
-    education:['teacher','professor','lecturer','school','college','university','tutor'],
-    student:['student','studying','mba','pursuing','intern'],
+function matchJob(job, filter) {
+  if (!filter) return true;
+  const j = s(job).toLowerCase();
+  const map = {
+    bank: ['bank', 'nrbc', 'dutch', 'islami', 'sonali', 'janata', 'agrani', 'rupali', 'premier', 'mtbl', 'ucb', 'trust', 'brac bank'],
+    ca: ['ca', 'audit', 'deloitte', 'acnabin', 'icab', 'chartered', 'accountant'],
+    govt: ['government', 'govt', 'public', 'service', 'bcs', 'upazila', 'district', 'civil', 'ministry'],
+    ngo: ['ngo', 'brac', 'grameen', 'asha', 'care', 'unicef', 'world vision'],
+    business: ['business', 'entrepreneur', 'owner', 'ceo', 'managing', 'director', 'proprietor'],
+    education: ['teacher', 'professor', 'lecturer', 'school', 'college', 'university', 'tutor'],
+    student: ['student', 'studying', 'mba', 'pursuing', 'intern'],
   };
-  return (map[filter]||[]).some(k=>j.includes(k));
+  return (map[filter] || []).some(k => j.includes(k));
 }
 
-function applyFilters(){
-  activeJob=document.getElementById('jobFilter').value;
-  activeSort=document.getElementById('sortFilter').value;
-  let list=[...allAlumni];
-  if(activeBatch!=='all') list=list.filter(a=>String(a.batch)===String(activeBatch));
-  if(activeJob) list=list.filter(a=>matchJob(a.job,activeJob));
-  if(searchQ) list=list.filter(a=>
-    (a.name||'').toLowerCase().includes(searchQ)||
-    (a.job||'').toLowerCase().includes(searchQ)||
-    (a.phone||'').includes(searchQ)||
-    (a.email||'').toLowerCase().includes(searchQ)||
-    String(a.batch||'').includes(searchQ)
-  );
-  if(activeSort==='name') list.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  else if(activeSort==='year') list.sort((a,b)=>(+a.year||0)-(+b.year||0));
-  else list.sort((a,b)=>(+a.batch||99)-(+b.batch||99)||(a.name||'').localeCompare(b.name||''));
-  filteredAlumni=list;
+function applyFilters() {
+  activeJob = document.getElementById('jobFilter').value;
+  activeSort = document.getElementById('sortFilter').value;
+
+  let list = [...allAlumni];
+
+  if (activeBatch !== 'all')
+    list = list.filter(a => s(a.batch) === s(activeBatch));
+
+  if (activeJob)
+    list = list.filter(a => matchJob(a.job, activeJob));
+
+  if (searchQ)
+    list = list.filter(a =>
+      s(a.name).toLowerCase().includes(searchQ) ||
+      s(a.job).toLowerCase().includes(searchQ) ||
+      s(a.phone).includes(searchQ) ||
+      s(a.email).toLowerCase().includes(searchQ) ||
+      s(a.batch).includes(searchQ)
+    );
+
+  if (activeSort === 'name')
+    list.sort((a, b) => s(a.name).localeCompare(s(b.name)));
+  else if (activeSort === 'year')
+    list.sort((a, b) => (+s(a.year) || 0) - (+s(b.year) || 0));
+  else
+    list.sort((a, b) => (+s(a.batch) || 99) - (+s(b.batch) || 99) || s(a.name).localeCompare(s(b.name)));
+
+  filteredAlumni = list;
   render();
 }
 
-function render(){
-  document.getElementById('loadingState').style.display='none';
-  const grid=document.getElementById('alumniGrid');
-  const empty=document.getElementById('emptyState');
-  const bTag=activeBatch!=='all'
-    ?`<span style="display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.5rem">Batch ${activeBatch}</span>`:'';
-  document.getElementById('resultsCount').innerHTML=`<strong>${filteredAlumni.length}</strong> alumni found ${bTag}`;
-  if(!filteredAlumni.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  grid.innerHTML=filteredAlumni.map((a,i)=>{
-    const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const num=(a.phone||'').replace(/[^0-9]/g,'');
-    const intl=num.startsWith('0')?'88'+num:(num||'880000000000');
-    const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
-    return `<div class="alumni-card" onclick="openModal(${i})">
+function render() {
+  document.getElementById('loadingState').style.display = 'none';
+  const grid = document.getElementById('alumniGrid');
+  const empty = document.getElementById('emptyState');
+
+  const bTag = activeBatch !== 'all'
+    ? `<span style="display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.5rem">Batch ${activeBatch}</span>` : '';
+  document.getElementById('resultsCount').innerHTML =
+    `<strong>${filteredAlumni.length}</strong> alumni found ${bTag}`;
+
+  if (!filteredAlumni.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  grid.innerHTML = filteredAlumni.map((a, i) => {
+    const name = s(a.name) || '—';
+    const init = name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    const intl = toIntl(a.phone);
+    const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${name} ভাই/আপু, আমি AIS Alumni।`);
+
+    return `
+    <div class="alumni-card" onclick="openModal(${i})">
       <div class="card-top">
         <div class="card-av">${init}</div>
         <div style="min-width:0">
-          <div class="card-name">${a.name||'—'}</div>
-          <span class="card-batch">Batch ${a.batch||'?'} · ${a.year||'—'}</span>
+          <div class="card-name">${name}</div>
+          <span class="card-batch">Batch ${s(a.batch) || '?'} · ${s(a.year) || '—'}</span>
         </div>
       </div>
-      <div class="card-job">${a.job||'Not specified'}</div>
+      <div class="card-job">${s(a.job) || 'Not specified'}</div>
       <div class="card-actions">
-        <a class="ca-btn ca-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">📱 WhatsApp</a>
-        <a class="ca-btn ca-call" href="tel:${a.phone||''}" onclick="event.stopPropagation()">📞 Call</a>
+        <a class="ca-btn ca-wa"
+           href="https://wa.me/${intl}?text=${waMsg}"
+           target="_blank"
+           onclick="event.stopPropagation()">📱 WhatsApp</a>
+        <a class="ca-btn ca-call"
+           href="tel:${s(a.phone)}"
+           onclick="event.stopPropagation()">📞 Call</a>
       </div>
     </div>`;
   }).join('');
 }
 
-function openModal(idx){
-  const a=filteredAlumni[idx];if(!a)return;
-  const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('mAv').textContent=init;
-  document.getElementById('mName').textContent=a.name||'—';
-  document.getElementById('mBatch').textContent=`Batch ${a.batch||'?'} · ${a.year||'—'}`;
-  document.getElementById('mJob').textContent=a.job||'—';
-  document.getElementById('mPhone').textContent=a.phone||'—';
-  document.getElementById('mEmail').textContent=a.email||'—';
-  document.getElementById('mYear').textContent=a.year||'—';
-  const num=(a.phone||'').replace(/[^0-9]/g,'');
-  const intl=num.startsWith('0')?'88'+num:(num||'');
-  const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
-  let btns=`<a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">📱 WhatsApp</a>
-    <a class="mc-btn mc-call" href="tel:${a.phone||''}">📞 Call</a>`;
-  if(a.email) btns+=`<a class="mc-btn mc-email" href="mailto:${a.email}">📧 Send Email</a>`;
-  if(a.linkedin) btns+=`<a class="mc-btn mc-email" href="${a.linkedin}" target="_blank" style="grid-column:span 2">🔗 LinkedIn</a>`;
-  document.getElementById('mConnect').innerHTML=btns;
+function openModal(idx) {
+  const a = filteredAlumni[idx];
+  if (!a) return;
+
+  const name = s(a.name) || '—';
+  const init = name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  const intl = toIntl(a.phone);
+  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${name} ভাই/আপু, আমি AIS Alumni।`);
+
+  document.getElementById('mAv').textContent = init;
+  document.getElementById('mName').textContent = name;
+  document.getElementById('mBatch').textContent = `Batch ${s(a.batch) || '?'} · ${s(a.year) || '—'}`;
+  document.getElementById('mJob').textContent = s(a.job) || '—';
+  document.getElementById('mPhone').textContent = s(a.phone) || '—';
+  document.getElementById('mEmail').textContent = s(a.email) || '—';
+  document.getElementById('mYear').textContent = s(a.year) || '—';
+
+  let btns = `
+    <a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">📱 WhatsApp</a>
+    <a class="mc-btn mc-call" href="tel:${s(a.phone)}">📞 Call</a>`;
+  if (a.email) btns += `<a class="mc-btn mc-email" href="mailto:${s(a.email)}">📧 Send Email</a>`;
+  if (a.linkedin) btns += `<a class="mc-btn mc-email" href="${s(a.linkedin)}" target="_blank" style="grid-column:span 2">🔗 LinkedIn</a>`;
+
+  document.getElementById('mConnect').innerHTML = btns;
   document.getElementById('modalBg').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow='';}
-
-function exportCSV(){
-  if(!filteredAlumni.length){showToast('কোনো data নেই');return;}
-  const rows=[['Name','Batch','Year','Job','Phone','Email'],...filteredAlumni.map(a=>[a.name,a.batch,a.year,a.job,a.phone,a.email])];
-  const csv=rows.map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const link=document.createElement('a');
-  link.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  link.download=activeBatch==='all'?'ais-alumni-all.csv':`ais-alumni-batch${activeBatch}.csv`;
-  link.click();showToast('✅ CSV downloaded!');
+  document.body.style.overflow = 'hidden';
 }
 
-/* DIAGNOSTIC — error হলে কী করতে হবে বলে দেবে */
-function showDiag(errCode, errMsg){
-  document.getElementById('loadingState').style.display='none';
-  document.getElementById('resultsCount').textContent='';
-
-  let solution='';
-  if(errCode==='permission-denied'||errCode==='PERMISSION_DENIED'){
-    solution=`
-      <div class="diag-step fail">
-        <span class="diag-icon">🔴</span>
-        <div class="diag-msg"><strong>Firebase Rules সমস্যা</strong><br>
-        Rules দেওয়া হয়েছে কিন্তু এখনও propagate হয়নি, অথবা সঠিকভাবে save হয়নি।<br><br>
-        <strong>সমাধান — এই steps ঠিকমতো follow করুন:</strong><br>
-        ১. <a href="https://console.firebase.google.com/project/ais-alumni-uobd/firestore/rules" target="_blank" style="color:#C8972B">এই link এ click করুন</a> (Firebase Rules page)<br>
-        ২. সব কিছু delete করুন<br>
-        ৩. নিচের code copy করে paste করুন:<br>
-        </div>
-      </div>
-      <div class="rules-box">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}</div>
-      <div class="diag-step pending">
-        <span class="diag-icon">⚠️</span>
-        <div class="diag-msg">Paste করার পর <strong>"Publish"</strong> button এ click করুন। তারপর ১ মিনিট অপেক্ষা করে নিচের Retry button এ click করুন।</div>
-      </div>`;
-  } else {
-    solution=`
-      <div class="diag-step fail">
-        <span class="diag-icon">🔴</span>
-        <div class="diag-msg"><strong>Error:</strong> <code>${errCode}</code><br>${errMsg}</div>
-      </div>
-      <div class="diag-step pending">
-        <span class="diag-icon">💡</span>
-        <div class="diag-msg">Internet connection check করুন এবং Retry করুন।</div>
-      </div>`;
-  }
-
-  document.getElementById('diagBox').style.display='block';
-  document.getElementById('diagBox').innerHTML=`
-    <div class="diag-box">
-      <div class="diag-title">🔧 Database Connection সমস্যা</div>
-      ${solution}
-      <button class="diag-btn" onclick="loadAlumni()">🔄 Retry করুন</button>
-    </div>`;
+function closeModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
-/* LOAD */
-function loadAlumni(){
-  document.getElementById('loadingState').style.display='block';
-  document.getElementById('diagBox').style.display='none';
-  document.getElementById('alumniGrid').innerHTML='';
-  document.getElementById('emptyState').style.display='none';
-  document.getElementById('resultsCount').textContent='Loading...';
+function exportCSV() {
+  if (!filteredAlumni.length) { showToast('কোনো data নেই'); return; }
+  const rows = [
+    ['Name', 'Batch', 'Year', 'Job', 'Phone', 'Email'],
+    ...filteredAlumni.map(a => [s(a.name), s(a.batch), s(a.year), s(a.job), s(a.phone), s(a.email)])
+  ];
+  const csv = rows.map(r => r.map(v => `"${v.replace(/"/g, '""')}"`).join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  link.download = activeBatch === 'all' ? 'ais-alumni-all.csv' : `ais-alumni-batch${activeBatch}.csv`;
+  link.click();
+  showToast('✅ CSV downloaded!');
+}
+
+/* FIREBASE LOAD */
+function loadAlumni() {
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('alumniGrid').innerHTML = '';
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultsCount').textContent = 'Loading...';
 
   db.collection('alumni').get()
-    .then(snap=>{
-      allAlumni=[];
-      snap.forEach(doc=>allAlumni.push({id:doc.id,...doc.data()}));
+    .then(snap => {
+      allAlumni = [];
+      snap.forEach(doc => allAlumni.push({ id: doc.id, ...doc.data() }));
       applyFilters();
     })
-    .catch(err=>{
+    .catch(err => {
       console.error(err);
-      showDiag(err.code||'unknown', err.message||'Unknown error');
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('resultsCount').innerHTML =
+        `<span style="color:#e74c3c">❌ ${err.code || err.message}</span> — 
+         <a href="#" onclick="loadAlumni();return false" style="color:#C8972B;font-weight:600">Retry করুন</a>`;
     });
 }
 
