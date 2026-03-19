@@ -16,11 +16,13 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-/* TOP NAV */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes tPop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
+/* ── TOP NAV ── */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
@@ -45,8 +47,9 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-/* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+
+/* ── BOTTOM NAV ── */
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
@@ -69,15 +72,15 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-overlay.open{display:block}
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
-/* HERO */
+
+/* ── HERO ── */
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding-top:62px;overflow:hidden;background:linear-gradient(155deg,#EDF1FF 0%,#F5F2EC 50%,#FFF9ED 100%)}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.28;z-index:1}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(237,241,255,.88) 0%,rgba(237,241,255,.65) 42%,transparent 68%)}
-.hero-wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 300px;gap:clamp(2rem,4vw,4rem);align-items:center}
+.hero-wrap{position:relative;z-index:3;max-width:1100px;margin:0 auto;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 310px;gap:clamp(2rem,4vw,4rem);align-items:center}
 @media(max-width:768px){.hero-wrap{grid-template-columns:1fr;text-align:center}.card-col{display:none}.hero-actions{justify-content:center;flex-direction:column;align-items:center}.hero-share{justify-content:center}.stats-row{justify-content:center}}
 .pill{display:inline-flex;align-items:center;gap:6px;background:#FFF6E0;border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:3px 12px;font-size:10.5px;font-weight:600;color:#9a6c0a;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:#C8972B;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:700;color:#0B1E3D;line-height:1.08;margin-bottom:1rem}
 .hero-h1 em{font-style:italic;color:#C8972B}
 .hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.4rem}
@@ -114,30 +117,111 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .sn{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .sn span{color:#C8972B}
 .sl{font-size:10.5px;color:#6B7C93;margin-top:2px}
-/* CARD */
+
+/* ============================================================
+   PREMIUM MEMBERSHIP CARD
+   ============================================================ */
 .card-col{display:flex;align-items:center;justify-content:center}
-.card-wrap{will-change:transform}
-.card{width:295px;background:linear-gradient(148deg,#172E58 0%,#0B1E3D 55%,#0E2549 100%);border-radius:20px;padding:1.4rem 1.4rem 1.25rem;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 44px rgba(11,30,61,.36);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)}
-.cg1{position:absolute;top:-55px;right:-55px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%);pointer-events:none}
-.cg2{position:absolute;bottom:-45px;left:-45px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.28) 0%,transparent 68%);pointer-events:none}
-.c-hdr{display:flex;align-items:center;gap:9px;margin-bottom:12px;position:relative;z-index:1}
-.c-logo{width:40px;height:40px;border-radius:10px;background:rgba(200,151,43,.18);border:1px solid rgba(200,151,43,.36);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.c-ht{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;line-height:1.2}
-.c-hs{font-size:10px;color:rgba(200,151,43,.8);font-weight:500;margin-top:2px}
-.c-div{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);margin-bottom:11px;position:relative;z-index:1}
-.c-dept{background:rgba(200,151,43,.1);border:1px solid rgba(200,151,43,.25);border-radius:9px;padding:10px 12px;margin-bottom:10px;position:relative;z-index:1}
-.c-dlbl{font-size:8.5px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
-.c-dval{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:700;color:#F0CB5A;line-height:1.25}
-.c-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;position:relative;z-index:1}
-.c-ico{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.c-rl{font-size:8.5px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.06em;line-height:1}
-.c-rv{font-size:11.5px;color:rgba(255,255,255,.9);font-weight:500;margin-top:2px}
-.c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07);position:relative;z-index:1}
-.c-est{font-size:9.5px;color:rgba(255,255,255,.35)}
-.c-est strong{color:rgba(255,255,255,.6)}
-.c-badge{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;font-size:8.5px;font-weight:800;letter-spacing:.07em;padding:4px 10px;border-radius:100px;text-transform:uppercase;box-shadow:0 3px 10px rgba(200,151,43,.4)}
-/* STATS BAR */
+.card-wrap{will-change:transform;cursor:pointer;perspective:1000px}
+
+@keyframes cardFloat{
+  0%,100%{transform:translateY(0) rotateX(0deg) rotateY(0deg)}
+  25%{transform:translateY(-10px) rotateX(2deg) rotateY(-1deg)}
+  75%{transform:translateY(-6px) rotateX(-1deg) rotateY(1deg)}
+}
+@keyframes shimmerMove{
+  0%{transform:translateX(-100%) skewX(-15deg)}
+  100%{transform:translateX(250%) skewX(-15deg)}
+}
+@keyframes pulseGlow{
+  0%,100%{opacity:.18}
+  50%{opacity:.35}
+}
+
+.membership-card{
+  width:300px;
+  background:linear-gradient(148deg,#0d1f3e 0%,#0B1E3D 40%,#102244 70%,#0e1f3a 100%);
+  border-radius:22px;
+  padding:1.5rem 1.4rem 1.3rem;
+  border:1px solid rgba(200,151,43,.22);
+  box-shadow:
+    0 24px 56px rgba(11,30,61,.45),
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 1px 0 rgba(255,255,255,.12) inset;
+  position:relative;
+  overflow:hidden;
+  animation:cardFloat 6s ease-in-out infinite;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.membership-card:hover{
+  box-shadow:
+    0 32px 72px rgba(11,30,61,.55),
+    0 0 40px rgba(200,151,43,.15),
+    0 0 0 1px rgba(200,151,43,.3) inset;
+  animation-play-state:paused;
+}
+.membership-card:active{transform:scale(.97) !important}
+
+/* Shimmer sweep */
+.mc-shimmer{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.06) 50%,transparent 60%);
+  animation:shimmerMove 4s ease-in-out infinite;
+  pointer-events:none;z-index:10;border-radius:22px;
+}
+
+/* Glow blobs */
+.mc-glow1{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.22) 0%,transparent 65%);animation:pulseGlow 3s ease-in-out infinite;pointer-events:none}
+.mc-glow2{position:absolute;bottom:-50px;left:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.3) 0%,transparent 70%);pointer-events:none}
+
+/* Watermark logo center */
+.mc-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:.055;z-index:1}
+
+/* Top bar */
+.mc-top{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;position:relative;z-index:2}
+.mc-logo-wrap{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,rgba(200,151,43,.2),rgba(200,151,43,.1));border:1px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(200,151,43,.2)}
+.mc-brand{flex:1}
+.mc-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff;line-height:1.15}
+.mc-brand-uni{font-size:9px;color:rgba(200,151,43,.75);font-weight:600;letter-spacing:.04em;margin-top:2px}
+.mc-member-badge{background:linear-gradient(135deg,rgba(200,151,43,.25),rgba(200,151,43,.12));border:1px solid rgba(200,151,43,.4);border-radius:6px;padding:3px 9px;font-size:8px;font-weight:800;color:#E8B84B;letter-spacing:.12em}
+
+/* Divider */
+.mc-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(200,151,43,.3),rgba(255,255,255,.08),rgba(200,151,43,.3),transparent);margin-bottom:1rem;position:relative;z-index:2}
+
+/* Department strip */
+.mc-dept-strip{background:linear-gradient(135deg,rgba(200,151,43,.12),rgba(200,151,43,.06));border:1px solid rgba(200,151,43,.2);border-radius:10px;padding:10px 12px;margin-bottom:1rem;position:relative;z-index:2}
+.mc-dept-label{font-size:7.5px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.mc-dept-label::before{content:'';width:12px;height:1px;background:rgba(200,151,43,.5)}
+.mc-dept-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#F0CB5A;line-height:1.25}
+
+/* Info rows */
+.mc-rows{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem;position:relative;z-index:2}
+.mc-row{display:flex;align-items:center;gap:.6rem}
+.mc-row-ico{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mc-row-lbl{font-size:7.5px;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.1em;line-height:1}
+.mc-row-val{font-size:12px;color:rgba(255,255,255,.88);font-weight:600;margin-top:2px}
+
+/* Footer */
+.mc-footer{display:flex;align-items:center;gap:.75rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:2}
+
+/* SIM chip */
+.mc-chip{width:30px;height:22px;border-radius:4px;background:linear-gradient(135deg,#b8860b,#daa520,#b8860b);border:1px solid rgba(255,215,0,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.mc-chip-inner{width:18px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.3);background:linear-gradient(135deg,#c8a000,#f0c040,#c8a000);position:relative}
+.mc-chip-inner::after{content:'';position:absolute;top:3px;left:3px;right:3px;height:1px;background:rgba(0,0,0,.25)}
+.mc-chip-inner::before{content:'';position:absolute;bottom:3px;left:3px;right:3px;height:1px;background:rgba(0,0,0,.25)}
+
+.mc-footer-label{font-size:7.5px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.mc-footer-val{font-size:11px;color:rgba(255,255,255,.82);font-weight:600}
+.mc-footer-val::before{content:'● ';color:#4ade80;font-size:8px}
+
+/* Join Now hint */
+.mc-join-hint{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#E8B84B;opacity:.7;transition:opacity .2s}
+.membership-card:hover .mc-join-hint{opacity:1}
+
+/* Contactless top-right */
+.mc-contactless{position:absolute;top:1.4rem;right:1.4rem;z-index:3;opacity:.6}
+
+/* ── STATS BAR ── */
 .sbar{background:#0B1E3D;padding:clamp(1.75rem,3vw,2.75rem) clamp(1.5rem,5vw,4rem)}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.85rem;max-width:1100px;margin:0 auto}
 .sc{text-align:center;padding:1.1rem .85rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:11px;transition:all .3s;cursor:pointer;text-decoration:none;display:block}
@@ -145,7 +229,8 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .sc-i{font-size:1.3rem;margin-bottom:5px}
 .sc-n{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#E8B84B;line-height:1;margin-bottom:3px}
 .sc-l{font-size:10.5px;color:rgba(255,255,255,.5)}
-/* ABOUT */
+
+/* ── ABOUT ── */
 .about{background:#fff;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
 @media(max-width:768px){.about-inner{grid-template-columns:1fr;gap:2rem}}
@@ -169,19 +254,20 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .about-list li{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem 0;border-bottom:1px solid rgba(11,30,61,.07);font-size:.88rem;color:#3a4f6a;line-height:1.6}
 .about-list li:last-child{border-bottom:none}
 .ali-icon{width:24px;height:24px;border-radius:6px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;margin-top:.1rem}
-/* TESTIMONIALS */
+
+/* ── TESTIMONIALS ── */
 .testi{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .testi-inner{max-width:1100px;margin:0 auto}
 .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem;margin-top:1.75rem}
 .tcard{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.5rem;position:relative;transition:all .3s}
 .tcard:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.08)}
-.tcard::before{content:'½D';font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:rgba(200,151,43,.15);position:absolute;top:.5rem;right:1rem;line-height:1}
 .tcard-text{font-size:.88rem;color:#3a4f6a;line-height:1.75;margin-bottom:1.1rem;font-style:italic}
 .tcard-footer{display:flex;align-items:center;gap:.75rem}
 .tcard-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
 .tcard-name{font-size:.88rem;font-weight:600;color:#0B1E3D}
 .tcard-batch{font-size:.76rem;color:#6B7C93;margin-top:2px}
-/* FEATURES */
+
+/* ── FEATURES ── */
 .feats{background:#fff;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .feats-inner{max-width:1100px;margin:0 auto}
 .feats-head{margin-bottom:2rem}
@@ -194,7 +280,8 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .fi{width:38px;height:38px;border-radius:9px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:9px}
 .ft{font-family:'Cormorant Garamond',serif;font-size:.97rem;font-weight:700;color:#0B1E3D;margin-bottom:4px}
 .fd{font-size:.83rem;color:#6B7C93;line-height:1.62}
-/* BATCH CHART */
+
+/* ── BATCH CHART ── */
 .batch-section{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
 .batch-inner{max-width:1100px;margin:0 auto}
 .batch-chart{margin-top:1.75rem;display:flex;flex-direction:column;gap:.55rem}
@@ -207,7 +294,8 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .batch-legend{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
 .bl-item{display:flex;align-items:center;gap:.45rem;font-size:.78rem;color:#6B7C93}
 .bl-dot{width:12px;height:12px;border-radius:3px}
-/* CTA */
+
+/* ── CTA ── */
 .cta{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem);text-align:center;position:relative;overflow:hidden}
 .cta::before{content:'';position:absolute;top:-70px;left:50%;transform:translateX(-50%);width:480px;height:320px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,151,43,.1) 0%,transparent 70%);pointer-events:none}
 .cta-inner{position:relative;max-width:600px;margin:0 auto}
@@ -224,16 +312,15 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
-/* TEACHER MODALS */
+
+/* ── TEACHER MODALS ── */
 .t-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .t-modal-bg.open{display:flex}
 .t-modal{background:#fff;border-radius:22px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:tPop .3s cubic-bezier(.34,1.56,.64,1)}
-@keyframes tPop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .t-modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:space-between}
 .t-modal-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#E8B84B;margin-bottom:.3rem}
 .t-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff}
 .t-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.t-close:hover{background:rgba(255,255,255,.28)}
 .t-modal-body{padding:1.5rem}
 .t-grid{display:flex;flex-direction:column;gap:.6rem}
 .t-card{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.06);transition:all .2s;cursor:pointer}
@@ -261,6 +348,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .td-lbl{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
 .td-val{font-size:.84rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.35}
 .td-val a{color:#C8972B;text-decoration:none}
+
 /* SHARE MODAL */
 .share-modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .share-modal-bg.open{display:flex}
@@ -287,20 +375,15 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div class="nav-brand-icon" style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="34" height="34" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.html"><span class="nav-ico">🏠</span> Home</a></li>
-    <li class="has-drop"><a href="database.html"><span class="nav-ico">👥</span> Alumni Database ▾</a>
+    <li><a href="index.html">🏠 Home</a></li>
+    <li class="has-drop"><a href="database.html">👥 Alumni Database ▾</a>
       <div class="drop-menu">
         <a href="database.html">All Batches</a>
         <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
@@ -311,19 +394,21 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
       </div>
     </li>
-    <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
-    <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
-    <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
-    <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
-    <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
-    <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
+    <li><a href="faculty.html">👨‍🏫 Faculty</a></li>
+    <li><a href="donation.html">💰 Donation</a></li>
+    <li><a href="notice.html">📢 Notice</a></li>
+    <li><a href="event.html">🎉 Events</a></li>
+    <li><a href="register.html">📝 Register</a></li>
+    <li><a href="profile.html" class="nav-cta">👤 My Profile</a></li>
   </ul>
 </nav>
 
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-overlay"></div>
   <div class="hero-wrap">
+    <!-- LEFT -->
     <div>
       <div class="pill"><span class="pill-dot"></span>Accounting &amp; Information Systems</div>
       <h1 class="hero-h1">Connecting the <em>AIS</em> Family,<br>Building Our Legacy</h1>
@@ -341,15 +426,15 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       </div>
       <div class="hero-share">
         <button class="sh-btn sh-wa" onclick="shareWA()">
-          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg></div>
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg></div>
           <div class="sh-txt"><div class="sh-lbl">Share on</div><div class="sh-val">WhatsApp</div></div>
         </button>
         <button class="sh-btn sh-fb" onclick="shareFB()">
-          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></div>
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></div>
           <div class="sh-txt"><div class="sh-lbl">Share on</div><div class="sh-val">Facebook</div></div>
         </button>
         <button class="sh-btn sh-cp" onclick="copyLink()">
-          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1E3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+          <div class="sh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1E3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
           <div class="sh-txt"><div class="sh-lbl">Copy</div><div class="sh-val">Invite Link</div></div>
         </button>
       </div>
@@ -359,23 +444,110 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <div><div class="sn">8<span>+</span></div><div class="sl">Faculty Members</div></div>
       </div>
     </div>
+
+    <!-- RIGHT — PREMIUM MEMBERSHIP CARD -->
     <div class="card-col">
-      <div class="card-wrap">
-        <div class="card">
-          <div class="cg1"></div><div class="cg2"></div>
-          <div class="c-hdr"><div class="c-logo" style="background:rgba(200,151,43,.18);border:1px solid rgba(200,151,43,.36);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div><div><div class="c-ht">AIS Alumni Card</div><div class="c-hs">University of Barishal</div></div></div>
-          <div class="c-div"></div>
-          <div class="c-dept"><div class="c-dlbl">Department</div><div class="c-dval">Accounting &amp; Information Systems</div></div>
-          <div class="c-row"><div class="c-ico">👤</div><div><div class="c-rl">Member Type</div><div class="c-rv">Alumni Network</div></div></div>
-          <div class="c-row"><div class="c-ico">📍</div><div><div class="c-rl">Institution</div><div class="c-rv">University of Barishal</div></div></div>
-          <div class="c-foot"><div class="c-est">Est. <strong>2015–2016</strong></div><div class="c-badge">Active Member</div></div>
+      <div class="card-wrap" onclick="window.location.href='register.html'" id="cardWrap">
+        <div class="membership-card" id="memberCard">
+
+          <!-- Effects -->
+          <div class="mc-shimmer"></div>
+          <div class="mc-glow1"></div>
+          <div class="mc-glow2"></div>
+
+          <!-- Big watermark logo -->
+          <div class="mc-watermark">
+            <svg width="130" height="130" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
+              <circle cx="6" cy="19" r="2.5" fill="#C8972B"/>
+              <circle cx="22" cy="19" r="2.5" fill="#C8972B"/>
+              <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="#C8972B" stroke-width="1.2"/>
+              <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="#C8972B" stroke-width="1.2"/>
+              <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="#C8972B" stroke-width="1.2"/>
+            </svg>
+          </div>
+
+          <!-- Contactless -->
+          <div class="mc-contactless">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12.5c0-3.31 2.69-6 6-6" stroke="rgba(200,151,43,.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M3 12.5c0-4.42 3.58-8 8-8" stroke="rgba(200,151,43,.18)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M7 12.5c0-2.21 1.79-4 4-4" stroke="rgba(200,151,43,.48)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="11" cy="12.5" r="1.5" fill="#E8B84B" opacity=".65"/>
+            </svg>
+          </div>
+
+          <!-- Top: logo + brand -->
+          <div class="mc-top">
+            <div class="mc-logo-wrap">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
+                <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".9"/>
+                <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".9"/>
+                <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.65)" stroke-width="1.3"/>
+                <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.65)" stroke-width="1.3"/>
+                <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.65)" stroke-width="1.3"/>
+              </svg>
+            </div>
+            <div class="mc-brand">
+              <div class="mc-brand-name">AIS Alumni</div>
+              <div class="mc-brand-uni">University of Barishal</div>
+            </div>
+            <div class="mc-member-badge">MEMBER</div>
+          </div>
+
+          <div class="mc-divider"></div>
+
+          <!-- Department -->
+          <div class="mc-dept-strip">
+            <div class="mc-dept-label">DEPARTMENT</div>
+            <div class="mc-dept-name">Accounting &amp;<br>Information Systems</div>
+          </div>
+
+          <!-- Info rows -->
+          <div class="mc-rows">
+            <div class="mc-row">
+              <div class="mc-row-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.8)" stroke-width="2" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>
+              </div>
+              <div>
+                <div class="mc-row-lbl">BATCHES</div>
+                <div class="mc-row-val">Batch 1 — 12</div>
+              </div>
+            </div>
+            <div class="mc-row">
+              <div class="mc-row-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.8)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div>
+                <div class="mc-row-lbl">ALUMNI NETWORK</div>
+                <div class="mc-row-val" id="cardAlumniCount">Growing</div>
+              </div>
+            </div>
+            <div class="mc-row">
+              <div class="mc-row-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.8)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div>
+                <div class="mc-row-lbl">ESTABLISHED</div>
+                <div class="mc-row-val">2015 – 2016</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer: chip + status + join -->
+          <div class="mc-footer">
+            <div class="mc-chip"><div class="mc-chip-inner"></div></div>
+            <div style="flex:1">
+              <div class="mc-footer-label">MEMBERSHIP STATUS</div>
+              <div class="mc-footer-val">Active Member</div>
+            </div>
+            <div class="mc-join-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span style="font-size:10px;font-weight:700;color:#E8B84B">Join</span>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -428,33 +600,15 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     <div class="testi-grid">
       <div class="tcard reveal">
         <p class="tcard-text">"AIS Department এর শেখানো foundation আমাকে banking sector এ এগিয়ে যেতে সাহায্য করেছে। এই alumni network টা আমাদের সবসময় connected রাখে।"</p>
-        <div class="tcard-footer">
-          <div class="tcard-avatar">NM</div>
-          <div>
-            <div class="tcard-name">Md. Abu Nayem Mridha</div>
-            <div class="tcard-batch">Batch 1 · Executive Officer, NRBC Bank</div>
-          </div>
-        </div>
+        <div class="tcard-footer"><div class="tcard-avatar">NM</div><div><div class="tcard-name">Md. Abu Nayem Mridha</div><div class="tcard-batch">Batch 1 · Executive Officer, NRBC Bank</div></div></div>
       </div>
       <div class="tcard reveal">
         <p class="tcard-text">"AIS থেকে পড়াশোনা করে Deloitte Bangladesh এ CA করার সুযোগ পেয়েছি। এই department আমার career এর সবচেয়ে বড় stepping stone।"</p>
-        <div class="tcard-footer">
-          <div class="tcard-avatar">SF</div>
-          <div>
-            <div class="tcard-name">Sheikh Md. Farhan Hasin Haque</div>
-            <div class="tcard-batch">Batch 7 · Pursuing CA, Deloitte Bangladesh</div>
-          </div>
-        </div>
+        <div class="tcard-footer"><div class="tcard-avatar">SF</div><div><div class="tcard-name">Sheikh Md. Farhan Hasin Haque</div><div class="tcard-batch">Batch 7 · Pursuing CA, Deloitte Bangladesh</div></div></div>
       </div>
       <div class="tcard reveal">
         <p class="tcard-text">"Sonali Bank এ যোগ দেওয়ার পেছনে AIS Department এর accounting এর শক্তিশালী শিক্ষার বড় ভূমিকা আছে। এই community নিয়ে গর্বিত।"</p>
-        <div class="tcard-footer">
-          <div class="tcard-avatar">AK</div>
-          <div>
-            <div class="tcard-name">Arjun Kumar Mandal</div>
-            <div class="tcard-batch">Batch 1 · Sonali Bank</div>
-          </div>
-        </div>
+        <div class="tcard-footer"><div class="tcard-avatar">AK</div><div><div class="tcard-name">Arjun Kumar Mandal</div><div class="tcard-batch">Batch 1 · Sonali Bank</div></div></div>
       </div>
     </div>
   </div>
@@ -503,15 +657,14 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
-<footer><span style="display:inline-flex;align-items:center;gap:8px;justify-content:center"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-</svg> © 2025 AIS Alumni Association</span> · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra</footer>
+<footer>
+  <span style="display:inline-flex;align-items:center;gap:8px;justify-content:center">
+    <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#C8972B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/></svg>
+    © 2025 AIS Alumni Association
+  </span> · Department of Accounting &amp; Information Systems · University of Barishal &nbsp;·&nbsp; Designed with ❤️ by Mst. Nawrin Nishad Tandra
+</footer>
 
+<!-- Share Modal -->
 <div class="share-modal-bg" id="shareModal">
   <div class="share-modal">
     <div class="sm-hdr"><div class="sm-title">Alumni Invite করুন</div><button class="sm-close" onclick="closeShareModal()">✕</button></div>
@@ -531,6 +684,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<!-- Teacher Modal -->
 <div class="t-modal-bg" id="teacherModal">
   <div class="t-modal">
     <div class="t-modal-hdr">
@@ -540,7 +694,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     <div class="t-modal-body"><div class="t-grid" id="teacherGrid"></div></div>
   </div>
 </div>
-
 <div class="t-detail-bg" id="tDetailBg">
   <div class="t-detail">
     <div class="t-detail-hdr">
@@ -558,6 +711,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<!-- Bottom Nav -->
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn active"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -586,6 +740,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <script src="firebase.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+/* NAV */
 document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
 window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
 function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
@@ -605,15 +760,16 @@ function closeShareModal(){document.getElementById('shareModal').classList.remov
 function copyShareLink(){navigator.clipboard.writeText(SITE_URL).then(()=>{const b=document.querySelector('.sm-link-box button');b.textContent='✅ Copied!';setTimeout(()=>{b.textContent='Copy';},2000);});}
 function copyInvite(){navigator.clipboard.writeText(document.getElementById('inviteText').textContent).then(()=>{const b=document.querySelector('.sm-invite-copy');b.textContent='✅ Copied!';setTimeout(()=>{b.textContent='Message Copy করুন';},2000);});}
 
+/* TEACHERS */
 const teachers=[
-  {init:'SC',name:'Sujan Chandra Paul FCA',  desg:'Associate Professor',chair:true, phone:'01914636366',    email:'sujan9099@gmail.com,scpaul@bu.ac.bd'},
-  {init:'MH',name:'Md. Harun-Or-Rosid',       desg:'Associate Professor',chair:false,phone:'01914200927',    email:'mhorosid@bu.ac.bd'},
-  {init:'PB',name:'Dr. Probir Kumar Bhowmik', desg:'Associate Professor',chair:false,phone:'+8801913518309',email:'probir9012@gmail.com,pkbhowmik@bu.ac.bd'},
-  {init:'AB',name:'Abdul Alim Baser',          desg:'Associate Professor',chair:false,phone:'+8801814750380',email:'alim.baser@gmail.com'},
-  {init:'MS',name:'Dr. Mallika Saha',          desg:'Associate Professor',chair:false,phone:'+8801911533578',email:'msaha@bu.ac.bd'},
-  {init:'MR',name:'Mohammad Rakibul Islam',    desg:'Associate Professor',chair:false,phone:'8801679069797', email:'rakib.rajib13004@gmail.com'},
-  {init:'MA',name:'Md. Asiqur Rahman',         desg:'Assistant Professor',chair:false,phone:'01920070922',   email:'rubelanni@gmail.com'},
-  {init:'SH',name:'Shahadat Hossain',          desg:'Assistant Professor',chair:false,phone:'01923099762',   email:'shawon17100@gmail.com'},
+  {init:'SC',name:'Sujan Chandra Paul FCA',desg:'Associate Professor',chair:true,phone:'01914636366',email:'sujan9099@gmail.com,scpaul@bu.ac.bd'},
+  {init:'MH',name:'Md. Harun-Or-Rosid',desg:'Associate Professor',chair:false,phone:'01914200927',email:'mhorosid@bu.ac.bd'},
+  {init:'PB',name:'Dr. Probir Kumar Bhowmik',desg:'Associate Professor',chair:false,phone:'+8801913518309',email:'probir9012@gmail.com,pkbhowmik@bu.ac.bd'},
+  {init:'AB',name:'Abdul Alim Baser',desg:'Associate Professor',chair:false,phone:'+8801814750380',email:'alim.baser@gmail.com'},
+  {init:'MS',name:'Dr. Mallika Saha',desg:'Associate Professor',chair:false,phone:'+8801911533578',email:'msaha@bu.ac.bd'},
+  {init:'MR',name:'Mohammad Rakibul Islam',desg:'Associate Professor',chair:false,phone:'8801679069797',email:'rakib.rajib13004@gmail.com'},
+  {init:'MA',name:'Md. Asiqur Rahman',desg:'Assistant Professor',chair:false,phone:'01920070922',email:'rubelanni@gmail.com'},
+  {init:'SH',name:'Shahadat Hossain',desg:'Assistant Professor',chair:false,phone:'01923099762',email:'shawon17100@gmail.com'},
 ];
 function buildTeacherGrid(){
   const g=document.getElementById('teacherGrid');if(!g)return;
@@ -632,6 +788,42 @@ function openTDetail(i){
 function closeTDetail(){document.getElementById('tDetailBg').classList.remove('open');}
 buildTeacherGrid();
 
+/* ── PREMIUM CARD TILT ON MOUSE ── */
+(function(){
+  const wrap = document.getElementById('cardWrap');
+  const card = document.getElementById('memberCard');
+  if (!wrap || !card) return;
+
+  wrap.addEventListener('mousemove', e => {
+    const rect = wrap.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `
+      translateY(0px)
+      rotateX(${-y * 14}deg)
+      rotateY(${x * 14}deg)
+      scale(1.03)
+    `;
+    card.style.animationPlayState = 'paused';
+    card.style.boxShadow = `
+      ${-x * 20}px ${-y * 20}px 60px rgba(11,30,61,.5),
+      0 0 50px rgba(200,151,43,${0.1 + Math.abs(x) * 0.15})
+    `;
+  });
+
+  wrap.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.animationPlayState = 'running';
+    card.style.boxShadow = '';
+  });
+
+  wrap.addEventListener('click', () => {
+    card.style.transform = 'scale(.96)';
+    setTimeout(() => { window.location.href = 'register.html'; }, 150);
+  });
+})();
+
+/* ── THREE.JS BACKGROUND ── */
 (function(){
   const cv=document.getElementById('hero-canvas');
   function sz(){cv.width=cv.parentElement.offsetWidth;cv.height=cv.parentElement.offsetHeight;}
@@ -679,16 +871,11 @@ buildTeacherGrid();
   })();
 })();
 
-(function(){
-  const wrap=document.querySelector('.card-wrap');if(!wrap)return;
-  let start=null;
-  function step(ts){if(!start)start=ts;const y=Math.sin(((ts-start)/1000)*(2*Math.PI/5))*-14;wrap.style.transform='translateY('+y.toFixed(3)+'px)';requestAnimationFrame(step);}
-  requestAnimationFrame(step);
-})();
-
+/* REVEAL */
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
+/* BATCH CHART */
 function renderBatchChart(data){
   const chart=document.getElementById('batchChart');if(!chart)return;
   const max=Math.max(...Object.values(data),1);
@@ -700,10 +887,14 @@ function renderBatchChart(data){
   requestAnimationFrame(()=>chart.querySelectorAll('.brow-bar').forEach(bar=>{bar.style.width=bar.dataset.pct+'%';}));
 }
 
+/* FIREBASE */
 try{
   db.collection('alumni').onSnapshot(snap=>{
     const n=snap.size;
     ['heroCount','statCount'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=n;});
+    // Update card alumni count
+    const cc=document.getElementById('cardAlumniCount');
+    if(cc)cc.textContent=n+' Members';
     const bm={};
     snap.forEach(doc=>{const d=doc.data();const b=d.batch||d.batchNo||d.batch_no||'';if(b)bm[b]=(bm[b]||0)+1;});
     renderBatchChart(Object.keys(bm).length>0?bm:{1:12,2:18,3:22,4:25,5:20,6:28,7:30,8:26,9:24,10:19,11:15,12:8});
