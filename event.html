@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Events | AIS Alumni — University of Barishal</title>
 <meta name="description" content="Upcoming and past events from AIS Alumni Association, University of Barishal.">
-<meta name="description" content="Upcoming alumni events from AIS Alumni Association, University of Barishal.">
 <meta name="keywords" content="AIS Alumni, University of Barishal, Accounting Information Systems">
 <meta property="og:title" content="Events | AIS Alumni — University of Barishal">
-<meta property="og:description" content="Upcoming alumni events from AIS Alumni Association, University of Barishal.">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -17,19 +15,16 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-/* TOP NAV */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
-.nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
+.nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
 .nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
-.nav-cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -46,8 +41,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-/* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
@@ -62,7 +56,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
 .drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
 .drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.drawer-item:active{background:#F9F7F3}
 .drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
 .drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
 .drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
@@ -71,24 +64,18 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* PAGE HEADER */
 .page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
 .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
 .page-title em{font-style:italic;color:#E8B84B}
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 1.75rem;position:relative;z-index:1}
-/* TABS */
 .tab-row{display:flex;gap:.5rem;justify-content:center;position:relative;z-index:1}
 .tab-btn{padding:.38rem 1.1rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
 .tab-btn.active{background:rgba(200,151,43,.25);border-color:rgba(200,151,43,.5);color:#E8B84B}
 
-/* ADMIN TOGGLE */
 .admin-toggle-wrap{max-width:780px;margin:1.5rem auto 0;padding:0 clamp(1.5rem,5vw,4rem);text-align:right}
 .admin-toggle-btn{display:inline-flex;align-items:center;gap:6px;padding:.5rem 1.1rem;background:rgba(200,151,43,.12);border:1px solid rgba(200,151,43,.25);border-radius:9px;color:#C8972B;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
-.admin-toggle-btn:hover{background:rgba(200,151,43,.2)}
-
-/* ADMIN PANEL */
 .admin-panel{max-width:780px;margin:.75rem auto 0;padding:0 clamp(1.5rem,5vw,4rem);display:none}
 .admin-panel.open{display:block}
 .admin-card{background:#fff;border:1.5px solid rgba(200,151,43,.2);border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(11,30,61,.07)}
@@ -105,7 +92,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .admin-pass-wrap{position:relative}
 .admin-pass-toggle{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6B7C93;font-size:.85rem}
 
-/* EVENTS WRAP */
 .events-wrap{max-width:780px;margin:1.75rem auto 3rem;padding:0 clamp(1.5rem,5vw,4rem)}
 .loading-state{text-align:center;padding:3rem}
 .loader{width:32px;height:32px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
@@ -115,10 +101,9 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
 .empty-text{font-size:.85rem;color:#6B7C93}
 
-/* EVENT CARD */
 .event-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.6rem;margin-bottom:1rem;position:relative;overflow:hidden;transition:all .3s}
 .event-card:hover{box-shadow:0 10px 36px rgba(11,30,61,.09);transform:translateY(-2px)}
-.event-card.past{opacity:.75;border-style:dashed}
+.event-card.past{opacity:.78;border-style:dashed}
 .event-card.past:hover{opacity:1}
 .event-badge{display:inline-block;padding:2px 10px;border-radius:100px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.85rem}
 .badge-upcoming{background:#EAF3DE;color:#3B6D11}
@@ -131,47 +116,31 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .event-meta{display:flex;gap:.5rem;flex-wrap:wrap}
 .meta-pill{display:inline-flex;align-items:center;gap:4px;background:#F9F7F3;border:1px solid rgba(11,30,61,.08);border-radius:6px;padding:3px 8px;font-size:.74rem;color:#5a6e84}
 .event-desc{font-size:.86rem;color:#3a4f6a;line-height:1.72;margin-bottom:1rem}
-
-/* COUNTDOWN */
 .countdown{display:flex;gap:.6rem;margin:.85rem 0;padding:.85rem 1rem;background:#F9F7F3;border-radius:12px;border:1px solid rgba(11,30,61,.07)}
 .cd-box{text-align:center;flex:1}
 .cd-num{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .cd-lbl{font-size:.68rem;color:#6B7C93;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
 .cd-sep{font-size:1.5rem;color:#C8972B;align-self:center;margin-top:-6px}
-
-/* RSVP + SHARE */
 .event-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding-top:.9rem;border-top:1px solid rgba(11,30,61,.07)}
 .rsvp-wrap{display:flex;align-items:center;gap:.75rem}
 .rsvp-count{font-size:.78rem;color:#6B7C93}
 .rsvp-count strong{color:#0B1E3D;font-weight:700}
-.rsvp-btn{display:inline-flex;align-items:center;gap:7px;padding:.55rem 1.25rem;border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .28s cubic-bezier(.34,.8,.64,1)}
+.rsvp-btn{display:inline-flex;align-items:center;gap:7px;padding:.55rem 1.25rem;border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .28s}
 .rsvp-btn.attending{background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;box-shadow:0 5px 16px rgba(39,174,96,.3)}
 .rsvp-btn.attending:hover{transform:translateY(-2px);box-shadow:0 9px 24px rgba(39,174,96,.4)}
-.rsvp-btn.not-attending{background:#F0F2F8;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.12)}
-.rsvp-btn.not-attending:hover{background:#e8ecf4}
 .rsvp-btn.done{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;box-shadow:0 5px 16px rgba(200,151,43,.3)}
 .event-share{display:flex;gap:.45rem}
 .es-btn{display:inline-flex;align-items:center;gap:5px;padding:.38rem .75rem;border-radius:8px;font-size:.74rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
 .es-wa{background:#25D366;color:#fff}
-.es-wa:hover{background:#20BA5A}
 .es-fb{background:#1877F2;color:#fff}
-.es-fb:hover{background:#1468D8}
 .es-cp{background:rgba(11,30,61,.07);color:#0B1E3D}
-.es-cp:hover{background:rgba(11,30,61,.12)}
-
-/* ADMIN DELETE */
-.event-delete-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.15);color:#e74c3c;width:26px;height:26px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer}
-.event-delete-btn:hover{background:rgba(231,76,60,.15)}
+.event-delete-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.15);color:#e74c3c;width:28px;height:28px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer}
 .admin-mode .event-delete-btn{display:flex}
-
-/* DONATION NUDGE */
 .nudge-card{background:linear-gradient(135deg,#FFF6E0,#FFFBF0);border:1.5px solid rgba(200,151,43,.2);border-radius:16px;padding:1.4rem;display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem}
 .nudge-ico{font-size:1.6rem;flex-shrink:0;margin-top:.1rem}
 .nudge-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
 .nudge-text{font-size:.82rem;color:#5a6e84;line-height:1.65;margin-bottom:.75rem}
-.nudge-btn{display:inline-flex;align-items:center;gap:6px;padding:.5rem 1.1rem;background:#C8972B;color:#fff;border-radius:9px;text-decoration:none;font-size:.82rem;font-weight:600;transition:all .2s}
-.nudge-btn:hover{background:#b07d20}
-
+.nudge-btn{display:inline-flex;align-items:center;gap:6px;padding:.5rem 1.1rem;background:#C8972B;color:#fff;border-radius:9px;text-decoration:none;font-size:.82rem;font-weight:600}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
@@ -183,14 +152,9 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div class="nav-brand-icon" style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="34" height="34" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
@@ -210,21 +174,18 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     <li><a href="faculty.html"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
     <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
     <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
-    <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
+    <li><a href="event.html" class="active-link"><span class="nav-ico">🎉</span> Events</a></li>
     <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
     <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
   </ul>
 </nav>
 
 <div class="page-header">
-  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center"><div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div></div>
+  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center">
+    <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+  </div>
   <div class="page-eyebrow">Alumni Gatherings</div>
   <h1 class="page-title">Alumni <em>Events</em></h1>
   <p class="page-desc">Reunions, career fairs, and networking events for the AIS Alumni community.</p>
@@ -240,18 +201,11 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="admin-panel" id="adminPanel">
   <div class="admin-card">
-    <div class="admin-title" style="display:flex;align-items:center;gap:.6rem"><svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#9a6c0a"/>
-  <circle cx="22" cy="19" r="2.5" fill="#9a6c0a"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-</svg> Add a New Event</div>
+    <div class="admin-title">🎊 Add a New Event</div>
     <div id="adminAuth">
       <div class="admin-form">
         <div class="admin-pass-wrap">
-          <input type="password" id="adminPass" class="admin-input" placeholder="Admin password">
+          <input type="password" id="adminPass" class="admin-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAdmin()">
           <button class="admin-pass-toggle" onclick="toggleAdminPass()">👁️</button>
         </div>
         <button class="admin-submit" onclick="checkAdmin()">🔓 Unlock Admin</button>
@@ -270,28 +224,22 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
           <input type="text" id="eIcon" class="admin-input" placeholder="Icon emoji (e.g. 🎊)" maxlength="2">
         </div>
         <button class="admin-submit" id="postEventBtn" onclick="postEvent()">📤 Add Event</button>
+        <button class="admin-submit" style="background:#e74c3c;box-shadow:none;margin-top:-.4rem" onclick="lockAdmin()">🔒 Lock Admin</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="events-wrap" id="eventsWrap">
+<div class="events-wrap">
   <div class="nudge-card reveal">
-    <div class="nudge-ico" style="display:flex;flex-direction:column;align-items:center;gap:4px">💡<div style="opacity:.5"><svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#9a6c0a"/>
-  <circle cx="22" cy="19" r="2.5" fill="#9a6c0a"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-</svg></div></div>
+    <div class="nudge-ico">💡</div>
     <div>
       <div class="nudge-title">Events need your support</div>
       <div class="nudge-text">Annual reunions, career fairs, networking meetups — all of it takes funding. Your donation directly enables us to organize more impactful events.</div>
       <a href="donation.html" class="nudge-btn">💝 Support with a Donation</a>
     </div>
   </div>
-  <div class="loading-state" id="loadingState"><div class="loader"></div></div>
+  <div class="loading-state" id="loadingState"><div class="loader"></div><p style="color:#6B7C93;font-size:.85rem;margin-top:.5rem">Loading events...</p></div>
   <div id="eventsContainer"></div>
   <div class="empty-state" id="emptyState" style="display:none">
     <div class="empty-ico">📅</div>
@@ -300,14 +248,9 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
-<footer><span style="display:inline-flex;align-items:center;gap:8px;justify-content:center"><svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-</svg> © 2025 AIS Alumni Association</span> · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+<div class="toast" id="toast"></div>
+
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
 <div class="bot-nav">
   <div class="bot-nav-inner">
@@ -334,73 +277,206 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js">
+<script src="firebase.js"></script>
+<script>
 // NAV
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
-let allEvents=[];let currentTab='upcoming';let isAdmin=false;
-const ADMIN_PASS='ais2025admin';
-function getRsvps(){try{return JSON.parse(localStorage.getItem('aisRsvps')||'{}');}catch{return{};}}
-function setRsvp(id,val){const r=getRsvps();if(val)r[id]=true;else delete r[id];localStorage.setItem('aisRsvps',JSON.stringify(r));}
-function hasRsvp(id){return!!getRsvps()[id];}
-document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');currentTab=this.dataset.tab;renderEvents();});});
-function formatDate(d){return new Date(d).toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});}
-function getCountdown(d){const diff=new Date(d)-new Date();if(diff<=0)return null;return{days:Math.floor(diff/86400000),hours:Math.floor((diff%86400000)/3600000),minutes:Math.floor((diff%3600000)/60000)};}
-function isToday(d){const n=new Date(),e=new Date(d);return n.toDateString()===e.toDateString();}
-function createEventCard(ev){
-  const now=new Date();const evDate=new Date(ev.date);const isPast=evDate<now;const today=isToday(ev.date);
-  const cd=getCountdown(ev.date);const rsvped=hasRsvp(ev.id);const rsvpCount=ev.rsvpCount||0;
-  const shareText=encodeURIComponent('🎉 '+ev.title+' — AIS Alumni Event!\n📅 '+formatDate(ev.date)+(ev.location?'\n📍 '+ev.location:'')+'\n'+window.location.href);
-  const shareUrl=encodeURIComponent(window.location.href);
-  return '<div class="event-card '+(isPast?'past':'')+' reveal" data-id="'+(ev.id||'')+'">'+(isAdmin&&ev.id?'<button class="event-delete-btn" onclick="deleteEvent(''+ev.id+'')" title="Delete">✕</button>':'')+
-    '<div class="event-badge '+(today?'badge-today':isPast?'badge-past':'badge-upcoming')+'">'+(today?'🔥 TODAY':isPast?'Past Event':'Upcoming')+'</div>'+
-    '<div class="event-hdr"><div class="event-ico">'+(ev.icon||'🎊')+'</div><div style="flex:1"><div class="event-title">'+ev.title+'</div>'+
-    '<div class="event-meta"><div class="meta-pill">📅 '+formatDate(ev.date)+'</div>'+(ev.time?'<div class="meta-pill">⏰ '+ev.time+'</div>':'')+(ev.location?'<div class="meta-pill">📍 '+ev.location+'</div>':'')+
-    '</div></div></div>'+(cd?'<div class="countdown"><div class="cd-box"><div class="cd-num">'+cd.days+'</div><div class="cd-lbl">Days</div></div><span class="cd-sep">:</span><div class="cd-box"><div class="cd-num">'+cd.hours+'</div><div class="cd-lbl">Hours</div></div><span class="cd-sep">:</span><div class="cd-box"><div class="cd-num">'+cd.minutes+'</div><div class="cd-lbl">Minutes</div></div></div>':'')+
-    (ev.description?'<div class="event-desc">'+ev.description+'</div>':'')+
-    '<div class="event-footer">'+(!isPast?'<div class="rsvp-wrap"><span class="rsvp-count"><strong>'+rsvpCount+'</strong> attending</span><button class="rsvp-btn '+(rsvped?'done':'attending')+'" onclick="toggleRsvp(''+ev.id+'','+rsvpCount+','+rsvped+')">'+(rsvped?'✅ Attending':'✋ I'm Attending')+'</button></div>':'<div class="rsvp-wrap"><span class="rsvp-count">'+rsvpCount+' attended</span></div>')+
-    '<div class="event-share"><button class="es-btn es-wa" onclick="window.open('https://wa.me/?text='+shareText+'','_blank')">Share</button>'+
-    '<button class="es-btn es-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+shareUrl+'','_blank')">Share</button>'+
-    '<button class="es-btn es-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Copied!'))">Copy</button></div></div></div>';
-}
-async function toggleRsvp(id,cur,already){
-  if(already){setRsvp(id,false);try{await db.collection('events').doc(id).update({rsvpCount:Math.max(0,cur-1)});}catch(e){}showToast('RSVP cancelled');}
-  else{setRsvp(id,true);try{await db.collection('events').doc(id).update({rsvpCount:cur+1});}catch(e){}showToast('✅ Attending!');}
-}
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObserver.unobserve(e.target);}});},{threshold:.06});
-function renderEvents(){
-  document.getElementById('loadingState').style.display='none';
-  const now=new Date();
-  const list=currentTab==='upcoming'?allEvents.filter(e=>new Date(e.date)>=now).sort((a,b)=>new Date(a.date)-new Date(b.date)):allEvents.filter(e=>new Date(e.date)<now).sort((a,b)=>new Date(b.date)-new Date(a.date));
-  const container=document.getElementById('eventsContainer');
-  const empty=document.getElementById('emptyState');
-  document.getElementById('emptyTitle').textContent=currentTab==='upcoming'?'No Upcoming Events':'No Past Events';
-  if(!list.length){container.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';container.innerHTML=list.map(createEventCard).join('');
-  if(isAdmin)container.classList.add('admin-mode');else container.classList.remove('admin-mode');
-  requestAnimationFrame(()=>{container.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');else revealObserver.observe(el);});});
-}
-function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('open');}
-function toggleAdminPass(){const p=document.getElementById('adminPass');p.type=p.type==='password'?'text':'password';}
-function checkAdmin(){if(document.getElementById('adminPass').value===ADMIN_PASS){isAdmin=true;document.getElementById('adminAuth').style.display='none';document.getElementById('adminForm').style.display='block';showToast('✅ Admin activated');renderEvents();}else showToast('❌ Wrong password');}
-async function postEvent(){
-  const title=document.getElementById('eTitle').value.trim();const date=document.getElementById('eDate').value;
-  if(!title||!date){showToast('❌ Title আর date দিন');return;}
-  const btn=document.getElementById('postEventBtn');btn.disabled=true;btn.textContent='Adding...';
-  try{await db.collection('events').add({title,description:document.getElementById('eDesc').value.trim(),date:new Date(date).toISOString(),location:document.getElementById('eLocation').value.trim(),time:document.getElementById('eTime').value.trim(),icon:document.getElementById('eIcon').value||'🎊',rsvpCount:0,createdAt:new Date().toISOString()});
-  ['eTitle','eDesc','eDate','eLocation','eTime','eIcon'].forEach(id=>document.getElementById(id).value='');showToast('✅ Event added!');}
-  catch(err){showToast('❌ '+err.message);}
-  btn.disabled=false;btn.textContent='📤 Add Event';
-}
-async function deleteEvent(id){if(!confirm('Delete করবেন?'))return;try{await db.collection('events').doc(id).delete();showToast('🗑️ Deleted');}catch(err){showToast('❌ '+err.message);}}
-db.collection('events').onSnapshot(snap=>{allEvents=[];snap.forEach(doc=>allEvents.push({id:doc.id,...doc.data()}));renderEvents();},()=>renderEvents([]));
-const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
-document.querySelectorAll('.nudge-card.reveal').forEach(el=>ro.observe(el));
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+let allEvents = [];
+let currentTab = 'upcoming';
+let isAdmin = false;
+const ADMIN_PASS = 'ais2025admin';
+
+function getRsvps() { try { return JSON.parse(localStorage.getItem('aisRsvps') || '{}'); } catch { return {}; } }
+function setRsvp(id, val) { const r = getRsvps(); if (val) r[id] = true; else delete r[id]; localStorage.setItem('aisRsvps', JSON.stringify(r)); }
+function hasRsvp(id) { return !!getRsvps()[id]; }
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentTab = this.dataset.tab;
+    renderEvents();
+  });
+});
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function getCountdown(d) {
+  const diff = new Date(d) - new Date();
+  if (diff <= 0) return null;
+  return { days: Math.floor(diff / 86400000), hours: Math.floor((diff % 86400000) / 3600000), minutes: Math.floor((diff % 3600000) / 60000) };
+}
+function isToday(d) { const n = new Date(), e = new Date(d); return n.toDateString() === e.toDateString(); }
+
+function createEventCard(ev) {
+  const now = new Date();
+  const evDate = new Date(ev.date);
+  const isPast = evDate < now;
+  const today = isToday(ev.date);
+  const cd = getCountdown(ev.date);
+  const rsvped = hasRsvp(ev.id);
+  const rsvpCount = ev.rsvpCount || 0;
+  const shareText = encodeURIComponent('🎉 ' + ev.title + ' — AIS Alumni Event!\n📅 ' + formatDate(ev.date) + (ev.location ? '\n📍 ' + ev.location : '') + '\n' + window.location.href);
+  const shareUrl = encodeURIComponent(window.location.href);
+
+  return `<div class="event-card ${isPast ? 'past' : ''} reveal" data-id="${ev.id || ''}">
+    ${isAdmin && ev.id ? `<button class="event-delete-btn" onclick="deleteEvent('${ev.id}')" title="Delete">✕</button>` : ''}
+    <div class="event-badge ${today ? 'badge-today' : isPast ? 'badge-past' : 'badge-upcoming'}">${today ? '🔥 TODAY' : isPast ? '✅ Past Event' : '🗓️ Upcoming'}</div>
+    <div class="event-hdr">
+      <div class="event-ico">${ev.icon || '🎊'}</div>
+      <div style="flex:1">
+        <div class="event-title">${ev.title}</div>
+        <div class="event-meta">
+          <div class="meta-pill">📅 ${formatDate(ev.date)}</div>
+          ${ev.time ? `<div class="meta-pill">⏰ ${ev.time}</div>` : ''}
+          ${ev.location ? `<div class="meta-pill">📍 ${ev.location}</div>` : ''}
+        </div>
+      </div>
+    </div>
+    ${cd ? `<div class="countdown">
+      <div class="cd-box"><div class="cd-num">${cd.days}</div><div class="cd-lbl">Days</div></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><div class="cd-num">${cd.hours}</div><div class="cd-lbl">Hours</div></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><div class="cd-num">${cd.minutes}</div><div class="cd-lbl">Min</div></div>
+    </div>` : ''}
+    ${ev.description ? `<div class="event-desc">${ev.description}</div>` : ''}
+    <div class="event-footer">
+      ${!isPast
+        ? `<div class="rsvp-wrap">
+            <span class="rsvp-count"><strong>${rsvpCount}</strong> attending</span>
+            <button class="rsvp-btn ${rsvped ? 'done' : 'attending'}" onclick="toggleRsvp('${ev.id}', ${rsvpCount}, ${rsvped})">
+              ${rsvped ? '✅ Attending!' : '✋ I\'m Attending'}
+            </button>
+          </div>`
+        : `<div class="rsvp-wrap"><span class="rsvp-count">${rsvpCount} attended</span></div>`}
+      <div class="event-share">
+        <button class="es-btn es-wa" onclick="window.open('https://wa.me/?text=${shareText}','_blank')">📱</button>
+        <button class="es-btn es-fb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${shareUrl}','_blank')">FB</button>
+        <button class="es-btn es-cp" onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('🔗 Copied!'))">Link</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function toggleRsvp(id, cur, already) {
+  if (already) {
+    setRsvp(id, false);
+    try { await db.collection('events').doc(id).update({ rsvpCount: Math.max(0, cur - 1) }); } catch (e) { console.error(e); }
+    showToast('RSVP cancelled');
+  } else {
+    setRsvp(id, true);
+    try { await db.collection('events').doc(id).update({ rsvpCount: cur + 1 }); } catch (e) { console.error(e); }
+    showToast('✅ Marked as Attending!');
+  }
+}
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.06 });
+
+function renderEvents() {
+  document.getElementById('loadingState').style.display = 'none';
+  const now = new Date();
+  const list = currentTab === 'upcoming'
+    ? allEvents.filter(e => new Date(e.date) >= now).sort((a, b) => new Date(a.date) - new Date(b.date))
+    : allEvents.filter(e => new Date(e.date) < now).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const container = document.getElementById('eventsContainer');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('emptyTitle').textContent = currentTab === 'upcoming' ? 'No Upcoming Events' : 'No Past Events';
+
+  if (!list.length) { container.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  container.innerHTML = list.map(createEventCard).join('');
+  if (isAdmin) container.classList.add('admin-mode');
+  else container.classList.remove('admin-mode');
+
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('vis');
+      else revealObserver.observe(el);
+    });
+  });
+}
+
+function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+function toggleAdminPass() { const p = document.getElementById('adminPass'); p.type = p.type === 'password' ? 'text' : 'password'; }
+function checkAdmin() {
+  if (document.getElementById('adminPass').value === ADMIN_PASS) {
+    isAdmin = true;
+    document.getElementById('adminAuth').style.display = 'none';
+    document.getElementById('adminForm').style.display = 'block';
+    showToast('✅ Admin activated');
+    renderEvents();
+  } else { showToast('❌ Wrong password'); document.getElementById('adminPass').value = ''; }
+}
+function lockAdmin() {
+  isAdmin = false;
+  document.getElementById('adminAuth').style.display = 'block';
+  document.getElementById('adminForm').style.display = 'none';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('adminPanel').classList.remove('open');
+  renderEvents(); showToast('🔒 Admin locked');
+}
+
+async function postEvent() {
+  const title = document.getElementById('eTitle').value.trim();
+  const date = document.getElementById('eDate').value;
+  if (!title || !date) { showToast('❌ Title ও date দিন'); return; }
+  const btn = document.getElementById('postEventBtn');
+  btn.disabled = true; btn.textContent = 'Adding...';
+  try {
+    await db.collection('events').add({
+      title,
+      description: document.getElementById('eDesc').value.trim(),
+      date: new Date(date).toISOString(),
+      location: document.getElementById('eLocation').value.trim(),
+      time: document.getElementById('eTime').value.trim(),
+      icon: document.getElementById('eIcon').value || '🎊',
+      rsvpCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    ['eTitle', 'eDesc', 'eDate', 'eLocation', 'eTime', 'eIcon'].forEach(id => document.getElementById(id).value = '');
+    showToast('✅ Event added!');
+  } catch (err) { showToast('❌ ' + err.message); }
+  btn.disabled = false; btn.textContent = '📤 Add Event';
+}
+
+async function deleteEvent(id) {
+  if (!confirm('এই event delete করবেন?')) return;
+  try { await db.collection('events').doc(id).delete(); showToast('🗑️ Deleted'); }
+  catch (err) { showToast('❌ ' + err.message); }
+}
+
+// Nudge reveal
+const ro = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('vis'); }), { threshold: .1 });
+document.querySelectorAll('.nudge-card.reveal').forEach(el => ro.observe(el));
+
+// FIREBASE REALTIME
+db.collection('events').onSnapshot(snap => {
+  allEvents = [];
+  snap.forEach(doc => allEvents.push({ id: doc.id, ...doc.data() }));
+  renderEvents();
+}, err => {
+  console.error('Firebase error:', err);
+  allEvents = [];
+  renderEvents();
+});
 </script>
 </body>
 </html>
