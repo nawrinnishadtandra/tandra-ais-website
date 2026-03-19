@@ -1,12 +1,9 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | AIS Alumni — University of Barishal</title>
-<meta name="description" content="Sign in to your AIS Alumni profile.">
-<meta property="og:title" content="Login | AIS Alumni — University of Barishal">
-<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,19 +11,18 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-/* TOP NAV */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
-.top-nav.scrolled{height:54px}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
-.nav-brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
 .nav-links a:hover{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
-.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
-.nav-cta:hover{background:#1A3260!important}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -43,14 +39,12 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-/* BOTTOM NAV */
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
-.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;transition:color .2s;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
-.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:background .2s,transform .15s}
+.bn-ico{width:38px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
 .bn.active .bn-ico{background:rgba(11,30,61,.07)}
-.bn:active .bn-ico{transform:scale(.86)}
 .bn-reg .bn-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260);box-shadow:0 4px 14px rgba(11,30,61,.28);width:42px;height:38px;border-radius:13px}
 .bn-reg{color:#0B1E3D!important}
 .more-drawer{position:fixed;bottom:0;left:0;right:0;z-index:3000;background:#fff;border-radius:24px 24px 0 0;padding:1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom,0));box-shadow:0 -8px 40px rgba(11,30,61,.15);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
@@ -58,8 +52,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-handle{width:36px;height:4px;border-radius:100px;background:rgba(11,30,61,.12);margin:0 auto .9rem}
 .drawer-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#0B1E3D;margin-bottom:.9rem}
 .drawer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.drawer-item:active{background:#F9F7F3}
+.drawer-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.8rem .3rem;border-radius:14px;text-decoration:none;color:#3a4f6a}
 .drawer-ico{width:50px;height:50px;border-radius:14px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:24px}
 .drawer-item.hl .drawer-ico{background:linear-gradient(135deg,#0B1E3D,#1A3260)}
 .drawer-lbl{font-size:10.5px;font-weight:600;color:#3a4f6a;text-align:center}
@@ -67,30 +60,60 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-overlay.open{display:block}
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
+
 /* PAGE */
 .page-wrap{min-height:100vh;padding:calc(62px + 2.5rem) 1.5rem 3rem;background:linear-gradient(155deg,#EDF1FF 0%,#F9F7F3 60%,#FFF9ED 100%);display:flex;align-items:center;justify-content:center}
 .form-wrap{width:100%;max-width:440px}
 .form-card{background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:22px;padding:2.5rem;box-shadow:0 8px 40px rgba(11,30,61,.08)}
 @media(max-width:480px){.form-card{padding:1.75rem 1.25rem}}
-.form-logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(11,30,61,.2)}
+
 .form-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:#0B1E3D;text-align:center;margin-bottom:.3rem}
 .form-sub{font-size:.83rem;color:#6B7C93;text-align:center;margin-bottom:1.75rem}
+
 .form-group{margin-bottom:1.1rem}
 .form-label{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.4rem}
 .form-input{width:100%;padding:.72rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.88rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
 .form-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
 .pass-wrap{position:relative}
 .pass-toggle{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;color:#6B7C93;background:none;border:none;padding:0}
+
 .error-box{display:none;align-items:center;gap:.6rem;padding:.75rem 1rem;background:#fff5f5;border:1px solid rgba(231,76,60,.2);border-radius:9px;font-size:.82rem;color:#c0392b;margin-bottom:1rem}
 .error-box.show{display:flex}
+.success-box{display:none;align-items:center;gap:.6rem;padding:.75rem 1rem;background:#f0fff4;border:1px solid rgba(39,174,96,.2);border-radius:9px;font-size:.82rem;color:#1e8449;margin-bottom:1rem}
+.success-box.show{display:flex}
+
 .submit-btn{width:100%;padding:.92rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:11px;font-size:.92rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .28s;box-shadow:0 6px 20px rgba(11,30,61,.25);margin-top:.25rem}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(11,30,61,.32)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
-.info-note{display:flex;align-items:flex-start;gap:.6rem;padding:.75rem 1rem;background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:10px;font-size:.79rem;color:#7a5a1a;line-height:1.6;margin-top:1.25rem}
+
 .divider{text-align:center;font-size:.78rem;color:#9aabb8;margin:1.1rem 0;position:relative}
 .divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:rgba(11,30,61,.08)}
-.divider::before{left:0}
-.divider::after{right:0}
+.divider::before{left:0}.divider::after{right:0}
+
+.info-note{display:flex;align-items:flex-start;gap:.6rem;padding:.75rem 1rem;background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:10px;font-size:.79rem;color:#7a5a1a;line-height:1.6;margin-top:1.25rem}
+
+/* FORGOT PASSWORD MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;border-radius:20px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 20px 60px rgba(11,30,61,.2);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+.modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.5rem 1.75rem;display:flex;align-items:center;justify-content:space-between}
+.modal-hdr-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff}
+.modal-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:rgba(255,255,255,.28)}
+.modal-body{padding:1.5rem 1.75rem 1.75rem}
+.modal-desc{font-size:.85rem;color:#6B7C93;margin-bottom:1.25rem;line-height:1.65}
+.modal-input{width:100%;padding:.72rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.88rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s;margin-bottom:1rem}
+.modal-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.modal-btn{width:100%;padding:.82rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s}
+.modal-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* Password found box */
+.pwd-reveal{background:#F9F7F3;border:1px solid rgba(11,30,61,.08);border-radius:10px;padding:1rem;margin-top:.75rem;display:none}
+.pwd-reveal.show{display:block}
+.pwd-label{font-size:.7rem;font-weight:700;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem}
+.pwd-value{font-size:1.1rem;font-weight:700;color:#0B1E3D;font-family:monospace;letter-spacing:.08em;margin-bottom:.6rem}
+.pwd-copy{padding:.45rem 1rem;background:#0B1E3D;color:#fff;border:none;border-radius:7px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit}
+
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
@@ -98,14 +121,9 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
-    <div class="nav-brand-icon" style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0"><svg width="34" height="34" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+    <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
     <div><span class="nav-brand-title">AIS Alumni</span><span class="nav-brand-sub">University of Barishal</span></div>
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
@@ -134,25 +152,20 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <div class="page-wrap">
   <div class="form-wrap">
     <div class="form-card">
-      <div class="form-logo" style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(11,30,61,.2)"><svg width="30" height="30" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#E8B84B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/>
-</svg></div>
+      <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(11,30,61,.2)">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+      </div>
+
       <h1 class="form-title">Welcome Back</h1>
       <p class="form-sub">Sign in to your AIS Alumni profile</p>
 
-      <div class="error-box" id="errorBox">
-        ❌ Email বা password ভুল। আবার চেষ্টা করুন।
-      </div>
+      <div class="error-box" id="errorBox">❌ <span id="errorMsg">Email বা password ভুল।</span></div>
 
       <div class="form-group">
         <label class="form-label">Email Address</label>
         <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" autocomplete="email">
       </div>
+
       <div class="form-group">
         <label class="form-label">Password</label>
         <div class="pass-wrap">
@@ -161,9 +174,14 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         </div>
       </div>
 
-      <button class="submit-btn" id="submitBtn" onclick="doLogin()">
-        🔐 Sign In
-      </button>
+      <!-- FORGOT PASSWORD LINK -->
+      <div style="text-align:right;margin-top:-.4rem;margin-bottom:.85rem">
+        <button onclick="openForgot()" style="background:none;border:none;color:#C8972B;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;padding:0">
+          🔑 Forgot Password?
+        </button>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="doLogin()">🔐 Sign In</button>
 
       <div class="divider">or</div>
 
@@ -171,29 +189,43 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         New member? <a href="register.html" style="color:#C8972B;font-weight:600;text-decoration:none">Create an account →</a>
       </div>
 
-      <div class="info-note" style="display:flex;align-items:center;gap:.75rem">
-        <div style="flex-shrink:0"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:1">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#9a6c0a"/>
-  <circle cx="22" cy="19" r="2.5" fill="#9a6c0a"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(150,100,20,.45)" stroke-width="1.2"/>
-</svg></div><div>
-        💡 Registration এর সময় যে email ও password দিয়েছিলেন সেটা ব্যবহার করুন।</div>
+      <div class="info-note">
+        💡 Registration এর সময় যে email ও password দিয়েছিলেন সেটা ব্যবহার করুন।
       </div>
     </div>
   </div>
 </div>
 
-<footer><span style="display:inline-flex;align-items:center;gap:8px;justify-content:center"><svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="14" cy="6" r="2.5" fill="#C8972B"/>
-  <circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/>
-  <line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-  <line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.4)" stroke-width="1.2"/>
-</svg> © 2025 AIS Alumni Association</span> · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal-bg" id="forgotModal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <span class="modal-hdr-title">🔑 Forgot Password</span>
+      <button class="modal-close" onclick="closeForgot()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc">
+        আপনার registered email address দিন। আপনার password খুঁজে দেওয়া হবে।
+      </p>
+      <div class="error-box" id="forgotError" style="margin-bottom:.75rem">❌ <span id="forgotErrMsg"></span></div>
+      <div class="success-box" id="forgotSuccess" style="margin-bottom:.75rem">✅ <span id="forgotSuccessMsg"></span></div>
+
+      <input type="email" id="forgotEmail" class="modal-input" placeholder="your@email.com">
+
+      <button class="modal-btn" id="forgotBtn" onclick="handleForgot()">🔍 Find My Password</button>
+
+      <!-- Password reveal box -->
+      <div class="pwd-reveal" id="pwdReveal">
+        <div class="pwd-label">আপনার Password</div>
+        <div class="pwd-value" id="pwdValue">—</div>
+        <button class="pwd-copy" onclick="copyPassword()">📋 Copy Password</button>
+        <p style="font-size:.76rem;color:#9aabb8;margin-top:.6rem">Password copy করুন এবং Login করুন।</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="bot-nav">
   <div class="bot-nav-inner">
@@ -220,87 +252,156 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js"></script>
+<script>
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyDkdTTdK1Tp3oT5ff--GqYqwHMJHegKV8s",
+    authDomain: "ais-alumni-uobd.firebaseapp.com",
+    projectId: "ais-alumni-uobd",
+    storageBucket: "ais-alumni-uobd.firebasestorage.app",
+    messagingSenderId: "215592148913",
+    appId: "1:215592148913:web:658d23339c62e1a4d82790"
+  });
+}
+const db = firebase.firestore();
+</script>
 <script>
 // NAV
-document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',window.scrollY>36),{passive:true});
-function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+document.getElementById('navBurger').addEventListener('click', () =>
+  document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll', () =>
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); closeForgot(); } });
+document.getElementById('forgotModal').addEventListener('click', function (e) { if (e.target === this) closeForgot(); });
 
-// Already logged in → go to profile
-if(localStorage.getItem('alumniUserEmail')) window.location.href='profile.html';
+// Already logged in
+if (localStorage.getItem('alumniUserEmail')) window.location.href = 'profile.html';
 
-// PASSWORD TOGGLE
-document.getElementById('passToggle').addEventListener('click',function(){
-  const p=document.getElementById('loginPass');
-  const show=p.type==='password';
-  p.type=show?'text':'password';
-  this.textContent=show?'🙈':'👁️';
+// Password toggle
+document.getElementById('passToggle').addEventListener('click', function () {
+  const p = document.getElementById('loginPass');
+  const show = p.type === 'password';
+  p.type = show ? 'text' : 'password';
+  this.textContent = show ? '🙈' : '👁️';
 });
 
-// Enter key submit
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter' && document.activeElement.tagName==='INPUT') doLogin();
+// Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement.closest('.form-card')) doLogin();
 });
 
-// LOGIN
-async function doLogin(){
-  const email=document.getElementById('loginEmail').value.trim();
-  const pass=document.getElementById('loginPass').value;
-  const errBox=document.getElementById('errorBox');
-  const btn=document.getElementById('submitBtn');
+/* ===== LOGIN ===== */
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const errBox = document.getElementById('errorBox');
+  const btn = document.getElementById('submitBtn');
 
   errBox.classList.remove('show');
 
-  if(!email||!pass){
-    errBox.textContent='❌ Email ও password দিন।';
-    errBox.classList.add('show');
-    return;
+  if (!email || !pass) {
+    document.getElementById('errorMsg').textContent = 'Email ও password দিন।';
+    errBox.classList.add('show'); return;
   }
 
-  btn.disabled=true;
-  btn.innerHTML='⏳ Signing in...';
+  btn.disabled = true; btn.innerHTML = '⏳ Signing in...';
 
-  try{
-    // Query by email first, then check password
-    const snap=await db.collection('alumni')
-      .where('email','==',email)
-      .limit(1)
-      .get();
+  try {
+    const snap = await db.collection('alumni')
+      .where('email', '==', email).limit(1).get();
 
-    if(snap.empty){
-      errBox.textContent='❌ এই email দিয়ে কোনো account নেই।';
+    if (snap.empty) {
+      document.getElementById('errorMsg').textContent = 'এই email দিয়ে কোনো account নেই।';
       errBox.classList.add('show');
-      btn.disabled=false;
-      btn.innerHTML='🔐 Sign In';
-      return;
+      btn.disabled = false; btn.innerHTML = '🔐 Sign In'; return;
     }
 
-    const doc=snap.docs[0];
-    const data=doc.data();
-
-    if(data.password !== pass){
-      errBox.textContent='❌ Password ভুল। আবার চেষ্টা করুন।';
+    const data = snap.docs[0].data();
+    if (String(data.password) !== String(pass)) {
+      document.getElementById('errorMsg').textContent = 'Password ভুল। আবার চেষ্টা করুন।';
       errBox.classList.add('show');
-      btn.disabled=false;
-      btn.innerHTML='🔐 Sign In';
-      return;
+      btn.disabled = false; btn.innerHTML = '🔐 Sign In'; return;
     }
 
     // Success
     localStorage.setItem('alumniUserEmail', email);
-    localStorage.setItem('alumniUserName',  data.name||'');
-    btn.innerHTML='✅ Redirecting...';
-    setTimeout(()=>window.location.href='profile.html', 600);
+    localStorage.setItem('alumniUserName', data.name || '');
+    btn.innerHTML = '✅ Redirecting...';
+    setTimeout(() => window.location.href = 'profile.html', 600);
 
-  }catch(err){
-    errBox.textContent='❌ Error: '+err.message;
+  } catch (err) {
+    document.getElementById('errorMsg').textContent = 'Error: ' + err.message;
     errBox.classList.add('show');
-    btn.disabled=false;
-    btn.innerHTML='🔐 Sign In';
+    btn.disabled = false; btn.innerHTML = '🔐 Sign In';
   }
+}
+
+/* ===== FORGOT PASSWORD ===== */
+function openForgot() {
+  document.getElementById('forgotModal').classList.add('open');
+  document.getElementById('forgotEmail').value = document.getElementById('loginEmail').value;
+  document.getElementById('forgotError').classList.remove('show');
+  document.getElementById('forgotSuccess').classList.remove('show');
+  document.getElementById('pwdReveal').classList.remove('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeForgot() {
+  document.getElementById('forgotModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function handleForgot() {
+  const email = document.getElementById('forgotEmail').value.trim();
+  const errBox = document.getElementById('forgotError');
+  const sucBox = document.getElementById('forgotSuccess');
+  const btn = document.getElementById('forgotBtn');
+
+  errBox.classList.remove('show');
+  sucBox.classList.remove('show');
+  document.getElementById('pwdReveal').classList.remove('show');
+
+  if (!email || !email.includes('@')) {
+    document.getElementById('forgotErrMsg').textContent = 'Valid email দিন।';
+    errBox.classList.add('show'); return;
+  }
+
+  btn.disabled = true; btn.innerHTML = '🔍 Searching...';
+
+  try {
+    const snap = await db.collection('alumni')
+      .where('email', '==', email).limit(1).get();
+
+    if (snap.empty) {
+      document.getElementById('forgotErrMsg').textContent = 'এই email দিয়ে কোনো account পাওয়া যায়নি।';
+      errBox.classList.add('show');
+    } else {
+      const data = snap.docs[0].data();
+      // Show password
+      document.getElementById('pwdValue').textContent = data.password || '—';
+      document.getElementById('pwdReveal').classList.add('show');
+      document.getElementById('forgotSuccessMsg').textContent =
+        `${data.name || 'আপনার'} account এর password পাওয়া গেছে!`;
+      sucBox.classList.add('show');
+    }
+  } catch (err) {
+    document.getElementById('forgotErrMsg').textContent = 'Error: ' + err.message;
+    errBox.classList.add('show');
+  }
+
+  btn.disabled = false; btn.innerHTML = '🔍 Find My Password';
+}
+
+function copyPassword() {
+  const pwd = document.getElementById('pwdValue').textContent;
+  navigator.clipboard.writeText(pwd).then(() => {
+    const btn = document.querySelector('.pwd-copy');
+    btn.textContent = '✅ Copied!';
+    // Also put it in login field
+    document.getElementById('loginPass').value = pwd;
+    setTimeout(() => { btn.textContent = '📋 Copy Password'; closeForgot(); }, 1500);
+  });
 }
 </script>
 </body>
