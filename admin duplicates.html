@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duplicate Finder | AIS Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+
+/* GATE */
+.gate{position:fixed;inset:0;background:#F9F7F3;display:flex;align-items:center;justify-content:center;z-index:9999;padding:1.5rem}
+.gate-card{background:#fff;border-radius:22px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(11,30,61,.1);border:1px solid rgba(11,30,61,.07)}
+.gate-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
+.gate-sub{font-size:.85rem;color:#6B7C93;margin-bottom:1.5rem}
+.gate-input{width:100%;padding:.72rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.9rem;font-family:inherit;text-align:center;outline:none;margin-bottom:.85rem;background:#F9F7F3;transition:all .25s}
+.gate-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.gate-btn{width:100%;padding:.82rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s}
+.gate-btn:hover{background:#1A3260}
+.gate-err{color:#e74c3c;font-size:.8rem;margin-top:.5rem;display:none}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:2rem 1.5rem 3rem}
+.page-header{margin-bottom:2rem}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.18);border-radius:100px;padding:3px 10px;font-size:.72rem;font-weight:700;color:#c0392b;margin-bottom:.75rem}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
+.page-sub{font-size:.85rem;color:#6B7C93}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin-bottom:1.75rem}
+.stat-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.1rem 1.25rem}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#0B1E3D;line-height:1}
+.stat-num.red{color:#e74c3c}
+.stat-num.green{color:#27ae60}
+.stat-lbl{font-size:.75rem;color:#6B7C93;margin-top:.2rem}
+
+/* CONTROLS */
+.controls{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+.ctrl-btn{display:inline-flex;align-items:center;gap:6px;padding:.6rem 1.25rem;border-radius:9px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.btn-scan{background:#0B1E3D;color:#fff}
+.btn-scan:hover{background:#1A3260}
+.btn-scan:disabled{opacity:.55;cursor:not-allowed}
+.btn-delete-all{background:#e74c3c;color:#fff}
+.btn-delete-all:hover{background:#c0392b}
+.btn-delete-all:disabled{opacity:.55;cursor:not-allowed}
+.btn-export{background:#F9F7F3;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.12)}
+.btn-export:hover{background:#fff}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:.4rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.tab{padding:.38rem .85rem;border-radius:8px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.78rem;font-weight:600;color:#5a6e84;cursor:pointer;font-family:inherit;transition:all .2s}
+.tab:hover{border-color:#C8972B;color:#0B1E3D}
+.tab.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
+
+/* LOADING */
+.loader-wrap{text-align:center;padding:4rem}
+.loader{width:36px;height:36px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
+
+/* EMPTY */
+.empty-wrap{text-align:center;padding:3rem;background:#fff;border-radius:16px;border:1px solid rgba(11,30,61,.07)}
+.empty-ico{font-size:2.5rem;margin-bottom:.75rem}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#0B1E3D;margin-bottom:.35rem}
+.empty-text{font-size:.85rem;color:#6B7C93}
+
+/* DUPLICATE GROUP */
+.dup-group{background:#fff;border:1.5px solid rgba(231,76,60,.2);border-radius:16px;margin-bottom:1.1rem;overflow:hidden}
+.dup-group-hdr{background:rgba(231,76,60,.06);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.dup-group-title{font-size:.85rem;font-weight:700;color:#c0392b;display:flex;align-items:center;gap:.5rem}
+.dup-count{display:inline-block;background:#e74c3c;color:#fff;border-radius:100px;padding:1px 8px;font-size:.72rem;font-weight:700}
+.dup-group-actions{display:flex;gap:.5rem}
+.keep-btn{padding:.38rem .85rem;border-radius:7px;background:#27ae60;color:#fff;border:none;font-size:.76rem;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.del-btn{padding:.38rem .85rem;border-radius:7px;background:#e74c3c;color:#fff;border:none;font-size:.76rem;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.del-btn:disabled,.keep-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ALUMNI ROW */
+.alumni-row{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.25rem;border-top:1px solid rgba(11,30,61,.06);transition:background .2s}
+.alumni-row:hover{background:#fafafa}
+.alumni-row.marked-keep{background:#f0fff4;border-left:3px solid #27ae60}
+.alumni-row.marked-delete{background:#fff5f5;border-left:3px solid #e74c3c;opacity:.7}
+.row-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:#E8B84B;flex-shrink:0}
+.row-info{flex:1;min-width:0}
+.row-name{font-size:.88rem;font-weight:600;color:#0B1E3D;margin-bottom:.15rem}
+.row-meta{font-size:.76rem;color:#6B7C93;display:flex;gap:.75rem;flex-wrap:wrap}
+.row-id{font-size:.7rem;color:#9aabb8;font-family:monospace;margin-top:.12rem}
+.row-date{font-size:.72rem;color:#9aabb8}
+.row-badge{display:inline-block;padding:1px 8px;border-radius:100px;font-size:.7rem;font-weight:700}
+.badge-keep{background:#d4edda;color:#1e7e34}
+.badge-dup{background:#f8d7da;color:#721c24}
+.row-actions{display:flex;gap:.4rem;flex-shrink:0}
+.r-keep{padding:.32rem .75rem;background:#27ae60;color:#fff;border:none;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:inherit}
+.r-del{padding:.32rem .75rem;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:inherit}
+.r-keep:disabled,.r-del:disabled{opacity:.4;cursor:not-allowed}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.7rem 1.5rem;border-radius:100px;font-size:.84rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* CONFIRM MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9998;padding:1rem}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:380px;padding:2rem;box-shadow:0 20px 60px rgba(11,30,61,.2);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);text-align:center}
+.modal-ico{font-size:2.5rem;margin-bottom:.75rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
+.modal-text{font-size:.85rem;color:#6B7C93;margin-bottom:1.5rem;line-height:1.65}
+.modal-btns{display:flex;gap:.65rem}
+.modal-confirm{flex:1;padding:.78rem;background:#e74c3c;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit}
+.modal-cancel{flex:1;padding:.78rem;background:#F9F7F3;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit}
+</style>
+</head>
+<body>
+
+<!-- ADMIN GATE -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div style="font-size:2.5rem;margin-bottom:.75rem">🔐</div>
+    <div class="gate-title">Admin Access</div>
+    <div class="gate-sub">Duplicate finder — restricted access</div>
+    <input type="password" id="gatePass" class="gate-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlock()">
+    <button class="gate-btn" onclick="unlock()">Unlock</button>
+    <div class="gate-err" id="gateErr">❌ Wrong password</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainContent" style="display:none">
+
+  <div class="page-header">
+    <div class="badge">🔐 Admin Tool</div>
+    <h1 class="page-title">Duplicate Alumni Finder</h1>
+    <p class="page-sub">Firebase Firestore থেকে duplicate alumni খুঁজে বের করুন এবং delete করুন।</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">—</div>
+      <div class="stat-lbl">Total Alumni</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red" id="statDupGroups">—</div>
+      <div class="stat-lbl">Duplicate Groups</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red" id="statDupCount">—</div>
+      <div class="stat-lbl">Extra Copies</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num green" id="statClean">—</div>
+      <div class="stat-lbl">Unique Alumni</div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn btn-scan" id="scanBtn" onclick="scanDuplicates()">🔍 Scan for Duplicates</button>
+    <button class="ctrl-btn btn-delete-all" id="deleteAllBtn" onclick="confirmDeleteAll()" style="display:none">🗑️ Delete All Duplicates</button>
+    <button class="ctrl-btn btn-export" id="exportBtn" onclick="exportReport()" style="display:none">📥 Export Report</button>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs" id="filterTabs" style="display:none">
+    <button class="tab active" data-filter="all" onclick="setFilter('all',this)">📋 All Groups</button>
+    <button class="tab" data-filter="email" onclick="setFilter('email',this)">📧 Same Email</button>
+    <button class="tab" data-filter="phone" onclick="setFilter('phone',this)">📱 Same Phone</button>
+    <button class="tab" data-filter="name" onclick="setFilter('name',this)">👤 Same Name</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea"></div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-bg" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-ico">⚠️</div>
+    <div class="modal-title" id="confirmTitle">Are you sure?</div>
+    <div class="modal-text" id="confirmText">This action cannot be undone.</div>
+    <div class="modal-btns">
+      <button class="modal-confirm" id="confirmOk">Yes, Delete</button>
+      <button class="modal-cancel" onclick="closeConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyDkdTTdK1Tp3oT5ff--GqYqwHMJHegKV8s",
+    authDomain: "ais-alumni-uobd.firebaseapp.com",
+    projectId: "ais-alumni-uobd",
+    storageBucket: "ais-alumni-uobd.firebasestorage.app",
+    messagingSenderId: "215592148913",
+    appId: "1:215592148913:web:658d23339c62e1a4d82790"
+  });
+}
+const db = firebase.firestore();
+</script>
+
+<script>
+const PASS = 'ais2025admin';
+let allAlumni = [];
+let dupGroups  = [];
+let activeFilter = 'all';
+
+/* ===== GATE ===== */
+function unlock() {
+  if (document.getElementById('gatePass').value === PASS) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    loadAll();
+  } else {
+    document.getElementById('gateErr').style.display = 'block';
+    document.getElementById('gatePass').value = '';
+    document.getElementById('gatePass').focus();
+  }
+}
+document.getElementById('gatePass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') unlock();
+});
+
+/* ===== TOAST ===== */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ===== CONFIRM MODAL ===== */
+let confirmCallback = null;
+function showConfirm(title, text, onOk) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmText').textContent = text;
+  confirmCallback = onOk;
+  document.getElementById('confirmModal').classList.add('open');
+}
+function closeConfirm() { document.getElementById('confirmModal').classList.remove('open'); }
+document.getElementById('confirmOk').addEventListener('click', () => {
+  closeConfirm();
+  if (confirmCallback) confirmCallback();
+});
+document.getElementById('confirmModal').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+
+/* ===== LOAD ALL ALUMNI ===== */
+async function loadAll() {
+  showLoading('Loading alumni from database...');
+  try {
+    const snap = await db.collection('alumni').get();
+    allAlumni = [];
+    snap.forEach(doc => allAlumni.push({ id: doc.id, ...doc.data() }));
+    document.getElementById('statTotal').textContent = allAlumni.length;
+    hideLoading();
+    showToast(`✅ ${allAlumni.length} alumni loaded`);
+  } catch (err) {
+    showError('Firebase load failed: ' + err.message);
+  }
+}
+
+/* ===== SCAN DUPLICATES ===== */
+function scanDuplicates() {
+  if (!allAlumni.length) { showToast('❌ First load the data'); return; }
+
+  dupGroups = [];
+  const emailMap  = {};
+  const phoneMap  = {};
+  const nameMap   = {};
+
+  allAlumni.forEach(a => {
+    // Email duplicates
+    const email = (a.email || '').trim().toLowerCase();
+    if (email) {
+      if (!emailMap[email]) emailMap[email] = [];
+      emailMap[email].push(a);
+    }
+    // Phone duplicates
+    const phone = String(a.phone || '').replace(/[^0-9]/g, '');
+    if (phone && phone.length >= 10) {
+      if (!phoneMap[phone]) phoneMap[phone] = [];
+      phoneMap[phone].push(a);
+    }
+    // Name duplicates (normalize)
+    const name = (a.name || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    if (name) {
+      if (!nameMap[name]) nameMap[name] = [];
+      nameMap[name].push(a);
+    }
+  });
+
+  // Build groups — track which doc IDs are already in a group
+  const seen = new Set();
+
+  // Email groups (highest confidence)
+  Object.entries(emailMap).forEach(([key, members]) => {
+    if (members.length > 1) {
+      const group = { type: 'email', key, members };
+      dupGroups.push(group);
+      members.forEach(m => seen.add(m.id));
+    }
+  });
+
+  // Phone groups (if not already caught by email)
+  Object.entries(phoneMap).forEach(([key, members]) => {
+    if (members.length > 1) {
+      // Check if these are already grouped
+      const newMembers = members.filter(m => !seen.has(m.id));
+      if (newMembers.length > 1 || (newMembers.length === 1 && members.length > 1)) {
+        dupGroups.push({ type: 'phone', key, members });
+        members.forEach(m => seen.add(m.id));
+      }
+    }
+  });
+
+  // Name groups (lowest confidence — might be different people)
+  Object.entries(nameMap).forEach(([key, members]) => {
+    if (members.length > 1) {
+      const notYetGrouped = members.filter(m => !seen.has(m.id));
+      if (notYetGrouped.length > 1) {
+        dupGroups.push({ type: 'name', key, members: notYetGrouped });
+        notYetGrouped.forEach(m => seen.add(m.id));
+      }
+    }
+  });
+
+  // Stats
+  const totalExtraCopies = dupGroups.reduce((sum, g) => sum + (g.members.length - 1), 0);
+  document.getElementById('statDupGroups').textContent = dupGroups.length;
+  document.getElementById('statDupCount').textContent  = totalExtraCopies;
+  document.getElementById('statClean').textContent     = allAlumni.length - totalExtraCopies;
+
+  if (!dupGroups.length) {
+    document.getElementById('resultsArea').innerHTML = `
+      <div class="empty-wrap">
+        <div class="empty-ico">✅</div>
+        <div class="empty-title">No Duplicates Found!</div>
+        <div class="empty-text">Database পরিষ্কার আছে। কোনো duplicate নেই।</div>
+      </div>`;
+    document.getElementById('filterTabs').style.display = 'none';
+    document.getElementById('deleteAllBtn').style.display = 'none';
+    document.getElementById('exportBtn').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('filterTabs').style.display = 'flex';
+  document.getElementById('deleteAllBtn').style.display = 'inline-flex';
+  document.getElementById('exportBtn').style.display = 'inline-flex';
+  renderGroups();
+  showToast(`⚠️ ${dupGroups.length} duplicate group পাওয়া গেছে!`);
+}
+
+/* ===== RENDER ===== */
+function setFilter(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGroups();
+}
+
+function renderGroups() {
+  const filtered = activeFilter === 'all'
+    ? dupGroups
+    : dupGroups.filter(g => g.type === activeFilter);
+
+  if (!filtered.length) {
+    document.getElementById('resultsArea').innerHTML = `
+      <div class="empty-wrap">
+        <div class="empty-title">এই ধরনের duplicate নেই</div>
+        <div class="empty-text">অন্য filter try করুন।</div>
+      </div>`;
+    return;
+  }
+
+  const typeLabel = { email: '📧 Same Email', phone: '📱 Same Phone', name: '👤 Same Name' };
+  const typeDesc  = {
+    email: 'এই alumni দের email একই — এরা duplicate',
+    phone: 'এই alumni দের phone একই — likely duplicate',
+    name:  'এই alumni দের নাম একই — verify করুন, different person হতে পারে'
+  };
+
+  document.getElementById('resultsArea').innerHTML = filtered.map((g, gi) => {
+    // Auto-detect which to keep: latest createdAt = keep, others = delete
+    const sorted = [...g.members].sort((a, b) => {
+      const da = new Date(a.createdAt || 0);
+      const db_ = new Date(b.createdAt || 0);
+      return db_ - da; // newest first
+    });
+
+    const rows = sorted.map((a, mi) => {
+      const init = (a.name || '?').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+      const isKeep = mi === 0; // newest = keep by default
+      const date = a.createdAt ? new Date(a.createdAt).toLocaleDateString('en-GB') : 'Unknown date';
+
+      return `
+      <div class="alumni-row ${isKeep ? 'marked-keep' : 'marked-delete'}" id="row-${a.id}">
+        <div class="row-av">${init}</div>
+        <div class="row-info">
+          <div class="row-name">${a.name || '—'} <span class="row-badge ${isKeep ? 'badge-keep' : 'badge-dup'}">${isKeep ? '✅ Keep' : '🗑️ Duplicate'}</span></div>
+          <div class="row-meta">
+            <span>📧 ${a.email || '—'}</span>
+            <span>📱 ${a.phone || '—'}</span>
+            <span>Batch ${a.batch || '?'}</span>
+          </div>
+          <div class="row-id">ID: ${a.id}</div>
+          <div class="row-date">Registered: ${date}</div>
+        </div>
+        <div class="row-actions">
+          <button class="r-keep" onclick="markKeep('${a.id}',${gi})" title="Keep this record">✅</button>
+          <button class="r-del" onclick="deleteOne('${a.id}','${(a.name||'').replace(/'/g,"\\'")}',${gi})" title="Delete this record">🗑️</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    return `
+    <div class="dup-group" id="group-${gi}">
+      <div class="dup-group-hdr">
+        <div class="dup-group-title">
+          ${typeLabel[g.type] || g.type}
+          <span class="dup-count">${g.members.length} copies</span>
+          <span style="font-size:.78rem;color:#c0392b;font-weight:400">— "${g.key}"</span>
+        </div>
+        <div class="dup-group-actions">
+          <button class="keep-btn" onclick="keepNewest(${gi})">✅ Keep Newest</button>
+          <button class="del-btn" onclick="deleteOlder(${gi})">🗑️ Delete Older Copies</button>
+        </div>
+      </div>
+      <div style="font-size:.78rem;color:#9aabb8;padding:.5rem 1.25rem;background:rgba(231,76,60,.03)">${typeDesc[g.type]}</div>
+      ${rows}
+    </div>`;
+  }).join('');
+}
+
+/* ===== MARK / ACTIONS ===== */
+function markKeep(docId, groupIdx) {
+  const group = dupGroups.filter(g => activeFilter === 'all' || g.type === activeFilter)[groupIdx];
+  if (!group) return;
+  group.members.forEach(m => {
+    const row = document.getElementById('row-' + m.id);
+    if (!row) return;
+    if (m.id === docId) {
+      row.className = 'alumni-row marked-keep';
+      row.querySelector('.row-badge').className = 'row-badge badge-keep';
+      row.querySelector('.row-badge').textContent = '✅ Keep';
+    } else {
+      row.className = 'alumni-row marked-delete';
+      row.querySelector('.row-badge').className = 'row-badge badge-dup';
+      row.querySelector('.row-badge').textContent = '🗑️ Duplicate';
+    }
+  });
+  showToast('Marked — click "Delete Older Copies" to confirm');
+}
+
+function keepNewest(groupIdx) {
+  const group = dupGroups.filter(g => activeFilter === 'all' || g.type === activeFilter)[groupIdx];
+  if (!group) return;
+  const sorted = [...group.members].sort((a, b) =>
+    new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  markKeep(sorted[0].id, groupIdx);
+}
+
+async function deleteOne(docId, name, groupIdx) {
+  showConfirm(
+    'Delete এই record?',
+    `"${name}" এর এই copy delete হবে। Undo করা যাবে না।`,
+    async () => {
+      try {
+        await db.collection('alumni').doc(docId).delete();
+        // Remove from allAlumni
+        allAlumni = allAlumni.filter(a => a.id !== docId);
+        // Remove from group
+        dupGroups.forEach(g => { g.members = g.members.filter(m => m.id !== docId); });
+        // Remove group if only 1 member left
+        dupGroups = dupGroups.filter(g => g.members.length > 1);
+        document.getElementById('statTotal').textContent = allAlumni.length;
+        const extraCopies = dupGroups.reduce((s, g) => s + (g.members.length - 1), 0);
+        document.getElementById('statDupGroups').textContent = dupGroups.length;
+        document.getElementById('statDupCount').textContent  = extraCopies;
+        document.getElementById('statClean').textContent     = allAlumni.length - extraCopies;
+        renderGroups();
+        showToast('🗑️ Deleted!');
+      } catch (err) { showToast('❌ ' + err.message); }
+    }
+  );
+}
+
+async function deleteOlder(groupIdx) {
+  const filtered = dupGroups.filter(g => activeFilter === 'all' || g.type === activeFilter);
+  const group = filtered[groupIdx];
+  if (!group) return;
+
+  // Find which rows are marked as delete
+  const toDelete = group.members.filter(m => {
+    const row = document.getElementById('row-' + m.id);
+    return row && row.classList.contains('marked-delete');
+  });
+
+  if (!toDelete.length) {
+    showToast('⚠️ কোনো row "Delete" mark করা নেই'); return;
+  }
+
+  showConfirm(
+    `${toDelete.length}টি copy delete করবেন?`,
+    `এই group এর ${toDelete.length}টি duplicate record permanently delete হবে।`,
+    async () => {
+      let deleted = 0;
+      for (const a of toDelete) {
+        try {
+          await db.collection('alumni').doc(a.id).delete();
+          allAlumni = allAlumni.filter(x => x.id !== a.id);
+          deleted++;
+        } catch (err) { showToast('❌ ' + err.message); }
+      }
+      dupGroups.forEach(g => { g.members = g.members.filter(m => !toDelete.find(d => d.id === m.id)); });
+      dupGroups = dupGroups.filter(g => g.members.length > 1);
+      const extraCopies = dupGroups.reduce((s, g) => s + (g.members.length - 1), 0);
+      document.getElementById('statTotal').textContent     = allAlumni.length;
+      document.getElementById('statDupGroups').textContent = dupGroups.length;
+      document.getElementById('statDupCount').textContent  = extraCopies;
+      document.getElementById('statClean').textContent     = allAlumni.length - extraCopies;
+      renderGroups();
+      showToast(`✅ ${deleted}টি duplicate deleted!`);
+    }
+  );
+}
+
+/* ===== DELETE ALL ===== */
+function confirmDeleteAll() {
+  const totalToDelete = dupGroups.reduce((sum, g) => {
+    // Keep newest, delete rest
+    const sorted = [...g.members].sort((a, b) =>
+      new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    return sum + sorted.slice(1).length;
+  }, 0);
+
+  showConfirm(
+    `সব duplicates delete করবেন?`,
+    `${dupGroups.length}টি group থেকে ${totalToDelete}টি extra copy delete হবে। সবচেয়ে নতুন copy রেখে বাকি সব delete হবে।`,
+    async () => {
+      let deleted = 0;
+      for (const group of dupGroups) {
+        const sorted = [...group.members].sort((a, b) =>
+          new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        for (const a of sorted.slice(1)) {
+          try {
+            await db.collection('alumni').doc(a.id).delete();
+            allAlumni = allAlumni.filter(x => x.id !== a.id);
+            deleted++;
+          } catch (err) { console.error(err); }
+        }
+      }
+      dupGroups = [];
+      document.getElementById('statTotal').textContent     = allAlumni.length;
+      document.getElementById('statDupGroups').textContent = 0;
+      document.getElementById('statDupCount').textContent  = 0;
+      document.getElementById('statClean').textContent     = allAlumni.length;
+      document.getElementById('deleteAllBtn').style.display = 'none';
+      document.getElementById('filterTabs').style.display  = 'none';
+      document.getElementById('resultsArea').innerHTML = `
+        <div class="empty-wrap">
+          <div class="empty-ico">✅</div>
+          <div class="empty-title">${deleted}টি duplicate deleted!</div>
+          <div class="empty-text">Database এখন পরিষ্কার।</div>
+        </div>`;
+      showToast(`✅ ${deleted}টি duplicate successfully deleted!`);
+    }
+  );
+}
+
+/* ===== EXPORT ===== */
+function exportReport() {
+  if (!dupGroups.length) { showToast('কোনো duplicate নেই'); return; }
+  const rows = [['Group Type', 'Match Key', 'Name', 'Email', 'Phone', 'Batch', 'Doc ID', 'Created At', 'Status']];
+  dupGroups.forEach(g => {
+    const sorted = [...g.members].sort((a, b) =>
+      new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    sorted.forEach((a, i) => {
+      rows.push([g.type, g.key, a.name, a.email, a.phone, a.batch, a.id, a.createdAt, i === 0 ? 'KEEP' : 'DUPLICATE']);
+    });
+  });
+  const csv = rows.map(r => r.map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  link.download = 'ais-duplicates-report.csv';
+  link.click();
+  showToast('📥 Report downloaded!');
+}
+
+/* ===== HELPERS ===== */
+function showLoading(msg) {
+  document.getElementById('resultsArea').innerHTML = `
+    <div class="loader-wrap">
+      <div class="loader"></div>
+      <p style="color:#6B7C93;font-size:.85rem">${msg}</p>
+    </div>`;
+}
+function hideLoading() {
+  document.getElementById('resultsArea').innerHTML = `
+    <div class="empty-wrap">
+      <div class="empty-ico">🔍</div>
+      <div class="empty-title">Ready to Scan</div>
+      <div class="empty-text">"Scan for Duplicates" button এ click করুন।</div>
+    </div>`;
+}
+function showError(msg) {
+  document.getElementById('resultsArea').innerHTML = `
+    <div class="empty-wrap">
+      <div class="empty-ico">❌</div>
+      <div class="empty-title">Error</div>
+      <div class="empty-text">${msg}</div>
+    </div>`;
+}
+</script>
+</body>
+</html>
