@@ -71,7 +71,8 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;position:relative;z-index:1}
 
 /* FILTER BAR */
-.filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.9rem clamp(1rem,4vw,2.5rem)}
+.filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.9rem clamp(1rem,4vw,2.5rem);transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .3s ease}
+.filter-bar.hide{transform:translateY(-110%);opacity:0;pointer-events:none}
 .filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:.65rem}
 .search-row{display:flex;gap:.65rem;align-items:center}
 .search-wrap{position:relative;flex:1}
@@ -357,8 +358,20 @@ const db = firebase.firestore();
 /* NAV */
 document.getElementById('navBurger').addEventListener('click', () =>
   document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll', () =>
-  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
+
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const cur = window.scrollY;
+  const bar = document.getElementById('filterBar');
+  document.getElementById('topNav').classList.toggle('scrolled', cur > 36);
+  if (window.innerWidth <= 768) {
+    if (cur > lastScroll && cur > 100) bar.classList.add('hide');
+    else bar.classList.remove('hide');
+  } else {
+    bar.classList.remove('hide');
+  }
+  lastScroll = cur <= 0 ? 0 : cur;
+}, { passive: true });
 function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDrawer(); } });
