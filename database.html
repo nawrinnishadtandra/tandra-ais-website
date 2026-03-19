@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alumni Database | AIS Alumni — University of Barishal</title>
-<meta name="description" content="Browse and search AIS Alumni from University of Barishal.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,6 +13,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
 .top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
@@ -23,7 +23,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
 .nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
 .nav-ico{font-size:14px;line-height:1}
-.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22)}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -40,7 +40,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .drop-menu{position:static;transform:none;box-shadow:none;background:#FFF6E0}
   .nav-brand-sub{display:none}
 }
-.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);box-shadow:0 -4px 24px rgba(11,30,61,.1);padding-bottom:env(safe-area-inset-bottom,0)}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
 .bn.active{color:#0B1E3D}
@@ -61,12 +61,14 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .drawer-overlay.open{display:block}
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
+
 .page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
 .page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
 .page-title em{font-style:italic;color:#E8B84B}
 .page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;position:relative;z-index:1}
+
 .filter-bar{position:sticky;top:62px;z-index:900;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);padding:.9rem clamp(1rem,4vw,2.5rem)}
 .filter-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:.65rem}
 .search-row{display:flex;gap:.65rem;align-items:center}
@@ -74,31 +76,38 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .search-icon{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#9aabb8;pointer-events:none}
 .search-input{width:100%;padding:.68rem .9rem .68rem 2.4rem;border:1.5px solid rgba(11,30,61,.12);border-radius:10px;font-size:.87rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
 .search-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
-.export-btn{padding:.68rem 1.1rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0;transition:background .2s}
-.export-btn:hover{background:#1A3260}
+.export-btn{padding:.68rem 1.1rem;background:#0B1E3D;color:#fff;border:none;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0}
 .sort-row{display:flex;gap:.5rem;flex-wrap:wrap}
 .filter-select{padding:.5rem .85rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.8rem;font-family:inherit;color:#3a4f6a;background:#fff;outline:none;cursor:pointer}
-.filter-select:focus{border-color:#C8972B}
 .batch-row{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
-.batch-label{font-size:.72rem;font-weight:700;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-right:.15rem;white-space:nowrap}
+.batch-label{font-size:.72rem;font-weight:700;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-right:.2rem;white-space:nowrap}
 .batch-btn{padding:.38rem .72rem;border-radius:8px;border:1.5px solid rgba(11,30,61,.1);background:transparent;font-size:.76rem;font-weight:600;color:#5a6e84;cursor:pointer;transition:all .2s;font-family:inherit}
 .batch-btn:hover{border-color:#C8972B;color:#0B1E3D;background:#FFF6E0}
 .batch-btn.active{background:#0B1E3D;border-color:#0B1E3D;color:#fff}
-.batch-btn[data-batch="all"].active{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;color:#0B1E3D;font-weight:700}
+.batch-btn.all-btn.active{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;color:#0B1E3D}
+
 .content{max-width:1100px;margin:0 auto;padding:1.5rem clamp(1rem,4vw,2.5rem) 3rem}
-.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.results-bar{margin-bottom:1rem}
 .results-count{font-size:.83rem;color:#6B7C93}
 .results-count strong{color:#0B1E3D;font-weight:700}
-.batch-tag{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:1px 9px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.4rem}
+
+/* ERROR BOX */
+.error-box{background:#fff5f5;border:1.5px solid rgba(231,76,60,.2);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem}
+.error-title{font-size:1.1rem;font-weight:700;color:#c0392b;margin-bottom:.5rem}
+.error-text{font-size:.85rem;color:#6B7C93;line-height:1.7;margin-bottom:.75rem}
+.error-rule{background:#f4f4f4;border:1px solid rgba(11,30,61,.08);border-radius:8px;padding:.75rem 1rem;font-size:.76rem;color:#333;font-family:monospace;text-align:left;margin:.75rem 0;white-space:pre-wrap;word-break:break-all}
+.retry-btn{padding:.65rem 1.5rem;background:#0B1E3D;color:#fff;border:none;border-radius:9px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem}
+
 .loading-state{text-align:center;padding:4rem}
 .loader{width:36px;height:36px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
-.loading-text{font-size:.85rem;color:#6B7C93;margin-top:.5rem}
 .empty-state{text-align:center;padding:4rem 2rem}
 .empty-ico{font-size:2.5rem;margin-bottom:.75rem}
 .empty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;margin-bottom:.4rem}
 .empty-text{font-size:.85rem;color:#6B7C93}
+
 .alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem}
 @media(max-width:480px){.alumni-grid{grid-template-columns:1fr}}
+
 .alumni-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.2rem;cursor:pointer;transition:all .28s;position:relative;overflow:hidden}
 .alumni-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);opacity:0;transition:opacity .25s}
 .alumni-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
@@ -106,24 +115,23 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .card-top{display:flex;align-items:center;gap:.85rem;margin-bottom:.75rem}
 .card-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
 .card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;line-height:1.25;margin-bottom:.2rem}
-.card-btag{display:inline-block;background:#F0F2F8;border-radius:6px;padding:2px 8px;font-size:.7rem;font-weight:600;color:#5a6e84}
+.card-batch{display:inline-block;background:#F0F2F8;border-radius:6px;padding:2px 8px;font-size:.7rem;font-weight:600;color:#5a6e84}
 .card-job{font-size:.82rem;color:#5a6e84;margin-bottom:.8rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4rem}
 .card-actions{display:flex;gap:.5rem}
 .ca-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:.5rem;border-radius:9px;font-size:.76rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
 .ca-wa{background:#25D366;color:#fff}
-.ca-wa:hover{background:#20BA5A}
 .ca-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
-.ca-call:hover{opacity:.9}
+
 .modal-bg{position:fixed;inset:0;background:rgba(11,30,61,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .modal-bg.open{display:flex}
 .modal{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 70px rgba(11,30,61,.22);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
 .modal-hdr{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:1.75rem 2rem;text-align:center;position:relative;overflow:hidden}
 .modal-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:2;display:flex;align-items:center;justify-content:center}
+.m-close{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:2;display:flex;align-items:center;justify-content:center}
 .m-close:hover{background:rgba(255,255,255,.28)}
 .m-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1}
 .m-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.25rem;line-height:1.25}
-.m-info{font-size:.75rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
+.m-batch{font-size:.75rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
 .modal-body{padding:1.25rem 1.5rem 1.5rem}
 .m-row{display:flex;align-items:flex-start;gap:.85rem;padding:.72rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
 .m-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
@@ -134,6 +142,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .mc-wa{background:#25D366;color:#fff}
 .mc-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
 .mc-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.2);grid-column:span 2}
+
 .toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
@@ -179,7 +188,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
   <div class="page-eyebrow">AIS Alumni Network</div>
   <h1 class="page-title">Alumni <em>Directory</em></h1>
-  <p class="page-desc">Search and connect with graduates of the Department of Accounting &amp; Information Systems.</p>
+  <p class="page-desc">Search and connect with graduates from every batch of the Department of Accounting &amp; Information Systems.</p>
 </div>
 
 <div class="filter-bar" id="filterBar">
@@ -189,13 +198,13 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <span class="search-icon">🔍</span>
         <input type="text" id="searchInput" class="search-input" placeholder="Search by name, job, phone, email...">
       </div>
-      <button class="export-btn" onclick="exportCSV()">⬇️ Export</button>
+      <button class="export-btn" onclick="exportCSV()">⬇️ CSV</button>
     </div>
     <div class="sort-row">
       <select id="sortFilter" class="filter-select" onchange="applyFilters()">
         <option value="batch">Sort: Batch</option>
         <option value="name">Sort: Name A–Z</option>
-        <option value="year">Sort: Passing Year</option>
+        <option value="year">Sort: Year</option>
       </select>
       <select id="jobFilter" class="filter-select" onchange="applyFilters()">
         <option value="">All Professions</option>
@@ -210,7 +219,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
     </div>
     <div class="batch-row">
       <span class="batch-label">Batch:</span>
-      <button class="batch-btn active" data-batch="all" onclick="setBatch('all',this)">All</button>
+      <button class="batch-btn all-btn active" data-batch="all" onclick="setBatch('all',this)">✅ All</button>
       <button class="batch-btn" data-batch="1"  onclick="setBatch('1',this)">B1</button>
       <button class="batch-btn" data-batch="2"  onclick="setBatch('2',this)">B2</button>
       <button class="batch-btn" data-batch="3"  onclick="setBatch('3',this)">B3</button>
@@ -229,17 +238,18 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <div class="content">
   <div class="results-bar">
-    <div class="results-count" id="resultsCount">Loading alumni...</div>
+    <div class="results-count" id="resultsCount">Loading...</div>
   </div>
+  <div id="errorBox" style="display:none"></div>
   <div class="loading-state" id="loadingState">
     <div class="loader"></div>
-    <p class="loading-text">Loading alumni database...</p>
+    <p style="color:#6B7C93;font-size:.85rem;margin-top:.5rem">Loading alumni database...</p>
   </div>
   <div class="alumni-grid" id="alumniGrid"></div>
   <div class="empty-state" id="emptyState" style="display:none">
     <div class="empty-ico">🔍</div>
     <div class="empty-title">No Alumni Found</div>
-    <div class="empty-text">Try a different search term or select a different batch</div>
+    <div class="empty-text">Try a different search or batch filter</div>
   </div>
 </div>
 
@@ -251,7 +261,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <button class="m-close" onclick="closeModal()">✕</button>
       <div class="m-av" id="mAv">?</div>
       <div class="m-name" id="mName">—</div>
-      <div class="m-info" id="mInfo">—</div>
+      <div class="m-batch" id="mBatch">—</div>
     </div>
     <div class="modal-body">
       <div class="m-row"><div class="m-ico">💼</div><div><div class="m-lbl">Job / Position</div><div class="m-val" id="mJob">—</div></div></div>
@@ -290,191 +300,232 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="firebase.js"></script>
+
+<!-- ✅ Firebase inline config — firebase.js এর উপর নির্ভর করছি না -->
 <script>
-// NAV
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyDkdTTdK1Tp3oT5ff--GqYqwHMJHegKV8s",
+    authDomain: "ais-alumni-uobd.firebaseapp.com",
+    projectId: "ais-alumni-uobd",
+    storageBucket: "ais-alumni-uobd.firebasestorage.app",
+    messagingSenderId: "215592148913",
+    appId: "1:215592148913:web:658d23339c62e1a4d82790"
+  });
+}
+const db = firebase.firestore();
+</script>
+
+<script>
+/* === NAV === */
 document.getElementById('navBurger').addEventListener('click', () =>
   document.getElementById('navLinks').classList.toggle('open'));
 window.addEventListener('scroll', () =>
-  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
-function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeDrawer(); } });
-document.getElementById('modalBg').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), {passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown', e => { if(e.key==='Escape'){closeModal();closeDrawer();} });
+document.getElementById('modalBg').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
-// STATE
-let allAlumni = [];
-let filteredAlumni = [];
-let activeBatch = 'all';
-let activeJob = '';
-let activeSort = 'batch';
-let searchQ = '';
-
-// URL param — database.html?batch=3
-const urlBatch = new URLSearchParams(window.location.search).get('batch');
-if (urlBatch) {
-  activeBatch = urlBatch;
-  document.querySelectorAll('.batch-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.batch === urlBatch));
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// SEARCH
-let sTimer = null;
-document.getElementById('searchInput').addEventListener('input', function () {
-  clearTimeout(sTimer);
-  sTimer = setTimeout(() => { searchQ = this.value.trim().toLowerCase(); applyFilters(); }, 250);
+/* === STATE === */
+let allAlumni=[], filteredAlumni=[];
+let activeBatch='all', activeJob='', activeSort='batch', searchQ='';
+
+/* === URL batch param === */
+const urlBatch=new URLSearchParams(window.location.search).get('batch');
+if(urlBatch){
+  activeBatch=urlBatch;
+  document.querySelectorAll('.batch-btn').forEach(b=>b.classList.toggle('active', b.dataset.batch===urlBatch));
+}
+
+/* === SEARCH === */
+let st=null;
+document.getElementById('searchInput').addEventListener('input',function(){
+  clearTimeout(st);
+  st=setTimeout(()=>{ searchQ=this.value.trim().toLowerCase(); applyFilters(); },250);
 });
 
-// BATCH
-function setBatch(val, btn) {
-  activeBatch = val;
-  document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
+function setBatch(val,btn){
+  activeBatch=val;
+  document.querySelectorAll('.batch-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   applyFilters();
 }
 
-// JOB MATCH
-function matchJob(job, f) {
-  if (!f) return true;
-  const j = (job || '').toLowerCase();
-  const m = {
-    bank:['bank','bkash','nagad','nrbc','dutch','islami','sonali','janata','agrani','rupali','premier','finance'],
-    ca:['ca','audit','deloitte','acnabin','icab','chartered','accountant','cpa'],
-    govt:['government','govt','public','service','bcs','upazila','district','civil','officer'],
-    ngo:['ngo','brac','grameen','asha','care','unicef','foundation'],
-    business:['business','entrepreneur','owner','ceo','managing','director','proprietor'],
-    education:['teacher','professor','lecturer','school','college','university','tutor','faculty'],
-    student:['student','studying','mba','pursuing','intern','msc','phd'],
+function matchJob(job,filter){
+  if(!filter) return true;
+  const j=(job||'').toLowerCase();
+  const map={
+    bank:['bank','nrbc','dutch','islami','sonali','janata','agrani','rupali','premier','brac bank','mtbl','ucb','trust'],
+    ca:['ca','audit','deloitte','acnabin','icab','chartered','accountant'],
+    govt:['government','govt','public','service','bcs','upazila','district','civil','ministry'],
+    ngo:['ngo','brac','grameen','asha','care','unicef','save the children','world vision'],
+    business:['business','entrepreneur','owner','ceo','managing','director','proprietor','self'],
+    education:['teacher','professor','lecturer','school','college','university','tutor','instructor'],
+    student:['student','studying','mba','pursuing','intern','trainee'],
   };
-  return (m[f] || []).some(k => j.includes(k));
+  return (map[filter]||[]).some(k=>j.includes(k));
 }
 
-// MAIN FILTER
-function applyFilters() {
-  activeJob  = document.getElementById('jobFilter').value;
-  activeSort = document.getElementById('sortFilter').value;
-  let list = [...allAlumni];
+function applyFilters(){
+  activeJob=document.getElementById('jobFilter').value;
+  activeSort=document.getElementById('sortFilter').value;
 
-  if (activeBatch !== 'all')
-    list = list.filter(a => String(a.batch) === String(activeBatch));
+  let list=[...allAlumni];
 
-  if (activeJob)
-    list = list.filter(a => matchJob(a.job, activeJob));
+  if(activeBatch!=='all')
+    list=list.filter(a=>String(a.batch)===String(activeBatch));
 
-  if (searchQ)
-    list = list.filter(a =>
-      (a.name  || '').toLowerCase().includes(searchQ) ||
-      (a.job   || '').toLowerCase().includes(searchQ) ||
-      (a.phone || '').includes(searchQ) ||
-      (a.email || '').toLowerCase().includes(searchQ) ||
-      String(a.batch || '').includes(searchQ)
+  if(activeJob)
+    list=list.filter(a=>matchJob(a.job,activeJob));
+
+  if(searchQ)
+    list=list.filter(a=>
+      (a.name||'').toLowerCase().includes(searchQ)||
+      (a.job||'').toLowerCase().includes(searchQ)||
+      (a.phone||'').includes(searchQ)||
+      (a.email||'').toLowerCase().includes(searchQ)||
+      String(a.batch||'').includes(searchQ)
     );
 
-  if (activeSort === 'name')
-    list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-  else if (activeSort === 'year')
-    list.sort((a, b) => (+a.year || 9999) - (+b.year || 9999));
+  if(activeSort==='name')
+    list.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  else if(activeSort==='year')
+    list.sort((a,b)=>(+a.year||0)-(+b.year||0));
   else
-    list.sort((a, b) => {
-      const d = (+a.batch || 99) - (+b.batch || 99);
-      return d !== 0 ? d : (a.name || '').localeCompare(b.name || '');
-    });
+    list.sort((a,b)=>(+a.batch||99)-(+b.batch||99)||(a.name||'').localeCompare(b.name||''));
 
-  filteredAlumni = list;
-  renderCards();
+  filteredAlumni=list;
+  render();
 }
 
-// RENDER
-function renderCards() {
-  document.getElementById('loadingState').style.display = 'none';
-  const grid    = document.getElementById('alumniGrid');
-  const empty   = document.getElementById('emptyState');
-  const countEl = document.getElementById('resultsCount');
+function render(){
+  document.getElementById('loadingState').style.display='none';
+  document.getElementById('errorBox').style.display='none';
 
-  const tag = activeBatch !== 'all' ? `<span class="batch-tag">Batch ${activeBatch}</span>` : '';
-  countEl.innerHTML = `<strong>${filteredAlumni.length}</strong> alumni found ${tag}`;
+  const grid=document.getElementById('alumniGrid');
+  const empty=document.getElementById('emptyState');
+  const bTag=activeBatch!=='all'
+    ?`<span style="display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:2px 10px;font-size:.72rem;font-weight:600;color:#9a6c0a;margin-left:.5rem">Batch ${activeBatch}</span>`:'' ;
 
-  if (!filteredAlumni.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+  document.getElementById('resultsCount').innerHTML=
+    `<strong>${filteredAlumni.length}</strong> alumni found ${bTag}`;
 
-  grid.innerHTML = filteredAlumni.map((a, i) => {
-    const init = (a.name || '?').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
-    const num  = (a.phone || '').replace(/[^0-9]/g, '');
-    const intl = num.startsWith('0') ? '88' + num : num;
-    const wa   = encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
+  if(!filteredAlumni.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+
+  grid.innerHTML=filteredAlumni.map((a,i)=>{
+    const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const num=(a.phone||'').replace(/[^0-9]/g,'');
+    const intl=num.startsWith('0')?'88'+num:(num||'');
+    const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
     return `
-      <div class="alumni-card" onclick="openModal(${i})">
-        <div class="card-top">
-          <div class="card-av">${init}</div>
-          <div style="min-width:0">
-            <div class="card-name">${a.name || '—'}</div>
-            <span class="card-btag">Batch ${a.batch || '?'} · ${a.year || '—'}</span>
-          </div>
+    <div class="alumni-card" onclick="openModal(${i})">
+      <div class="card-top">
+        <div class="card-av">${init}</div>
+        <div style="min-width:0">
+          <div class="card-name">${a.name||'—'}</div>
+          <span class="card-batch">Batch ${a.batch||'?'} · ${a.year||'—'}</span>
         </div>
-        <div class="card-job">${a.job || 'Job not specified'}</div>
-        <div class="card-actions">
-          <a class="ca-btn ca-wa" href="https://wa.me/${intl}?text=${wa}" target="_blank" onclick="event.stopPropagation()">📱 WhatsApp</a>
-          <a class="ca-btn ca-call" href="tel:${a.phone||''}" onclick="event.stopPropagation()">📞 Call</a>
-        </div>
-      </div>`;
+      </div>
+      <div class="card-job">${a.job||'Not specified'}</div>
+      <div class="card-actions">
+        <a class="ca-btn ca-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">📱 WhatsApp</a>
+        <a class="ca-btn ca-call" href="tel:${a.phone||''}" onclick="event.stopPropagation()">📞 Call</a>
+      </div>
+    </div>`;
   }).join('');
 }
 
-// MODAL
-function openModal(idx) {
-  const a = filteredAlumni[idx];
-  if (!a) return;
-  const init = (a.name || '?').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2);
-  document.getElementById('mAv').textContent    = init;
-  document.getElementById('mName').textContent  = a.name  || '—';
-  document.getElementById('mInfo').textContent  = `Batch ${a.batch || '?'} · ${a.year || '—'}`;
-  document.getElementById('mJob').textContent   = a.job   || '—';
-  document.getElementById('mPhone').textContent = a.phone || '—';
-  document.getElementById('mEmail').textContent = a.email || '—';
-  document.getElementById('mYear').textContent  = a.year  || '—';
-  const num  = (a.phone || '').replace(/[^0-9]/g, '');
-  const intl = num.startsWith('0') ? '88' + num : num;
-  const wa   = encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
-  let btns = `
-    <a class="mc-btn mc-wa"   href="https://wa.me/${intl}?text=${wa}" target="_blank">📱 WhatsApp</a>
+function openModal(idx){
+  const a=filteredAlumni[idx]; if(!a) return;
+  const init=(a.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('mAv').textContent=init;
+  document.getElementById('mName').textContent=a.name||'—';
+  document.getElementById('mBatch').textContent=`Batch ${a.batch||'?'} · ${a.year||'—'}`;
+  document.getElementById('mJob').textContent=a.job||'—';
+  document.getElementById('mPhone').textContent=a.phone||'—';
+  document.getElementById('mEmail').textContent=a.email||'—';
+  document.getElementById('mYear').textContent=a.year||'—';
+  const num=(a.phone||'').replace(/[^0-9]/g,'');
+  const intl=num.startsWith('0')?'88'+num:(num||'');
+  const waMsg=encodeURIComponent(`আসসালামুয়ালাইকুম ${a.name} ভাই/আপু, আমি AIS Alumni।`);
+  let btns=`
+    <a class="mc-btn mc-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">📱 WhatsApp</a>
     <a class="mc-btn mc-call" href="tel:${a.phone||''}">📞 Call</a>`;
-  if (a.email)    btns += `<a class="mc-btn mc-email" href="mailto:${a.email}">📧 Send Email</a>`;
-  if (a.linkedin) btns += `<a class="mc-btn mc-email" href="${a.linkedin}" target="_blank" style="grid-column:span 2">🔗 LinkedIn</a>`;
-  document.getElementById('mConnect').innerHTML = btns;
+  if(a.email) btns+=`<a class="mc-btn mc-email" href="mailto:${a.email}">📧 Send Email</a>`;
+  if(a.linkedin) btns+=`<a class="mc-btn mc-email" href="${a.linkedin}" target="_blank" style="grid-column:span 2">🔗 LinkedIn</a>`;
+  document.getElementById('mConnect').innerHTML=btns;
   document.getElementById('modalBg').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeModal() { document.getElementById('modalBg').classList.remove('open'); document.body.style.overflow = ''; }
-
-// CSV
-function exportCSV() {
-  if (!filteredAlumni.length) { showToast('কোনো data নেই'); return; }
-  const rows = [['Name','Batch','Year','Job','Phone','Email'], ...filteredAlumni.map(a=>[a.name,a.batch,a.year,a.job,a.phone,a.email])];
-  const csv  = rows.map(r => r.map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const link = document.createElement('a');
-  link.href  = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  link.download = activeBatch === 'all' ? 'ais-alumni-all.csv' : `ais-alumni-batch${activeBatch}.csv`;
-  link.click();
-  showToast('✅ CSV downloaded!');
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow='';
 }
 
-// ✅ KEY FIX: orderBy() সরিয়ে দিলাম — এটাই সব alumni না দেখানোর কারণ ছিল
-// orderBy() দিলে Firebase Composite Index লাগে, না থাকলে শুধু index আছে এমন data দেখায়
-// এখন .get() দিয়ে সব data আনছি, JavaScript এ sort করছি
-db.collection('alumni').get()
-  .then(snap => {
-    allAlumni = [];
-    snap.forEach(doc => allAlumni.push({ id: doc.id, ...doc.data() }));
-    console.log('Total alumni loaded:', allAlumni.length);
-    applyFilters();
-  })
-  .catch(err => {
-    console.error('Firebase error:', err);
-    document.getElementById('loadingState').style.display = 'none';
-    document.getElementById('resultsCount').innerHTML =
-      '❌ Database load failed. <a href="javascript:location.reload()" style="color:#C8972B;font-weight:600">Retry</a>';
-  });
+function exportCSV(){
+  if(!filteredAlumni.length){showToast('কোনো data নেই');return;}
+  const rows=[['Name','Batch','Year','Job','Phone','Email'],
+    ...filteredAlumni.map(a=>[a.name,a.batch,a.year,a.job,a.phone,a.email])];
+  const csv=rows.map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const link=document.createElement('a');
+  link.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  link.download=activeBatch==='all'?'ais-alumni-all.csv':`ais-alumni-batch${activeBatch}.csv`;
+  link.click(); showToast('✅ CSV downloaded!');
+}
+
+/* === SHOW ERROR WITH INSTRUCTIONS === */
+function showError(errMsg, errCode){
+  document.getElementById('loadingState').style.display='none';
+  document.getElementById('resultsCount').textContent='';
+  document.getElementById('errorBox').style.display='block';
+  document.getElementById('errorBox').innerHTML=`
+    <div class="error-box">
+      <div class="error-title">⚠️ Firebase Rules সমস্যা</div>
+      <div class="error-text">
+        Error: <strong>${errCode||errMsg}</strong><br><br>
+        Firebase Console → Firestore → <strong>Rules</strong> এ গিয়ে নিচের rule paste করুন এবং Publish করুন:
+      </div>
+      <div class="error-rule">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</div>
+      <div class="error-text" style="font-size:.78rem;color:#e74c3c">⚠️ এটা development এর জন্য। Production এ proper authentication rules ব্যবহার করুন।</div>
+      <button class="retry-btn" onclick="loadAlumni()">🔄 Retry করুন</button>
+    </div>`;
+}
+
+/* === FIREBASE LOAD — orderBy ছাড়া, তাই index লাগবে না === */
+function loadAlumni(){
+  document.getElementById('loadingState').style.display='block';
+  document.getElementById('errorBox').style.display='none';
+  document.getElementById('alumniGrid').innerHTML='';
+  document.getElementById('emptyState').style.display='none';
+
+  db.collection('alumni').get()
+    .then(snap=>{
+      allAlumni=[];
+      snap.forEach(doc=>allAlumni.push({id:doc.id,...doc.data()}));
+      applyFilters();
+    })
+    .catch(err=>{
+      console.error('Firebase error:',err.code, err.message);
+      showError(err.message, err.code);
+    });
+}
+
+loadAlumni();
 </script>
 </body>
 </html>
