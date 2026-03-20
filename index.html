@@ -485,6 +485,50 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .has-drop:hover .nav-caret{transform:rotate(180deg)}
 .nav-links a{gap:4px}
 
+
+/* ── PREMIUM TICKER (always visible) ── */
+.ticker-wrap{
+  background:#080f1e;
+  border-top:1px solid rgba(200,151,43,.12);
+  border-bottom:1px solid rgba(200,151,43,.12);
+  overflow:hidden;position:relative;
+  padding:0;height:52px;display:flex;align-items:center;
+}
+/* left/right fade masks */
+.ticker-wrap::before,.ticker-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+}
+.ticker-wrap::before{left:0;background:linear-gradient(90deg,#080f1e 0%,transparent 100%)}
+.ticker-wrap::after{right:0;background:linear-gradient(270deg,#080f1e 0%,transparent 100%)}
+.ticker-track{
+  display:flex;align-items:center;
+  white-space:nowrap;
+  animation:ticker-scroll 28s linear infinite;
+  will-change:transform;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker-scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.tick-item{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:0 2.2rem;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(200,151,43,.55);
+  transition:color .2s;
+}
+.tick-item:hover{color:#E8B84B}
+.tick-sep{
+  display:inline-block;
+  width:4px;height:4px;border-radius:50%;
+  background:#C8972B;opacity:.4;
+  flex-shrink:0;
+}
+/* highlight alternating items */
+.tick-item.hl{color:rgba(255,255,255,.22)}
+
 </style>
 </head>
 <body>
@@ -610,218 +654,42 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
-<!-- ═══ PREMIUM STATS COUNTER ═══ -->
-<div class="sbar">
-  <div class="sg" id="statsGrid">
 
-    <div class="sc" onclick="document.getElementById('teacherModal').classList.add('open')" style="cursor:pointer">
-      <div class="sc-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <div class="sc-num-row">
-        <span class="sc-n" data-target="8" data-suffix="">0</span>
-        <span class="sc-sfx"></span>
-      </div>
-      <div class="sc-l">Faculty Members</div>
-      <div class="sc-underline"></div>
-    </div>
-
-    <div class="sc">
-      <div class="sc-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-      </div>
-      <div class="sc-num-row">
-        <span class="sc-n" data-target="12" data-suffix="">0</span>
-        <span class="sc-sfx"></span>
-      </div>
-      <div class="sc-l">Total Batches</div>
-      <div class="sc-underline"></div>
-    </div>
-
-    <div class="sc">
-      <div class="sc-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-      </div>
-      <div class="sc-num-row">
-        <span class="sc-n" data-target="216" data-suffix="">0</span>
-        <span class="sc-sfx"></span>
-      </div>
-      <div class="sc-l">Running Students</div>
-      <div class="sc-underline"></div>
-    </div>
-
-    <a href="database.html" class="sc" style="text-decoration:none">
-      <div class="sc-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <div class="sc-num-row">
-        <span class="sc-n" id="statCount" data-target="0" data-suffix="+">—</span>
-        <span class="sc-sfx" id="statSuffix"></span>
-      </div>
-      <div class="sc-l">Registered Alumni</div>
-      <div class="sc-underline"></div>
-    </a>
-
+<!-- ═══ PREMIUM ALWAYS-VISIBLE TICKER ═══ -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="tick-item hl"><span class="tick-sep"></span>Alumni Directory</span>
+    <span class="tick-item"><span class="tick-sep"></span>Personal Profile</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>bKash Donation</span>
+    <span class="tick-item"><span class="tick-sep"></span>Notice Board</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Events Calendar</span>
+    <span class="tick-item"><span class="tick-sep"></span>Faculty Directory</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Batch Filter</span>
+    <span class="tick-item"><span class="tick-sep"></span>CSV Export</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Real-time Updates</span>
+    <span class="tick-item"><span class="tick-sep"></span>Blood Group Search</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>WhatsApp Connect</span>
+    <span class="tick-item"><span class="tick-sep"></span>Profile Management</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Achievement Showcase</span>
+    <span class="tick-item"><span class="tick-sep"></span>Admin Panel</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tick-item hl"><span class="tick-sep"></span>Alumni Directory</span>
+    <span class="tick-item"><span class="tick-sep"></span>Personal Profile</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>bKash Donation</span>
+    <span class="tick-item"><span class="tick-sep"></span>Notice Board</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Events Calendar</span>
+    <span class="tick-item"><span class="tick-sep"></span>Faculty Directory</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Batch Filter</span>
+    <span class="tick-item"><span class="tick-sep"></span>CSV Export</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Real-time Updates</span>
+    <span class="tick-item"><span class="tick-sep"></span>Blood Group Search</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>WhatsApp Connect</span>
+    <span class="tick-item"><span class="tick-sep"></span>Profile Management</span>
+    <span class="tick-item hl"><span class="tick-sep"></span>Achievement Showcase</span>
+    <span class="tick-item"><span class="tick-sep"></span>Admin Panel</span>
   </div>
 </div>
 
-<section class="about">
-  <div class="about-inner">
-    <div class="about-vis reveal">
-      <div class="about-card-main">
-        <div class="about-main-ico">🚀</div>
-        <div class="about-main-title">Building Futures Since 2015</div>
-        <div class="about-main-dept">Accounting &amp; Information Systems</div>
-        <div class="about-main-text">Equipping students with cutting-edge skills in accounting and technology to meet global business challenges.</div>
-      </div>
-      <div class="about-dot"></div>
-      <div class="about-card-accent">
-        <div class="accent-num">2015</div>
-        <div class="accent-txt">Year the department was established at University of Barishal</div>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="sec-eye">About Our Department</div>
-      <h2 class="sec-title">Excellence in<br><em>Accounting &amp; IS</em></h2>
-      <div class="sec-dept-tag">Accounting &amp; Information Systems · University of Barishal</div>
-      <p class="sec-desc">Our program provides a strong foundation in accounting, financial expertise, quantitative skills, and information technology — applied within real business contexts.</p>
-      <ul class="about-list">
-        <li><div class="ali-icon">📖</div><span>Innovative curriculum blending traditional accounting with modern information systems.</span></li>
-        <li><div class="ali-icon">💡</div><span>Financial information that influences decision-makers in today's digital landscape.</span></li>
-        <li><div class="ali-icon">🌐</div><span>Industry-aligned training preparing graduates for global professional challenges.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="testi">
-  <div class="testi-inner">
-    <div class="reveal"><div class="sec-eye">Alumni বলছেন</div><h2 class="sec-title">তাদের <em>সাফল্যের গল্প</em></h2></div>
-    <div class="testi-grid">
-      <div class="tcard reveal">
-        <p class="tcard-text">"AIS Department এর শেখানো foundation আমাকে banking sector এ এগিয়ে যেতে সাহায্য করেছে। এই alumni network টা আমাদের সবসময় connected রাখে।"</p>
-        <div class="tcard-footer"><div class="tcard-avatar">NM</div><div><div class="tcard-name">Md. Abu Nayem Mridha</div><div class="tcard-batch">Batch 1 · Executive Officer, NRBC Bank</div></div></div>
-      </div>
-      <div class="tcard reveal">
-        <p class="tcard-text">"AIS থেকে পড়াশোনা করে Deloitte Bangladesh এ CA করার সুযোগ পেয়েছি। এই department আমার career এর সবচেয়ে বড় stepping stone।"</p>
-        <div class="tcard-footer"><div class="tcard-avatar">SF</div><div><div class="tcard-name">Sheikh Md. Farhan Hasin Haque</div><div class="tcard-batch">Batch 7 · Pursuing CA, Deloitte Bangladesh</div></div></div>
-      </div>
-      <div class="tcard reveal">
-        <p class="tcard-text">"Sonali Bank এ যোগ দেওয়ার পেছনে AIS Department এর accounting এর শক্তিশালী শিক্ষার বড় ভূমিকা আছে। এই community নিয়ে গর্বিত।"</p>
-        <div class="tcard-footer"><div class="tcard-avatar">AK</div><div><div class="tcard-name">Arjun Kumar Mandal</div><div class="tcard-batch">Batch 1 · Sonali Bank</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="feats">
-  <div class="feats-inner">
-
-    <div class="feats-head reveal">
-      <div class="sec-eye">Platform Features</div>
-      <div class="feats-dept">Accounting &amp; Information Systems Alumni Platform</div>
-      <h2 class="sec-title">Everything in <em>One Place</em></h2>
-    </div>
-
-    <!-- MARQUEE STRIP -->
-    <div class="feats-marquee-wrap reveal">
-      <div class="feats-marquee">
-        <div class="feats-marquee-track" id="marqueeTrack">
-          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
-          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
-          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
-          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
-          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
-          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
-          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
-          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
-          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
-          <!-- duplicate for seamless loop -->
-          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
-          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
-          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
-          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
-          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
-          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
-          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
-          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
-          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- FEATURE GRID -->
-    <div class="fg-new">
-
-      <a href="database.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">01</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="fc-new-title">Alumni Directory</div>
-        <div class="fc-new-desc">Batch, name বা profession দিয়ে search করুন। WhatsApp ও call directly।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-      <a href="profile.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">02</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="fc-new-title">Personal Profile</div>
-        <div class="fc-new-desc">Job, LinkedIn, blood group ও achievements সহ নিজের profile manage করুন।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-      <a href="donation.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">03</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        </div>
-        <div class="fc-new-title">Donation Portal</div>
-        <div class="fc-new-desc">bKash এ সহজে donate করুন। Top donors leaderboard দেখুন।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-      <a href="notice.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">04</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-        </div>
-        <div class="fc-new-title">Notice Board</div>
-        <div class="fc-new-desc">Important announcements real-time এ পড়ুন। কোনো update miss করবেন না।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-      <a href="event.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">05</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div class="fc-new-title">Events Calendar</div>
-        <div class="fc-new-desc">Reunion ও networking events এ RSVP করুন। Countdown দেখুন।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-      <a href="faculty.html" class="fc-new reveal">
-        <div class="fc-new-bg"></div>
-        <div class="fc-new-num">06</div>
-        <div class="fc-new-ico">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
-        <div class="fc-new-title">Faculty Members</div>
-        <div class="fc-new-desc">Department এর সকল faculty এর contact ও email সরাসরি দেখুন।</div>
-        <div class="fc-new-arrow">→</div>
-      </a>
-
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════ MZ MEDIA STYLE SCROLL TIMELINE ═══════════ -->
 <!-- এই পুরো section টা index.html এ batch-section এর ঠিক আগে paste করুন -->
@@ -831,7 +699,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
     <div class="tl-head reveal">
       <div class="sec-eye">How It Works</div>
-      <h2 class="sec-title">আমাদের <em>Platform</em> ব্যবহার করুন</h2>
+      <h2 class="sec-title">AIS Alumni <em>Website</em> ব্যবহার করুন</h2>
       <p class="tl-desc">মাত্র কয়েকটা step এ AIS Alumni Network এর সাথে যুক্ত হন এবং আপনার পুরনো বন্ধুদের সাথে reconnect করুন।</p>
     </div>
 
@@ -948,6 +816,218 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </section>
 
+<section class="feats">
+  <div class="feats-inner">
+
+    <div class="feats-head reveal">
+      <div class="sec-eye">Platform Features</div>
+      <div class="feats-dept">Accounting &amp; Information Systems Alumni Platform</div>
+      <h2 class="sec-title">Everything in <em>One Place</em></h2>
+    </div>
+
+    <!-- MARQUEE STRIP -->
+    <div class="feats-marquee-wrap reveal">
+      <div class="feats-marquee">
+        <div class="feats-marquee-track" id="marqueeTrack">
+          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
+          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
+          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
+          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
+          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
+          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
+          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
+          <!-- duplicate for seamless loop -->
+          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
+          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
+          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
+          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
+          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
+          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
+          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE GRID -->
+    <div class="fg-new">
+
+      <a href="database.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">01</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="fc-new-title">Alumni Directory</div>
+        <div class="fc-new-desc">Batch, name বা profession দিয়ে search করুন। WhatsApp ও call directly।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="profile.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">02</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="fc-new-title">Personal Profile</div>
+        <div class="fc-new-desc">Job, LinkedIn, blood group ও achievements সহ নিজের profile manage করুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="donation.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">03</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="fc-new-title">Donation Portal</div>
+        <div class="fc-new-desc">bKash এ সহজে donate করুন। Top donors leaderboard দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="notice.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">04</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <div class="fc-new-title">Notice Board</div>
+        <div class="fc-new-desc">Important announcements real-time এ পড়ুন। কোনো update miss করবেন না।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="event.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">05</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="fc-new-title">Events Calendar</div>
+        <div class="fc-new-desc">Reunion ও networking events এ RSVP করুন। Countdown দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="faculty.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">06</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="fc-new-title">Faculty Members</div>
+        <div class="fc-new-desc">Department এর সকল faculty এর contact ও email সরাসরি দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PREMIUM STATS COUNTER ═══ -->
+<div class="sbar">
+  <div class="sg" id="statsGrid">
+
+    <div class="sc" onclick="document.getElementById('teacherModal').classList.add('open')" style="cursor:pointer">
+      <div class="sc-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="sc-num-row">
+        <span class="sc-n" data-target="8" data-suffix="">0</span>
+        <span class="sc-sfx"></span>
+      </div>
+      <div class="sc-l">Faculty Members</div>
+      <div class="sc-underline"></div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div class="sc-num-row">
+        <span class="sc-n" data-target="12" data-suffix="">0</span>
+        <span class="sc-sfx"></span>
+      </div>
+      <div class="sc-l">Total Batches</div>
+      <div class="sc-underline"></div>
+    </div>
+
+    <div class="sc">
+      <div class="sc-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      </div>
+      <div class="sc-num-row">
+        <span class="sc-n" data-target="216" data-suffix="">0</span>
+        <span class="sc-sfx"></span>
+      </div>
+      <div class="sc-l">Running Students</div>
+      <div class="sc-underline"></div>
+    </div>
+
+    <a href="database.html" class="sc" style="text-decoration:none">
+      <div class="sc-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(200,151,43,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="sc-num-row">
+        <span class="sc-n" id="statCount" data-target="0" data-suffix="+">—</span>
+        <span class="sc-sfx" id="statSuffix"></span>
+      </div>
+      <div class="sc-l">Registered Alumni</div>
+      <div class="sc-underline"></div>
+    </a>
+
+  </div>
+</div>
+
+<section class="about">
+  <div class="about-inner">
+    <div class="about-vis reveal">
+      <div class="about-card-main">
+        <div class="about-main-ico">🚀</div>
+        <div class="about-main-title">Building Futures Since 2015</div>
+        <div class="about-main-dept">Accounting &amp; Information Systems</div>
+        <div class="about-main-text">Equipping students with cutting-edge skills in accounting and technology to meet global business challenges.</div>
+      </div>
+      <div class="about-dot"></div>
+      <div class="about-card-accent">
+        <div class="accent-num">2015</div>
+        <div class="accent-txt">Year the department was established at University of Barishal</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sec-eye">About Our Department</div>
+      <h2 class="sec-title">Excellence in<br><em>Accounting &amp; IS</em></h2>
+      <div class="sec-dept-tag">Accounting &amp; Information Systems · University of Barishal</div>
+      <p class="sec-desc">Our program provides a strong foundation in accounting, financial expertise, quantitative skills, and information technology — applied within real business contexts.</p>
+      <ul class="about-list">
+        <li><div class="ali-icon">📖</div><span>Innovative curriculum blending traditional accounting with modern information systems.</span></li>
+        <li><div class="ali-icon">💡</div><span>Financial information that influences decision-makers in today's digital landscape.</span></li>
+        <li><div class="ali-icon">🌐</div><span>Industry-aligned training preparing graduates for global professional challenges.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="testi-inner">
+    <div class="reveal"><div class="sec-eye">Alumni বলছেন</div><h2 class="sec-title">তাদের <em>সাফল্যের গল্প</em></h2></div>
+    <div class="testi-grid">
+      <div class="tcard reveal">
+        <p class="tcard-text">"AIS Department এর শেখানো foundation আমাকে banking sector এ এগিয়ে যেতে সাহায্য করেছে। এই alumni network টা আমাদের সবসময় connected রাখে।"</p>
+        <div class="tcard-footer"><div class="tcard-avatar">NM</div><div><div class="tcard-name">Md. Abu Nayem Mridha</div><div class="tcard-batch">Batch 1 · Executive Officer, NRBC Bank</div></div></div>
+      </div>
+      <div class="tcard reveal">
+        <p class="tcard-text">"AIS থেকে পড়াশোনা করে Deloitte Bangladesh এ CA করার সুযোগ পেয়েছি। এই department আমার career এর সবচেয়ে বড় stepping stone।"</p>
+        <div class="tcard-footer"><div class="tcard-avatar">SF</div><div><div class="tcard-name">Sheikh Md. Farhan Hasin Haque</div><div class="tcard-batch">Batch 7 · Pursuing CA, Deloitte Bangladesh</div></div></div>
+      </div>
+      <div class="tcard reveal">
+        <p class="tcard-text">"Sonali Bank এ যোগ দেওয়ার পেছনে AIS Department এর accounting এর শক্তিশালী শিক্ষার বড় ভূমিকা আছে। এই community নিয়ে গর্বিত।"</p>
+        <div class="tcard-footer"><div class="tcard-avatar">AK</div><div><div class="tcard-name">Arjun Kumar Mandal</div><div class="tcard-batch">Batch 1 · Sonali Bank</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="batch-section">
   <div class="batch-inner reveal">
