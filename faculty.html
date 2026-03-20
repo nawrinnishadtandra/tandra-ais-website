@@ -11,18 +11,26 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tl-pulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,43,.12),0 8px 24px rgba(200,151,43,.3)}50%{box-shadow:0 0 0 11px rgba(200,151,43,.06),0 8px 32px rgba(200,151,43,.42)}}
 
-/* NAV */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06)}
+/* ── NAV ── */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
+.top-nav.scrolled{height:54px}
 .nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
 .nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#0B1E3D;display:block;line-height:1.1}
 .nav-brand-sub{font-size:.58rem;color:#C8972B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
 .nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
-.nav-links a{display:inline-flex;align-items:center;gap:5px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a{display:inline-flex;align-items:center;gap:4px;color:#3a4f6a;font-size:.78rem;font-weight:500;padding:.38rem .65rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
 .nav-links a:hover,.nav-links a.active-link{color:#0B1E3D;background:rgba(11,30,61,.05)}
-.nav-ico{font-size:14px;line-height:1}
-.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem}
+.nav-svg{width:14px;height:14px;flex-shrink:0;stroke:currentColor;display:inline-block;vertical-align:middle;transition:transform .2s}
+.nav-links a:hover .nav-svg{transform:scale(1.12)}
+.nav-caret{width:10px;height:7px;flex-shrink:0;stroke:currentColor;opacity:.5;margin-left:1px;transition:transform .2s}
+.has-drop:hover .nav-caret{transform:rotate(180deg)}
+.nav-cta{background:#0B1E3D!important;color:#fff!important;padding:.44rem 1rem!important;border-radius:8px!important;margin-left:.3rem;box-shadow:0 4px 12px rgba(11,30,61,.22);gap:6px!important}
+.nav-cta:hover{background:#1A3260!important}
 .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid rgba(11,30,61,.12);border-radius:8px;padding:7px 8px;cursor:pointer}
 .nav-burger span{display:block;width:17px;height:2px;background:#0B1E3D;border-radius:2px}
 .has-drop{position:relative}
@@ -40,7 +48,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .nav-brand-sub{display:none}
 }
 
-/* BOT NAV */
+/* ── BOTTOM NAV ── */
 .bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
@@ -63,91 +71,125 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* PAGE HEADER */
-.page-header{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:calc(62px + 2rem) clamp(1.5rem,5vw,4rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
-.page-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.12) 0%,transparent 70%)}
-.page-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B;margin-bottom:.6rem;position:relative;z-index:1}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
-.page-title em{font-style:italic;color:#E8B84B}
-.page-desc{font-size:.88rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;position:relative;z-index:1}
+/* ── PREMIUM PAGE HEADER ── */
+.page-header{background:#0B1E3D;padding:calc(62px + 3.5rem) clamp(1.5rem,5vw,4rem) 3.5rem;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 50%,rgba(200,151,43,.08) 0%,transparent 55%),radial-gradient(ellipse 60% 80% at 85% 20%,rgba(26,50,96,.55) 0%,transparent 70%);pointer-events:none}
+.page-header::after{content:'';position:absolute;top:62px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,151,43,.2),rgba(200,151,43,.4),rgba(200,151,43,.2),transparent)}
+.ph-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem}
+@media(max-width:680px){.ph-inner{grid-template-columns:1fr}}
+.ph-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C8972B;margin-bottom:1.1rem}
+.ph-eyebrow::before{content:'';width:20px;height:1px;background:#C8972B}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:.7rem;letter-spacing:-.02em}
+.ph-title em{font-style:italic;color:#E8B84B}
+.ph-desc{font-size:.88rem;color:rgba(255,255,255,.38);max-width:460px;line-height:1.75}
+.ph-badge-col{display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;padding-bottom:.2rem}
+@media(max-width:680px){.ph-badge-col{align-items:flex-start}}
+.ph-stat-pill{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.55rem 1.1rem}
+.ph-stat-pill-num{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:#E8B84B;line-height:1}
+.ph-stat-pill-lbl{font-size:.72rem;color:rgba(255,255,255,.45);font-weight:500}
 
-/* CONTENT */
-.content{max-width:780px;margin:0 auto;padding:2rem clamp(1.5rem,5vw,4rem) 3rem}
-.sec-label{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8972B;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
-.sec-label::before{content:'';width:16px;height:2px;background:#C8972B;border-radius:2px}
+/* ════════════════════════════════════════
+   FACULTY HIERARCHY TIMELINE
+   MZ Media scroll-driven vertical line
+   ════════════════════════════════════════ */
+.faculty-tl{background:#0B1E3D;padding:0 clamp(1.5rem,5vw,4rem) clamp(5rem,8vw,7rem);position:relative;overflow:hidden}
+.faculty-tl::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(200,151,43,.05) 0%,transparent 65%);pointer-events:none}
+.tl-wrap{max-width:1000px;margin:0 auto;position:relative}
 
-/* CHAIRMAN CARD */
-.chairman-card{display:flex;align-items:center;gap:1.1rem;background:linear-gradient(145deg,#0B1E3D,#1A3260);border-radius:18px;padding:1.6rem;margin-bottom:2rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
-.chairman-card::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.15) 0%,transparent 70%)}
-.chairman-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(11,30,61,.3)}
-.ch-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#C8972B,#E8B84B);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#0B1E3D;flex-shrink:0;position:relative;z-index:1}
-.ch-info{flex:1;position:relative;z-index:1}
-.ch-badge{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:2px 10px;font-size:.69rem;color:#E8B84B;font-weight:600;margin-bottom:.4rem}
-.ch-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.18rem}
-.ch-desg{font-size:.78rem;color:rgba(255,255,255,.65);margin-bottom:.3rem}
-.ch-phones{font-size:.78rem;color:rgba(255,255,255,.8)}
-.ch-arrow{color:rgba(255,255,255,.5);font-size:1.5rem;position:relative;z-index:1;flex-shrink:0}
+/* THE TRACK */
+.tl-track{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:rgba(255,255,255,.06);z-index:0}
+@media(max-width:700px){.tl-track{left:30px;transform:none}}
+.tl-fill{position:absolute;top:0;left:0;width:100%;height:0;background:linear-gradient(180deg,#C8972B,#E8B84B);border-radius:2px;box-shadow:0 0 14px rgba(200,151,43,.45);transition:height .04s linear}
 
-/* FACULTY LIST */
-.faculty-list{display:flex;flex-direction:column;gap:.65rem}
-.faculty-card{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1rem 1.1rem;cursor:pointer;transition:all .25s}
-.faculty-card:hover{transform:translateX(5px);border-color:rgba(200,151,43,.3);box-shadow:0 4px 20px rgba(11,30,61,.08)}
-.fc-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0}
-.fc-info{flex:1;min-width:0}
-.fc-name{font-size:.9rem;font-weight:600;color:#0B1E3D;margin-bottom:.2rem}
-.fc-desg{font-size:.76rem;color:#6B7C93;margin-bottom:.12rem}
-.fc-phone{font-size:.75rem;color:#9aabb8}
-.fc-arrow{color:#C8972B;font-size:1.2rem;flex-shrink:0}
+/* EACH TIER */
+.tl-tier{display:grid;grid-template-columns:1fr 64px 1fr;align-items:start;gap:0 2.5rem;margin-bottom:5rem;position:relative;z-index:1}
+.tl-tier:last-child{margin-bottom:0}
+@media(max-width:700px){
+  .tl-tier{grid-template-columns:72px 1fr}
+  .tl-node{grid-column:1;grid-row:1}
+  .tl-left-content{grid-column:2;grid-row:1}
+  .tl-right-content{grid-column:2;grid-row:2;margin-top:1.25rem}
+  .tl-spacer{display:none}
+}
 
-/* ===== MODAL ===== */
-.modal-overlay{position:fixed;inset:0;background:rgba(11,30,61,.6);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay{display:none}
-.modal-overlay.open{display:flex}
+/* NODE */
+.tl-node{grid-column:2;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;padding-top:.4rem}
+@media(max-width:700px){.tl-node{grid-column:1;padding-top:.4rem}}
+.tl-node-ring{position:absolute;width:58px;height:58px;border-radius:50%;border:1.5px solid rgba(200,151,43,.15);transition:border-color .5s,box-shadow .5s}
+.tl-node-inner{width:44px;height:44px;border-radius:50%;background:#0B1E3D;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:all .45s;position:relative;z-index:1}
+.tl-node-inner svg{width:18px;height:18px;stroke:rgba(255,255,255,.25);transition:stroke .45s}
+.tl-tier.active .tl-node-inner{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;box-shadow:0 0 0 6px rgba(200,151,43,.12),0 8px 24px rgba(200,151,43,.3);animation:tl-pulse 2.8s ease-in-out infinite}
+.tl-tier.active .tl-node-inner svg{stroke:#0B1E3D}
+.tl-tier.active .tl-node-ring{border-color:rgba(200,151,43,.3);box-shadow:0 0 0 14px rgba(200,151,43,.04)}
+.tl-node-num{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:#0B1E3D;border:1.5px solid rgba(255,255,255,.1);font-size:.58rem;font-weight:700;color:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;transition:all .45s}
+.tl-tier.active .tl-node-num{background:#C8972B;border-color:#C8972B;color:#0B1E3D}
 
-.modal-box{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 80px rgba(11,30,61,.3);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+/* TIER LABEL */
+.tl-label{display:inline-block;background:rgba(200,151,43,.12);border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:3px 12px;font-size:.67rem;font-weight:700;color:#C8972B;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;opacity:0;transform:translateX(-16px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.tl-right-content .tl-label{transform:translateX(16px)}
+.tl-tier.active .tl-label{opacity:1;transform:translateX(0)}
 
-/* Modal top section */
-.modal-top{background:linear-gradient(135deg,#0B1E3D 0%,#1A3260 100%);padding:2rem 1.75rem 1.75rem;text-align:center;position:relative;overflow:hidden}
-.modal-top::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 70%)}
-.modal-top::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.25) 0%,transparent 70%)}
+.tl-tier-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.35rem,2.2vw,1.75rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.5rem;opacity:0;transform:translateY(12px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .08s,transform .55s cubic-bezier(.22,1,.36,1) .08s}
+.tl-tier.active .tl-tier-title{opacity:1;transform:translateY(0)}
 
-.modal-close-btn{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1}
-.modal-close-btn:hover{background:rgba(255,255,255,.3)}
+.tl-tier-desc{font-size:.82rem;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:1.25rem;opacity:0;transform:translateY(10px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .15s,transform .55s cubic-bezier(.22,1,.36,1) .15s}
+.tl-tier.active .tl-tier-desc{opacity:1;transform:translateY(0)}
 
-.modal-avatar{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;margin:0 auto 1rem;position:relative;z-index:1;border:3px solid rgba(200,151,43,.4)}
-.modal-avatar.normal{background:linear-gradient(135deg,rgba(200,151,43,.25),rgba(200,151,43,.08));color:#E8B84B}
-.modal-avatar.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:rgba(255,255,255,.3)}
+/* TEACHER CARDS in each tier */
+.tl-cards{display:flex;flex-direction:column;gap:.65rem;opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .2s,transform .55s cubic-bezier(.22,1,.36,1) .2s}
+.tl-tier.active .tl-cards{opacity:1;transform:translateY(0)}
 
-.modal-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;position:relative;z-index:1;line-height:1.25;margin-bottom:.3rem}
-.modal-desg{font-size:.8rem;color:rgba(255,255,255,.7);position:relative;z-index:1;margin-bottom:.5rem}
-.modal-chair-badge{display:inline-block;background:rgba(200,151,43,.25);border:1px solid rgba(200,151,43,.5);border-radius:100px;padding:3px 14px;font-size:.72rem;color:#E8B84B;font-weight:700;position:relative;z-index:1}
+.tc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem 1.15rem;display:flex;align-items:center;gap:.85rem;cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.34,1.56,.64,1)}
+.tc:hover{background:rgba(255,255,255,.07);border-color:rgba(200,151,43,.25);transform:translateX(4px)}
+.tc-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.25),rgba(200,151,43,.1));border:2px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0;transition:all .3s}
+.tc:hover .tc-av{border-color:rgba(200,151,43,.6);background:rgba(200,151,43,.3)}
+.tc.chair .tc-av{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:#C8972B}
+.tc-info{flex:1;min-width:0}
+.tc-name{font-size:.88rem;font-weight:600;color:#fff;margin-bottom:.2rem;line-height:1.3}
+.tc-desg{font-size:.74rem;color:rgba(255,255,255,.4)}
+.tc-desg strong{color:#C8972B;font-weight:600}
+.tc-arr{font-size:.85rem;color:rgba(200,151,43,.4);transition:transform .25s,color .25s;flex-shrink:0}
+.tc:hover .tc-arr{transform:translateX(4px);color:#E8B84B}
+/* chair badge */
+.tc-chair-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(200,151,43,.15);border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:2px 9px;font-size:.65rem;font-weight:700;color:#E8B84B;margin-top:.2rem}
 
-/* Modal body */
-.modal-body{padding:1.4rem 1.6rem 1.6rem}
-.info-row{display:flex;align-items:flex-start;gap:.85rem;padding:.78rem .9rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.55rem}
-.info-row:last-child{margin-bottom:0}
-.info-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.info-label{font-size:.66rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
-.info-value{font-size:.88rem;color:#0B1E3D;font-weight:500;line-height:1.5;word-break:break-all}
-.info-value a{color:#C8972B;text-decoration:none}
-.info-value a:hover{text-decoration:underline}
+/* stagger cards */
+.tl-cards .tc:nth-child(2){transition-delay:.26s!important}
+.tl-cards .tc:nth-child(3){transition-delay:.32s!important}
+.tl-cards .tc:nth-child(4){transition-delay:.38s!important}
+.tl-cards .tc:nth-child(5){transition-delay:.44s!important}
 
-/* Action buttons */
-.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.1rem}
-.action-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:.7rem .5rem;border-radius:11px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
-.btn-wa{background:#25D366;color:#fff}
-.btn-wa:hover{background:#1ebe5d}
-.btn-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff}
-.btn-call:hover{opacity:.88}
-.btn-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.25);grid-column:span 2}
-.btn-email:hover{background:#ffecb3}
+/* spacer for alternating layout */
+.tl-spacer{grid-column:1;opacity:0}
+
+/* ── TEACHER DETAIL MODAL ── */
+.td-bg{position:fixed;inset:0;background:rgba(11,30,61,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
+.td-bg.open{display:flex}
+.td-modal{background:#fff;border-radius:24px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 32px 80px rgba(11,30,61,.3);animation:popIn .32s cubic-bezier(.34,1.56,.64,1)}
+.td-hdr{background:linear-gradient(145deg,#0B1E3D,#162d55 55%,#1a3570);padding:2rem 1.75rem;text-align:center;position:relative;overflow:hidden}
+.td-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%)}
+.td-close{position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s}
+.td-close:hover{background:rgba(255,255,255,.28)}
+.td-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:3px solid rgba(200,151,43,.5);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.td-av.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:#E8B84B}
+.td-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1;line-height:1.25}
+.td-desg{font-size:.78rem;color:rgba(255,255,255,.65);position:relative;z-index:1;line-height:1.5}
+.td-chair-tag{display:inline-block;background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:3px 12px;font-size:.7rem;color:#E8B84B;font-weight:700;margin-top:.5rem;position:relative;z-index:1}
+.td-body{padding:1.35rem 1.6rem 1.6rem}
+.td-row{display:flex;align-items:flex-start;gap:.85rem;padding:.75rem .9rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
+.td-row:last-child{margin-bottom:0}
+.td-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.td-lbl{font-size:.65rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.td-val{font-size:.85rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.4}
+.td-val a{color:#C8972B;text-decoration:none}
+.td-val a:hover{text-decoration:underline}
 
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
+<!-- NAV -->
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-brand">
     <div style="background:linear-gradient(145deg,#0B1E3D,#1a3570);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;flex-shrink:0">
@@ -157,8 +199,8 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.html"><span class="nav-ico">🏠</span> Home</a></li>
-    <li class="has-drop"><a href="database.html"><span class="nav-ico">👥</span> Alumni Database ▾</a>
+    <li><a href="index.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M7 18V12h6v6"/></svg>Home</a></li>
+    <li class="has-drop"><a href="database.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M17 17v-1.5a3 3 0 00-2-2.83M12 4.17a3 3 0 010 5.66"/></svg>Alumni Database<svg class="nav-caret" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1.5l5 5 5-5"/></svg>
       <div class="drop-menu">
         <a href="database.html">All Batches</a>
         <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
@@ -168,93 +210,138 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <a href="database.html?batch=9">Batch 9</a><a href="database.html?batch=10">Batch 10</a>
         <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
       </div>
-    </li>
-    <li><a href="faculty.html" class="active-link"><span class="nav-ico">👨‍🏫</span> Faculty</a></li>
-    <li><a href="donation.html"><span class="nav-ico">💰</span> Donation</a></li>
-    <li><a href="notice.html"><span class="nav-ico">📢</span> Notice</a></li>
-    <li><a href="event.html"><span class="nav-ico">🎉</span> Events</a></li>
-    <li><a href="register.html"><span class="nav-ico">📝</span> Register</a></li>
-    <li><a href="profile.html" class="nav-cta"><span class="nav-ico">👤</span> My Profile</a></li>
+    </a></li>
+    <li><a href="faculty.html" class="active-link"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l8 5v6l-8 5-8-5V7l8-5z"/></svg>Faculty</a></li>
+    <li><a href="donation.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 3.8a4.5 4.5 0 00-6.4 0L10 5.1 8.7 3.8a4.5 4.5 0 00-6.4 6.4l1.1 1.1L10 18l6.6-6.7 1.1-1.1a4.5 4.5 0 000-6.4z"/></svg>Donation</a></li>
+    <li><a href="notice.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7A5 5 0 005 7c0 5.5-2.5 7-2.5 7h15S15 12.5 15 7z"/><path d="M11.4 17.5a1.5 1.5 0 01-2.8 0"/></svg>Notice</a></li>
+    <li><a href="event.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="14" rx="2"/><path d="M13 2v4M7 2v4M2 9h16"/></svg>Events</a></li>
+    <li><a href="register.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M16 8v6M13 11h6"/></svg>Register</a></li>
+    <li><a href="profile.html" class="nav-cta"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><circle cx="10" cy="7" r="3"/><path d="M3 17v-1a5 5 0 0114 0v1"/></svg>My Profile</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-  <div style="position:relative;z-index:1;margin-bottom:1.25rem;display:flex;justify-content:center">
-    <div style="width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.28);display:flex;align-items:center;justify-content:center">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+  <div class="ph-inner">
+    <div>
+      <div class="ph-eyebrow">Department of AIS</div>
+      <h1 class="ph-title">Our <em>Faculty</em></h1>
+      <p class="ph-desc">Meet the dedicated educators of Accounting &amp; Information Systems, University of Barishal — shaping the next generation of professionals.</p>
     </div>
-  </div>
-  <div class="page-eyebrow">Department of AIS</div>
-  <h1 class="page-title">Our <em>Faculty</em></h1>
-  <p class="page-desc">Meet the dedicated faculty members of the Department of Accounting &amp; Information Systems, University of Barishal.</p>
-</div>
-
-<!-- CONTENT -->
-<div class="content">
-
-  <div class="sec-label">Chairman</div>
-  <div class="chairman-card" onclick="openModal(0)">
-    <div class="ch-avatar">SC</div>
-    <div class="ch-info">
-      <div class="ch-badge">⭐ Chairman</div>
-      <div class="ch-name">Sujan Chandra Paul FCA</div>
-      <div class="ch-desg">Associate Professor &amp; Chairman</div>
-      <div class="ch-phones">📱 01914636366</div>
-    </div>
-    <div class="ch-arrow">›</div>
-  </div>
-
-  <div class="sec-label">Faculty Members</div>
-  <div class="faculty-list" id="facultyList"></div>
-
-</div>
-
-<!-- ===== DETAIL MODAL ===== -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-box">
-
-    <div class="modal-top">
-      <button class="modal-close-btn" id="closeBtn">✕</button>
-      <div class="modal-avatar" id="mAvatar">?</div>
-      <div class="modal-name" id="mName">—</div>
-      <div class="modal-desg" id="mDesg">—</div>
-      <div id="mChairWrap" style="display:none">
-        <span class="modal-chair-badge">🏛️ Chairman</span>
+    <div class="ph-badge-col">
+      <div class="ph-stat-pill">
+        <span class="ph-stat-pill-num">8</span>
+        <span class="ph-stat-pill-lbl">Faculty<br>Members</span>
+      </div>
+      <div class="ph-stat-pill">
+        <span class="ph-stat-pill-num">1</span>
+        <span class="ph-stat-pill-lbl">Chairman</span>
       </div>
     </div>
-
-    <div class="modal-body">
-      <div class="info-row">
-        <div class="info-icon">📱</div>
-        <div>
-          <div class="info-label">Phone</div>
-          <div class="info-value" id="mPhone">—</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">📧</div>
-        <div>
-          <div class="info-label">Email</div>
-          <div class="info-value" id="mEmail">—</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">🏛️</div>
-        <div>
-          <div class="info-label">Department</div>
-          <div class="info-value">Accounting &amp; Information Systems<br>University of Barishal</div>
-        </div>
-      </div>
-      <div class="modal-actions" id="mActions"></div>
-    </div>
-
   </div>
 </div>
 
-<footer>© 2025 AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+<!-- ══════════════════════════════════
+     FACULTY HIERARCHY TIMELINE
+     ══════════════════════════════════ -->
+<section class="faculty-tl" id="facultyTl">
+  <div class="tl-wrap">
 
-<!-- Bottom Nav -->
+    <!-- Growing line -->
+    <div class="tl-track"><div class="tl-fill" id="tlFill"></div></div>
+
+    <!-- ── TIER 1: CHAIRMAN ── -->
+    <div class="tl-tier" data-tier="1" id="tier1">
+      <div class="tl-spacer"></div>
+
+      <div class="tl-node">
+        <div class="tl-node-ring"></div>
+        <div class="tl-node-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M8 8l-2-2M16 8l2-2"/></svg>
+        </div>
+        <div class="tl-node-num">01</div>
+      </div>
+
+      <div class="tl-left-content" style="padding-top:.3rem">
+        <div class="tl-label">Leadership</div>
+        <h2 class="tl-tier-title">Department Chairman</h2>
+        <p class="tl-tier-desc">Head of the Department of Accounting &amp; Information Systems — guiding academic excellence and departmental direction.</p>
+        <div class="tl-cards" id="cards-1"></div>
+      </div>
+    </div>
+
+    <!-- ── TIER 2: ASSOCIATE PROFESSORS ── -->
+    <div class="tl-tier" data-tier="2" id="tier2">
+      <div class="tl-right-content" style="padding-top:.3rem">
+        <div class="tl-label">Senior Faculty</div>
+        <h2 class="tl-tier-title">Associate Professors</h2>
+        <p class="tl-tier-desc">Experienced academics leading research, curriculum development and mentoring students across all batches.</p>
+        <div class="tl-cards" id="cards-2"></div>
+      </div>
+
+      <div class="tl-node">
+        <div class="tl-node-ring"></div>
+        <div class="tl-node-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="tl-node-num">02</div>
+      </div>
+
+      <div class="tl-spacer"></div>
+    </div>
+
+    <!-- ── TIER 3: ASSISTANT PROFESSORS ── -->
+    <div class="tl-tier" data-tier="3" id="tier3">
+      <div class="tl-spacer"></div>
+
+      <div class="tl-node">
+        <div class="tl-node-ring"></div>
+        <div class="tl-node-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="tl-node-num">03</div>
+      </div>
+
+      <div class="tl-left-content" style="padding-top:.3rem">
+        <div class="tl-label">Junior Faculty</div>
+        <h2 class="tl-tier-title">Assistant Professors</h2>
+        <p class="tl-tier-desc">Dynamic educators bringing fresh perspectives, innovative teaching methods and close student support to the department.</p>
+        <div class="tl-cards" id="cards-3"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>© <span id="fyear"></span> AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
+
+<!-- TEACHER DETAIL MODAL -->
+<div class="td-bg" id="tdBg">
+  <div class="td-modal">
+    <div class="td-hdr">
+      <button class="td-close" onclick="closeTD()">✕</button>
+      <div class="td-av" id="tdAv">?</div>
+      <div class="td-name" id="tdName">—</div>
+      <div class="td-desg" id="tdDesg">—</div>
+      <div id="tdChairTag" style="display:none"><div class="td-chair-tag">★ Chairman</div></div>
+    </div>
+    <div class="td-body">
+      <div class="td-row">
+        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="td-lbl">Phone</div><div class="td-val" id="tdPhone">—</div></div>
+      </div>
+      <div class="td-row">
+        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="td-lbl">Email</div><div class="td-val" id="tdEmail">—</div></div>
+      </div>
+      <div class="td-row">
+        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l8 5v6l-8 5-8-5V7l8-5z"/></svg></div>
+        <div><div class="td-lbl">Department</div><div class="td-val">Accounting &amp; Information Systems<br>University of Barishal</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -279,161 +366,154 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 </div>
 
 <script>
-/* ===== NAV ===== */
-document.getElementById('navBurger').addEventListener('click', () =>
-  document.getElementById('navLinks').classList.toggle('open'));
-window.addEventListener('scroll', () =>
-  document.getElementById('topNav').classList.toggle('scrolled', window.scrollY > 36), { passive: true });
-function openDrawer() { document.getElementById('moreDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('fyear').textContent = new Date().getFullYear();
+document.getElementById('navBurger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+window.addEventListener('scroll',()=>document.getElementById('topNav').classList.toggle('scrolled',scrollY>36),{passive:true});
+function openDrawer(){document.getElementById('moreDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){document.getElementById('moreDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('tdBg').addEventListener('click',function(e){if(e.target===this)closeTD();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTD();closeDrawer();}});
 
-/* ===== TEACHER DATA ===== */
-const teachers = [
+/* ── TEACHER DATA ── */
+const TEACHERS = [
   {
-    initials: 'SC',
-    name: 'Sujan Chandra Paul FCA',
-    designation: 'Associate Professor',
-    isChairman: true,
-    phones: ['01914636366'],
-    emails: ['sujan9099@gmail.com', 'scpaul@bu.ac.bd']
+    tier:1, chair:true,
+    init:'SC', name:'Sujan Chandra Paul FCA',
+    desg:'Associate Professor & Chairman',
+    phone:'01914636366', email:'sujan9099@gmail.com, scpaul@bu.ac.bd'
   },
   {
-    initials: 'MH',
-    name: 'Md. Harun-Or-Rosid',
-    designation: 'Associate Professor',
-    isChairman: false,
-    phones: ['01914200927'],
-    emails: ['mhorosid@bu.ac.bd']
+    tier:2, chair:false,
+    init:'MH', name:'Md. Harun-Or-Rosid',
+    desg:'Associate Professor',
+    phone:'01914200927', email:'mhorosid@bu.ac.bd'
   },
   {
-    initials: 'PB',
-    name: 'Dr. Probir Kumar Bhowmik',
-    designation: 'Associate Professor',
-    isChairman: false,
-    phones: ['01913518309'],
-    emails: ['probir9012@gmail.com', 'pkbhowmik@bu.ac.bd']
+    tier:2, chair:false,
+    init:'PB', name:'Dr. Probir Kumar Bhowmik',
+    desg:'Associate Professor',
+    phone:'+8801913518309', email:'probir9012@gmail.com, pkbhowmik@bu.ac.bd'
   },
   {
-    initials: 'AB',
-    name: 'Abdul Alim Baser',
-    designation: 'Associate Professor',
-    isChairman: false,
-    phones: ['01814750380'],
-    emails: ['alim.baser@gmail.com']
+    tier:2, chair:false,
+    init:'AB', name:'Abdul Alim Baser',
+    desg:'Associate Professor',
+    phone:'+8801814750380', email:'alim.baser@gmail.com'
   },
   {
-    initials: 'MS',
-    name: 'Dr. Mallika Saha',
-    designation: 'Associate Professor',
-    isChairman: false,
-    phones: ['01911533578'],
-    emails: ['msaha@bu.ac.bd']
+    tier:2, chair:false,
+    init:'MS', name:'Dr. Mallika Saha',
+    desg:'Associate Professor',
+    phone:'+8801911533578', email:'msaha@bu.ac.bd'
   },
   {
-    initials: 'MR',
-    name: 'Mohammad Rakibul Islam',
-    designation: 'Associate Professor',
-    isChairman: false,
-    phones: ['01679069797'],
-    emails: ['rakib.rajib13004@gmail.com']
+    tier:2, chair:false,
+    init:'MR', name:'Mohammad Rakibul Islam',
+    desg:'Associate Professor',
+    phone:'+8801679069797', email:'rakib.rajib13004@gmail.com'
   },
   {
-    initials: 'MA',
-    name: 'Md. Asiqur Rahman',
-    designation: 'Assistant Professor',
-    isChairman: false,
-    phones: ['01920070922'],
-    emails: ['rubelanni@gmail.com']
+    tier:3, chair:false,
+    init:'MA', name:'Md. Asiqur Rahman',
+    desg:'Assistant Professor',
+    phone:'01920070922', email:'rubelanni@gmail.com'
   },
   {
-    initials: 'SH',
-    name: 'Shahadat Hossain',
-    designation: 'Assistant Professor',
-    isChairman: false,
-    phones: ['01923099762'],
-    emails: ['shawon17100@gmail.com']
-  }
+    tier:3, chair:false,
+    init:'SH', name:'Shahadat Hossain',
+    desg:'Assistant Professor',
+    phone:'01923099762', email:'shawon17100@gmail.com'
+  },
 ];
 
-/* ===== BUILD FACULTY LIST (index 1–7) ===== */
-document.getElementById('facultyList').innerHTML = teachers.slice(1).map((t, i) => `
-  <div class="faculty-card" onclick="openModal(${i + 1})">
-    <div class="fc-av">${t.initials}</div>
-    <div class="fc-info">
-      <div class="fc-name">${t.name}</div>
-      <div class="fc-desg">${t.designation}</div>
-      <div class="fc-phone">📱 ${t.phones[0]}</div>
+/* Build cards in each tier */
+[1,2,3].forEach(tierNum => {
+  const container = document.getElementById('cards-' + tierNum);
+  if (!container) return;
+  const teachers = TEACHERS.filter(t => t.tier === tierNum);
+  container.innerHTML = teachers.map((t, i) => `
+    <div class="tc${t.chair ? ' chair' : ''}" onclick="openTD(${TEACHERS.indexOf(t)})">
+      <div class="tc-av">${t.init}</div>
+      <div class="tc-info">
+        <div class="tc-name">${t.name}</div>
+        <div class="tc-desg">${t.chair ? '<strong>Chairman</strong> · ' : ''}${t.desg.replace('& Chairman','').replace('Associate Professor &','').trim()}</div>
+        ${t.chair ? '<div class="tc-chair-badge">★ Department Chairman</div>' : ''}
+      </div>
+      <div class="tc-arr">›</div>
     </div>
-    <div class="fc-arrow">›</div>
-  </div>`).join('');
+  `).join('');
+});
 
-/* ===== MODAL ===== */
-const overlay = document.getElementById('modalOverlay');
-
-function openModal(idx) {
-  const t = teachers[idx];
-  if (!t) return;
-
-  /* Avatar */
-  const av = document.getElementById('mAvatar');
-  av.textContent = t.initials;
-  av.className = 'modal-avatar ' + (t.isChairman ? 'chair' : 'normal');
-
-  /* Name & designation */
-  document.getElementById('mName').textContent = t.name;
-  document.getElementById('mDesg').textContent = t.designation;
-  document.getElementById('mChairWrap').style.display = t.isChairman ? 'block' : 'none';
-
-  /* Phone */
-  document.getElementById('mPhone').textContent = t.phones.join(' · ');
-
-  /* Email — clickable links */
-  document.getElementById('mEmail').innerHTML = t.emails
-    .map(e => `<a href="mailto:${e}">${e}</a>`)
-    .join('<br>');
-
-  /* Action buttons */
-  const phone = t.phones[0];
-  const num = phone.replace(/[^0-9]/g, '');
-  const intl = num.startsWith('0') ? '88' + num : num;
-  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${t.name} স্যার/ম্যাম, আমি AIS Alumni থেকে বলছি।`);
-
-  let actions = `
-    <a class="action-btn btn-wa" href="https://wa.me/${intl}?text=${waMsg}" target="_blank">
-      📱 WhatsApp
-    </a>
-    <a class="action-btn btn-call" href="tel:${phone}">
-      📞 Call
-    </a>`;
-
-  if (t.emails.length > 0) {
-    actions += `<a class="action-btn btn-email" href="mailto:${t.emails[0]}">📧 Send Email</a>`;
-  }
-
-  document.getElementById('mActions').innerHTML = actions;
-
-  /* Show modal */
-  overlay.classList.add('open');
+/* Modal */
+function openTD(idx) {
+  const t = TEACHERS[idx]; if (!t) return;
+  document.getElementById('tdAv').textContent = t.init;
+  document.getElementById('tdAv').className = 'td-av' + (t.chair ? ' chair' : '');
+  document.getElementById('tdName').textContent = t.name;
+  document.getElementById('tdDesg').textContent = t.desg;
+  document.getElementById('tdChairTag').style.display = t.chair ? 'block' : 'none';
+  document.getElementById('tdPhone').textContent = t.phone;
+  document.getElementById('tdEmail').innerHTML = t.email.split(',').map(e =>
+    `<a href="mailto:${e.trim()}">${e.trim()}</a>`
+  ).join('<br>');
+  document.getElementById('tdBg').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
-function closeModal() {
-  overlay.classList.remove('open');
+function closeTD() {
+  document.getElementById('tdBg').classList.remove('open');
   document.body.style.overflow = '';
 }
 
-/* Close button */
-document.getElementById('closeBtn').addEventListener('click', closeModal);
+/* ── SCROLL TIMELINE ── */
+(function() {
+  const fill  = document.getElementById('tlFill');
+  const track = document.querySelector('.tl-track');
+  const tiers = document.querySelectorAll('.tl-tier');
+  if (!fill || !track || !tiers.length) return;
 
-/* Close on backdrop click */
-overlay.addEventListener('click', function (e) {
-  if (e.target === this) closeModal();
-});
+  function getNodeCenterY(tier) {
+    const node = tier.querySelector('.tl-node-inner');
+    if (!node) return 0;
+    const nodeRect = node.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    return (nodeRect.top + nodeRect.height / 2) - trackRect.top;
+  }
 
-/* Close on Escape */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeDrawer(); }
-});
+  function update() {
+    const trackRect = track.getBoundingClientRect();
+    const viewH = window.innerHeight;
+    const firstNode = tiers[0].querySelector('.tl-node-inner');
+    const lastNode  = tiers[tiers.length-1].querySelector('.tl-node-inner');
+    if (!firstNode || !lastNode) return;
+
+    const firstY = firstNode.getBoundingClientRect().top + firstNode.getBoundingClientRect().height / 2 - trackRect.top;
+    const lastY  = lastNode.getBoundingClientRect().top  + lastNode.getBoundingClientRect().height / 2 - trackRect.top;
+    const totalLen = lastY - firstY;
+
+    // Scroll progress
+    const trigStart = firstNode.getBoundingClientRect().top - viewH * 0.65;
+    const trigEnd   = lastNode.getBoundingClientRect().top  - viewH * 0.35;
+    const progress  = Math.max(0, Math.min(1, -trigStart / (trigEnd - trigStart)));
+
+    const fillH = firstY + totalLen * progress;
+    fill.style.height = Math.max(0, fillH) + 'px';
+
+    // Activate tiers
+    tiers.forEach(tier => {
+      const cy = getNodeCenterY(tier);
+      if (fillH >= cy - 6) {
+        tier.classList.add('active');
+      } else {
+        tier.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  // Small delay so layout is ready
+  setTimeout(update, 120);
+})();
 </script>
 </body>
 </html>
