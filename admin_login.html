@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | AIS Alumni</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(155deg,#0B1E3D 0%,#162d55 60%,#1a3570 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+.card{background:#fff;border-radius:24px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.4);animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+
+.card-hdr{background:linear-gradient(145deg,#0B1E3D,#1A3260);padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
+.card-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.18) 0%,transparent 70%)}
+.card-hdr::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(42,74,138,.3) 0%,transparent 70%)}
+
+.logo{width:60px;height:60px;border-radius:17px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;position:relative;z-index:1}
+.hdr-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:#fff;position:relative;z-index:1;margin-bottom:.25rem}
+.hdr-sub{font-size:.8rem;color:rgba(255,255,255,.5);position:relative;z-index:1}
+.admin-badge{display:inline-block;background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:3px 12px;font-size:.72rem;color:#E8B84B;font-weight:700;margin-top:.6rem;position:relative;z-index:1}
+
+.card-body{padding:1.75rem 2rem 2rem}
+
+.error-box{display:none;align-items:center;gap:.6rem;padding:.75rem 1rem;background:#fff5f5;border:1px solid rgba(231,76,60,.2);border-radius:9px;font-size:.82rem;color:#c0392b;margin-bottom:1rem}
+.error-box.show{display:flex}
+
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.4rem}
+.form-input{width:100%;padding:.72rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.88rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.form-input:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.pass-wrap{position:relative}
+.pass-toggle{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;color:#6B7C93;background:none;border:none;padding:0}
+
+.submit-btn{width:100%;padding:.92rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:11px;font-size:.92rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .28s;box-shadow:0 6px 20px rgba(11,30,61,.3);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:8px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(11,30,61,.4)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+
+.loader{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.submit-btn.loading .btn-text{display:none}
+.submit-btn.loading .loader{display:block}
+
+.security-note{display:flex;align-items:flex-start;gap:.6rem;padding:.75rem 1rem;background:#FFF6E0;border:1px solid rgba(200,151,43,.2);border-radius:9px;font-size:.78rem;color:#7a5a1a;line-height:1.6;margin-top:1.1rem}
+
+.back-link{display:block;text-align:center;margin-top:1.25rem;font-size:.82rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.back-link:hover{color:rgba(255,255,255,.85)}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="card">
+    <div class="card-hdr">
+      <div class="logo">
+        <svg width="30" height="30" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+      </div>
+      <div class="hdr-title">Admin Login</div>
+      <div class="hdr-sub">AIS Alumni — University of Barishal</div>
+      <div class="admin-badge">🔐 Restricted Access</div>
+    </div>
+
+    <div class="card-body">
+      <div class="error-box" id="errorBox">❌ <span id="errorMsg">Invalid credentials.</span></div>
+
+      <div class="form-group">
+        <label class="form-label">Admin Email</label>
+        <input type="email" id="adminEmail" class="form-input" placeholder="admin@aisalumni.com" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="pass-wrap">
+          <input type="password" id="adminPass" class="form-input" placeholder="Admin password" autocomplete="current-password">
+          <button type="button" class="pass-toggle" id="passToggle">👁️</button>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="loginBtn" onclick="doAdminLogin()">
+        <span class="btn-text">🔐 Sign In to Admin Panel</span>
+        <div class="loader"></div>
+      </button>
+
+      <div class="security-note">
+        🔒 এই page টি শুধুমাত্র authorized admin এর জন্য। Unauthorized access attempt log করা হয়।
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Website</a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="firebase.js"></script>
+<script>
+// Already logged in as admin? Redirect to admin dashboard
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    const dest = new URLSearchParams(window.location.search).get('redirect') || 'admin-dashboard.html';
+    window.location.href = dest;
+  }
+});
+
+document.getElementById('passToggle').addEventListener('click', function() {
+  const p = document.getElementById('adminPass');
+  const show = p.type === 'password';
+  p.type = show ? 'text' : 'password';
+  this.textContent = show ? '🙈' : '👁️';
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') doAdminLogin();
+});
+
+async function doAdminLogin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass = document.getElementById('adminPass').value;
+  const errBox = document.getElementById('errorBox');
+  const btn = document.getElementById('loginBtn');
+
+  errBox.classList.remove('show');
+
+  if (!email || !pass) {
+    document.getElementById('errorMsg').textContent = 'Email ও password দিন।';
+    errBox.classList.add('show'); return;
+  }
+
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, pass);
+    // onAuthStateChanged will handle redirect
+  } catch (err) {
+    let msg = 'Login failed. Check email and password.';
+    if (err.code === 'auth/user-not-found') msg = 'এই email এ কোনো admin account নেই।';
+    else if (err.code === 'auth/wrong-password') msg = 'Password ভুল।';
+    else if (err.code === 'auth/too-many-requests') msg = 'অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর try করুন।';
+    document.getElementById('errorMsg').textContent = msg;
+    errBox.classList.add('show');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+}
+</script>
+</body>
+</html>
