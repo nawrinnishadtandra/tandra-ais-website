@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | AIS Alumni</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* AUTH GATE */
+.auth-gate{position:fixed;inset:0;background:#F9F7F3;display:flex;align-items:center;justify-content:center;z-index:9999}
+.gate-spinner{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite}
+
+/* NAV */
+.admin-nav{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:0 clamp(1rem,4vw,2.5rem);height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(11,30,61,.3)}
+.nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff}
+.nav-brand-sub{font-size:.58rem;color:#E8B84B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-user{font-size:.8rem;color:rgba(255,255,255,.65)}
+.nav-logout{padding:.42rem .95rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:#fff;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.nav-logout:hover{background:rgba(255,255,255,.18)}
+.view-site{padding:.42rem .95rem;background:rgba(200,151,43,.2);border:1px solid rgba(200,151,43,.4);border-radius:7px;color:#E8B84B;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
+.view-site:hover{background:rgba(200,151,43,.3)}
+
+/* PAGE */
+.page{padding:2.5rem clamp(1.5rem,5vw,4rem) 4rem;max-width:1000px;margin:0 auto;animation:fadeUp .4s ease}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
+.page-sub{font-size:.85rem;color:#6B7C93;margin-bottom:2rem}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.85rem;margin-bottom:2.5rem}
+.stat-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.25rem 1.4rem;transition:all .25s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,30,61,.08)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#0B1E3D;line-height:1}
+.stat-lbl{font-size:.75rem;color:#6B7C93;margin-top:.3rem}
+.stat-ico{font-size:1.4rem;margin-bottom:.5rem}
+
+/* MENU CARDS */
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#0B1E3D;margin-bottom:1rem}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2.5rem}
+.menu-card{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all .28s;position:relative;overflow:hidden;display:block}
+.menu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.1);border-color:rgba(200,151,43,.2)}
+.menu-card:hover::before{transform:scaleX(1)}
+.mc-ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:.85rem}
+.mc-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#0B1E3D;margin-bottom:.3rem}
+.mc-desc{font-size:.78rem;color:#6B7C93;line-height:1.55}
+.mc-arrow{position:absolute;bottom:1.25rem;right:1.25rem;color:#C8972B;font-size:1.1rem;opacity:0;transition:opacity .2s,transform .2s}
+.menu-card:hover .mc-arrow{opacity:1;transform:translateX(3px)}
+
+/* QUICK ACTIONS */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.quick-btn{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.1rem;background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:12px;text-decoration:none;color:#0B1E3D;font-size:.84rem;font-weight:600;transition:all .2s;cursor:pointer;font-family:inherit}
+.quick-btn:hover{background:#FFF6E0;border-color:rgba(200,151,43,.3);transform:translateX(3px)}
+.quick-ico{width:32px;height:32px;border-radius:8px;background:#F0F2F8;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.2rem;font-size:.74rem;color:#6B7C93}
+</style>
+</head>
+<body>
+
+<div class="auth-gate" id="authGate">
+  <div class="gate-spinner"></div>
+</div>
+
+<nav class="admin-nav">
+  <a href="index.html" class="nav-brand">
+    <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.1);border:1px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+    <div><span class="nav-brand-title">AIS Admin</span><span class="nav-brand-sub">Dashboard</span></div>
+  </a>
+  <div class="nav-right">
+    <span class="nav-user" id="navUserEmail"></span>
+    <a href="index.html" class="view-site">View Site →</a>
+    <button class="nav-logout" onclick="doLogout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="page" id="mainPage" style="display:none">
+  <div class="page-title">Admin Dashboard</div>
+  <div class="page-sub">AIS Alumni Association · Department of Accounting &amp; Information Systems</div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-ico">👥</div><div class="stat-num" id="sAlumni">—</div><div class="stat-lbl">Total Alumni</div></div>
+    <div class="stat-card"><div class="stat-ico">📢</div><div class="stat-num" id="sNotices">—</div><div class="stat-lbl">Notices</div></div>
+    <div class="stat-card"><div class="stat-ico">🎉</div><div class="stat-num" id="sEvents">—</div><div class="stat-lbl">Events</div></div>
+    <div class="stat-card"><div class="stat-ico">💰</div><div class="stat-num" id="sDonations">—</div><div class="stat-lbl">Donations</div></div>
+  </div>
+
+  <!-- ADMIN TOOLS -->
+  <div class="sec-title">Admin Tools</div>
+  <div class="menu-grid">
+    <a href="admin-notices.html" class="menu-card">
+      <div class="mc-ico">📢</div>
+      <div class="mc-title">Notice Manager</div>
+      <div class="mc-desc">নতুন notice post করুন, পুরনো notice delete করুন।</div>
+      <div class="mc-arrow">›</div>
+    </a>
+    <a href="admin-events.html" class="menu-card">
+      <div class="mc-ico">🎉</div>
+      <div class="mc-title">Event Manager</div>
+      <div class="mc-desc">নতুন event add করুন, past events delete করুন।</div>
+      <div class="mc-arrow">›</div>
+    </a>
+    <a href="admin-upload.html" class="menu-card">
+      <div class="mc-ico">📤</div>
+      <div class="mc-title">Bulk Upload</div>
+      <div class="mc-desc">Excel থেকে bulk alumni data upload করুন।</div>
+      <div class="mc-arrow">›</div>
+    </a>
+    <a href="admin-duplicates.html" class="menu-card">
+      <div class="mc-ico">🔍</div>
+      <div class="mc-title">Duplicate Finder</div>
+      <div class="mc-desc">Duplicate alumni records খুঁজে বের করুন ও delete করুন।</div>
+      <div class="mc-arrow">›</div>
+    </a>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="sec-title">Quick Links</div>
+  <div class="quick-grid">
+    <a href="database.html" class="quick-btn"><div class="quick-ico">👥</div> Alumni Database</a>
+    <a href="donation.html" class="quick-btn"><div class="quick-ico">💰</div> Donation Page</a>
+    <a href="notice.html" class="quick-btn"><div class="quick-ico">📢</div> Notice Board</a>
+    <a href="event.html" class="quick-btn"><div class="quick-ico">🎉</div> Events Page</a>
+  </div>
+</div>
+
+<footer>© 2025 AIS Alumni Association · Admin Panel</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
+<script>
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = 'admin-login.html';
+    return;
+  }
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'block';
+  document.getElementById('navUserEmail').textContent = user.email;
+
+  // Load stats
+  const db = firebase.firestore();
+  db.collection('alumni').get().then(s => document.getElementById('sAlumni').textContent = s.size);
+  db.collection('notices').get().then(s => document.getElementById('sNotices').textContent = s.size);
+  db.collection('events').get().then(s => document.getElementById('sEvents').textContent = s.size);
+  db.collection('donations').get().then(s => document.getElementById('sDonations').textContent = s.size);
+});
+
+function doLogout() {
+  firebase.auth().signOut().then(() => window.location.href = 'admin-login.html');
+}
+</script>
+</body>
+</html>
