@@ -63,7 +63,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* PAGE */
 .page-wrap{min-height:100vh;padding:calc(62px + 2rem) 1.5rem 3rem;background:linear-gradient(155deg,#EDF1FF 0%,#F9F7F3 60%,#FFF9ED 100%)}
 .form-wrap{max-width:580px;margin:0 auto}
 .form-card{background:#fff;border:1px solid rgba(11,30,61,.08);border-radius:22px;padding:2.5rem;box-shadow:0 8px 40px rgba(11,30,61,.08)}
@@ -74,7 +73,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .form-sub{font-size:.83rem;color:#6B7C93;margin-bottom:.25rem}
 .form-dept{font-size:.75rem;color:#C8972B;font-weight:600}
 
-/* SECTION DIVIDER */
 .form-section{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C8972B;margin:1.5rem 0 1rem;display:flex;align-items:center;gap:.5rem}
 .form-section::before,.form-section::after{content:'';flex:1;height:1px;background:rgba(11,30,61,.08)}
 
@@ -91,14 +89,12 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .form-error{font-size:.75rem;color:#e74c3c;margin-top:.3rem;display:none}
 .has-error .form-error{display:block}
 
-/* BLOOD GROUP PILLS */
 .blood-grid{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem}
 .blood-opt input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
 .blood-lbl{display:block;padding:.45rem .85rem;text-align:center;border-radius:8px;border:1.5px solid rgba(11,30,61,.12);background:transparent;color:#5a6e84;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
 .blood-opt input:checked+.blood-lbl{background:#e74c3c;border-color:#e74c3c;color:#fff}
 .blood-lbl:hover{border-color:#e74c3c;color:#e74c3c}
 
-/* BATCH PILLS */
 .batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.45rem;margin-top:.4rem}
 .batch-opt input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
 .batch-lbl{display:block;padding:.52rem .4rem;text-align:center;border-radius:8px;border:1.5px solid rgba(11,30,61,.12);background:transparent;color:#5a6e84;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s}
@@ -117,7 +113,6 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(11,30,61,.36)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* SUCCESS */
 .success-card{display:none;text-align:center;padding:2rem 1rem}
 .success-card.show{display:block}
 .success-ico{font-size:3.5rem;margin-bottom:1rem;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)}
@@ -187,7 +182,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
       <div id="formContent">
 
-        <!-- PERSONAL INFO -->
         <div class="form-section">Personal Information</div>
 
         <div class="form-group">
@@ -210,7 +204,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
           </div>
         </div>
 
-        <!-- ✅ BLOOD GROUP -->
         <div class="form-group">
           <label class="form-label">Blood Group <span class="req">*</span></label>
           <div class="blood-grid">
@@ -226,7 +219,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
           <div class="form-error" id="bloodError">Blood group select করুন</div>
         </div>
 
-        <!-- ACADEMIC INFO -->
         <div class="form-section">Academic Information</div>
 
         <div class="form-group">
@@ -254,7 +246,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
           <div class="form-error">Valid year দিন (2015–2030)</div>
         </div>
 
-        <!-- PROFESSIONAL INFO -->
         <div class="form-section">Professional Information</div>
 
         <div class="form-group">
@@ -271,7 +262,6 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
           </div>
         </div>
 
-        <!-- ACCOUNT SECURITY -->
         <div class="form-section">Account Security</div>
 
         <div class="form-group">
@@ -357,6 +347,18 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 </script>
 <script>
+// =====================================================
+// PASSWORD HASHING — Web Crypto API (no library needed)
+// SHA-256 + site-specific salt — passwords never stored plain text
+// =====================================================
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password + 'AIS_ALUMNI_UOB_SALT_2025');
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 // NAV
 document.getElementById('navBurger').addEventListener('click', () =>
   document.getElementById('navLinks').classList.toggle('open'));
@@ -366,7 +368,7 @@ function openDrawer() { document.getElementById('moreDrawer').classList.add('ope
 function closeDrawer() { document.getElementById('moreDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-// Already logged in
+// Already logged in → go to profile
 if (localStorage.getItem('alumniUserEmail')) window.location.href = 'profile.html';
 
 // Password toggle
@@ -419,14 +421,12 @@ function validate() {
     }
   });
 
-  // Batch
   if (!document.querySelector('input[name="batch"]:checked')) {
     document.getElementById('batchError').style.display = 'block'; ok = false;
   } else {
     document.getElementById('batchError').style.display = 'none';
   }
 
-  // Blood group
   if (!document.querySelector('input[name="blood"]:checked')) {
     document.getElementById('bloodError').style.display = 'block'; ok = false;
   } else {
@@ -437,29 +437,35 @@ function validate() {
   return ok;
 }
 
-// SUBMIT
+// SUBMIT — password is hashed before saving, never stored plain text
 async function handleSubmit() {
   if (!validate()) return;
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.innerHTML = '⏳ Creating account...';
 
+  const rawPassword = document.getElementById('f-pass').value;
   const li = document.getElementById('f-linkedin').value.trim();
-  const data = {
-    name:      document.getElementById('f-name').value.trim(),
-    email:     document.getElementById('f-email').value.trim(),
-    phone:     document.getElementById('f-phone').value.trim(),
-    job:       document.getElementById('f-job').value.trim(),
-    batch:     document.querySelector('input[name="batch"]:checked').value,
-    year:      document.getElementById('f-year').value.trim(),
-    blood:     document.querySelector('input[name="blood"]:checked').value,
-    password:  document.getElementById('f-pass').value,
-    linkedin:  li ? 'https://linkedin.com/in/' + li : '',
-    createdAt: new Date().toISOString()
-  };
 
   try {
+    btn.innerHTML = '🔒 Securing password...';
+    const hashedPassword = await hashPassword(rawPassword);
+
+    const data = {
+      name:      document.getElementById('f-name').value.trim(),
+      email:     document.getElementById('f-email').value.trim(),
+      phone:     document.getElementById('f-phone').value.trim(),
+      job:       document.getElementById('f-job').value.trim(),
+      batch:     document.querySelector('input[name="batch"]:checked').value,
+      year:      document.getElementById('f-year').value.trim(),
+      blood:     document.querySelector('input[name="blood"]:checked').value,
+      password:  hashedPassword,   // ✅ SHA-256 hash, never plain text
+      linkedin:  li ? 'https://linkedin.com/in/' + li : '',
+      createdAt: new Date().toISOString()
+    };
+
     btn.innerHTML = '💾 Saving profile...';
     await db.collection('alumni').add(data);
+
     localStorage.setItem('alumniUserEmail', data.email);
     localStorage.setItem('alumniUserName', data.name);
 
@@ -476,10 +482,10 @@ async function handleSubmit() {
         site_url: window.location.origin + '/'
       });
     } catch (emailErr) {
-      console.warn('Email failed:', emailErr);
+      console.warn('Email send failed (non-critical):', emailErr);
     }
 
-    // Success
+    // Success screen
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('successCard').classList.add('show');
     document.getElementById('successName').textContent = data.name.split(' ')[0];
@@ -491,7 +497,7 @@ async function handleSubmit() {
   }
 }
 
-// Share
+// Share after success
 const SITE = window.location.origin + '/register.html';
 function successShareWA() {
   const name = localStorage.getItem('alumniUserName') || 'আমি';
