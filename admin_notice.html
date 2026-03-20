@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notice Manager | AIS Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.auth-gate{position:fixed;inset:0;background:#F9F7F3;display:flex;align-items:center;justify-content:center;z-index:9999}
+.gate-spinner{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite}
+
+.admin-nav{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:0 clamp(1rem,4vw,2.5rem);height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(11,30,61,.3)}
+.nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff}
+.nav-brand-sub{font-size:.58rem;color:#E8B84B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
+.nav-right{display:flex;align-items:center;gap:.65rem}
+.nav-back{padding:.42rem .95rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:#fff;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.18)}
+.nav-logout{padding:.42rem .95rem;background:rgba(231,76,60,.2);border:1px solid rgba(231,76,60,.3);border-radius:7px;color:#ff8a80;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.nav-logout:hover{background:rgba(231,76,60,.3)}
+
+.page{padding:2rem clamp(1.5rem,5vw,4rem) 4rem;max-width:860px;margin:0 auto}
+.page-hdr{margin-bottom:1.75rem;animation:fadeUp .4s ease}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.25rem}
+.page-sub{font-size:.85rem;color:#6B7C93}
+
+/* POST FORM */
+.post-card{background:#fff;border:1.5px solid rgba(200,151,43,.2);border-radius:18px;padding:1.75rem;margin-bottom:2rem;animation:fadeUp .4s ease .05s both}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D;margin-bottom:1.1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+@media(max-width:540px){.form-row{grid-template-columns:1fr}}
+.fg{margin-bottom:.85rem}
+.fl{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.38rem}
+.fi{width:100%;padding:.68rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.86rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.fi:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.fi-ta{resize:vertical;min-height:100px}
+.post-btn{padding:.82rem 2rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(11,30,61,.25);display:flex;align-items:center;gap:8px}
+.post-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(11,30,61,.32)}
+.post-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* NOTICES LIST */
+.list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;animation:fadeUp .4s ease .1s both}
+.list-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D}
+.list-count{font-size:.8rem;color:#6B7C93}
+.loading-wrap{text-align:center;padding:2.5rem}
+.loader{width:32px;height:32px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
+.empty{text-align:center;padding:2.5rem;background:#fff;border-radius:14px;border:1px solid rgba(11,30,61,.07)}
+.empty-ico{font-size:2rem;margin-bottom:.6rem}
+.empty-text{font-size:.85rem;color:#6B7C93}
+
+.notice-row{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.25rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:1rem;transition:all .2s;animation:fadeUp .4s ease both}
+.notice-row:hover{border-color:rgba(200,151,43,.2);box-shadow:0 4px 16px rgba(11,30,61,.07)}
+.nr-ico{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.nr-info{flex:1;min-width:0}
+.nr-title{font-size:.9rem;font-weight:600;color:#0B1E3D;margin-bottom:.25rem;line-height:1.35}
+.nr-meta{font-size:.76rem;color:#6B7C93;display:flex;gap:.75rem;flex-wrap:wrap}
+.nr-cat{display:inline-block;padding:1px 8px;border-radius:100px;font-size:.7rem;font-weight:700;background:#F0F2F8;color:#5a6e84}
+.nr-body{font-size:.78rem;color:#5a6e84;margin-top:.4rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.del-btn{padding:.38rem .85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.18);border-radius:7px;color:#e74c3c;font-size:.75rem;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:all .2s}
+.del-btn:hover{background:rgba(231,76,60,.15);border-color:rgba(231,76,60,.3)}
+
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.2rem;font-size:.74rem;color:#6B7C93}
+</style>
+</head>
+<body>
+
+<div class="auth-gate" id="authGate"><div class="gate-spinner"></div></div>
+
+<nav class="admin-nav">
+  <a href="admin-dashboard.html" class="nav-brand">
+    <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.1);border:1px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+    <div><span class="nav-brand-title">AIS Admin</span><span class="nav-brand-sub">Notice Manager</span></div>
+  </a>
+  <div class="nav-right">
+    <a href="admin-dashboard.html" class="nav-back">← Dashboard</a>
+    <button class="nav-logout" onclick="doLogout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="page" id="mainPage" style="display:none">
+  <div class="page-hdr">
+    <div class="page-title">📢 Notice Manager</div>
+    <div class="page-sub">নতুন notice post করুন এবং পুরনো notice delete করুন।</div>
+  </div>
+
+  <!-- POST FORM -->
+  <div class="post-card">
+    <div class="card-title">📤 নতুন Notice Post করুন</div>
+    <div class="fg">
+      <label class="fl">Title <span style="color:#e74c3c">*</span></label>
+      <input type="text" id="nTitle" class="fi" placeholder="Notice title">
+    </div>
+    <div class="fg">
+      <label class="fl">Content <span style="color:#e74c3c">*</span></label>
+      <textarea id="nContent" class="fi fi-ta" placeholder="Notice content... (supports &lt;strong&gt;, &lt;br&gt;, &lt;ul&gt;&lt;li&gt;)"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Category</label>
+        <select id="nCategory" class="fi">
+          <option value="general">📢 General</option>
+          <option value="urgent">🔴 Urgent</option>
+          <option value="event">🎉 Event</option>
+          <option value="academic">📚 Academic</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Icon Emoji</label>
+        <input type="text" id="nIcon" class="fi" placeholder="📢" maxlength="2">
+      </div>
+    </div>
+    <div class="fg" style="margin-top:.85rem">
+      <label class="fl">Author Name <span style="color:#9aabb8;font-weight:400">(optional)</span></label>
+      <input type="text" id="nAuthor" class="fi" placeholder="e.g. AIS Alumni Committee">
+    </div>
+    <button class="post-btn" id="postBtn" onclick="postNotice()">
+      <span id="postBtnText">📤 Post Notice</span>
+    </button>
+  </div>
+
+  <!-- NOTICES LIST -->
+  <div class="list-hdr">
+    <div class="list-title">All Notices</div>
+    <div class="list-count" id="noticeCount"></div>
+  </div>
+  <div id="noticesList">
+    <div class="loading-wrap"><div class="loader"></div><p style="color:#6B7C93;font-size:.85rem">Loading...</p></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>© 2025 AIS Alumni Association · Admin Panel</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
+<script>
+const db = firebase.firestore();
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) { window.location.href = 'admin-login.html'; return; }
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'block';
+  loadNotices();
+});
+
+function doLogout() {
+  firebase.auth().signOut().then(() => window.location.href = 'admin-login.html');
+}
+
+function loadNotices() {
+  db.collection('notices').orderBy('date', 'desc').onSnapshot(snap => {
+    const notices = [];
+    snap.forEach(doc => notices.push({ id: doc.id, ...doc.data() }));
+    document.getElementById('noticeCount').textContent = notices.length + ' notices';
+    renderNotices(notices);
+  }, err => showToast('❌ ' + err.message));
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function renderNotices(notices) {
+  const el = document.getElementById('noticesList');
+  if (!notices.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-ico">📭</div><div class="empty-text">কোনো notice নেই।</div></div>`;
+    return;
+  }
+  const catColors = { urgent: '#FCEBEB', event: '#E6F1FB', academic: '#EEEDFE', general: '#F1EFE8', new: '#EAF3DE' };
+  const catText   = { urgent: '#A32D2D', event: '#185FA5', academic: '#534AB7', general: '#5F5E5A', new: '#3B6D11' };
+  el.innerHTML = notices.map((n, i) => {
+    const cat = n.category || 'general';
+    const bg = catColors[cat] || '#F1EFE8';
+    const tc = catText[cat] || '#5F5E5A';
+    return `<div class="notice-row" style="animation-delay:${i * 0.04}s">
+      <div class="nr-ico">${n.icon || '📢'}</div>
+      <div class="nr-info">
+        <div class="nr-title">${n.title}</div>
+        <div class="nr-meta">
+          <span>📅 ${formatDate(n.date || new Date())}</span>
+          ${n.author ? `<span>✍️ ${n.author}</span>` : ''}
+          <span class="nr-cat" style="background:${bg};color:${tc}">${cat.toUpperCase()}</span>
+        </div>
+        <div class="nr-body">${(n.content || '').replace(/<[^>]*>/g, ' ')}</div>
+      </div>
+      <button class="del-btn" onclick="deleteNotice('${n.id}','${(n.title||'').replace(/'/g,"\\'")}')">🗑️ Delete</button>
+    </div>`;
+  }).join('');
+}
+
+async function postNotice() {
+  const title = document.getElementById('nTitle').value.trim();
+  const content = document.getElementById('nContent').value.trim();
+  if (!title || !content) { showToast('❌ Title ও content দিন'); return; }
+  const btn = document.getElementById('postBtn');
+  const btnText = document.getElementById('postBtnText');
+  btn.disabled = true; btnText.textContent = '⏳ Posting...';
+  try {
+    await db.collection('notices').add({
+      title,
+      content: content.replace(/\n/g, '<br>'),
+      category: document.getElementById('nCategory').value,
+      icon: document.getElementById('nIcon').value || '📢',
+      author: document.getElementById('nAuthor').value.trim() || 'AIS Admin',
+      date: new Date().toISOString(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('nTitle').value = '';
+    document.getElementById('nContent').value = '';
+    document.getElementById('nAuthor').value = '';
+    document.getElementById('nIcon').value = '';
+    showToast('✅ Notice posted!');
+  } catch (err) { showToast('❌ ' + err.message); }
+  btn.disabled = false; btnText.textContent = '📤 Post Notice';
+}
+
+async function deleteNotice(id, title) {
+  if (!confirm(`"${title}" delete করবেন?`)) return;
+  try {
+    await db.collection('notices').doc(id).delete();
+    showToast('🗑️ Notice deleted!');
+  } catch (err) { showToast('❌ ' + err.message); }
+}
+</script>
+</body>
+</html>
