@@ -11,10 +11,9 @@ html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:#C8972B;border-radius:3px}
-@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes popIn{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes tl-pulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,43,.12),0 8px 24px rgba(200,151,43,.3)}50%{box-shadow:0 0 0 11px rgba(200,151,43,.06),0 8px 32px rgba(200,151,43,.42)}}
+@keyframes nodePulse{0%,100%{box-shadow:0 0 0 5px rgba(200,151,43,.1),0 6px 20px rgba(200,151,43,.25)}50%{box-shadow:0 0 0 10px rgba(200,151,43,.05),0 8px 28px rgba(200,151,43,.38)}}
+@keyframes chairPulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,43,.16),0 8px 28px rgba(200,151,43,.4)}50%{box-shadow:0 0 0 13px rgba(200,151,43,.07),0 12px 36px rgba(200,151,43,.55)}}
 
 /* ── NAV ── */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,30,61,.08);box-shadow:0 2px 20px rgba(11,30,61,.06);transition:height .3s}
@@ -48,7 +47,7 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
   .nav-brand-sub{display:none}
 }
 
-/* ── BOTTOM NAV ── */
+/* ── BOT NAV ── */
 .bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(11,30,61,.08);padding-bottom:env(safe-area-inset-bottom,0)}
 .bot-nav-inner{display:flex;align-items:center;justify-content:space-around;height:62px;padding:0 4px}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;height:100%;text-decoration:none;color:#6B7C93;font-size:9px;font-weight:600;border:none;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;font-family:inherit}
@@ -71,10 +70,10 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 @media(max-width:768px){.bot-nav{display:block}body{padding-bottom:calc(62px + env(safe-area-inset-bottom,0))}}
 @media(min-width:769px){.bot-nav{display:none!important}.more-drawer{display:none!important}.drawer-overlay{display:none!important}}
 
-/* ── PREMIUM PAGE HEADER ── */
+/* ════ PAGE HEADER ════ */
 .page-header{background:#0B1E3D;padding:calc(62px + 3.5rem) clamp(1.5rem,5vw,4rem) 3.5rem;position:relative;overflow:hidden}
 .page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 50%,rgba(200,151,43,.08) 0%,transparent 55%),radial-gradient(ellipse 60% 80% at 85% 20%,rgba(26,50,96,.55) 0%,transparent 70%);pointer-events:none}
-.page-header::after{content:'';position:absolute;top:62px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,151,43,.2),rgba(200,151,43,.4),rgba(200,151,43,.2),transparent)}
+.page-header::after{content:'';position:absolute;top:62px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,151,43,.2),rgba(200,151,43,.45),rgba(200,151,43,.2),transparent)}
 .ph-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem}
 @media(max-width:680px){.ph-inner{grid-template-columns:1fr}}
 .ph-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C8972B;margin-bottom:1.1rem}
@@ -82,87 +81,193 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:.7rem;letter-spacing:-.02em}
 .ph-title em{font-style:italic;color:#E8B84B}
 .ph-desc{font-size:.88rem;color:rgba(255,255,255,.38);max-width:460px;line-height:1.75}
-.ph-badge-col{display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;padding-bottom:.2rem}
+.ph-badge-col{display:flex;flex-direction:column;align-items:flex-end;gap:.65rem;padding-bottom:.2rem}
 @media(max-width:680px){.ph-badge-col{align-items:flex-start}}
-.ph-stat-pill{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.55rem 1.1rem}
-.ph-stat-pill-num{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:#E8B84B;line-height:1}
-.ph-stat-pill-lbl{font-size:.72rem;color:rgba(255,255,255,.45);font-weight:500}
+.ph-pill{display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:.55rem 1.15rem}
+.ph-pill-num{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:#E8B84B;line-height:1}
+.ph-pill-lbl{font-size:.72rem;color:rgba(255,255,255,.4);font-weight:500;line-height:1.35}
 
-/* ════════════════════════════════════════
-   FACULTY HIERARCHY TIMELINE
-   MZ Media scroll-driven vertical line
-   ════════════════════════════════════════ */
-.faculty-tl{background:#0B1E3D;padding:0 clamp(1.5rem,5vw,4rem) clamp(5rem,8vw,7rem);position:relative;overflow:hidden}
-.faculty-tl::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(200,151,43,.05) 0%,transparent 65%);pointer-events:none}
-.tl-wrap{max-width:1000px;margin:0 auto;position:relative}
+/* ════════════════════════════════════════════
+   FACULTY TIMELINE — Equal nodes, scroll-driven
+   ════════════════════════════════════════════ */
+.faculty-section{
+  background:#0B1E3D;
+  padding:0 clamp(1.5rem,5vw,4rem) clamp(5rem,8vw,8rem);
+  position:relative;overflow:hidden;
+}
+.faculty-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 85%,rgba(200,151,43,.04) 0%,transparent 65%);
+  pointer-events:none;
+}
 
-/* THE TRACK */
-.tl-track{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:rgba(255,255,255,.06);z-index:0}
-@media(max-width:700px){.tl-track{left:30px;transform:none}}
-.tl-fill{position:absolute;top:0;left:0;width:100%;height:0;background:linear-gradient(180deg,#C8972B,#E8B84B);border-radius:2px;box-shadow:0 0 14px rgba(200,151,43,.45);transition:height .04s linear}
+.fl-outer{max-width:900px;margin:0 auto;position:relative}
 
-/* EACH TIER */
-.tl-tier{display:grid;grid-template-columns:1fr 64px 1fr;align-items:start;gap:0 2.5rem;margin-bottom:5rem;position:relative;z-index:1}
-.tl-tier:last-child{margin-bottom:0}
-@media(max-width:700px){
-  .tl-tier{grid-template-columns:72px 1fr}
-  .tl-node{grid-column:1;grid-row:1}
-  .tl-left-content{grid-column:2;grid-row:1}
-  .tl-right-content{grid-column:2;grid-row:2;margin-top:1.25rem}
-  .tl-spacer{display:none}
+/* The vertical line */
+.fl-line-track{
+  position:absolute;left:50%;transform:translateX(-50%);
+  top:0;bottom:0;width:2px;
+  background:rgba(255,255,255,.05);z-index:0;
+}
+@media(max-width:640px){
+  .fl-line-track{left:28px;transform:none}
+}
+.fl-line-fill{
+  position:absolute;top:0;left:0;width:100%;height:0;
+  background:linear-gradient(180deg,rgba(200,151,43,.6),rgba(200,151,43,.85));
+  border-radius:2px;
+  box-shadow:0 0 18px rgba(200,151,43,.35);
+  transition:height .06s linear;
+}
+
+/* Each teacher row */
+.fl-row{
+  display:grid;
+  grid-template-columns:1fr 56px 1fr;
+  align-items:center;
+  gap:0 2rem;
+  margin-bottom:4.5rem;
+  position:relative;z-index:1;
+}
+.fl-row:last-child{margin-bottom:0}
+
+/* Alternate: odd rows → content left, visual right */
+/* even rows → spacer left, content right */
+.fl-row.even .fl-left{order:3}
+.fl-row.even .fl-node-col{order:2}
+.fl-row.even .fl-right{order:1}
+
+@media(max-width:640px){
+  .fl-row{grid-template-columns:56px 1fr;gap:0 1.25rem}
+  .fl-row .fl-left,.fl-row .fl-right{grid-column:2}
+  .fl-row .fl-node-col{grid-column:1;grid-row:1}
+  .fl-row.even .fl-left,.fl-row.even .fl-right{order:unset}
+  .fl-row.even .fl-node-col{order:unset}
 }
 
 /* NODE */
-.tl-node{grid-column:2;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;padding-top:.4rem}
-@media(max-width:700px){.tl-node{grid-column:1;padding-top:.4rem}}
-.tl-node-ring{position:absolute;width:58px;height:58px;border-radius:50%;border:1.5px solid rgba(200,151,43,.15);transition:border-color .5s,box-shadow .5s}
-.tl-node-inner{width:44px;height:44px;border-radius:50%;background:#0B1E3D;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:all .45s;position:relative;z-index:1}
-.tl-node-inner svg{width:18px;height:18px;stroke:rgba(255,255,255,.25);transition:stroke .45s}
-.tl-tier.active .tl-node-inner{background:linear-gradient(135deg,#C8972B,#E8B84B);border-color:#C8972B;box-shadow:0 0 0 6px rgba(200,151,43,.12),0 8px 24px rgba(200,151,43,.3);animation:tl-pulse 2.8s ease-in-out infinite}
-.tl-tier.active .tl-node-inner svg{stroke:#0B1E3D}
-.tl-tier.active .tl-node-ring{border-color:rgba(200,151,43,.3);box-shadow:0 0 0 14px rgba(200,151,43,.04)}
-.tl-node-num{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:#0B1E3D;border:1.5px solid rgba(255,255,255,.1);font-size:.58rem;font-weight:700;color:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;transition:all .45s}
-.tl-tier.active .tl-node-num{background:#C8972B;border-color:#C8972B;color:#0B1E3D}
+.fl-node-col{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
+.fl-node{
+  width:44px;height:44px;border-radius:50%;
+  background:#0d1e3a;
+  border:2px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  transition:border-color .45s,background .45s,box-shadow .45s;
+  flex-shrink:0;
+}
+.fl-node svg{
+  width:17px;height:17px;
+  stroke:rgba(255,255,255,.22);
+  transition:stroke .45s;
+}
+/* outer ring */
+.fl-node::before{
+  content:'';position:absolute;inset:-6px;
+  border-radius:50%;
+  border:1px solid transparent;
+  transition:border-color .45s;
+}
+/* activated state */
+.fl-row.lit .fl-node{
+  background:linear-gradient(135deg,#C8972B,#E8B84B);
+  border-color:#C8972B;
+  animation:nodePulse 2.6s ease-in-out infinite;
+}
+.fl-row.lit .fl-node svg{stroke:#0B1E3D}
+.fl-row.lit .fl-node::before{border-color:rgba(200,151,43,.25)}
 
-/* TIER LABEL */
-.tl-label{display:inline-block;background:rgba(200,151,43,.12);border:1px solid rgba(200,151,43,.25);border-radius:100px;padding:3px 12px;font-size:.67rem;font-weight:700;color:#C8972B;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;opacity:0;transform:translateX(-16px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
-.tl-right-content .tl-label{transform:translateX(16px)}
-.tl-tier.active .tl-label{opacity:1;transform:translateX(0)}
+/* Chairman node — slightly larger glow when active */
+.fl-row.chair .fl-node{
+  width:48px;height:48px;
+}
+.fl-row.chair.lit .fl-node{
+  animation:chairPulse 2.6s ease-in-out infinite;
+  box-shadow:0 0 0 6px rgba(200,151,43,.16),0 8px 28px rgba(200,151,43,.45);
+}
 
-.tl-tier-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.35rem,2.2vw,1.75rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.5rem;opacity:0;transform:translateY(12px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .08s,transform .55s cubic-bezier(.22,1,.36,1) .08s}
-.tl-tier.active .tl-tier-title{opacity:1;transform:translateY(0)}
+/* CARD — the teacher info box */
+.fl-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  padding:1.1rem 1.2rem;
+  cursor:pointer;
+  transition:background .3s,border-color .3s,transform .35s cubic-bezier(.22,1,.36,1),opacity .5s cubic-bezier(.22,1,.36,1);
+  opacity:0;
+  transform:translateY(14px);
+}
+/* Even rows: slide from right */
+.fl-row.even .fl-card{transform:translateX(14px)}
+/* Odd rows: slide from left */
+.fl-row:not(.even) .fl-card{transform:translateX(-14px)}
 
-.tl-tier-desc{font-size:.82rem;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:1.25rem;opacity:0;transform:translateY(10px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .15s,transform .55s cubic-bezier(.22,1,.36,1) .15s}
-.tl-tier.active .tl-tier-desc{opacity:1;transform:translateY(0)}
+.fl-row.lit .fl-card{
+  opacity:1;
+  transform:translate(0,0)!important;
+}
+.fl-row.lit .fl-card:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(200,151,43,.22);
+  transform:translateY(-2px)!important;
+}
 
-/* TEACHER CARDS in each tier */
-.tl-cards{display:flex;flex-direction:column;gap:.65rem;opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .2s,transform .55s cubic-bezier(.22,1,.36,1) .2s}
-.tl-tier.active .tl-cards{opacity:1;transform:translateY(0)}
+/* Spacer for alternating empty column */
+.fl-spacer{opacity:0;pointer-events:none}
+@media(max-width:640px){.fl-spacer{display:none}}
 
-.tc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem 1.15rem;display:flex;align-items:center;gap:.85rem;cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.34,1.56,.64,1)}
-.tc:hover{background:rgba(255,255,255,.07);border-color:rgba(200,151,43,.25);transform:translateX(4px)}
-.tc-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.25),rgba(200,151,43,.1));border:2px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#E8B84B;flex-shrink:0;transition:all .3s}
-.tc:hover .tc-av{border-color:rgba(200,151,43,.6);background:rgba(200,151,43,.3)}
-.tc.chair .tc-av{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:#C8972B}
-.tc-info{flex:1;min-width:0}
-.tc-name{font-size:.88rem;font-weight:600;color:#fff;margin-bottom:.2rem;line-height:1.3}
-.tc-desg{font-size:.74rem;color:rgba(255,255,255,.4)}
-.tc-desg strong{color:#C8972B;font-weight:600}
-.tc-arr{font-size:.85rem;color:rgba(200,151,43,.4);transition:transform .25s,color .25s;flex-shrink:0}
-.tc:hover .tc-arr{transform:translateX(4px);color:#E8B84B}
-/* chair badge */
-.tc-chair-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(200,151,43,.15);border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:2px 9px;font-size:.65rem;font-weight:700;color:#E8B84B;margin-top:.2rem}
+/* Card internals */
+.fl-av{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(200,151,43,.15);
+  border:1.5px solid rgba(200,151,43,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;
+  color:#E8B84B;flex-shrink:0;
+  transition:background .3s,border-color .3s;
+}
+.fl-row.chair .fl-av{
+  background:linear-gradient(135deg,rgba(200,151,43,.35),rgba(200,151,43,.18));
+  border-color:rgba(200,151,43,.55);
+}
+.fl-card:hover .fl-av{
+  background:rgba(200,151,43,.25);
+  border-color:rgba(200,151,43,.5);
+}
+.fl-top{display:flex;align-items:center;gap:.8rem;margin-bottom:.65rem}
+.fl-name{font-size:.88rem;font-weight:600;color:#fff;line-height:1.3;margin-bottom:.18rem}
+.fl-desg{font-size:.74rem;color:rgba(255,255,255,.38);line-height:1.4}
 
-/* stagger cards */
-.tl-cards .tc:nth-child(2){transition-delay:.26s!important}
-.tl-cards .tc:nth-child(3){transition-delay:.32s!important}
-.tl-cards .tc:nth-child(4){transition-delay:.38s!important}
-.tl-cards .tc:nth-child(5){transition-delay:.44s!important}
+/* Chairman badge — inline, not hierarchical */
+.fl-chair-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(200,151,43,.12);
+  border:1px solid rgba(200,151,43,.28);
+  border-radius:100px;
+  padding:2px 9px;
+  font-size:.63rem;font-weight:700;
+  color:#C8972B;letter-spacing:.06em;
+  margin-top:.3rem;
+}
 
-/* spacer for alternating layout */
-.tl-spacer{grid-column:1;opacity:0}
+/* Contact pills */
+.fl-contact{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.65rem}
+.fl-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:.32rem .75rem;
+  border-radius:7px;
+  font-size:.73rem;font-weight:600;
+  cursor:pointer;border:none;font-family:inherit;
+  transition:all .2s;text-decoration:none;
+}
+.fl-btn-wa{background:rgba(37,211,102,.15);color:#4ade80;border:1px solid rgba(37,211,102,.22)}
+.fl-btn-wa:hover{background:rgba(37,211,102,.25);color:#86efac}
+.fl-btn-call{background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.1)}
+.fl-btn-call:hover{background:rgba(255,255,255,.12);color:#fff}
+.fl-btn-more{background:transparent;color:rgba(200,151,43,.6);border:1px solid rgba(200,151,43,.18);margin-left:auto}
+.fl-btn-more:hover{background:rgba(200,151,43,.08);color:#E8B84B;border-color:rgba(200,151,43,.35)}
 
-/* ── TEACHER DETAIL MODAL ── */
+/* ── MODAL ── */
 .td-bg{position:fixed;inset:0;background:rgba(11,30,61,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:9999;padding:1rem}
 .td-bg.open{display:flex}
 .td-modal{background:#fff;border-radius:24px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 32px 80px rgba(11,30,61,.3);animation:popIn .32s cubic-bezier(.34,1.56,.64,1)}
@@ -170,19 +275,25 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .td-hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,43,.2) 0%,transparent 65%)}
 .td-close{position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s}
 .td-close:hover{background:rgba(255,255,255,.28)}
-.td-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:3px solid rgba(200,151,43,.5);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.td-av{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.12));border:2.5px solid rgba(200,151,43,.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:#E8B84B;margin:0 auto .85rem;position:relative;z-index:1}
 .td-av.chair{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:#E8B84B}
-.td-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1;line-height:1.25}
-.td-desg{font-size:.78rem;color:rgba(255,255,255,.65);position:relative;z-index:1;line-height:1.5}
-.td-chair-tag{display:inline-block;background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:3px 12px;font-size:.7rem;color:#E8B84B;font-weight:700;margin-top:.5rem;position:relative;z-index:1}
-.td-body{padding:1.35rem 1.6rem 1.6rem}
-.td-row{display:flex;align-items:flex-start;gap:.85rem;padding:.75rem .9rem;background:#F9F7F3;border-radius:11px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
+.td-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:.3rem;position:relative;z-index:1;line-height:1.25}
+.td-desg{font-size:.78rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
+.td-chair-tag{display:inline-block;background:rgba(200,151,43,.22);border:1px solid rgba(200,151,43,.4);border-radius:100px;padding:3px 12px;font-size:.69rem;color:#E8B84B;font-weight:700;margin-top:.5rem;position:relative;z-index:1}
+.td-body{padding:1.3rem 1.55rem 1.55rem}
+.td-row{display:flex;align-items:flex-start;gap:.8rem;padding:.72rem .9rem;background:#F9F7F3;border-radius:10px;border:1px solid rgba(11,30,61,.06);margin-bottom:.5rem}
 .td-row:last-child{margin-bottom:0}
-.td-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.td-lbl{font-size:.65rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
-.td-val{font-size:.85rem;color:#0B1E3D;font-weight:500;word-break:break-all;line-height:1.4}
+.td-ico{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.td-lbl{font-size:.64rem;font-weight:600;color:#9aabb8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem}
+.td-val{font-size:.85rem;color:#0B1E3D;font-weight:500;line-height:1.45;word-break:break-all}
 .td-val a{color:#C8972B;text-decoration:none}
 .td-val a:hover{text-decoration:underline}
+.td-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1rem}
+.td-act{display:flex;align-items:center;justify-content:center;gap:7px;padding:.68rem;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;text-decoration:none}
+.td-act-wa{background:linear-gradient(135deg,#25D366,#1ebe5d);color:#fff;box-shadow:0 4px 12px rgba(37,211,102,.3)}
+.td-act-call{background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;box-shadow:0 4px 12px rgba(11,30,61,.2)}
+.td-act-email{background:#FFF6E0;color:#9a6c0a;border:1px solid rgba(200,151,43,.22);grid-column:span 2}
+.td-act:hover{transform:translateY(-1px)}
 
 footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.4rem;font-size:.76rem;color:#6B7C93}
 </style>
@@ -224,98 +335,43 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 <div class="page-header">
   <div class="ph-inner">
     <div>
-      <div class="ph-eyebrow">Department of AIS</div>
-      <h1 class="ph-title">Our <em>Faculty</em></h1>
-      <p class="ph-desc">Meet the dedicated educators of Accounting &amp; Information Systems, University of Barishal — shaping the next generation of professionals.</p>
+      <div class="ph-eyebrow">Department of AIS · University of Barishal</div>
+      <h1 class="ph-title">Meet Our <em>Faculty</em></h1>
+      <p class="ph-desc">The dedicated educators of Accounting &amp; Information Systems — each one shaping the future of this department with their expertise and care.</p>
     </div>
     <div class="ph-badge-col">
-      <div class="ph-stat-pill">
-        <span class="ph-stat-pill-num">8</span>
-        <span class="ph-stat-pill-lbl">Faculty<br>Members</span>
+      <div class="ph-pill">
+        <span class="ph-pill-num">8</span>
+        <span class="ph-pill-lbl">Faculty<br>Members</span>
       </div>
-      <div class="ph-stat-pill">
-        <span class="ph-stat-pill-num">1</span>
-        <span class="ph-stat-pill-lbl">Chairman</span>
+      <div class="ph-pill">
+        <span class="ph-pill-num">2</span>
+        <span class="ph-pill-lbl">Designations</span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════
-     FACULTY HIERARCHY TIMELINE
+     FACULTY TIMELINE — every teacher = equal node
      ══════════════════════════════════ -->
-<section class="faculty-tl" id="facultyTl">
-  <div class="tl-wrap">
+<section class="faculty-section">
+  <div class="fl-outer" id="flOuter">
 
-    <!-- Growing line -->
-    <div class="tl-track"><div class="tl-fill" id="tlFill"></div></div>
-
-    <!-- ── TIER 1: CHAIRMAN ── -->
-    <div class="tl-tier" data-tier="1" id="tier1">
-      <div class="tl-spacer"></div>
-
-      <div class="tl-node">
-        <div class="tl-node-ring"></div>
-        <div class="tl-node-inner">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M8 8l-2-2M16 8l2-2"/></svg>
-        </div>
-        <div class="tl-node-num">01</div>
-      </div>
-
-      <div class="tl-left-content" style="padding-top:.3rem">
-        <div class="tl-label">Leadership</div>
-        <h2 class="tl-tier-title">Department Chairman</h2>
-        <p class="tl-tier-desc">Head of the Department of Accounting &amp; Information Systems — guiding academic excellence and departmental direction.</p>
-        <div class="tl-cards" id="cards-1"></div>
-      </div>
+    <!-- Scroll-driven line -->
+    <div class="fl-line-track">
+      <div class="fl-line-fill" id="flFill"></div>
     </div>
 
-    <!-- ── TIER 2: ASSOCIATE PROFESSORS ── -->
-    <div class="tl-tier" data-tier="2" id="tier2">
-      <div class="tl-right-content" style="padding-top:.3rem">
-        <div class="tl-label">Senior Faculty</div>
-        <h2 class="tl-tier-title">Associate Professors</h2>
-        <p class="tl-tier-desc">Experienced academics leading research, curriculum development and mentoring students across all batches.</p>
-        <div class="tl-cards" id="cards-2"></div>
-      </div>
-
-      <div class="tl-node">
-        <div class="tl-node-ring"></div>
-        <div class="tl-node-inner">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="tl-node-num">02</div>
-      </div>
-
-      <div class="tl-spacer"></div>
-    </div>
-
-    <!-- ── TIER 3: ASSISTANT PROFESSORS ── -->
-    <div class="tl-tier" data-tier="3" id="tier3">
-      <div class="tl-spacer"></div>
-
-      <div class="tl-node">
-        <div class="tl-node-ring"></div>
-        <div class="tl-node-inner">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
-        <div class="tl-node-num">03</div>
-      </div>
-
-      <div class="tl-left-content" style="padding-top:.3rem">
-        <div class="tl-label">Junior Faculty</div>
-        <h2 class="tl-tier-title">Assistant Professors</h2>
-        <p class="tl-tier-desc">Dynamic educators bringing fresh perspectives, innovative teaching methods and close student support to the department.</p>
-        <div class="tl-cards" id="cards-3"></div>
-      </div>
-    </div>
+    <!-- Teacher rows injected by JS -->
+    <div id="flRows"></div>
 
   </div>
 </section>
 
 <footer>© <span id="fyear"></span> AIS Alumni Association · Department of Accounting &amp; Information Systems · University of Barishal</footer>
 
-<!-- TEACHER DETAIL MODAL -->
+<!-- DETAIL MODAL -->
 <div class="td-bg" id="tdBg">
   <div class="td-modal">
     <div class="td-hdr">
@@ -323,25 +379,40 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <div class="td-av" id="tdAv">?</div>
       <div class="td-name" id="tdName">—</div>
       <div class="td-desg" id="tdDesg">—</div>
-      <div id="tdChairTag" style="display:none"><div class="td-chair-tag">★ Chairman</div></div>
+      <div id="tdChairTag" style="display:none"><div class="td-chair-tag">★ Department Chairman</div></div>
     </div>
     <div class="td-body">
       <div class="td-row">
-        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="td-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
         <div><div class="td-lbl">Phone</div><div class="td-val" id="tdPhone">—</div></div>
       </div>
       <div class="td-row">
-        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="td-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
         <div><div class="td-lbl">Email</div><div class="td-val" id="tdEmail">—</div></div>
       </div>
       <div class="td-row">
-        <div class="td-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l8 5v6l-8 5-8-5V7l8-5z"/></svg></div>
+        <div class="td-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2" stroke-linecap="round"><path d="M10 2l8 5v6l-8 5-8-5V7l8-5z"/></svg></div>
         <div><div class="td-lbl">Department</div><div class="td-val">Accounting &amp; Information Systems<br>University of Barishal</div></div>
+      </div>
+      <div class="td-actions">
+        <a class="td-act td-act-wa" id="tdWA" href="#" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.4 8.4 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+          WhatsApp
+        </a>
+        <a class="td-act td-act-call" id="tdCall" href="#">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call
+        </a>
+        <a class="td-act td-act-email" id="tdMailBtn" href="#">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Send Email
+        </a>
       </div>
     </div>
   </div>
 </div>
 
+<!-- BOT NAV -->
 <div class="bot-nav">
   <div class="bot-nav-inner">
     <a href="index.html" class="bn"><div class="bn-ico">🏠</div><span>Home</span></a>
@@ -377,143 +448,201 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTD();closeDraw
 /* ── TEACHER DATA ── */
 const TEACHERS = [
   {
-    tier:1, chair:true,
     init:'SC', name:'Sujan Chandra Paul FCA',
-    desg:'Associate Professor & Chairman',
-    phone:'01914636366', email:'sujan9099@gmail.com, scpaul@bu.ac.bd'
+    desg:'Associate Professor', chair:true,
+    phones:['01914636366'],
+    emails:['sujan9099@gmail.com','scpaul@bu.ac.bd'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`
   },
   {
-    tier:2, chair:false,
     init:'MH', name:'Md. Harun-Or-Rosid',
-    desg:'Associate Professor',
-    phone:'01914200927', email:'mhorosid@bu.ac.bd'
+    desg:'Associate Professor', chair:false,
+    phones:['01914200927'],
+    emails:['mhorosid@bu.ac.bd'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
   },
   {
-    tier:2, chair:false,
     init:'PB', name:'Dr. Probir Kumar Bhowmik',
-    desg:'Associate Professor',
-    phone:'+8801913518309', email:'probir9012@gmail.com, pkbhowmik@bu.ac.bd'
+    desg:'Associate Professor', chair:false,
+    phones:['+8801913518309'],
+    emails:['probir9012@gmail.com','pkbhowmik@bu.ac.bd'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>`
   },
   {
-    tier:2, chair:false,
     init:'AB', name:'Abdul Alim Baser',
-    desg:'Associate Professor',
-    phone:'+8801814750380', email:'alim.baser@gmail.com'
+    desg:'Associate Professor', chair:false,
+    phones:['+8801814750380'],
+    emails:['alim.baser@gmail.com'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`
   },
   {
-    tier:2, chair:false,
     init:'MS', name:'Dr. Mallika Saha',
-    desg:'Associate Professor',
-    phone:'+8801911533578', email:'msaha@bu.ac.bd'
+    desg:'Associate Professor', chair:false,
+    phones:['+8801911533578'],
+    emails:['msaha@bu.ac.bd'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
   },
   {
-    tier:2, chair:false,
     init:'MR', name:'Mohammad Rakibul Islam',
-    desg:'Associate Professor',
-    phone:'+8801679069797', email:'rakib.rajib13004@gmail.com'
+    desg:'Associate Professor', chair:false,
+    phones:['+8801679069797'],
+    emails:['rakib.rajib13004@gmail.com'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`
   },
   {
-    tier:3, chair:false,
     init:'MA', name:'Md. Asiqur Rahman',
-    desg:'Assistant Professor',
-    phone:'01920070922', email:'rubelanni@gmail.com'
+    desg:'Assistant Professor', chair:false,
+    phones:['01920070922'],
+    emails:['rubelanni@gmail.com'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`
   },
   {
-    tier:3, chair:false,
     init:'SH', name:'Shahadat Hossain',
-    desg:'Assistant Professor',
-    phone:'01923099762', email:'shawon17100@gmail.com'
+    desg:'Assistant Professor', chair:false,
+    phones:['01923099762'],
+    emails:['shawon17100@gmail.com'],
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`
   },
 ];
 
-/* Build cards in each tier */
-[1,2,3].forEach(tierNum => {
-  const container = document.getElementById('cards-' + tierNum);
-  if (!container) return;
-  const teachers = TEACHERS.filter(t => t.tier === tierNum);
-  container.innerHTML = teachers.map((t, i) => `
-    <div class="tc${t.chair ? ' chair' : ''}" onclick="openTD(${TEACHERS.indexOf(t)})">
-      <div class="tc-av">${t.init}</div>
-      <div class="tc-info">
-        <div class="tc-name">${t.name}</div>
-        <div class="tc-desg">${t.chair ? '<strong>Chairman</strong> · ' : ''}${t.desg.replace('& Chairman','').replace('Associate Professor &','').trim()}</div>
-        ${t.chair ? '<div class="tc-chair-badge">★ Department Chairman</div>' : ''}
-      </div>
-      <div class="tc-arr">›</div>
-    </div>
-  `).join('');
-});
+/* ── BUILD ROWS ── */
+(function() {
+  const container = document.getElementById('flRows');
+  container.innerHTML = TEACHERS.map((t, i) => {
+    const isEven  = i % 2 === 1;
+    const intl    = t.phones[0].replace(/[^0-9]/g,'');
+    const intlNum = intl.startsWith('0') ? '88'+intl : intl;
+    const waMsg   = encodeURIComponent(`আসসালামুয়ালাইকুম ${t.name} স্যার/ম্যাম, আমি AIS Alumni থেকে বলছি।`);
 
-/* Modal */
-function openTD(idx) {
-  const t = TEACHERS[idx]; if (!t) return;
-  document.getElementById('tdAv').textContent = t.init;
-  document.getElementById('tdAv').className = 'td-av' + (t.chair ? ' chair' : '');
-  document.getElementById('tdName').textContent = t.name;
-  document.getElementById('tdDesg').textContent = t.desg;
-  document.getElementById('tdChairTag').style.display = t.chair ? 'block' : 'none';
-  document.getElementById('tdPhone').textContent = t.phone;
-  document.getElementById('tdEmail').innerHTML = t.email.split(',').map(e =>
-    `<a href="mailto:${e.trim()}">${e.trim()}</a>`
-  ).join('<br>');
-  document.getElementById('tdBg').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeTD() {
-  document.getElementById('tdBg').classList.remove('open');
-  document.body.style.overflow = '';
-}
+    const card = `
+      <div class="fl-card" data-idx="${i}">
+        <div class="fl-top">
+          <div class="fl-av">${t.init}</div>
+          <div>
+            <div class="fl-name">${t.name}</div>
+            <div class="fl-desg">${t.desg}</div>
+            ${t.chair ? '<div class="fl-chair-tag">★ Department Chairman</div>' : ''}
+          </div>
+        </div>
+        <div class="fl-contact">
+          <a class="fl-btn fl-btn-wa" href="https://wa.me/${intlNum}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.546 4.082 1.5 5.812L0 24l6.335-1.462A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.368l-.36-.213-3.76.867.938-3.658-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+            WhatsApp
+          </a>
+          <a class="fl-btn fl-btn-call" href="tel:${t.phones[0]}" onclick="event.stopPropagation()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Call
+          </a>
+          <button class="fl-btn fl-btn-more" onclick="openTD(${i});event.stopPropagation()">Details →</button>
+        </div>
+      </div>`;
+
+    if (isEven) {
+      return `<div class="fl-row even${t.chair ? ' chair' : ''}" data-idx="${i}">
+        <div class="fl-left">${card}</div>
+        <div class="fl-node-col">
+          <div class="fl-node">${t.icon}</div>
+        </div>
+        <div class="fl-spacer fl-right"></div>
+      </div>`;
+    } else {
+      return `<div class="fl-row${t.chair ? ' chair' : ''}" data-idx="${i}">
+        <div class="fl-spacer fl-left"></div>
+        <div class="fl-node-col">
+          <div class="fl-node">${t.icon}</div>
+        </div>
+        <div class="fl-right">${card}</div>
+      </div>`;
+    }
+  }).join('');
+
+  // Click on card also opens modal
+  document.querySelectorAll('.fl-card').forEach(card => {
+    card.addEventListener('click', function() {
+      openTD(parseInt(this.dataset.idx));
+    });
+  });
+})();
 
 /* ── SCROLL TIMELINE ── */
-(function() {
-  const fill  = document.getElementById('tlFill');
-  const track = document.querySelector('.tl-track');
-  const tiers = document.querySelectorAll('.tl-tier');
-  if (!fill || !track || !tiers.length) return;
+(function(){
+  const fill  = document.getElementById('flFill');
+  const track = document.querySelector('.fl-line-track');
+  const rows  = document.querySelectorAll('.fl-row');
+  if(!fill || !track || !rows.length) return;
 
-  function getNodeCenterY(tier) {
-    const node = tier.querySelector('.tl-node-inner');
-    if (!node) return 0;
-    const nodeRect = node.getBoundingClientRect();
-    const trackRect = track.getBoundingClientRect();
-    return (nodeRect.top + nodeRect.height / 2) - trackRect.top;
+  function getNodeY(row) {
+    const node = row.querySelector('.fl-node');
+    if(!node) return 0;
+    const nRect = node.getBoundingClientRect();
+    const tRect = track.getBoundingClientRect();
+    return (nRect.top + nRect.height/2) - tRect.top;
   }
 
   function update() {
-    const trackRect = track.getBoundingClientRect();
-    const viewH = window.innerHeight;
-    const firstNode = tiers[0].querySelector('.tl-node-inner');
-    const lastNode  = tiers[tiers.length-1].querySelector('.tl-node-inner');
-    if (!firstNode || !lastNode) return;
+    const tRect   = track.getBoundingClientRect();
+    const viewH   = window.innerHeight;
+    const firstNode = rows[0].querySelector('.fl-node');
+    const lastNode  = rows[rows.length-1].querySelector('.fl-node');
+    if(!firstNode || !lastNode) return;
 
-    const firstY = firstNode.getBoundingClientRect().top + firstNode.getBoundingClientRect().height / 2 - trackRect.top;
-    const lastY  = lastNode.getBoundingClientRect().top  + lastNode.getBoundingClientRect().height / 2 - trackRect.top;
+    const firstNR = firstNode.getBoundingClientRect();
+    const lastNR  = lastNode.getBoundingClientRect();
+
+    const firstY = (firstNR.top + firstNR.height/2) - tRect.top;
+    const lastY  = (lastNR.top  + lastNR.height/2)  - tRect.top;
+
+    // Trigger: first node enters at 65vh, last node exits at 35vh
+    const scrollStart = firstNR.top - viewH * 0.65;
+    const scrollEnd   = lastNR.top  - viewH * 0.38;
+    const progress    = Math.max(0, Math.min(1, -scrollStart / (scrollEnd - scrollStart)));
+
     const totalLen = lastY - firstY;
-
-    // Scroll progress
-    const trigStart = firstNode.getBoundingClientRect().top - viewH * 0.65;
-    const trigEnd   = lastNode.getBoundingClientRect().top  - viewH * 0.35;
-    const progress  = Math.max(0, Math.min(1, -trigStart / (trigEnd - trigStart)));
-
-    const fillH = firstY + totalLen * progress;
+    const fillH    = firstY + totalLen * progress;
     fill.style.height = Math.max(0, fillH) + 'px';
 
-    // Activate tiers
-    tiers.forEach(tier => {
-      const cy = getNodeCenterY(tier);
-      if (fillH >= cy - 6) {
-        tier.classList.add('active');
+    // Light up rows whose node the fill line has passed
+    rows.forEach(row => {
+      const cy = getNodeY(row);
+      if (fillH >= cy - 4) {
+        row.classList.add('lit');
       } else {
-        tier.classList.remove('active');
+        row.classList.remove('lit');
       }
     });
   }
 
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  // Small delay so layout is ready
-  setTimeout(update, 120);
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update, {passive:true});
+  setTimeout(update, 150);
 })();
+
+/* ── MODAL ── */
+function openTD(idx) {
+  const t = TEACHERS[idx]; if(!t) return;
+  const intl = t.phones[0].replace(/[^0-9]/g,'');
+  const intlNum = intl.startsWith('0') ? '88'+intl : intl;
+  const waMsg = encodeURIComponent(`আসসালামুয়ালাইকুম ${t.name} স্যার/ম্যাম, আমি AIS Alumni থেকে বলছি।`);
+
+  document.getElementById('tdAv').textContent  = t.init;
+  document.getElementById('tdAv').className    = 'td-av' + (t.chair ? ' chair' : '');
+  document.getElementById('tdName').textContent = t.name;
+  document.getElementById('tdDesg').textContent = t.desg;
+  document.getElementById('tdChairTag').style.display = t.chair ? 'block' : 'none';
+  document.getElementById('tdPhone').textContent = t.phones.join(' · ');
+  document.getElementById('tdEmail').innerHTML = t.emails.map(e =>
+    `<a href="mailto:${e}">${e}</a>`).join('<br>');
+  document.getElementById('tdWA').href     = `https://wa.me/${intlNum}?text=${waMsg}`;
+  document.getElementById('tdCall').href   = `tel:${t.phones[0]}`;
+  document.getElementById('tdMailBtn').href = `mailto:${t.emails[0]}`;
+
+  document.getElementById('tdBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeTD(){
+  document.getElementById('tdBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
