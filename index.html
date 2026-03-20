@@ -220,19 +220,57 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .tcard-name{font-size:.88rem;font-weight:600;color:#0B1E3D}
 .tcard-batch{font-size:.76rem;color:#6B7C93;margin-top:2px}
 
-/* ── FEATURES ── */
-.feats{background:#fff;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
-.feats-inner{max-width:1100px;margin:0 auto}
-.feats-head{margin-bottom:2rem}
-.feats-dept{display:inline-block;background:#FFF6E0;border:1px solid rgba(200,151,43,.28);border-radius:6px;padding:3px 9px;font-size:.75rem;font-weight:600;color:#9a6c0a;margin-bottom:.65rem}
-.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-.fc{background:#F9F7F3;border:1px solid rgba(11,30,61,.07);border-radius:13px;padding:1.35rem;position:relative;overflow:hidden;transition:all .3s;text-decoration:none;display:block;color:inherit}
-.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8972B,#E8B84B);transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.fc:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(11,30,61,.08);border-color:rgba(200,151,43,.2)}
-.fc:hover::before{transform:scaleX(1)}
-.fi{width:38px;height:38px;border-radius:9px;background:#FFF6E0;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:9px}
-.ft{font-family:'Cormorant Garamond',serif;font-size:.97rem;font-weight:700;color:#0B1E3D;margin-bottom:4px}
-.fd{font-size:.83rem;color:#6B7C93;line-height:1.62}
+
+/* ── FEATURES SECTION REDESIGN ── */
+.feats{background:#0B1E3D;padding:clamp(4rem,7vw,6.5rem) clamp(1.5rem,5vw,4rem);position:relative;overflow:hidden}
+.feats::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(200,151,43,.06) 0%,transparent 65%);pointer-events:none}
+.feats-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.feats-head{text-align:center;margin-bottom:2.5rem}
+.feats-head .sec-eye{justify-content:center;color:#C8972B}
+.feats-head .sec-eye::before{background:#C8972B}
+.feats-head .sec-title{color:#fff}
+.feats-head .sec-title em{color:#E8B84B}
+.feats-dept{display:inline-block;background:rgba(200,151,43,.12);border:1px solid rgba(200,151,43,.22);border-radius:6px;padding:3px 10px;font-size:.73rem;font-weight:600;color:#C8972B;margin-bottom:.7rem}
+
+/* MARQUEE */
+.feats-marquee-wrap{margin-bottom:3.5rem;overflow:hidden;position:relative}
+.feats-marquee-wrap::before,.feats-marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.feats-marquee-wrap::before{left:0;background:linear-gradient(90deg,#0B1E3D,transparent)}
+.feats-marquee-wrap::after{right:0;background:linear-gradient(-90deg,#0B1E3D,transparent)}
+.feats-marquee{overflow:hidden}
+@keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.feats-marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee-scroll 28s linear infinite;width:max-content}
+.feats-marquee-track:hover{animation-play-state:paused}
+.fm-item{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1.4rem;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.06);transition:color .2s}
+.fm-item:hover{color:rgba(255,255,255,.7)}
+.fm-dot{width:6px;height:6px;border-radius:50%;background:#C8972B;flex-shrink:0;opacity:.6}
+
+/* FEATURE GRID */
+.fg-new{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.07)}
+@media(max-width:768px){.fg-new{grid-template-columns:repeat(2,1fr);border-radius:16px}}
+@media(max-width:480px){.fg-new{grid-template-columns:1fr}}
+
+.fc-new{position:relative;background:#0B1E3D;padding:2rem 1.75rem;text-decoration:none;color:inherit;overflow:hidden;transition:background .3s;display:block}
+.fc-new:hover{background:#0f2447}
+.fc-new-bg{position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(200,151,43,.08) 0%,transparent 65%);opacity:0;transition:opacity .4s}
+.fc-new:hover .fc-new-bg{opacity:1}
+.fc-new-num{font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:700;color:rgba(200,151,43,.4);letter-spacing:.12em;margin-bottom:.9rem;transition:color .3s}
+.fc-new:hover .fc-new-num{color:rgba(200,151,43,.75)}
+.fc-new-ico{width:44px;height:44px;border-radius:12px;background:rgba(200,151,43,.1);border:1px solid rgba(200,151,43,.18);display:flex;align-items:center;justify-content:center;color:#C8972B;margin-bottom:1rem;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.fc-new:hover .fc-new-ico{background:rgba(200,151,43,.2);border-color:rgba(200,151,43,.45);transform:translateY(-3px) scale(1.08)}
+.fc-new-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.5rem;line-height:1.3;transition:color .3s}
+.fc-new:hover .fc-new-title{color:#E8B84B}
+.fc-new-desc{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:1.25rem;transition:color .3s}
+.fc-new:hover .fc-new-desc{color:rgba(255,255,255,.6)}
+.fc-new-arrow{font-size:1.1rem;color:rgba(200,151,43,.4);display:inline-block;transition:transform .25s cubic-bezier(.34,1.56,.64,1),color .25s}
+.fc-new:hover .fc-new-arrow{transform:translateX(6px);color:#E8B84B}
+
+/* stagger reveal for grid items */
+.fg-new .fc-new:nth-child(2){transition-delay:.05s}
+.fg-new .fc-new:nth-child(3){transition-delay:.1s}
+.fg-new .fc-new:nth-child(4){transition-delay:.15s}
+.fg-new .fc-new:nth-child(5){transition-delay:.2s}
+.fg-new .fc-new:nth-child(6){transition-delay:.25s}
 
 /* ── BATCH CHART ── */
 .batch-section{background:#F9F7F3;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.5rem,5vw,4rem)}
@@ -322,6 +360,114 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 .sm-invite-title{font-size:.78rem;font-weight:600;color:#0B1E3D;margin-bottom:.4rem}
 .sm-invite-text{font-size:.82rem;color:#3a4f6a;line-height:1.65;margin-bottom:.75rem}
 .sm-invite-copy{width:100%;padding:.55rem;background:#0B1E3D;color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer}
+/* ═══════════════════════════════════════════════
+   MZ MEDIA STYLE SCROLL TIMELINE
+   index.html এর <style> block এর শেষে যোগ করুন
+   ═══════════════════════════════════════════════ */
+
+.timeline-section{background:#0B1E3D;padding:clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem);position:relative;overflow:hidden}
+.timeline-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,151,43,.08) 0%,transparent 60%);pointer-events:none}
+.tl-inner{max-width:1000px;margin:0 auto;position:relative;z-index:1}
+.tl-head{text-align:center;margin-bottom:5rem}
+.tl-head .sec-eye{justify-content:center}
+.tl-head .sec-eye::before{background:#C8972B}
+.tl-head .sec-title{color:#fff;margin-bottom:1rem}
+.tl-head .sec-title em{color:#E8B84B}
+.tl-desc{font-size:.92rem;color:rgba(255,255,255,.45);max-width:480px;margin:0 auto;line-height:1.75}
+
+/* THE TRACK */
+.tl-wrap{position:relative}
+.tl-line-track{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:rgba(255,255,255,.07);z-index:0}
+@media(max-width:700px){.tl-line-track{left:28px;transform:none}}
+
+/* GROWING LINE — filled by JS on scroll */
+.tl-line-fill{position:absolute;top:0;left:0;width:100%;height:0;background:linear-gradient(180deg,#C8972B,#E8B84B);border-radius:2px;transition:height .05s linear;box-shadow:0 0 12px rgba(200,151,43,.5)}
+
+/* EACH STEP */
+.tl-step{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:0 2.5rem;margin-bottom:6rem;position:relative;z-index:1}
+.tl-step:last-child{margin-bottom:0}
+@media(max-width:700px){
+  .tl-step{grid-template-columns:60px 1fr;gap:0 1.5rem}
+  .tl-left{grid-column:2;grid-row:1}
+  .tl-right{grid-column:2;grid-row:2;margin-top:1.5rem}
+  .tl-visual.tl-left{grid-column:2;grid-row:1;margin-bottom:1rem}
+  .tl-content.tl-right{grid-column:2;grid-row:2}
+  .tl-node{grid-column:1;grid-row:1/3;align-self:start;margin-top:.4rem}
+}
+
+/* NODE CIRCLE */
+.tl-node{grid-column:2;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+@media(max-width:700px){.tl-node{grid-column:1}}
+
+.tl-node-ring{position:absolute;width:54px;height:54px;border-radius:50%;border:2px solid rgba(200,151,43,.2);transition:border-color .4s,box-shadow .4s}
+.tl-node-num{width:42px;height:42px;border-radius:50%;background:#0B1E3D;border:2px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.35);transition:all .4s;position:relative;z-index:1}
+
+/* Active node */
+.tl-step.active .tl-node-num{background:linear-gradient(135deg,#C8972B,#E8B84B);color:#0B1E3D;border-color:#C8972B;box-shadow:0 0 0 6px rgba(200,151,43,.15),0 8px 24px rgba(200,151,43,.35)}
+.tl-step.active .tl-node-ring{border-color:rgba(200,151,43,.4);box-shadow:0 0 0 12px rgba(200,151,43,.04)}
+
+/* CONTENT */
+.tl-content{opacity:0;transform:translateX(-24px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+.tl-content.tl-right{transform:translateX(24px)}
+.tl-step.active .tl-content{opacity:1;transform:translateX(0)}
+
+.tl-badge{display:inline-block;background:rgba(200,151,43,.15);border:1px solid rgba(200,151,43,.3);border-radius:100px;padding:3px 12px;font-size:.68rem;font-weight:700;color:#E8B84B;letter-spacing:.1em;margin-bottom:.75rem}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.75rem}
+.tl-text{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.78;margin-bottom:1rem}
+.tl-cta{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:#E8B84B;text-decoration:none;transition:gap .2s,opacity .2s}
+.tl-cta:hover{gap:10px;opacity:.8}
+
+/* VISUAL MOCKUPS */
+.tl-visual{opacity:0;transform:translateX(24px);transition:opacity .55s cubic-bezier(.22,1,.36,1) .1s,transform .55s cubic-bezier(.22,1,.36,1) .1s}
+.tl-visual.tl-left{transform:translateX(-24px)}
+.tl-step.active .tl-visual{opacity:1;transform:translateX(0)}
+
+/* Registration card mock */
+.tl-card-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem;max-width:240px;margin:0 auto}
+.tcm-bar{height:8px;border-radius:4px;background:rgba(255,255,255,.1);margin-bottom:.6rem}
+.tcm-short{width:40%}
+.tcm-long{width:85%}
+.tcm-mid{width:62%}
+.tcm-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(200,151,43,.3),rgba(200,151,43,.1));margin-top:1rem}
+.tcm-info{margin-top:.75rem}
+.tcm-name{height:10px;width:55%;border-radius:4px;background:rgba(255,255,255,.15);margin-bottom:.4rem}
+.tcm-sub{height:8px;width:38%;border-radius:4px;background:rgba(255,255,255,.07)}
+
+/* Search mock */
+.tl-search-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.25rem;max-width:240px;margin:0 auto}
+.tsm-bar{height:32px;border-radius:8px;background:rgba(255,255,255,.08);margin-bottom:.85rem}
+.tsm-result{height:44px;border-radius:10px;background:rgba(255,255,255,.06);margin-bottom:.5rem;border-left:3px solid rgba(200,151,43,.4)}
+.tsm-r2{opacity:.7;border-left-color:rgba(200,151,43,.25)}
+.tsm-r3{opacity:.45;border-left-color:rgba(200,151,43,.12)}
+
+/* Profile mock */
+.tl-profile-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.25rem;max-width:240px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.tpm-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#C8972B,#E8B84B);flex-shrink:0}
+.tpm-lines{flex:1}
+.tpm-line{height:9px;border-radius:4px;background:rgba(255,255,255,.15);margin-bottom:.45rem}
+.tpm-l1{width:70%}
+.tpm-l2{width:50%}
+.tpm-badge-row{display:flex;gap:.4rem;margin-top:.5rem}
+.tpm-badge{height:18px;width:44px;border-radius:100px;background:rgba(200,151,43,.2);border:1px solid rgba(200,151,43,.35)}
+.tpm-b2{background:rgba(11,30,61,.4);border-color:rgba(255,255,255,.12);width:36px}
+
+/* Community mock */
+.tl-community-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.25rem;max-width:240px;margin:0 auto}
+.tcm2-row{display:flex;align-items:center;gap:.4rem;margin-bottom:1rem}
+.tcm2-av{width:32px;height:32px;border-radius:50%;margin-left:-8px}
+.tcm2-av:first-child{margin-left:0}
+.tcm2-a1{background:linear-gradient(135deg,#C8972B,#E8B84B)}
+.tcm2-a2{background:linear-gradient(135deg,#1A3260,#0B1E3D)}
+.tcm2-a3{background:linear-gradient(135deg,#E8B84B,#C8972B)}
+.tcm2-count{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.5);margin-left:.25rem}
+.tcm2-bar{height:9px;border-radius:4px;background:rgba(255,255,255,.1);margin-bottom:.5rem}
+.tcm2-long{width:80%}
+.tcm2-short{width:55%}
+
+/* Pulse animation for active node */
+@keyframes tl-pulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,43,.15),0 8px 24px rgba(200,151,43,.35)}50%{box-shadow:0 0 0 10px rgba(200,151,43,.08),0 8px 30px rgba(200,151,43,.45)}}
+.tl-step.active .tl-node-num{animation:tl-pulse 2.5s ease-in-out infinite}
+
 </style>
 </head>
 <body>
@@ -543,21 +689,238 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 
 <section class="feats">
   <div class="feats-inner">
+
     <div class="feats-head reveal">
       <div class="sec-eye">Platform Features</div>
       <div class="feats-dept">Accounting &amp; Information Systems Alumni Platform</div>
       <h2 class="sec-title">Everything in <em>One Place</em></h2>
     </div>
-    <div class="fg">
-      <a href="database.html" class="fc reveal"><div class="fi">🔍</div><div class="ft">Alumni Directory</div><p class="fd">Search alumni by batch, name, job or graduation year.</p></a>
-      <a href="profile.html"  class="fc reveal"><div class="fi">👤</div><div class="ft">Personal Profile</div><p class="fd">Create and manage your own profile anytime.</p></a>
-      <a href="donation.html" class="fc reveal"><div class="fi">💰</div><div class="ft">Donation Portal</div><p class="fd">Support the community through a seamless bKash donation system.</p></a>
-      <a href="notice.html"   class="fc reveal"><div class="fi">📢</div><div class="ft">Notice Board</div><p class="fd">Stay updated with latest announcements in real time.</p></a>
-      <a href="event.html"    class="fc reveal"><div class="fi">🎉</div><div class="ft">Events Calendar</div><p class="fd">Never miss a reunion, career fair, or networking event.</p></a>
-      <a href="faculty.html"  class="fc reveal"><div class="fi">👨‍🏫</div><div class="ft">Faculty Members</div><p class="fd">Meet our dedicated faculty of the AIS Department.</p></a>
+
+    <!-- MARQUEE STRIP -->
+    <div class="feats-marquee-wrap reveal">
+      <div class="feats-marquee">
+        <div class="feats-marquee-track" id="marqueeTrack">
+          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
+          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
+          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
+          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
+          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
+          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
+          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
+          <!-- duplicate for seamless loop -->
+          <span class="fm-item"><span class="fm-dot"></span>Alumni Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Personal Profile</span>
+          <span class="fm-item"><span class="fm-dot"></span>Donation Portal</span>
+          <span class="fm-item"><span class="fm-dot"></span>Notice Board</span>
+          <span class="fm-item"><span class="fm-dot"></span>Events Calendar</span>
+          <span class="fm-item"><span class="fm-dot"></span>Faculty Directory</span>
+          <span class="fm-item"><span class="fm-dot"></span>Batch Filter</span>
+          <span class="fm-item"><span class="fm-dot"></span>CSV Export</span>
+          <span class="fm-item"><span class="fm-dot"></span>Real-time Updates</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE GRID -->
+    <div class="fg-new">
+
+      <a href="database.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">01</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="fc-new-title">Alumni Directory</div>
+        <div class="fc-new-desc">Batch, name বা profession দিয়ে search করুন। WhatsApp ও call directly।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="profile.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">02</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="fc-new-title">Personal Profile</div>
+        <div class="fc-new-desc">Job, LinkedIn, blood group ও achievements সহ নিজের profile manage করুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="donation.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">03</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="fc-new-title">Donation Portal</div>
+        <div class="fc-new-desc">bKash এ সহজে donate করুন। Top donors leaderboard দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="notice.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">04</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <div class="fc-new-title">Notice Board</div>
+        <div class="fc-new-desc">Important announcements real-time এ পড়ুন। কোনো update miss করবেন না।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="event.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">05</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="fc-new-title">Events Calendar</div>
+        <div class="fc-new-desc">Reunion ও networking events এ RSVP করুন। Countdown দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
+      <a href="faculty.html" class="fc-new reveal">
+        <div class="fc-new-bg"></div>
+        <div class="fc-new-num">06</div>
+        <div class="fc-new-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="fc-new-title">Faculty Members</div>
+        <div class="fc-new-desc">Department এর সকল faculty এর contact ও email সরাসরি দেখুন।</div>
+        <div class="fc-new-arrow">→</div>
+      </a>
+
     </div>
   </div>
 </section>
+
+<!-- ═══════════ MZ MEDIA STYLE SCROLL TIMELINE ═══════════ -->
+<!-- এই পুরো section টা index.html এ batch-section এর ঠিক আগে paste করুন -->
+
+<section class="timeline-section" id="howItWorks">
+  <div class="tl-inner">
+
+    <div class="tl-head reveal">
+      <div class="sec-eye">How It Works</div>
+      <h2 class="sec-title">আমাদের <em>Platform</em> ব্যবহার করুন</h2>
+      <p class="tl-desc">মাত্র কয়েকটা step এ AIS Alumni Network এর সাথে যুক্ত হন এবং আপনার পুরনো বন্ধুদের সাথে reconnect করুন।</p>
+    </div>
+
+    <!-- VERTICAL LINE + STEPS -->
+    <div class="tl-wrap">
+
+      <!-- The growing line -->
+      <div class="tl-line-track">
+        <div class="tl-line-fill" id="tlLineFill"></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="tl-step" data-step="1">
+        <div class="tl-node">
+          <div class="tl-node-ring"></div>
+          <div class="tl-node-num">01</div>
+        </div>
+        <div class="tl-content tl-left">
+          <div class="tl-badge">REGISTER</div>
+          <h3 class="tl-title">Account তৈরি করুন</h3>
+          <p class="tl-text">আপনার নাম, batch, job ও contact info দিয়ে free registration করুন। মাত্র ২ মিনিটের কাজ।</p>
+          <a href="register.html" class="tl-cta">Register করুন →</a>
+        </div>
+        <div class="tl-visual tl-right">
+          <div class="tl-card-mock">
+            <div class="tcm-bar tcm-short"></div>
+            <div class="tcm-bar tcm-long"></div>
+            <div class="tcm-bar tcm-mid"></div>
+            <div class="tcm-avatar"></div>
+            <div class="tcm-info">
+              <div class="tcm-name"></div>
+              <div class="tcm-sub"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="tl-step" data-step="2">
+        <div class="tl-node">
+          <div class="tl-node-ring"></div>
+          <div class="tl-node-num">02</div>
+        </div>
+        <div class="tl-visual tl-left">
+          <div class="tl-search-mock">
+            <div class="tsm-bar"></div>
+            <div class="tsm-result"></div>
+            <div class="tsm-result tsm-r2"></div>
+            <div class="tsm-result tsm-r3"></div>
+          </div>
+        </div>
+        <div class="tl-content tl-right">
+          <div class="tl-badge">EXPLORE</div>
+          <h3 class="tl-title">Alumni খুঁজুন</h3>
+          <p class="tl-text">Batch, name বা profession দিয়ে search করুন। পুরনো বন্ধুদের সাথে WhatsApp বা phone এ সরাসরি connect করুন।</p>
+          <a href="database.html" class="tl-cta">Database দেখুন →</a>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="tl-step" data-step="3">
+        <div class="tl-node">
+          <div class="tl-node-ring"></div>
+          <div class="tl-node-num">03</div>
+        </div>
+        <div class="tl-content tl-left">
+          <div class="tl-badge">PROFILE</div>
+          <h3 class="tl-title">Profile আপডেট করুন</h3>
+          <p class="tl-text">আপনার current job, LinkedIn, blood group এবং achievements যোগ করুন। আপনার career journey share করুন।</p>
+          <a href="profile.html" class="tl-cta">Profile দেখুন →</a>
+        </div>
+        <div class="tl-visual tl-right">
+          <div class="tl-profile-mock">
+            <div class="tpm-avatar"></div>
+            <div class="tpm-lines">
+              <div class="tpm-line tpm-l1"></div>
+              <div class="tpm-line tpm-l2"></div>
+              <div class="tpm-badge-row">
+                <div class="tpm-badge"></div>
+                <div class="tpm-badge tpm-b2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="tl-step" data-step="4">
+        <div class="tl-node">
+          <div class="tl-node-ring"></div>
+          <div class="tl-node-num">04</div>
+        </div>
+        <div class="tl-visual tl-left">
+          <div class="tl-community-mock">
+            <div class="tcm2-row">
+              <div class="tcm2-av tcm2-a1"></div>
+              <div class="tcm2-av tcm2-a2"></div>
+              <div class="tcm2-av tcm2-a3"></div>
+              <div class="tcm2-count">+200</div>
+            </div>
+            <div class="tcm2-bar tcm2-long"></div>
+            <div class="tcm2-bar tcm2-short"></div>
+          </div>
+        </div>
+        <div class="tl-content tl-right">
+          <div class="tl-badge">COMMUNITY</div>
+          <h3 class="tl-title">Community তে অবদান রাখুন</h3>
+          <p class="tl-text">Events এ RSVP করুন, donation দিয়ে future generations কে সাহায্য করুন এবং AIS family কে আরও শক্তিশালী করুন।</p>
+          <a href="donation.html" class="tl-cta">Donation করুন →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <section class="batch-section">
   <div class="batch-inner reveal">
@@ -662,6 +1025,81 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </div>
 </div>
 
+<script>
+/* ═══════════════════════════════════════════════
+   MZ MEDIA SCROLL TIMELINE — JS
+   index.html এ firebase script এর আগে যোগ করুন
+   ═══════════════════════════════════════════════ */
+(function(){
+  function initTimeline(){
+    var section=document.getElementById('howItWorks');
+    if(!section)return;
+
+    var lineFill=document.getElementById('tlLineFill');
+    var track=section.querySelector('.tl-line-track');
+    var steps=section.querySelectorAll('.tl-step');
+    if(!lineFill||!track||!steps.length)return;
+
+    function getNodeCenter(step){
+      var node=step.querySelector('.tl-node');
+      if(!node)return 0;
+      var nr=node.getBoundingClientRect();
+      var tr=track.getBoundingClientRect();
+      return (nr.top+nr.height/2)-(tr.top)+track.scrollTop;
+    }
+
+    function update(){
+      var trackRect=track.getBoundingClientRect();
+      var viewH=window.innerHeight;
+
+      // How far the line should grow — based on scroll progress through section
+      var sectionRect=section.getBoundingClientRect();
+      var sectionTop=sectionRect.top;
+      var sectionH=sectionRect.height;
+
+      // Line grows from first node to last node
+      if(steps.length<2){return;}
+
+      var firstNode=steps[0].querySelector('.tl-node');
+      var lastNode=steps[steps.length-1].querySelector('.tl-node');
+      if(!firstNode||!lastNode)return;
+
+      var firstY=firstNode.getBoundingClientRect().top+firstNode.getBoundingClientRect().height/2-trackRect.top;
+      var lastY=lastNode.getBoundingClientRect().top+lastNode.getBoundingClientRect().height/2-trackRect.top;
+      var totalLen=lastY-firstY;
+
+      // Scroll progress: start when first node hits 70% viewport, end when last node hits 30%
+      var triggerStart=firstNode.getBoundingClientRect().top-viewH*0.7;
+      var triggerEnd=lastNode.getBoundingClientRect().top-viewH*0.3;
+      var progress=Math.max(0,Math.min(1,-triggerStart/(triggerEnd-triggerStart)));
+
+      var fillHeight=firstY+totalLen*progress;
+      lineFill.style.height=Math.max(0,fillHeight)+'px';
+
+      // Activate steps as line passes through their node
+      steps.forEach(function(step){
+        var node=step.querySelector('.tl-node');
+        if(!node)return;
+        var nodeCenter=node.getBoundingClientRect().top+node.getBoundingClientRect().height/2-trackRect.top;
+        if(fillHeight>=nodeCenter-8){
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update,{passive:true});
+    update();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initTimeline);
+  }else{initTimeline();}
+})();
+
+</script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
