@@ -339,16 +339,7 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <h1 class="ph-title">Meet Our <em>Faculty</em></h1>
       <p class="ph-desc">The dedicated educators of Accounting &amp; Information Systems — each one shaping the future of this department with their expertise and care.</p>
     </div>
-    <div class="ph-badge-col">
-      <div class="ph-pill">
-        <span class="ph-pill-num">8</span>
-        <span class="ph-pill-lbl">Faculty<br>Members</span>
-      </div>
-      <div class="ph-pill">
-        <span class="ph-pill-num">2</span>
-        <span class="ph-pill-lbl">Designations</span>
-      </div>
-    </div>
+    
   </div>
 </div>
 
@@ -568,53 +559,49 @@ const TEACHERS = [
 (function(){
   const fill  = document.getElementById('flFill');
   const track = document.querySelector('.fl-line-track');
-  const rows  = document.querySelectorAll('.fl-row');
+  const rows  = Array.from(document.querySelectorAll('.fl-row'));
   if(!fill || !track || !rows.length) return;
 
-  function getNodeY(row) {
+  function getNodeCY(row){
     const node = row.querySelector('.fl-node');
     if(!node) return 0;
-    const nRect = node.getBoundingClientRect();
-    const tRect = track.getBoundingClientRect();
-    return (nRect.top + nRect.height/2) - tRect.top;
+    const nr = node.getBoundingClientRect();
+    const tr = track.getBoundingClientRect();
+    return (nr.top + nr.height/2) - tr.top;
   }
 
-  function update() {
-    const tRect   = track.getBoundingClientRect();
-    const viewH   = window.innerHeight;
-    const firstNode = rows[0].querySelector('.fl-node');
-    const lastNode  = rows[rows.length-1].querySelector('.fl-node');
-    if(!firstNode || !lastNode) return;
-
-    const firstNR = firstNode.getBoundingClientRect();
-    const lastNR  = lastNode.getBoundingClientRect();
-
-    const firstY = (firstNR.top + firstNR.height/2) - tRect.top;
-    const lastY  = (lastNR.top  + lastNR.height/2)  - tRect.top;
-
-    // Trigger: first node enters at 65vh, last node exits at 35vh
-    const scrollStart = firstNR.top - viewH * 0.65;
-    const scrollEnd   = lastNR.top  - viewH * 0.38;
-    const progress    = Math.max(0, Math.min(1, -scrollStart / (scrollEnd - scrollStart)));
-
-    const totalLen = lastY - firstY;
-    const fillH    = firstY + totalLen * progress;
-    fill.style.height = Math.max(0, fillH) + 'px';
-
-    // Light up rows whose node the fill line has passed
+  function update(){
+    const viewH = window.innerHeight;
     rows.forEach(row => {
-      const cy = getNodeY(row);
-      if (fillH >= cy - 4) {
+      const node = row.querySelector('.fl-node');
+      if(!node) return;
+      const nr = node.getBoundingClientRect();
+      const nodeCenterFromTop = nr.top + nr.height/2;
+      /* activate when node center is in upper 62% of viewport */
+      if(nodeCenterFromTop < viewH * 0.62){
         row.classList.add('lit');
       } else {
         row.classList.remove('lit');
       }
     });
+
+    /* grow the fill line to the lowest lit node */
+    const litRows = rows.filter(r => r.classList.contains('lit'));
+    if(!litRows.length){
+      fill.style.height = '0px';
+      return;
+    }
+    const firstNodeCY = getNodeCY(rows[0]);
+    const lastLitCY   = getNodeCY(litRows[litRows.length-1]);
+    fill.style.height = Math.max(0, lastLitCY) + 'px';
   }
 
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update, {passive:true});
-  setTimeout(update, 150);
+  /* run immediately and after a short delay for layout settle */
+  update();
+  setTimeout(update, 200);
+  setTimeout(update, 600);
 })();
 
 /* ── MODAL ── */
