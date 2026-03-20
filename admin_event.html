@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Manager | AIS Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.auth-gate{position:fixed;inset:0;background:#F9F7F3;display:flex;align-items:center;justify-content:center;z-index:9999}
+.gate-spinner{width:40px;height:40px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite}
+.admin-nav{background:linear-gradient(135deg,#0B1E3D,#1A3260);padding:0 clamp(1rem,4vw,2.5rem);height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(11,30,61,.3)}
+.nav-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.nav-brand-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff}
+.nav-brand-sub{font-size:.58rem;color:#E8B84B;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block}
+.nav-right{display:flex;align-items:center;gap:.65rem}
+.nav-back{padding:.42rem .95rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:#fff;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.18)}
+.nav-logout{padding:.42rem .95rem;background:rgba(231,76,60,.2);border:1px solid rgba(231,76,60,.3);border-radius:7px;color:#ff8a80;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.nav-logout:hover{background:rgba(231,76,60,.3)}
+.page{padding:2rem clamp(1.5rem,5vw,4rem) 4rem;max-width:860px;margin:0 auto}
+.page-hdr{margin-bottom:1.75rem;animation:fadeUp .4s ease}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#0B1E3D;margin-bottom:.25rem}
+.page-sub{font-size:.85rem;color:#6B7C93}
+.post-card{background:#fff;border:1.5px solid rgba(200,151,43,.2);border-radius:18px;padding:1.75rem;margin-bottom:2rem;animation:fadeUp .4s ease .05s both}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D;margin-bottom:1.1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+@media(max-width:540px){.form-row{grid-template-columns:1fr}}
+.fg{margin-bottom:.85rem}
+.fl{display:block;font-size:.78rem;font-weight:600;color:#3a4f6a;margin-bottom:.38rem}
+.fi{width:100%;padding:.68rem 1rem;border:1.5px solid rgba(11,30,61,.12);border-radius:9px;font-size:.86rem;font-family:inherit;color:#0B1E3D;background:#F9F7F3;outline:none;transition:all .25s}
+.fi:focus{border-color:#C8972B;background:#fff;box-shadow:0 0 0 3px rgba(200,151,43,.1)}
+.fi-ta{resize:vertical;min-height:80px}
+.post-btn{padding:.82rem 2rem;background:linear-gradient(135deg,#0B1E3D,#1A3260);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(11,30,61,.25);display:flex;align-items:center;gap:8px}
+.post-btn:hover{transform:translateY(-1px)}
+.post-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;animation:fadeUp .4s ease .1s both}
+.list-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#0B1E3D}
+.list-count{font-size:.8rem;color:#6B7C93}
+.loading-wrap{text-align:center;padding:2.5rem}
+.loader{width:32px;height:32px;border:3px solid rgba(11,30,61,.1);border-top-color:#C8972B;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
+.empty{text-align:center;padding:2.5rem;background:#fff;border-radius:14px;border:1px solid rgba(11,30,61,.07)}
+.empty-text{font-size:.85rem;color:#6B7C93}
+
+.event-row{background:#fff;border:1px solid rgba(11,30,61,.07);border-radius:14px;padding:1.25rem;margin-bottom:.75rem;display:flex;align-items:flex-start;gap:1rem;transition:all .2s;animation:fadeUp .4s ease both}
+.event-row:hover{border-color:rgba(200,151,43,.2);box-shadow:0 4px 16px rgba(11,30,61,.07)}
+.er-ico{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#0B1E3D,#1A3260);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.er-info{flex:1;min-width:0}
+.er-title{font-size:.9rem;font-weight:600;color:#0B1E3D;margin-bottom:.25rem;line-height:1.35}
+.er-meta{font-size:.76rem;color:#6B7C93;display:flex;gap:.75rem;flex-wrap:wrap}
+.er-badge{display:inline-block;padding:1px 8px;border-radius:100px;font-size:.7rem;font-weight:700}
+.badge-upcoming{background:#EAF3DE;color:#3B6D11}
+.badge-past{background:#F1EFE8;color:#5F5E5A}
+.er-rsvp{font-size:.76rem;color:#C8972B;font-weight:600;margin-top:.25rem}
+.del-btn{padding:.38rem .85rem;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.18);border-radius:7px;color:#e74c3c;font-size:.75rem;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:all .2s}
+.del-btn:hover{background:rgba(231,76,60,.15)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:#0B1E3D;color:#fff;padding:.65rem 1.4rem;border-radius:100px;font-size:.83rem;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center;padding:1.2rem;font-size:.74rem;color:#6B7C93}
+</style>
+</head>
+<body>
+
+<div class="auth-gate" id="authGate"><div class="gate-spinner"></div></div>
+
+<nav class="admin-nav">
+  <a href="admin-dashboard.html" class="nav-brand">
+    <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.1);border:1px solid rgba(200,151,43,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="6" r="2.5" fill="#E8B84B"/><circle cx="6" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><circle cx="22" cy="19" r="2.5" fill="#C8972B" opacity=".85"/><line x1="14" y1="8.5" x2="6" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="14" y1="8.5" x2="22" y2="16.5" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/><line x1="8.5" y1="19" x2="19.5" y2="19" stroke="rgba(200,151,43,.5)" stroke-width="1.2"/></svg>
+    </div>
+    <div><span class="nav-brand-title">AIS Admin</span><span class="nav-brand-sub">Event Manager</span></div>
+  </a>
+  <div class="nav-right">
+    <a href="admin-dashboard.html" class="nav-back">← Dashboard</a>
+    <button class="nav-logout" onclick="doLogout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="page" id="mainPage" style="display:none">
+  <div class="page-hdr">
+    <div class="page-title">🎉 Event Manager</div>
+    <div class="page-sub">নতুন event add করুন এবং পুরনো event delete করুন।</div>
+  </div>
+
+  <div class="post-card">
+    <div class="card-title">📤 নতুন Event Add করুন</div>
+    <div class="fg">
+      <label class="fl">Event Title <span style="color:#e74c3c">*</span></label>
+      <input type="text" id="eTitle" class="fi" placeholder="Event title">
+    </div>
+    <div class="fg">
+      <label class="fl">Description</label>
+      <textarea id="eDesc" class="fi fi-ta" placeholder="Event description..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Date & Time <span style="color:#e74c3c">*</span></label>
+        <input type="datetime-local" id="eDate" class="fi">
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Display Time (text)</label>
+        <input type="text" id="eTime" class="fi" placeholder="e.g. 10:00 AM">
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:.85rem">
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Location</label>
+        <input type="text" id="eLocation" class="fi" placeholder="e.g. UB Campus, Barishal">
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">Icon Emoji</label>
+        <input type="text" id="eIcon" class="fi" placeholder="🎊" maxlength="2">
+      </div>
+    </div>
+    <div style="margin-top:1.1rem">
+      <button class="post-btn" id="postBtn" onclick="postEvent()">
+        <span id="postBtnText">📤 Add Event</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="list-hdr">
+    <div class="list-title">All Events</div>
+    <div class="list-count" id="eventCount"></div>
+  </div>
+  <div id="eventsList">
+    <div class="loading-wrap"><div class="loader"></div><p style="color:#6B7C93;font-size:.85rem">Loading...</p></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>© 2025 AIS Alumni Association · Admin Panel</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="firebase.js"></script>
+<script>
+const db = firebase.firestore();
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) { window.location.href = 'admin-login.html'; return; }
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'block';
+  loadEvents();
+});
+
+function doLogout() {
+  firebase.auth().signOut().then(() => window.location.href = 'admin-login.html');
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function loadEvents() {
+  db.collection('events').orderBy('date', 'asc').onSnapshot(snap => {
+    const events = [];
+    snap.forEach(doc => events.push({ id: doc.id, ...doc.data() }));
+    document.getElementById('eventCount').textContent = events.length + ' events';
+    renderEvents(events);
+  }, err => showToast('❌ ' + err.message));
+}
+
+function renderEvents(events) {
+  const el = document.getElementById('eventsList');
+  if (!events.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-text">কোনো event নেই।</div></div>`;
+    return;
+  }
+  const now = new Date();
+  el.innerHTML = events.map((e, i) => {
+    const isPast = new Date(e.date) < now;
+    return `<div class="event-row" style="animation-delay:${i * 0.04}s">
+      <div class="er-ico">${e.icon || '🎊'}</div>
+      <div class="er-info">
+        <div class="er-title">${e.title}</div>
+        <div class="er-meta">
+          <span>📅 ${formatDate(e.date)}</span>
+          ${e.location ? `<span>📍 ${e.location}</span>` : ''}
+          <span class="er-badge ${isPast ? 'badge-past' : 'badge-upcoming'}">${isPast ? 'Past' : 'Upcoming'}</span>
+        </div>
+        ${e.rsvpCount ? `<div class="er-rsvp">✋ ${e.rsvpCount} attending</div>` : ''}
+      </div>
+      <button class="del-btn" onclick="deleteEvent('${e.id}','${(e.title||'').replace(/'/g,"\\'")}')">🗑️ Delete</button>
+    </div>`;
+  }).join('');
+}
+
+async function postEvent() {
+  const title = document.getElementById('eTitle').value.trim();
+  const date = document.getElementById('eDate').value;
+  if (!title || !date) { showToast('❌ Title ও date দিন'); return; }
+  const btn = document.getElementById('postBtn');
+  const btnText = document.getElementById('postBtnText');
+  btn.disabled = true; btnText.textContent = '⏳ Adding...';
+  try {
+    await db.collection('events').add({
+      title,
+      description: document.getElementById('eDesc').value.trim(),
+      date: new Date(date).toISOString(),
+      location: document.getElementById('eLocation').value.trim(),
+      time: document.getElementById('eTime').value.trim(),
+      icon: document.getElementById('eIcon').value || '🎊',
+      rsvpCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    ['eTitle','eDesc','eDate','eLocation','eTime','eIcon'].forEach(id => document.getElementById(id).value = '');
+    showToast('✅ Event added!');
+  } catch (err) { showToast('❌ ' + err.message); }
+  btn.disabled = false; btnText.textContent = '📤 Add Event';
+}
+
+async function deleteEvent(id, title) {
+  if (!confirm(`"${title}" delete করবেন?`)) return;
+  try {
+    await db.collection('events').doc(id).delete();
+    showToast('🗑️ Event deleted!');
+  } catch (err) { showToast('❌ ' + err.message); }
+}
+</script>
+</body>
+</html>
