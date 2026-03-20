@@ -85,34 +85,43 @@ body{font-family:'DM Sans',sans-serif;background:#F9F7F3;color:#0B1E3D;overflow-
 .hero-h1 em{font-style:italic;color:#C8972B}
 .hero-desc{font-size:13.5px;color:#5a6e84;line-height:1.8;max-width:400px;margin-bottom:1.4rem}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:.85rem}
-.btn-p{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;background:linear-gradient(135deg,#0B1E3D,#1a3a6e);color:#fff;border-radius:16px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 32px rgba(11,30,61,.32);transition:all .3s cubic-bezier(.34,.8,.64,1);min-width:200px}
-.btn-p:hover{background:linear-gradient(135deg,#162d55,#1e4a8a);transform:translateY(-4px);box-shadow:0 20px 44px rgba(11,30,61,.42)}
-.btn-s{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);border-radius:16px;font-size:15px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.92);transition:all .3s cubic-bezier(.34,.8,.64,1);backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(11,30,61,.08);min-width:200px}
-.btn-s:hover{border-color:rgba(11,30,61,.35);box-shadow:0 12px 32px rgba(11,30,61,.14);transform:translateY(-4px);background:#fff}
-.btn-ico{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.btn-s .btn-ico{background:rgba(11,30,61,.06)}
+/* ── HERO BUTTONS PREMIUM ── */
+.btn-p{display:inline-flex;align-items:center;gap:14px;padding:15px 22px 15px 14px;background:#0B1E3D;color:#fff;border-radius:18px;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:0 8px 28px rgba(11,30,61,.28);transition:all .3s cubic-bezier(.34,.8,.64,1);min-width:210px;border:1px solid rgba(255,255,255,.08)}
+.btn-p:hover{background:#162d55;transform:translateY(-3px);box-shadow:0 18px 40px rgba(11,30,61,.38)}
+.btn-s{display:inline-flex;align-items:center;gap:14px;padding:15px 22px 15px 14px;color:#0B1E3D;border:1.5px solid rgba(11,30,61,.12);border-radius:18px;font-size:14.5px;font-weight:600;text-decoration:none;background:rgba(255,255,255,.94);transition:all .3s cubic-bezier(.34,.8,.64,1);backdrop-filter:blur(16px);box-shadow:0 4px 18px rgba(11,30,61,.07);min-width:210px}
+.btn-s:hover{border-color:rgba(11,30,61,.22);box-shadow:0 12px 32px rgba(11,30,61,.12);transform:translateY(-3px);background:#fff}
+.btn-ico{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.btn-p:hover .btn-ico{transform:scale(1.08)}
+.btn-s .btn-ico{background:rgba(11,30,61,.05);border-color:rgba(11,30,61,.08)}
+.btn-s:hover .btn-ico{transform:scale(1.08)}
 .btn-txt{display:flex;flex-direction:column;text-align:left;flex:1}
-.btn-sub{font-size:10px;font-weight:500;opacity:.65;letter-spacing:.02em;line-height:1;margin-bottom:2px;text-transform:uppercase}
-.btn-p .btn-sub{color:rgba(255,255,255,.7)}
+.btn-sub{font-size:9.5px;font-weight:600;opacity:.6;letter-spacing:.08em;line-height:1;margin-bottom:3px;text-transform:uppercase}
+.btn-p .btn-sub{color:rgba(255,255,255,.65)}
 .btn-s .btn-sub{color:#6B7C93}
-.btn-arr{font-size:18px;opacity:.7;transition:transform .3s}
-.btn-p:hover .btn-arr{transform:translateX(4px);opacity:1}
+.btn-main{font-size:14.5px;font-weight:700;line-height:1}
+.btn-arr{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.btn-p:hover .btn-arr{transform:translateX(3px);background:rgba(255,255,255,.2)}
+.btn-s .btn-arr{background:rgba(11,30,61,.06)}
+.btn-s:hover .btn-arr{transform:translateX(3px);background:rgba(11,30,61,.12)}
+
+/* ── SHARE BUTTONS PREMIUM ── */
 .hero-share{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.2rem}
-.sh-btn{display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 12px;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;transition:all .28s cubic-bezier(.34,.8,.64,1);border:none;text-decoration:none;white-space:nowrap}
-.sh-btn:hover{transform:translateY(-3px)}
+.sh-btn{display:inline-flex;align-items:center;gap:11px;padding:12px 18px 12px 12px;border-radius:16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .28s cubic-bezier(.34,.8,.64,1);border:none;text-decoration:none;white-space:nowrap}
+.sh-btn:hover{transform:translateY(-2px)}
 .sh-btn:active{transform:scale(.96)}
-.sh-ico{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sh-ico svg{width:20px;height:20px;display:block}
+.sh-ico{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.sh-btn:hover .sh-ico{transform:scale(1.1)}
+.sh-ico svg{width:19px;height:19px;display:block}
 .sh-txt{display:flex;flex-direction:column;text-align:left}
-.sh-lbl{font-size:10px;opacity:.72;font-weight:500;line-height:1;margin-bottom:2px;letter-spacing:.03em}
-.sh-val{font-size:13.5px;font-weight:700;line-height:1}
-.sh-wa{background:#25D366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,.38)}
-.sh-wa:hover{background:#20BA5A;box-shadow:0 12px 30px rgba(37,211,102,.48)}
-.sh-fb{background:#1877F2;color:#fff;box-shadow:0 6px 20px rgba(24,119,242,.38)}
-.sh-fb:hover{background:#1468D8;box-shadow:0 12px 30px rgba(24,119,242,.48)}
-.sh-cp{background:rgba(255,255,255,.92);color:#0B1E3D;border:1.5px solid rgba(11,30,61,.14);box-shadow:0 4px 16px rgba(11,30,61,.09)}
-.sh-cp:hover{background:#fff;border-color:rgba(11,30,61,.28);box-shadow:0 10px 26px rgba(11,30,61,.14)}
-.sh-cp .sh-ico{background:rgba(11,30,61,.07)}
+.sh-lbl{font-size:9.5px;opacity:.7;font-weight:500;line-height:1;margin-bottom:2px;letter-spacing:.05em;text-transform:uppercase}
+.sh-val{font-size:13px;font-weight:700;line-height:1}
+.sh-wa{background:#25D366;color:#fff;box-shadow:0 5px 18px rgba(37,211,102,.32)}
+.sh-wa:hover{background:#22c55e;box-shadow:0 10px 28px rgba(37,211,102,.42)}
+.sh-fb{background:#1877F2;color:#fff;box-shadow:0 5px 18px rgba(24,119,242,.32)}
+.sh-fb:hover{background:#1468D8;box-shadow:0 10px 28px rgba(24,119,242,.42)}
+.sh-cp{background:rgba(255,255,255,.92);color:#0B1E3D;border:1.5px solid rgba(11,30,61,.1);box-shadow:0 4px 14px rgba(11,30,61,.07)}
+.sh-cp:hover{background:#fff;border-color:rgba(11,30,61,.2);box-shadow:0 8px 24px rgba(11,30,61,.12)}
+.sh-cp .sh-ico{background:rgba(11,30,61,.05)}
 .stats-row{display:flex;gap:1.8rem;padding-top:1.4rem;border-top:1px solid rgba(11,30,61,.1)}
 .sn{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:#0B1E3D;line-height:1}
 .sn span{color:#C8972B}
@@ -468,6 +477,14 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
 @keyframes tl-pulse{0%,100%{box-shadow:0 0 0 6px rgba(200,151,43,.15),0 8px 24px rgba(200,151,43,.35)}50%{box-shadow:0 0 0 10px rgba(200,151,43,.08),0 8px 30px rgba(200,151,43,.45)}}
 .tl-step.active .tl-node-num{animation:tl-pulse 2.5s ease-in-out infinite}
 
+
+/* Nav SVG icons */
+.nav-svg{width:14px;height:14px;flex-shrink:0;stroke:currentColor;display:inline-block;vertical-align:middle;margin-right:4px;transition:transform .2s}
+.nav-links a:hover .nav-svg{transform:scale(1.12)}
+.nav-caret{width:10px;height:7px;flex-shrink:0;stroke:currentColor;opacity:.55;margin-left:2px;transition:transform .2s}
+.has-drop:hover .nav-caret{transform:rotate(180deg)}
+.nav-links a{gap:4px}
+
 </style>
 </head>
 <body>
@@ -481,8 +498,8 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
   </a>
   <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">🏠 Home</a></li>
-    <li class="has-drop"><a href="database.html">👥 Alumni Database ▾</a>
+    <li><a href="index.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M7 18V12h6v6"/></svg>Home</a></li>
+    <li class="has-drop"><a href="database.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M17 17v-1.5a3 3 0 00-2-2.83M12 4.17a3 3 0 010 5.66"/></svg>Alumni Database<svg class="nav-caret" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1.5l5 5 5-5"/></svg>
       <div class="drop-menu">
         <a href="database.html">All Batches</a>
         <a href="database.html?batch=1">Batch 1</a><a href="database.html?batch=2">Batch 2</a>
@@ -492,13 +509,13 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
         <a href="database.html?batch=9">Batch 9</a><a href="database.html?batch=10">Batch 10</a>
         <a href="database.html?batch=11">Batch 11</a><a href="database.html?batch=12">Batch 12</a>
       </div>
-    </li>
-    <li><a href="faculty.html">👨‍🏫 Faculty</a></li>
-    <li><a href="donation.html">💰 Donation</a></li>
-    <li><a href="notice.html">📢 Notice</a></li>
-    <li><a href="event.html">🎉 Events</a></li>
-    <li><a href="register.html">📝 Register</a></li>
-    <li><a href="profile.html" class="nav-cta">👤 My Profile</a></li>
+    </a></li>
+    <li><a href="faculty.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l8 5v6l-8 5-8-5V7l8-5z"/></svg>Faculty</a></li>
+    <li><a href="donation.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 3.8a4.5 4.5 0 00-6.4 0L10 5.1 8.7 3.8a4.5 4.5 0 00-6.4 6.4l1.1 1.1L10 18l6.6-6.7 1.1-1.1a4.5 4.5 0 000-6.4z"/></svg>Donation</a></li>
+    <li><a href="notice.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7A5 5 0 005 7c0 5.5-2.5 7-2.5 7h15S15 12.5 15 7z"/><path d="M11.4 17.5a1.5 1.5 0 01-2.8 0"/></svg>Notice</a></li>
+    <li><a href="event.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="14" rx="2"/><path d="M13 2v4M7 2v4M2 9h16"/></svg>Events</a></li>
+    <li><a href="register.html"><svg class="nav-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M16 8v6M13 11h6"/></svg>Register</a></li>
+    <li><a href="profile.html" class="nav-cta"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><circle cx="10" cy="7" r="3"/><path d="M3 17v-1a5 5 0 0114 0v1"/></svg>My Profile</a></li>
   </ul>
 </nav>
 
@@ -513,13 +530,23 @@ footer{background:#fff;border-top:1px solid rgba(11,30,61,.07);text-align:center
       <p class="hero-desc">Connect with fellow graduates of the Department of Accounting &amp; Information Systems, University of Barishal — celebrate achievements and build a stronger future together.</p>
       <div class="hero-actions">
         <a href="register.html" class="btn-p">
-          <span class="btn-ico">📝</span>
-          <span class="btn-txt"><span class="btn-sub">Free to Join</span>Join Alumni Network</span>
+          <span class="btn-ico">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M16 8v6M13 11h6"/></svg>
+          </span>
+          <span class="btn-txt">
+            <span class="btn-sub">Free to Join</span>
+            <span class="btn-main">Join Alumni Network</span>
+          </span>
           <span class="btn-arr">→</span>
         </a>
         <a href="database.html" class="btn-s">
-          <span class="btn-ico">👥</span>
-          <span class="btn-txt"><span class="btn-sub">Find Your Batchmates</span>Browse Directory</span>
+          <span class="btn-ico">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="rgba(11,30,61,.7)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17v-1.5a3 3 0 00-3-3H5a3 3 0 00-3 3V17"/><circle cx="8" cy="7" r="3"/><path d="M17 17v-1.5a3 3 0 00-2-2.83"/><path d="M12 4.17a3 3 0 010 5.66"/></svg>
+          </span>
+          <span class="btn-txt">
+            <span class="btn-sub">Find Your Batchmates</span>
+            <span class="btn-main">Browse Directory</span>
+          </span>
           <span class="btn-arr">→</span>
         </a>
       </div>
